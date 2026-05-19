@@ -1,0 +1,12 @@
+{
+  "id": "open-graph-debugger",
+  "name": { "ar": "مدقق Open Graph", "en": "Open Graph Debugger" },
+  "description": { "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.", "en": "Check Open Graph tags and diagnose link sharing issues." },
+  "category": "seo-tools",
+  "icon": "Share2",
+  "privacy": "local",
+  "keywords": ["open graph", "og tags", "social sharing", "debug", "أوبن غراف", "مشاركة اجتماعية", "تصحيح"],
+  "component": "OpenGraphDebugger",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

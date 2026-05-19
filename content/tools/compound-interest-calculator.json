@@ -1,0 +1,12 @@
+{
+  "id": "compound-interest-calculator",
+  "name": { "ar": "حاسبة الفائدة المركبة", "en": "Compound Interest Calculator" },
+  "description": { "ar": "احسب الفائدة المركبة ورؤية نمو استثمارك عبر الزمن.", "en": "Calculate compound interest and see your investment growth over time." },
+  "category": "calculators",
+  "icon": "TrendingUp",
+  "privacy": "local",
+  "keywords": ["compound interest", "investment", "savings", "growth", "فائدة مركبة", "استثمار", "ادخار", "نمو"],
+  "component": "CompoundInterestCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

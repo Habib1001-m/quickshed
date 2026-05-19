@@ -1,0 +1,12 @@
+{
+  "id": "barcode-generator",
+  "name": { "ar": "مولد الباركود", "en": "Barcode Generator" },
+  "description": { "ar": "أنشئ رموز باركود من النصوص والأرقام بتنسيقات مختلفة.", "en": "Generate barcodes from text and numbers in various formats." },
+  "category": "utility-tools",
+  "icon": "Barcode",
+  "privacy": "local",
+  "keywords": ["barcode", "ean", "upc", "code128", "باركود", "رمز شريطي"],
+  "component": "BarcodeGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

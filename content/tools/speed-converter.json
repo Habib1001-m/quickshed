@@ -1,0 +1,12 @@
+{
+  "id": "speed-converter",
+  "name": { "ar": "محول السرعة", "en": "Speed Converter" },
+  "description": { "ar": "حوّل بين وحدات السرعة المختلفة مثل كيلومتر/ساعة وميل/ساعة وعقدة.", "en": "Convert between different speed units like km/h, mph, and knots." },
+  "category": "converters",
+  "icon": "Gauge",
+  "privacy": "local",
+  "keywords": ["speed", "velocity", "kmh", "mph", "سرعة", "كيلومتر", "ميل"],
+  "component": "SpeedConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

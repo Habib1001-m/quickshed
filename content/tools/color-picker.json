@@ -1,0 +1,12 @@
+{
+  "id": "color-picker",
+  "name": { "ar": "منتقي الألوان", "en": "Color Picker" },
+  "description": { "ar": "اختر ألواناً من الشاشة واحصل على قيمها بتنسيقات مختلفة.", "en": "Pick colors from the screen and get their values in different formats." },
+  "category": "utility-tools",
+  "icon": "Pipette",
+  "privacy": "local",
+  "keywords": ["color", "picker", "palette", "لون", "منتقي", "لوحة ألوان"],
+  "component": "ColorPicker",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

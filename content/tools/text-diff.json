@@ -1,0 +1,12 @@
+{
+  "id": "text-diff",
+  "name": { "ar": "مقارنة النصوص", "en": "Text Diff" },
+  "description": { "ar": "قارن بين نصين وأبرز الاختلافات بينهما.", "en": "Compare two texts and highlight the differences between them." },
+  "category": "text-tools",
+  "icon": "GitCompare",
+  "privacy": "local",
+  "keywords": ["diff", "compare", "differences", "مقارنة", "فروق", "اختلافات"],
+  "component": "TextDiff",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

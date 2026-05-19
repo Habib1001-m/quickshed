@@ -1,0 +1,12 @@
+{
+  "id": "discount-calculator",
+  "name": { "ar": "حاسبة الخصم", "en": "Discount Calculator" },
+  "description": { "ar": "احسب السعر بعد الخصم ومبلغ التوفير بسرعة.", "en": "Quickly calculate the price after discount and the savings amount." },
+  "category": "calculators",
+  "icon": "Tag",
+  "privacy": "local",
+  "keywords": ["discount", "sale", "savings", "price", "خصم", "تخفيض", "توفير", "سعر"],
+  "component": "DiscountCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

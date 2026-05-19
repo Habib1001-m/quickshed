@@ -1,0 +1,2224 @@
+[
+  {
+    "id": "plagiarism-checker",
+    "slug": "plagiarism-checker",
+    "name": {
+      "ar": "مدقق الانتحال",
+      "en": "Plagiarism Checker"
+    },
+    "description": {
+      "ar": "تحقق من أصالة النص واكشف النسخ غير المناسب والمحتوى المكرر.",
+      "en": "Check text authenticity and detect improper copying and duplicated content."
+    },
+    "category": "student-tools",
+    "icon": "SearchCheck",
+    "privacy": "local",
+    "keywords": [
+      "plagiarism",
+      "originality",
+      "copy check",
+      "انتحال",
+      "أصالة",
+      "فحص النسخ"
+    ],
+    "component": "PlagiarismChecker"
+  },
+  {
+    "id": "password-generator",
+    "slug": "password-generator",
+    "name": {
+      "ar": "مولد كلمات المرور",
+      "en": "Password Generator"
+    },
+    "description": {
+      "ar": "أنشئ كلمات مرور قوية وآمنة بخيارات قابلة للتخصيص.",
+      "en": "Generate strong and secure passwords with customizable options."
+    },
+    "category": "utility-tools",
+    "icon": "KeyRound",
+    "privacy": "local",
+    "keywords": [
+      "password",
+      "generator",
+      "secure",
+      "كلمة مرور",
+      "مولد",
+      "آمن"
+    ],
+    "component": "PasswordGenerator"
+  },
+  {
+    "id": "image-format-converter",
+    "slug": "image-format-converter",
+    "name": {
+      "ar": "محول صيغ الصور",
+      "en": "Image Format Converter"
+    },
+    "description": {
+      "ar": "حوّل الصور بين صيغ مختلفة مثل PNG و JPG و WebP.",
+      "en": "Convert images between different formats like PNG, JPG, and WebP."
+    },
+    "category": "image-tools",
+    "icon": "Image",
+    "privacy": "local",
+    "keywords": [
+      "image",
+      "format",
+      "convert",
+      "png",
+      "jpg",
+      "صورة",
+      "صيغة",
+      "تحويل"
+    ],
+    "component": "ImageFormatConverter"
+  },
+  {
+    "id": "compound-interest-calculator",
+    "slug": "compound-interest-calculator",
+    "name": {
+      "ar": "حاسبة الفائدة المركبة",
+      "en": "Compound Interest Calculator"
+    },
+    "description": {
+      "ar": "احسب الفائدة المركبة ورؤية نمو استثمارك عبر الزمن.",
+      "en": "Calculate compound interest and see your investment growth over time."
+    },
+    "category": "calculators",
+    "icon": "TrendingUp",
+    "privacy": "local",
+    "keywords": [
+      "compound interest",
+      "investment",
+      "savings",
+      "growth",
+      "فائدة مركبة",
+      "استثمار",
+      "ادخار",
+      "نمو"
+    ],
+    "component": "CompoundInterestCalculator"
+  },
+  {
+    "id": "cursive-text-generator",
+    "slug": "cursive-text-generator",
+    "name": {
+      "ar": "مولد النص الخطي",
+      "en": "Cursive Text Generator"
+    },
+    "description": {
+      "ar": "حوّل نصك العادي إلى أنماط خطوط مزخرفة وجميلة.",
+      "en": "Convert your plain text into decorative and fancy font styles."
+    },
+    "category": "text-tools",
+    "icon": "PenTool",
+    "privacy": "local",
+    "keywords": [
+      "cursive",
+      "fancy text",
+      "decorative",
+      "خط مزخرف",
+      "نص مزين",
+      "خطوط جميلة"
+    ],
+    "component": "CursiveTextGenerator"
+  },
+  {
+    "id": "slug-generator",
+    "slug": "slug-generator",
+    "name": {
+      "ar": "مولد الرابط الودي",
+      "en": "Slug Generator"
+    },
+    "description": {
+      "ar": "أنشئ روابط ودية من أي نص لإعداد عناوين URL ملائمة لمحركات البحث.",
+      "en": "Generate URL-friendly slugs from any text for SEO-friendly URLs."
+    },
+    "category": "text-tools",
+    "icon": "Link",
+    "privacy": "local",
+    "keywords": [
+      "slug",
+      "url",
+      "seo",
+      "permalink",
+      "رابط ودود",
+      "رابط",
+      "سيو"
+    ],
+    "component": "SlugGenerator"
+  },
+  {
+    "id": "line-sorter",
+    "slug": "line-sorter",
+    "name": {
+      "ar": "فرز الأسطر",
+      "en": "Line Sorter"
+    },
+    "description": {
+      "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات متقدمة.",
+      "en": "Sort text lines alphabetically or in reverse with advanced options."
+    },
+    "category": "utility-tools",
+    "icon": "ArrowDownUp",
+    "privacy": "local",
+    "keywords": [
+      "sort",
+      "lines",
+      "alphabetical",
+      "فرز",
+      "ترتيب",
+      "أبجدي"
+    ],
+    "component": "LineSorter"
+  },
+  {
+    "id": "whitespace-remover",
+    "slug": "whitespace-remover",
+    "name": {
+      "ar": "إزالة المسافات",
+      "en": "Whitespace Remover"
+    },
+    "description": {
+      "ar": "أزل المسافات الزائدة والفراغات من النص.",
+      "en": "Remove extra spaces and whitespace from text."
+    },
+    "category": "utility-tools",
+    "icon": "ScissorsLineDashed",
+    "privacy": "local",
+    "keywords": [
+      "whitespace",
+      "spaces",
+      "trim",
+      "مسافات",
+      "فراغات",
+      "تنظيف"
+    ],
+    "component": "WhitespaceRemover"
+  },
+  {
+    "id": "date-adder",
+    "slug": "date-adder",
+    "name": {
+      "ar": "إضافة للتاريخ",
+      "en": "Date Adder"
+    },
+    "description": {
+      "ar": "أضف أو أنقص أياماً أو شهوراً أو سنوات من تاريخ معين.",
+      "en": "Add or subtract days, months, or years from a given date."
+    },
+    "category": "time-tools",
+    "icon": "CalendarPlus",
+    "privacy": "local",
+    "keywords": [
+      "date add",
+      "date calculator",
+      "future date",
+      "إضافة تاريخ",
+      "حاسبة تاريخ",
+      "تاريخ مستقبلي"
+    ],
+    "component": "DateAdder"
+  },
+  {
+    "id": "alarm-creator",
+    "slug": "alarm-creator",
+    "name": {
+      "ar": "منشئ المنبهات",
+      "en": "Alarm Creator"
+    },
+    "description": {
+      "ar": "أنشئ وأدر منبهات متعددة مع أصوات مخصصة.",
+      "en": "Create and manage multiple alarms with custom sounds."
+    },
+    "category": "time-tools",
+    "icon": "Bell",
+    "privacy": "local",
+    "keywords": [
+      "alarm",
+      "reminder",
+      "alert",
+      "منبه",
+      "تذكير",
+      "تنبيه"
+    ],
+    "component": "AlarmCreator"
+  },
+  {
+    "id": "speed-converter",
+    "slug": "speed-converter",
+    "name": {
+      "ar": "محول السرعة",
+      "en": "Speed Converter"
+    },
+    "description": {
+      "ar": "حوّل بين وحدات السرعة المختلفة مثل كيلومتر/ساعة وميل/ساعة وعقدة.",
+      "en": "Convert between different speed units like km/h, mph, and knots."
+    },
+    "category": "converters",
+    "icon": "Gauge",
+    "privacy": "local",
+    "keywords": [
+      "speed",
+      "velocity",
+      "kmh",
+      "mph",
+      "سرعة",
+      "كيلومتر",
+      "ميل"
+    ],
+    "component": "SpeedConverter"
+  },
+  {
+    "id": "length-converter",
+    "slug": "length-converter",
+    "name": {
+      "ar": "محول الطول",
+      "en": "Length Converter"
+    },
+    "description": {
+      "ar": "حوّل بين وحدات الطول المختلفة مثل المتر والقدم والبوصة والياردة.",
+      "en": "Convert between different length units like meters, feet, inches, and yards."
+    },
+    "category": "converters",
+    "icon": "MoveHorizontal",
+    "privacy": "local",
+    "keywords": [
+      "length",
+      "distance",
+      "meter",
+      "feet",
+      "طول",
+      "مسافة",
+      "متر",
+      "قدم"
+    ],
+    "component": "LengthConverter"
+  },
+  {
+    "id": "hash-generator",
+    "slug": "hash-generator",
+    "name": {
+      "ar": "مولد الهاش",
+      "en": "Hash Generator"
+    },
+    "description": {
+      "ar": "أنشئ قيم هاش باستخدام خوارزميات مختلفة مثل MD5 و SHA-256.",
+      "en": "Generate hash values using different algorithms like MD5 and SHA-256."
+    },
+    "category": "developer-tools",
+    "icon": "ShieldCheck",
+    "privacy": "local",
+    "keywords": [
+      "hash",
+      "md5",
+      "sha",
+      "checksum",
+      "هاش",
+      "بصمة",
+      "تشفير"
+    ],
+    "component": "HashGenerator"
+  },
+  {
+    "id": "ssl-checker",
+    "slug": "ssl-checker",
+    "name": {
+      "ar": "محلل شهادة SSL",
+      "en": "SSL Certificate Parser"
+    },
+    "description": {
+      "ar": "حلّل شهادات SSL/TLS بتنسيق PEM محلياً واعرض تفاصيل الإصدار والصلاحية والجهة المُصدِرة.",
+      "en": "Parse and analyze SSL/TLS certificates in PEM format locally — view issuer, validity, and chain details."
+    },
+    "category": "security-tools",
+    "icon": "Shield",
+    "privacy": "local",
+    "keywords": [
+      "ssl",
+      "certificate",
+      "pem",
+      "tls",
+      "x509",
+      "parser",
+      "شهادة",
+      "محلل",
+      "أمان"
+    ],
+    "component": "SslChecker"
+  },
+  {
+    "id": "basic-calculator",
+    "slug": "basic-calculator",
+    "name": {
+      "ar": "آلة حاسبة أساسية",
+      "en": "Basic Calculator"
+    },
+    "description": {
+      "ar": "آلة حاسبة بسيطة لإجراء العمليات الحسابية الأساسية مثل الجمع والطرح والضرب والقسمة.",
+      "en": "A simple calculator for basic arithmetic operations like addition, subtraction, multiplication, and division."
+    },
+    "category": "calculators",
+    "icon": "Calculator",
+    "privacy": "local",
+    "keywords": [
+      "calculator",
+      "arithmetic",
+      "math",
+      "basic",
+      "حاسبة",
+      "حساب",
+      "رياضيات"
+    ],
+    "component": "BasicCalculator"
+  },
+  {
+    "id": "random-password-generator",
+    "slug": "random-password-generator",
+    "name": {
+      "ar": "مولد كلمات المرور العشوائية",
+      "en": "Random Password Generator"
+    },
+    "description": {
+      "ar": "أنشئ كلمات مرور عشوائية قوية بمعايير أمان متقدمة.",
+      "en": "Generate strong random passwords with advanced security criteria."
+    },
+    "category": "security-tools",
+    "icon": "Key",
+    "privacy": "local",
+    "keywords": [
+      "password",
+      "random",
+      "secure",
+      "generator",
+      "كلمة مرور",
+      "عشوائي",
+      "آمن",
+      "مولد"
+    ],
+    "component": "RandomPasswordGenerator"
+  },
+  {
+    "id": "flashcard-maker",
+    "slug": "flashcard-maker",
+    "name": {
+      "ar": "صانع البطاقات التعليمية",
+      "en": "Flashcard Maker"
+    },
+    "description": {
+      "ar": "أنشئ بطاقات تعليمية للمراجعة والحفظ مع دعم الوجهين.",
+      "en": "Create flashcards for review and memorization with front and back support."
+    },
+    "category": "student-tools",
+    "icon": "Layers",
+    "privacy": "local",
+    "keywords": [
+      "flashcard",
+      "study",
+      "memorize",
+      "review",
+      "بطاقات تعليمية",
+      "مذاكرة",
+      "حفظ",
+      "مراجعة"
+    ],
+    "component": "FlashcardMaker"
+  },
+  {
+    "id": "number-base-converter",
+    "slug": "number-base-converter",
+    "name": {
+      "ar": "محول أنظمة العد",
+      "en": "Number Base Converter"
+    },
+    "description": {
+      "ar": "حوّل الأرقام بين أنظمة العد المختلفة: ثنائي، ثماني، عشري، وسداسي عشري.",
+      "en": "Convert numbers between different bases: binary, octal, decimal, and hexadecimal."
+    },
+    "category": "converters",
+    "icon": "Binary",
+    "privacy": "local",
+    "keywords": [
+      "binary",
+      "hexadecimal",
+      "octal",
+      "base",
+      "ثنائي",
+      "سداسي عشري",
+      "نظام عد"
+    ],
+    "component": "NumberBaseConverter"
+  },
+  {
+    "id": "random-number-generator",
+    "slug": "random-number-generator",
+    "name": {
+      "ar": "مولد الأرقام العشوائية",
+      "en": "Random Number Generator"
+    },
+    "description": {
+      "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.",
+      "en": "Generate random numbers within a specified range with advanced options."
+    },
+    "category": "utility-tools",
+    "icon": "Dice5",
+    "privacy": "local",
+    "keywords": [
+      "random",
+      "number",
+      "dice",
+      "عشوائي",
+      "رقم",
+      "نرد"
+    ],
+    "component": "RandomNumberGenerator"
+  },
+  {
+    "id": "morse-code-translator",
+    "slug": "morse-code-translator",
+    "name": {
+      "ar": "مترجم شفرة مورس",
+      "en": "Morse Code Translator"
+    },
+    "description": {
+      "ar": "ترجم النص إلى شفرة مورس والعكس.",
+      "en": "Translate text to Morse code and vice versa."
+    },
+    "category": "utility-tools",
+    "icon": "Radio",
+    "privacy": "local",
+    "keywords": [
+      "morse",
+      "code",
+      "translator",
+      "مورس",
+      "شفرة",
+      "ترجمة"
+    ],
+    "component": "MorseCodeTranslator"
+  },
+  {
+    "id": "markdown-to-html",
+    "slug": "markdown-to-html",
+    "name": {
+      "ar": "محول ماركداون إلى HTML",
+      "en": "Markdown to HTML"
+    },
+    "description": {
+      "ar": "حوّل نص ماركداون إلى كود HTML جاهز للاستخدام.",
+      "en": "Convert Markdown text to ready-to-use HTML code."
+    },
+    "category": "text-tools",
+    "icon": "FileCode",
+    "privacy": "local",
+    "keywords": [
+      "markdown",
+      "html",
+      "convert",
+      "ماركداون",
+      "تحويل",
+      "أتش تي إم إل"
+    ],
+    "component": "MarkdownToHtml"
+  },
+  {
+    "id": "unix-timestamp-converter",
+    "slug": "unix-timestamp-converter",
+    "name": {
+      "ar": "محول طابع يونكس",
+      "en": "Unix Timestamp Converter"
+    },
+    "description": {
+      "ar": "حوّل بين طابع يونكس الزمني والتاريخ والوقت المقروء.",
+      "en": "Convert between Unix timestamps and human-readable dates and times."
+    },
+    "category": "time-tools",
+    "icon": "Hash",
+    "privacy": "local",
+    "keywords": [
+      "unix",
+      "timestamp",
+      "epoch",
+      "طابع يونكس",
+      "توقيت",
+      "إيبوك"
+    ],
+    "component": "UnixTimestampConverter"
+  },
+  {
+    "id": "robots-txt-generator",
+    "slug": "robots-txt-generator",
+    "name": {
+      "ar": "مولد robots.txt",
+      "en": "Robots.txt Generator"
+    },
+    "description": {
+      "ar": "أنشئ ملف robots.txt للتحكم في سلوك عناكب محركات البحث.",
+      "en": "Generate a robots.txt file to control search engine crawler behavior."
+    },
+    "category": "seo-tools",
+    "icon": "Bot",
+    "privacy": "local",
+    "keywords": [
+      "robots.txt",
+      "crawlers",
+      "seo",
+      "bot",
+      "روبوتس",
+      "عناكب",
+      "سيو"
+    ],
+    "component": "RobotsTxtGenerator"
+  },
+  {
+    "id": "stopwatch",
+    "slug": "stopwatch",
+    "name": {
+      "ar": "ساعة إيقاف",
+      "en": "Stopwatch"
+    },
+    "description": {
+      "ar": "ساعة إيقاف دقيقة لقياس الوقت بالمللي ثانية مع خاصية اللفات.",
+      "en": "A precise stopwatch to measure time in milliseconds with lap functionality."
+    },
+    "category": "time-tools",
+    "icon": "Timer",
+    "privacy": "local",
+    "keywords": [
+      "stopwatch",
+      "lap",
+      "timing",
+      "ساعة إيقاف",
+      "لفات",
+      "توقيت"
+    ],
+    "component": "Stopwatch"
+  },
+  {
+    "id": "pdf-page-remover",
+    "slug": "pdf-page-remover",
+    "name": {
+      "ar": "حذف صفحات PDF",
+      "en": "PDF Page Remover"
+    },
+    "description": {
+      "ar": "احذف صفحات محددة من ملف PDF بسهولة.",
+      "en": "Remove specific pages from a PDF file easily."
+    },
+    "category": "pdf-tools",
+    "icon": "Scissors",
+    "privacy": "local",
+    "keywords": [
+      "pdf",
+      "remove pages",
+      "delete",
+      "حذف صفحات",
+      "بي دي إف",
+      "إزالة"
+    ],
+    "component": "PdfPageRemover"
+  },
+  {
+    "id": "meta-tag-generator",
+    "slug": "meta-tag-generator",
+    "name": {
+      "ar": "مولد العلامات الوصفية",
+      "en": "Meta Tag Generator"
+    },
+    "description": {
+      "ar": "أنشئ علامات Meta الوصفية لتحسين ظهور موقعك في محركات البحث.",
+      "en": "Generate meta tags to improve your website's search engine visibility."
+    },
+    "category": "seo-tools",
+    "icon": "Code2",
+    "privacy": "local",
+    "keywords": [
+      "meta tags",
+      "seo",
+      "html",
+      "keywords",
+      "علامات وصفية",
+      "سيو",
+      "كلمات مفتاحية"
+    ],
+    "component": "MetaTagGenerator"
+  },
+  {
+    "id": "serp-simulator",
+    "slug": "serp-simulator",
+    "name": {
+      "ar": "محاكي نتائج البحث",
+      "en": "SERP Simulator"
+    },
+    "description": {
+      "ar": "شاهد كيف سيظهر موقعك في نتائج محركات البحث قبل نشره.",
+      "en": "Preview how your website will appear in search engine results before publishing."
+    },
+    "category": "seo-tools",
+    "icon": "Search",
+    "privacy": "local",
+    "keywords": [
+      "serp",
+      "search results",
+      "preview",
+      "google",
+      "نتائج البحث",
+      "محركات البحث",
+      "معاينة"
+    ],
+    "component": "SerpSimulator"
+  },
+  {
+    "id": "loan-calculator",
+    "slug": "loan-calculator",
+    "name": {
+      "ar": "حاسبة القروض",
+      "en": "Loan Calculator"
+    },
+    "description": {
+      "ar": "احسب الأقساط الشهرية وإجمالي الفائدة لأي قرض بسهولة.",
+      "en": "Calculate monthly installments and total interest for any loan easily."
+    },
+    "category": "calculators",
+    "icon": "Banknote",
+    "privacy": "local",
+    "keywords": [
+      "loan",
+      "mortgage",
+      "interest",
+      "installment",
+      "قرض",
+      "رهن",
+      "فائدة",
+      "قسط"
+    ],
+    "component": "LoanCalculator"
+  },
+  {
+    "id": "work-hours-calculator",
+    "slug": "work-hours-calculator",
+    "name": {
+      "ar": "حاسبة ساعات العمل",
+      "en": "Work Hours Calculator"
+    },
+    "description": {
+      "ar": "احسب ساعات العمل الإجمالية مع مراعاة فترات الراحة.",
+      "en": "Calculate total work hours accounting for break times."
+    },
+    "category": "time-tools",
+    "icon": "Briefcase",
+    "privacy": "local",
+    "keywords": [
+      "work hours",
+      "timesheet",
+      "attendance",
+      "ساعات العمل",
+      "جدول دوام",
+      "حضور"
+    ],
+    "component": "WorkHoursCalculator"
+  },
+  {
+    "id": "case-converter",
+    "slug": "case-converter",
+    "name": {
+      "ar": "محول الحالة",
+      "en": "Case Converter"
+    },
+    "description": {
+      "ar": "حوّل النص بين الحالات المختلفة: كبير، صغير، جملة، عنوان.",
+      "en": "Convert text between different cases: upper, lower, sentence, and title case."
+    },
+    "category": "text-tools",
+    "icon": "CaseSensitive",
+    "privacy": "local",
+    "keywords": [
+      "case",
+      "uppercase",
+      "lowercase",
+      "title case",
+      "حالة",
+      "أحرف كبيرة",
+      "أحرف صغيرة"
+    ],
+    "component": "CaseConverter"
+  },
+  {
+    "id": "pomodoro-timer",
+    "slug": "pomodoro-timer",
+    "name": {
+      "ar": "مؤقت بومودورو",
+      "en": "Pomodoro Timer"
+    },
+    "description": {
+      "ar": "نفذ تقنية بومودورو لإدارة الوقت مع فترات عمل وراحة متناوبة.",
+      "en": "Implement the Pomodoro technique for time management with alternating work and break periods."
+    },
+    "category": "utility-tools",
+    "icon": "Tomato",
+    "privacy": "local",
+    "keywords": [
+      "pomodoro",
+      "timer",
+      "focus",
+      "productivity",
+      "بومودورو",
+      "مؤقت",
+      "تركيز",
+      "إنتاجية"
+    ],
+    "component": "PomodoroTimer"
+  },
+  {
+    "id": "sql-formatter",
+    "slug": "sql-formatter",
+    "name": {
+      "ar": "منسق SQL",
+      "en": "SQL Formatter"
+    },
+    "description": {
+      "ar": "نسّق استعلامات SQL لتصبح أكثر قابلية للقراءة والفهم.",
+      "en": "Format SQL queries for better readability and understanding."
+    },
+    "category": "developer-tools",
+    "icon": "Database",
+    "privacy": "local",
+    "keywords": [
+      "sql",
+      "format",
+      "query",
+      "database",
+      "تنسيق",
+      "استعلام",
+      "قاعدة بيانات"
+    ],
+    "component": "SqlFormatter"
+  },
+  {
+    "id": "fuel-cost-calculator",
+    "slug": "fuel-cost-calculator",
+    "name": {
+      "ar": "حاسبة تكلفة الوقود",
+      "en": "Fuel Cost Calculator"
+    },
+    "description": {
+      "ar": "احسب تكلفة الوقود لرحلتك بناءً على المسافة واستهلاك السيارة.",
+      "en": "Calculate fuel cost for your trip based on distance and vehicle consumption."
+    },
+    "category": "calculators",
+    "icon": "Fuel",
+    "privacy": "local",
+    "keywords": [
+      "fuel",
+      "gas",
+      "trip cost",
+      "mileage",
+      "وقود",
+      "بنزين",
+      "تكلفة الرحلة",
+      "استهلاك"
+    ],
+    "component": "FuelCostCalculator"
+  },
+  {
+    "id": "essay-word-counter",
+    "slug": "essay-word-counter",
+    "name": {
+      "ar": "عداد كلمات المقال",
+      "en": "Essay Word Counter"
+    },
+    "description": {
+      "ar": "احسب عدد كلمات مقالك وتحقق من متطلبات الطول الأكاديمية.",
+      "en": "Count your essay words and check academic length requirements."
+    },
+    "category": "student-tools",
+    "icon": "FileText",
+    "privacy": "local",
+    "keywords": [
+      "essay",
+      "word count",
+      "academic writing",
+      "مقال",
+      "عدد كلمات",
+      "كتابة أكاديمية"
+    ],
+    "component": "EssayWordCounter"
+  },
+  {
+    "id": "remove-duplicates",
+    "slug": "remove-duplicates",
+    "name": {
+      "ar": "إزالة المكررات",
+      "en": "Remove Duplicates"
+    },
+    "description": {
+      "ar": "أزل الأسطر أو الكلمات المكررة من أي نص.",
+      "en": "Remove duplicate lines or words from any text."
+    },
+    "category": "text-tools",
+    "icon": "ListMinus",
+    "privacy": "local",
+    "keywords": [
+      "duplicates",
+      "unique",
+      "deduplicate",
+      "مكرر",
+      "فريد",
+      "إزالة التكرار"
+    ],
+    "component": "RemoveDuplicates"
+  },
+  {
+    "id": "word-counter",
+    "slug": "word-counter",
+    "name": {
+      "ar": "عداد الكلمات",
+      "en": "Word Counter"
+    },
+    "description": {
+      "ar": "احسب عدد الكلمات والحروف والجمل والفقرات في أي نص.",
+      "en": "Count words, characters, sentences, and paragraphs in any text."
+    },
+    "category": "text-tools",
+    "icon": "Type",
+    "privacy": "local",
+    "keywords": [
+      "word count",
+      "character count",
+      "text analysis",
+      "عداد الكلمات",
+      "عدد الحروف",
+      "تحليل النص"
+    ],
+    "component": "WordCounter"
+  },
+  {
+    "id": "gpa-calculator",
+    "slug": "gpa-calculator",
+    "name": {
+      "ar": "حاسبة المعدل التراكمي",
+      "en": "GPA Calculator"
+    },
+    "description": {
+      "ar": "احسب معدلك التراكمي بسهولة بإدخال درجاتك وساعاتك لكل مادة.",
+      "en": "Easily calculate your GPA by entering your grades and credit hours for each course."
+    },
+    "category": "calculators",
+    "icon": "GraduationCap",
+    "privacy": "local",
+    "keywords": [
+      "gpa",
+      "grade point average",
+      "grades",
+      "المعدل التراكمي",
+      "درجات",
+      "معدل"
+    ],
+    "component": "GpaCalculator"
+  },
+  {
+    "id": "temperature-converter",
+    "slug": "temperature-converter",
+    "name": {
+      "ar": "محول درجة الحرارة",
+      "en": "Temperature Converter"
+    },
+    "description": {
+      "ar": "حوّل بين مئوية وفهرنهايت وكلفن بسهولة.",
+      "en": "Easily convert between Celsius, Fahrenheit, and Kelvin."
+    },
+    "category": "converters",
+    "icon": "Thermometer",
+    "privacy": "local",
+    "keywords": [
+      "temperature",
+      "celsius",
+      "fahrenheit",
+      "درجة حرارة",
+      "مئوية",
+      "فهرنهايت"
+    ],
+    "component": "TemperatureConverter"
+  },
+  {
+    "id": "url-encoder-decoder",
+    "slug": "url-encoder-decoder",
+    "name": {
+      "ar": "مشفر وفاك تشفير URL",
+      "en": "URL Encoder Decoder"
+    },
+    "description": {
+      "ar": "شفّر وألغِ تشفير عناوين URL للتعامل مع الأحرف الخاصة.",
+      "en": "Encode and decode URLs to handle special characters."
+    },
+    "category": "security-tools",
+    "icon": "LinkIcon",
+    "privacy": "local",
+    "keywords": [
+      "url",
+      "encode",
+      "decode",
+      "percent encoding",
+      "ترميز",
+      "فك ترميز",
+      "رابط"
+    ],
+    "component": "UrlEncoderDecoder"
+  },
+  {
+    "id": "bmi-calculator",
+    "slug": "bmi-calculator",
+    "name": {
+      "ar": "حاسبة مؤشر كتلة الجسم",
+      "en": "BMI Calculator"
+    },
+    "description": {
+      "ar": "احسب مؤشر كتلة جسمك لمعرفة إذا كان وزنك مثالياً أم لا.",
+      "en": "Calculate your Body Mass Index to find out if your weight is in a healthy range."
+    },
+    "category": "calculators",
+    "icon": "Activity",
+    "privacy": "local",
+    "keywords": [
+      "bmi",
+      "body mass index",
+      "weight",
+      "health",
+      "كتلة الجسم",
+      "وزن",
+      "صحة"
+    ],
+    "component": "BmiCalculator"
+  },
+  {
+    "id": "text-reverser",
+    "slug": "text-reverser",
+    "name": {
+      "ar": "عكس النص",
+      "en": "Text Reverser"
+    },
+    "description": {
+      "ar": "اعكس ترتيب أحرف أو كلمات أي نص بسهولة.",
+      "en": "Easily reverse the order of characters or words in any text."
+    },
+    "category": "text-tools",
+    "icon": "ArrowRightLeft",
+    "privacy": "local",
+    "keywords": [
+      "reverse",
+      "flip",
+      "backwards",
+      "عكس",
+      "قلب",
+      "ترتيب عكسي"
+    ],
+    "component": "TextReverser"
+  },
+  {
+    "id": "note-organizer",
+    "slug": "note-organizer",
+    "name": {
+      "ar": "منظم الملاحظات",
+      "en": "Note Organizer"
+    },
+    "description": {
+      "ar": "نظّم ملاحظاتك الدراسية في فئات وأضف علامات وسهّل المراجعة.",
+      "en": "Organize your study notes in categories, add tags, and simplify review."
+    },
+    "category": "student-tools",
+    "icon": "StickyNote",
+    "privacy": "local",
+    "keywords": [
+      "notes",
+      "organize",
+      "study",
+      "tags",
+      "ملاحظات",
+      "تنظيم",
+      "مذاكرة",
+      "وسوم"
+    ],
+    "component": "NoteOrganizer"
+  },
+  {
+    "id": "pdf-merger",
+    "slug": "pdf-merger",
+    "name": {
+      "ar": "دمج ملفات PDF",
+      "en": "PDF Merger"
+    },
+    "description": {
+      "ar": "ادمج عدة ملفات PDF في ملف واحد بسهولة.",
+      "en": "Merge multiple PDF files into one document easily."
+    },
+    "category": "pdf-tools",
+    "icon": "Merge",
+    "privacy": "local",
+    "keywords": [
+      "pdf",
+      "merge",
+      "combine",
+      "دمج",
+      "تجميع",
+      "بي دي إف"
+    ],
+    "component": "PdfMerger"
+  },
+  {
+    "id": "reading-time-calculator",
+    "slug": "reading-time-calculator",
+    "name": {
+      "ar": "حاسبة وقت القراءة",
+      "en": "Reading Time Calculator"
+    },
+    "description": {
+      "ar": "احسب الوقت المقدر لقراءة أي نص بناءً على سرعة القراءة.",
+      "en": "Calculate the estimated reading time for any text based on reading speed."
+    },
+    "category": "student-tools",
+    "icon": "BookOpenCheck",
+    "privacy": "local",
+    "keywords": [
+      "reading time",
+      "reading speed",
+      "estimate",
+      "وقت القراءة",
+      "سرعة القراءة",
+      "تقدير"
+    ],
+    "component": "ReadingTimeCalculator"
+  },
+  {
+    "id": "jwt-decoder",
+    "slug": "jwt-decoder",
+    "name": {
+      "ar": "فاك تشفير JWT",
+      "en": "JWT Decoder"
+    },
+    "description": {
+      "ar": "فك تشفير وفحص محتوى رموز JSON Web Tokens.",
+      "en": "Decode and inspect the contents of JSON Web Tokens."
+    },
+    "category": "developer-tools",
+    "icon": "Key",
+    "privacy": "local",
+    "keywords": [
+      "jwt",
+      "token",
+      "decode",
+      "inspect",
+      "رمز",
+      "فك تشفير",
+      "توكن"
+    ],
+    "component": "JwtDecoder"
+  },
+  {
+    "id": "currency-converter-calculator",
+    "slug": "currency-converter-calculator",
+    "name": {
+      "ar": "محول العملات",
+      "en": "Currency Converter Calculator"
+    },
+    "description": {
+      "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.",
+      "en": "Convert between different currencies with current exchange rates."
+    },
+    "category": "calculators",
+    "icon": "ArrowLeftRight",
+    "privacy": "local",
+    "keywords": [
+      "currency",
+      "exchange",
+      "conversion",
+      "money",
+      "عملات",
+      "صرف",
+      "تحويل",
+      "نقود"
+    ],
+    "component": "CurrencyConverterCalculator"
+  },
+  {
+    "id": "text-diff",
+    "slug": "text-diff",
+    "name": {
+      "ar": "مقارنة النصوص",
+      "en": "Text Diff"
+    },
+    "description": {
+      "ar": "قارن بين نصين وأبرز الاختلافات بينهما.",
+      "en": "Compare two texts and highlight the differences between them."
+    },
+    "category": "text-tools",
+    "icon": "GitCompare",
+    "privacy": "local",
+    "keywords": [
+      "diff",
+      "compare",
+      "differences",
+      "مقارنة",
+      "فروق",
+      "اختلافات"
+    ],
+    "component": "TextDiff"
+  },
+  {
+    "id": "discount-calculator",
+    "slug": "discount-calculator",
+    "name": {
+      "ar": "حاسبة الخصم",
+      "en": "Discount Calculator"
+    },
+    "description": {
+      "ar": "احسب السعر بعد الخصم ومبلغ التوفير بسرعة.",
+      "en": "Quickly calculate the price after discount and the savings amount."
+    },
+    "category": "calculators",
+    "icon": "Tag",
+    "privacy": "local",
+    "keywords": [
+      "discount",
+      "sale",
+      "savings",
+      "price",
+      "خصم",
+      "تخفيض",
+      "توفير",
+      "سعر"
+    ],
+    "component": "DiscountCalculator"
+  },
+  {
+    "id": "image-resizer",
+    "slug": "image-resizer",
+    "name": {
+      "ar": "تغيير حجم الصور",
+      "en": "Image Resizer"
+    },
+    "description": {
+      "ar": "غيّر حجم الصور مع الحفاظ على الجودة ونسبة العرض إلى الارتفاع.",
+      "en": "Resize images while maintaining quality and aspect ratio."
+    },
+    "category": "image-tools",
+    "icon": "Move",
+    "privacy": "local",
+    "keywords": [
+      "resize",
+      "image",
+      "dimensions",
+      "تغيير حجم",
+      "صورة",
+      "أبعاد"
+    ],
+    "component": "ImageResizer"
+  },
+  {
+    "id": "base64-encoder",
+    "slug": "base64-encoder",
+    "name": {
+      "ar": "مشفر Base64",
+      "en": "Base64 Encoder"
+    },
+    "description": {
+      "ar": "شفّر وألغِ تشفير النصوص والملفات باستخدام Base64.",
+      "en": "Encode and decode text and files using Base64."
+    },
+    "category": "developer-tools",
+    "icon": "FileCode",
+    "privacy": "local",
+    "keywords": [
+      "base64",
+      "encode",
+      "decode",
+      "binary",
+      "تشفير",
+      "فك تشفير",
+      "بيس 64"
+    ],
+    "component": "Base64Encoder"
+  },
+  {
+    "id": "time-zone-converter",
+    "slug": "time-zone-converter",
+    "name": {
+      "ar": "محول المنطقة الزمنية",
+      "en": "Time Zone Converter"
+    },
+    "description": {
+      "ar": "حوّل الوقت بين المناطق الزمنية المختلفة بسهولة.",
+      "en": "Easily convert time between different time zones."
+    },
+    "category": "time-tools",
+    "icon": "Globe",
+    "privacy": "local",
+    "keywords": [
+      "time zone",
+      "convert",
+      "gmt",
+      "المنطقة الزمنية",
+      "تحويل",
+      "توقيت"
+    ],
+    "component": "TimeZoneConverter"
+  },
+  {
+    "id": "countdown-timer",
+    "slug": "countdown-timer",
+    "name": {
+      "ar": "مؤقت تنازلي",
+      "en": "Countdown Timer"
+    },
+    "description": {
+      "ar": "اضبط مؤقتاً تنازلياً لأي مدة زمنية مع تنبيه عند الانتهاء.",
+      "en": "Set a countdown timer for any duration with an alert when it finishes."
+    },
+    "category": "time-tools",
+    "icon": "Hourglass",
+    "privacy": "local",
+    "keywords": [
+      "countdown",
+      "timer",
+      "alarm",
+      "مؤقت تنازلي",
+      "منبه",
+      "عد تنازلي"
+    ],
+    "component": "CountdownTimer"
+  },
+  {
+    "id": "emoji-picker",
+    "slug": "emoji-picker",
+    "name": {
+      "ar": "منتقي الرموز التعبيرية",
+      "en": "Emoji Picker"
+    },
+    "description": {
+      "ar": "تصفح واختر من آلاف الرموز التعبيرية المنظمة في فئات.",
+      "en": "Browse and choose from thousands of emojis organized in categories."
+    },
+    "category": "utility-tools",
+    "icon": "Smile",
+    "privacy": "local",
+    "keywords": [
+      "emoji",
+      "picker",
+      "emoticon",
+      "رموز تعبيرية",
+      "إيموجي",
+      "وجوه"
+    ],
+    "component": "EmojiPicker"
+  },
+  {
+    "id": "percentage-calculator",
+    "slug": "percentage-calculator",
+    "name": {
+      "ar": "حاسبة النسبة المئوية",
+      "en": "Percentage Calculator"
+    },
+    "description": {
+      "ar": "أداة لحساب النسب المئوية بسرعة وسهولة، بما في ذلك الزيادة والنقصان والنسبة من رقم.",
+      "en": "A tool to quickly calculate percentages, including increase, decrease, and percentage of a number."
+    },
+    "category": "calculators",
+    "icon": "Percent",
+    "privacy": "local",
+    "keywords": [
+      "percentage",
+      "percent",
+      "ratio",
+      "نسبة مئوية",
+      "نسبة",
+      "مئة"
+    ],
+    "component": "PercentageCalculator"
+  },
+  {
+    "id": "html-beautifier",
+    "slug": "html-beautifier",
+    "name": {
+      "ar": "محسن HTML",
+      "en": "HTML Beautifier"
+    },
+    "description": {
+      "ar": "نسّق ونسّق كود HTML ليصبح أكثر قابلية للقراءة.",
+      "en": "Format and clean up HTML code for better readability."
+    },
+    "category": "developer-tools",
+    "icon": "FileCode2",
+    "privacy": "local",
+    "keywords": [
+      "html",
+      "beautify",
+      "format",
+      "تنسيق",
+      "تحسين",
+      "أتش تي إم إل"
+    ],
+    "component": "HtmlBeautifier"
+  },
+  {
+    "id": "uuid-generator-dev",
+    "slug": "uuid-generator-dev",
+    "name": {
+      "ar": "مولد UUID للمطورين",
+      "en": "UUID Generator Dev"
+    },
+    "description": {
+      "ar": "أنشئ معرفات UUID بتنسيقات مختلفة للاستخدام في التطوير.",
+      "en": "Generate UUIDs in different formats for development use."
+    },
+    "category": "developer-tools",
+    "icon": "Hash",
+    "privacy": "local",
+    "keywords": [
+      "uuid",
+      "developer",
+      "unique id",
+      "guid",
+      "معرف فريد",
+      "مطور",
+      "جي آي دي"
+    ],
+    "component": "UuidGeneratorDev"
+  },
+  {
+    "id": "salary-calculator",
+    "slug": "salary-calculator",
+    "name": {
+      "ar": "حاسبة الراتب",
+      "en": "Salary Calculator"
+    },
+    "description": {
+      "ar": "احسب راتبك الصافي بعد الخصومات والضرائب.",
+      "en": "Calculate your net salary after deductions and taxes."
+    },
+    "category": "calculators",
+    "icon": "Wallet",
+    "privacy": "local",
+    "keywords": [
+      "salary",
+      "income",
+      "tax",
+      "net pay",
+      "راتب",
+      "دخل",
+      "ضريبة",
+      "صافي"
+    ],
+    "component": "SalaryCalculator"
+  },
+  {
+    "id": "password-strength-analyzer",
+    "slug": "password-strength-analyzer",
+    "name": {
+      "ar": "محلل قوة كلمة المرور",
+      "en": "Password Strength Analyzer"
+    },
+    "description": {
+      "ar": "حلل قوة كلمة المرور واحصل على توصيات لتحسينها.",
+      "en": "Analyze password strength and get recommendations for improvement."
+    },
+    "category": "security-tools",
+    "icon": "ShieldAlert",
+    "privacy": "local",
+    "keywords": [
+      "password",
+      "strength",
+      "security",
+      "analyze",
+      "قوة كلمة المرور",
+      "أمان",
+      "تحليل"
+    ],
+    "component": "PasswordStrengthAnalyzer"
+  },
+  {
+    "id": "pdf-to-text",
+    "slug": "pdf-to-text",
+    "name": {
+      "ar": "تحويل PDF إلى نص",
+      "en": "PDF to Text"
+    },
+    "description": {
+      "ar": "استخرج النص من ملفات PDF بسهولة وسرعة.",
+      "en": "Extract text from PDF files easily and quickly."
+    },
+    "category": "pdf-tools",
+    "icon": "FileSearch",
+    "privacy": "local",
+    "keywords": [
+      "pdf",
+      "text extraction",
+      "ocr",
+      "استخراج نص",
+      "بي دي إف",
+      "نص"
+    ],
+    "component": "PdfToText"
+  },
+  {
+    "id": "study-timer",
+    "slug": "study-timer",
+    "name": {
+      "ar": "مؤقت المذاكرة",
+      "en": "Study Timer"
+    },
+    "description": {
+      "ar": "تتبع وقت المذاكرة مع تقنيات بومودورو وإحصائيات الجلسات.",
+      "en": "Track study time with Pomodoro techniques and session statistics."
+    },
+    "category": "student-tools",
+    "icon": "Clock4",
+    "privacy": "local",
+    "keywords": [
+      "study timer",
+      "pomodoro",
+      "focus",
+      "مؤقت مذاكرة",
+      "بومودورو",
+      "تركيز"
+    ],
+    "component": "StudyTimer"
+  },
+  {
+    "id": "math-equation-solver",
+    "slug": "math-equation-solver",
+    "name": {
+      "ar": "حل المعادلات الرياضية",
+      "en": "Math Equation Solver"
+    },
+    "description": {
+      "ar": "حل المعادلات الرياضية خطوة بخطوة مع شرح مفصل.",
+      "en": "Solve mathematical equations step by step with detailed explanations."
+    },
+    "category": "student-tools",
+    "icon": "Variable",
+    "privacy": "local",
+    "keywords": [
+      "equation",
+      "solver",
+      "algebra",
+      "math",
+      "معادلة",
+      "حل",
+      "جبر",
+      "رياضيات"
+    ],
+    "component": "MathEquationSolver"
+  },
+  {
+    "id": "grade-calculator",
+    "slug": "grade-calculator",
+    "name": {
+      "ar": "حاسبة الدرجات",
+      "en": "Grade Calculator"
+    },
+    "description": {
+      "ar": "احسب درجتك النهائية بناءً على درجات الواجبات والاختبارات وأوزانها.",
+      "en": "Calculate your final grade based on assignment and test scores with weights."
+    },
+    "category": "student-tools",
+    "icon": "Award",
+    "privacy": "local",
+    "keywords": [
+      "grade",
+      "score",
+      "final grade",
+      "درجة",
+      "علامة",
+      "درجة نهائية"
+    ],
+    "component": "GradeCalculator"
+  },
+  {
+    "id": "age-calculator",
+    "slug": "age-calculator",
+    "name": {
+      "ar": "حاسبة العمر",
+      "en": "Age Calculator"
+    },
+    "description": {
+      "ar": "احسب عمرك بالتفصيل من تاريخ ميلادك، بالسنوات والأشهر والأيام.",
+      "en": "Calculate your exact age in detail from your date of birth, in years, months, and days."
+    },
+    "category": "calculators",
+    "icon": "CalendarDays",
+    "privacy": "local",
+    "keywords": [
+      "age",
+      "birthday",
+      "date of birth",
+      "العمر",
+      "تاريخ الميلاد",
+      "عيد ميلاد"
+    ],
+    "component": "AgeCalculator"
+  },
+  {
+    "id": "habit-tracker",
+    "slug": "habit-tracker",
+    "name": {
+      "ar": "متتبع العادات",
+      "en": "Habit Tracker"
+    },
+    "description": {
+      "ar": "تتبع عاداتك اليومية وابنِ سلاسل منتظمة لتحقيق أهدافك.",
+      "en": "Track your daily habits and build consistent streaks to achieve your goals."
+    },
+    "category": "utility-tools",
+    "icon": "CheckCircle",
+    "privacy": "local",
+    "keywords": [
+      "habit",
+      "tracker",
+      "streak",
+      "daily",
+      "عادة",
+      "تتبع",
+      "سلسلة",
+      "يومي"
+    ],
+    "component": "HabitTracker"
+  },
+  {
+    "id": "json-formatter",
+    "slug": "json-formatter",
+    "name": {
+      "ar": "منسق JSON",
+      "en": "JSON Formatter"
+    },
+    "description": {
+      "ar": "نسّق وحقق من صحة كود JSON مع إبراز الأخطاء.",
+      "en": "Format and validate JSON code with error highlighting."
+    },
+    "category": "developer-tools",
+    "icon": "Braces",
+    "privacy": "local",
+    "keywords": [
+      "json",
+      "format",
+      "validate",
+      "beautify",
+      "تنسيق",
+      "تحقق",
+      "جسون"
+    ],
+    "component": "JsonFormatter"
+  },
+  {
+    "id": "open-graph-debugger",
+    "slug": "open-graph-debugger",
+    "name": {
+      "ar": "مدقق Open Graph",
+      "en": "Open Graph Debugger"
+    },
+    "description": {
+      "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.",
+      "en": "Check Open Graph tags and diagnose link sharing issues."
+    },
+    "category": "seo-tools",
+    "icon": "Share2",
+    "privacy": "local",
+    "keywords": [
+      "open graph",
+      "og tags",
+      "social sharing",
+      "debug",
+      "أوبن غراف",
+      "مشاركة اجتماعية",
+      "تصحيح"
+    ],
+    "component": "OpenGraphDebugger"
+  },
+  {
+    "id": "text-to-binary",
+    "slug": "text-to-binary",
+    "name": {
+      "ar": "نص إلى ثنائي",
+      "en": "Text to Binary"
+    },
+    "description": {
+      "ar": "حوّل النص إلى كود ثنائي والعكس.",
+      "en": "Convert text to binary code and vice versa."
+    },
+    "category": "utility-tools",
+    "icon": "Binary",
+    "privacy": "local",
+    "keywords": [
+      "binary",
+      "text",
+      "convert",
+      "ثنائي",
+      "نص",
+      "تحويل"
+    ],
+    "component": "TextToBinary"
+  },
+  {
+    "id": "color-picker",
+    "slug": "color-picker",
+    "name": {
+      "ar": "منتقي الألوان",
+      "en": "Color Picker"
+    },
+    "description": {
+      "ar": "اختر ألواناً من الشاشة واحصل على قيمها بتنسيقات مختلفة.",
+      "en": "Pick colors from the screen and get their values in different formats."
+    },
+    "category": "utility-tools",
+    "icon": "Pipette",
+    "privacy": "local",
+    "keywords": [
+      "color",
+      "picker",
+      "palette",
+      "لون",
+      "منتقي",
+      "لوحة ألوان"
+    ],
+    "component": "ColorPicker"
+  },
+  {
+    "id": "world-clock",
+    "slug": "world-clock",
+    "name": {
+      "ar": "الساعة العالمية",
+      "en": "World Clock"
+    },
+    "description": {
+      "ar": "اعرض الوقت الحالي في مدن ومناطق زمنية مختلفة حول العالم.",
+      "en": "Display the current time in different cities and time zones around the world."
+    },
+    "category": "time-tools",
+    "icon": "Clock",
+    "privacy": "local",
+    "keywords": [
+      "world clock",
+      "time zones",
+      "cities",
+      "الساعة العالمية",
+      "مناطق زمنية",
+      "مدن"
+    ],
+    "component": "WorldClock"
+  },
+  {
+    "id": "color-converter",
+    "slug": "color-converter",
+    "name": {
+      "ar": "محول الألوان",
+      "en": "Color Converter"
+    },
+    "description": {
+      "ar": "حوّل الألوان بين تنسيقات HEX و RGB و HSL.",
+      "en": "Convert colors between HEX, RGB, and HSL formats."
+    },
+    "category": "converters",
+    "icon": "Palette",
+    "privacy": "local",
+    "keywords": [
+      "color",
+      "hex",
+      "rgb",
+      "hsl",
+      "لون",
+      "ألوان",
+      "تحويل ألوان"
+    ],
+    "component": "ColorConverter"
+  },
+  {
+    "id": "priority-matrix",
+    "slug": "priority-matrix",
+    "name": {
+      "ar": "مصفوفة الأولويات",
+      "en": "Priority Matrix"
+    },
+    "description": {
+      "ar": "نظّم مهامك حسب الأولوية والاستعجال باستخدام مصفوفة آيزنهاور.",
+      "en": "Organize tasks by priority and urgency using the Eisenhower matrix."
+    },
+    "category": "utility-tools",
+    "icon": "LayoutGrid",
+    "privacy": "local",
+    "keywords": [
+      "priority",
+      "matrix",
+      "eisenhower",
+      "task",
+      "أولوية",
+      "مصفوفة",
+      "آيزنهاور",
+      "مهام"
+    ],
+    "component": "PriorityMatrix"
+  },
+  {
+    "id": "barcode-generator",
+    "slug": "barcode-generator",
+    "name": {
+      "ar": "مولد الباركود",
+      "en": "Barcode Generator"
+    },
+    "description": {
+      "ar": "أنشئ رموز باركود من النصوص والأرقام بتنسيقات مختلفة.",
+      "en": "Generate barcodes from text and numbers in various formats."
+    },
+    "category": "utility-tools",
+    "icon": "Barcode",
+    "privacy": "local",
+    "keywords": [
+      "barcode",
+      "ean",
+      "upc",
+      "code128",
+      "باركود",
+      "رمز شريطي"
+    ],
+    "component": "BarcodeGenerator"
+  },
+  {
+    "id": "uuid-generator",
+    "slug": "uuid-generator",
+    "name": {
+      "ar": "مولد UUID",
+      "en": "UUID Generator"
+    },
+    "description": {
+      "ar": "أنشئ معرفات فريدة عالمية (UUID) للاستخدام في التطبيقات والأنظمة.",
+      "en": "Generate Universally Unique Identifiers (UUID) for use in applications and systems."
+    },
+    "category": "utility-tools",
+    "icon": "Fingerprint",
+    "privacy": "local",
+    "keywords": [
+      "uuid",
+      "unique id",
+      "identifier",
+      "معرف فريد",
+      "مولد",
+      "يو آي دي"
+    ],
+    "component": "UuidGenerator"
+  },
+  {
+    "id": "tip-calculator",
+    "slug": "tip-calculator",
+    "name": {
+      "ar": "حاسبة البقشيش",
+      "en": "Tip Calculator"
+    },
+    "description": {
+      "ar": "احسب مبلغ البقشيش وحصة كل شخص في الفاتورة بسهولة.",
+      "en": "Calculate the tip amount and each person's share of the bill easily."
+    },
+    "category": "calculators",
+    "icon": "Receipt",
+    "privacy": "local",
+    "keywords": [
+      "tip",
+      "bill",
+      "restaurant",
+      "split",
+      "بقشيش",
+      "فاتورة",
+      "مطعم",
+      "تقسيم"
+    ],
+    "component": "TipCalculator"
+  },
+  {
+    "id": "image-cropper",
+    "slug": "image-cropper",
+    "name": {
+      "ar": "قص الصور",
+      "en": "Image Cropper"
+    },
+    "description": {
+      "ar": "قص الصور بالأبعاد والمنطقة التي تريدها.",
+      "en": "Crop images to the dimensions and area you want."
+    },
+    "category": "image-tools",
+    "icon": "Crop",
+    "privacy": "local",
+    "keywords": [
+      "crop",
+      "image",
+      "trim",
+      "قص",
+      "صورة",
+      "تقليم"
+    ],
+    "component": "ImageCropper"
+  },
+  {
+    "id": "text-encoder-decoder",
+    "slug": "text-encoder-decoder",
+    "name": {
+      "ar": "مشفر وفاك تشفير النص",
+      "en": "Text Encoder Decoder"
+    },
+    "description": {
+      "ar": "شفّر وألغِ تشفير النص باستخدام بروتوكولات مختلفة مثل Base64 و URL encoding.",
+      "en": "Encode and decode text using different protocols like Base64 and URL encoding."
+    },
+    "category": "text-tools",
+    "icon": "Lock",
+    "privacy": "local",
+    "keywords": [
+      "encode",
+      "decode",
+      "base64",
+      "url encoding",
+      "تشفير",
+      "فك تشفير",
+      "ترميز"
+    ],
+    "component": "TextEncoderDecoder"
+  },
+  {
+    "id": "citation-generator",
+    "slug": "citation-generator",
+    "name": {
+      "ar": "مولد التوثيق",
+      "en": "Citation Generator"
+    },
+    "description": {
+      "ar": "أنشئ توثيقات أكاديمية بتنسيقات APA و MLA وشيكاغو.",
+      "en": "Generate academic citations in APA, MLA, and Chicago formats."
+    },
+    "category": "student-tools",
+    "icon": "BookOpen",
+    "privacy": "local",
+    "keywords": [
+      "citation",
+      "reference",
+      "bibliography",
+      "APA",
+      "توثيق",
+      "مراجع",
+      "ببليوغرافيا"
+    ],
+    "component": "CitationGenerator"
+  },
+  {
+    "id": "keyword-density-checker",
+    "slug": "keyword-density-checker",
+    "name": {
+      "ar": "مدقق كثافة الكلمات المفتاحية",
+      "en": "Keyword Density Checker"
+    },
+    "description": {
+      "ar": "تحقق من كثافة الكلمات المفتاحية في محتواك لتحسين SEO.",
+      "en": "Check keyword density in your content for SEO optimization."
+    },
+    "category": "seo-tools",
+    "icon": "BarChart3",
+    "privacy": "local",
+    "keywords": [
+      "keyword",
+      "density",
+      "seo",
+      "content",
+      "كلمات مفتاحية",
+      "كثافة",
+      "سيو",
+      "محتوى"
+    ],
+    "component": "KeywordDensityChecker"
+  },
+  {
+    "id": "data-size-converter",
+    "slug": "data-size-converter",
+    "name": {
+      "ar": "محول حجم البيانات",
+      "en": "Data Size Converter"
+    },
+    "description": {
+      "ar": "حوّل بين وحدات البيانات الرقمية مثل البايت والكيلوبايت والميغابايت والجيجابايت.",
+      "en": "Convert between digital data units like bytes, kilobytes, megabytes, and gigabytes."
+    },
+    "category": "converters",
+    "icon": "HardDrive",
+    "privacy": "local",
+    "keywords": [
+      "data size",
+      "bytes",
+      "storage",
+      "حجم بيانات",
+      "بايت",
+      "تخزين"
+    ],
+    "component": "DataSizeConverter"
+  },
+  {
+    "id": "url-shortener",
+    "slug": "url-shortener",
+    "name": {
+      "ar": "مختصر الروابط",
+      "en": "URL Shortener"
+    },
+    "description": {
+      "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.",
+      "en": "Shorten long URLs to make them easier to share."
+    },
+    "category": "utility-tools",
+    "icon": "Link2",
+    "privacy": "local",
+    "keywords": [
+      "url",
+      "shortener",
+      "link",
+      "رابط",
+      "اختصار",
+      "مختصر"
+    ],
+    "component": "UrlShortener"
+  },
+  {
+    "id": "unit-converter",
+    "slug": "unit-converter",
+    "name": {
+      "ar": "محول الوحدات",
+      "en": "Unit Converter"
+    },
+    "description": {
+      "ar": "حوّل بين وحدات القياس المختلفة مثل الطول والوزن والحجم.",
+      "en": "Convert between different measurement units like length, weight, and volume."
+    },
+    "category": "converters",
+    "icon": "Ruler",
+    "privacy": "local",
+    "keywords": [
+      "unit",
+      "measurement",
+      "conversion",
+      "وحدة",
+      "قياس",
+      "تحويل"
+    ],
+    "component": "UnitConverter"
+  },
+  {
+    "id": "scientific-calculator",
+    "slug": "scientific-calculator",
+    "name": {
+      "ar": "آلة حاسبة علمية",
+      "en": "Scientific Calculator"
+    },
+    "description": {
+      "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
+      "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
+    },
+    "category": "calculators",
+    "icon": "FlaskConical",
+    "privacy": "local",
+    "keywords": [
+      "scientific",
+      "trigonometry",
+      "logarithm",
+      "advanced math",
+      "علمية",
+      "مثلثات",
+      "لوغاريتمات"
+    ],
+    "component": "ScientificCalculator"
+  },
+  {
+    "id": "cron-expression-parser",
+    "slug": "cron-expression-parser",
+    "name": {
+      "ar": "محلل تعبيرات Cron",
+      "en": "Cron Expression Parser"
+    },
+    "description": {
+      "ar": "حلل واشرح تعبيرات Cron المجدولة بسهولة.",
+      "en": "Parse and explain scheduled Cron expressions easily."
+    },
+    "category": "developer-tools",
+    "icon": "Clock",
+    "privacy": "local",
+    "keywords": [
+      "cron",
+      "schedule",
+      "expression",
+      "parse",
+      "كرون",
+      "جدولة",
+      "تعبير"
+    ],
+    "component": "CronExpressionParser"
+  },
+  {
+    "id": "student-gpa-calculator",
+    "slug": "student-gpa-calculator",
+    "name": {
+      "ar": "حاسبة المعدل التراكمي للطالب",
+      "en": "Student GPA Calculator"
+    },
+    "description": {
+      "ar": "أداة متكاملة لحساب المعدل التراكمي مع تتبع المواد والفصول الدراسية.",
+      "en": "A comprehensive tool to calculate GPA with course and semester tracking."
+    },
+    "category": "student-tools",
+    "icon": "ClipboardList",
+    "privacy": "local",
+    "keywords": [
+      "gpa",
+      "student",
+      "semester",
+      "courses",
+      "معدل تراكمي",
+      "طالب",
+      "فصل دراسي",
+      "مواد"
+    ],
+    "component": "StudentGpaCalculator"
+  },
+  {
+    "id": "qr-code-generator",
+    "slug": "qr-code-generator",
+    "name": {
+      "ar": "مولد رمز QR",
+      "en": "QR Code Generator"
+    },
+    "description": {
+      "ar": "أنشئ رموز QR من النصوص والروابط ومعلومات الاتصال.",
+      "en": "Generate QR codes from text, URLs, and contact information."
+    },
+    "category": "utility-tools",
+    "icon": "QrCode",
+    "privacy": "local",
+    "keywords": [
+      "qr code",
+      "qr",
+      "scan",
+      "رمز كيو آر",
+      "مسح",
+      "باركود"
+    ],
+    "component": "QrCodeGenerator"
+  },
+  {
+    "id": "pdf-watermark",
+    "slug": "pdf-watermark",
+    "name": {
+      "ar": "علامة مائية PDF",
+      "en": "PDF Watermark"
+    },
+    "description": {
+      "ar": "أضف علامة مائية نصية أو صورية إلى ملف PDF.",
+      "en": "Add a text or image watermark to a PDF file."
+    },
+    "category": "pdf-tools",
+    "icon": "Droplets",
+    "privacy": "local",
+    "keywords": [
+      "pdf",
+      "watermark",
+      "stamp",
+      "علامة مائية",
+      "بي دي إف",
+      "ختم"
+    ],
+    "component": "PdfWatermark"
+  },
+  {
+    "id": "date-difference",
+    "slug": "date-difference",
+    "name": {
+      "ar": "فارق التواريخ",
+      "en": "Date Difference"
+    },
+    "description": {
+      "ar": "احسب الفرق بين تاريخين بالأيام والشهور والسنوات.",
+      "en": "Calculate the difference between two dates in days, months, and years."
+    },
+    "category": "time-tools",
+    "icon": "CalendarRange",
+    "privacy": "local",
+    "keywords": [
+      "date difference",
+      "days between",
+      "date range",
+      "فارق التواريخ",
+      "أيام بين",
+      "نطاق تاريخ"
+    ],
+    "component": "DateDifference"
+  },
+  {
+    "id": "color-palette-extractor",
+    "slug": "color-palette-extractor",
+    "name": {
+      "ar": "مستخرج لوحة الألوان",
+      "en": "Color Palette Extractor"
+    },
+    "description": {
+      "ar": "استخرج لوحة الألوان السائدة من أي صورة.",
+      "en": "Extract the dominant color palette from any image."
+    },
+    "category": "image-tools",
+    "icon": "Palette",
+    "privacy": "local",
+    "keywords": [
+      "color palette",
+      "extract",
+      "dominant colors",
+      "لوحة ألوان",
+      "استخراج",
+      "ألوان سائدة"
+    ],
+    "component": "ColorPaletteExtractor"
+  },
+  {
+    "id": "pdf-rotate",
+    "slug": "pdf-rotate",
+    "name": {
+      "ar": "تدوير PDF",
+      "en": "PDF Rotate"
+    },
+    "description": {
+      "ar": "دوّر صفحات ملف PDF بالزاوية التي تريدها.",
+      "en": "Rotate PDF pages to the angle you need."
+    },
+    "category": "pdf-tools",
+    "icon": "RotateCw",
+    "privacy": "local",
+    "keywords": [
+      "pdf",
+      "rotate",
+      "orientation",
+      "تدوير",
+      "بي دي إف",
+      "اتجاه"
+    ],
+    "component": "PdfRotate"
+  },
+  {
+    "id": "lorem-ipsum-generator",
+    "slug": "lorem-ipsum-generator",
+    "name": {
+      "ar": "مولد نص لوريم إيبسوم",
+      "en": "Lorem Ipsum Generator"
+    },
+    "description": {
+      "ar": "أنشئ نص لوريم إيبسوم نائب للاستخدام في التصميم والنماذج.",
+      "en": "Generate placeholder Lorem Ipsum text for use in design and mockups."
+    },
+    "category": "text-tools",
+    "icon": "AlignLeft",
+    "privacy": "local",
+    "keywords": [
+      "lorem ipsum",
+      "placeholder",
+      "dummy text",
+      "لوريم إيبسوم",
+      "نص نائب",
+      "نص تجريبي"
+    ],
+    "component": "LoremIpsumGenerator"
+  }
+]

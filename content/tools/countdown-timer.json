@@ -1,0 +1,12 @@
+{
+  "id": "countdown-timer",
+  "name": { "ar": "مؤقت تنازلي", "en": "Countdown Timer" },
+  "description": { "ar": "اضبط مؤقتاً تنازلياً لأي مدة زمنية مع تنبيه عند الانتهاء.", "en": "Set a countdown timer for any duration with an alert when it finishes." },
+  "category": "time-tools",
+  "icon": "Hourglass",
+  "privacy": "local",
+  "keywords": ["countdown", "timer", "alarm", "مؤقت تنازلي", "منبه", "عد تنازلي"],
+  "component": "CountdownTimer",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

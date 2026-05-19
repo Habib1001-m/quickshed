@@ -1,0 +1,12 @@
+{
+  "id": "text-to-binary",
+  "name": { "ar": "نص إلى ثنائي", "en": "Text to Binary" },
+  "description": { "ar": "حوّل النص إلى كود ثنائي والعكس.", "en": "Convert text to binary code and vice versa." },
+  "category": "utility-tools",
+  "icon": "Binary",
+  "privacy": "local",
+  "keywords": ["binary", "text", "convert", "ثنائي", "نص", "تحويل"],
+  "component": "TextToBinary",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "line-sorter",
+  "name": { "ar": "فرز الأسطر", "en": "Line Sorter" },
+  "description": { "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات متقدمة.", "en": "Sort text lines alphabetically or in reverse with advanced options." },
+  "category": "utility-tools",
+  "icon": "ArrowDownUp",
+  "privacy": "local",
+  "keywords": ["sort", "lines", "alphabetical", "فرز", "ترتيب", "أبجدي"],
+  "component": "LineSorter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

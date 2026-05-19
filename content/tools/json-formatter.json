@@ -1,0 +1,12 @@
+{
+  "id": "json-formatter",
+  "name": { "ar": "منسق JSON", "en": "JSON Formatter" },
+  "description": { "ar": "نسّق وحقق من صحة كود JSON مع إبراز الأخطاء.", "en": "Format and validate JSON code with error highlighting." },
+  "category": "developer-tools",
+  "icon": "Braces",
+  "privacy": "local",
+  "keywords": ["json", "format", "validate", "beautify", "تنسيق", "تحقق", "جسون"],
+  "component": "JsonFormatter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

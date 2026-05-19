@@ -1,0 +1,12 @@
+{
+  "id": "image-format-converter",
+  "name": { "ar": "محول صيغ الصور", "en": "Image Format Converter" },
+  "description": { "ar": "حوّل الصور بين صيغ مختلفة مثل PNG و JPG و WebP.", "en": "Convert images between different formats like PNG, JPG, and WebP." },
+  "category": "image-tools",
+  "icon": "Image",
+  "privacy": "local",
+  "keywords": ["image", "format", "convert", "png", "jpg", "صورة", "صيغة", "تحويل"],
+  "component": "ImageFormatConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

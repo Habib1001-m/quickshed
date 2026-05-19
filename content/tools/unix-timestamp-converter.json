@@ -1,0 +1,12 @@
+{
+  "id": "unix-timestamp-converter",
+  "name": { "ar": "محول طابع يونكس", "en": "Unix Timestamp Converter" },
+  "description": { "ar": "حوّل بين طابع يونكس الزمني والتاريخ والوقت المقروء.", "en": "Convert between Unix timestamps and human-readable dates and times." },
+  "category": "time-tools",
+  "icon": "Hash",
+  "privacy": "local",
+  "keywords": ["unix", "timestamp", "epoch", "طابع يونكس", "توقيت", "إيبوك"],
+  "component": "UnixTimestampConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

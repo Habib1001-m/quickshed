@@ -1,0 +1,12 @@
+{
+  "id": "temperature-converter",
+  "name": { "ar": "محول درجة الحرارة", "en": "Temperature Converter" },
+  "description": { "ar": "حوّل بين مئوية وفهرنهايت وكلفن بسهولة.", "en": "Easily convert between Celsius, Fahrenheit, and Kelvin." },
+  "category": "converters",
+  "icon": "Thermometer",
+  "privacy": "local",
+  "keywords": ["temperature", "celsius", "fahrenheit", "درجة حرارة", "مئوية", "فهرنهايت"],
+  "component": "TemperatureConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

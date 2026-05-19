@@ -1,0 +1,12 @@
+{
+  "id": "scientific-calculator",
+  "name": { "ar": "آلة حاسبة علمية", "en": "Scientific Calculator" },
+  "description": { "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.", "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations." },
+  "category": "calculators",
+  "icon": "FlaskConical",
+  "privacy": "local",
+  "keywords": ["scientific", "trigonometry", "logarithm", "advanced math", "علمية", "مثلثات", "لوغاريتمات"],
+  "component": "ScientificCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

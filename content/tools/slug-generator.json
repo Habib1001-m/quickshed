@@ -1,0 +1,12 @@
+{
+  "id": "slug-generator",
+  "name": { "ar": "مولد الرابط الودي", "en": "Slug Generator" },
+  "description": { "ar": "أنشئ روابط ودية من أي نص لإعداد عناوين URL ملائمة لمحركات البحث.", "en": "Generate URL-friendly slugs from any text for SEO-friendly URLs." },
+  "category": "text-tools",
+  "icon": "Link",
+  "privacy": "local",
+  "keywords": ["slug", "url", "seo", "permalink", "رابط ودود", "رابط", "سيو"],
+  "component": "SlugGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

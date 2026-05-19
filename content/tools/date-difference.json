@@ -1,0 +1,12 @@
+{
+  "id": "date-difference",
+  "name": { "ar": "فارق التواريخ", "en": "Date Difference" },
+  "description": { "ar": "احسب الفرق بين تاريخين بالأيام والشهور والسنوات.", "en": "Calculate the difference between two dates in days, months, and years." },
+  "category": "time-tools",
+  "icon": "CalendarRange",
+  "privacy": "local",
+  "keywords": ["date difference", "days between", "date range", "فارق التواريخ", "أيام بين", "نطاق تاريخ"],
+  "component": "DateDifference",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

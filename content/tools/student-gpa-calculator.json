@@ -1,0 +1,12 @@
+{
+  "id": "student-gpa-calculator",
+  "name": { "ar": "حاسبة المعدل التراكمي للطالب", "en": "Student GPA Calculator" },
+  "description": { "ar": "أداة متكاملة لحساب المعدل التراكمي مع تتبع المواد والفصول الدراسية.", "en": "A comprehensive tool to calculate GPA with course and semester tracking." },
+  "category": "student-tools",
+  "icon": "ClipboardList",
+  "privacy": "local",
+  "keywords": ["gpa", "student", "semester", "courses", "معدل تراكمي", "طالب", "فصل دراسي", "مواد"],
+  "component": "StudentGpaCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

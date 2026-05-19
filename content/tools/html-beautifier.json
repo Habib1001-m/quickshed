@@ -1,0 +1,12 @@
+{
+  "id": "html-beautifier",
+  "name": { "ar": "محسن HTML", "en": "HTML Beautifier" },
+  "description": { "ar": "نسّق ونسّق كود HTML ليصبح أكثر قابلية للقراءة.", "en": "Format and clean up HTML code for better readability." },
+  "category": "developer-tools",
+  "icon": "FileCode2",
+  "privacy": "local",
+  "keywords": ["html", "beautify", "format", "تنسيق", "تحسين", "أتش تي إم إل"],
+  "component": "HtmlBeautifier",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

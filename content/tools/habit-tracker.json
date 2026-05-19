@@ -1,0 +1,12 @@
+{
+  "id": "habit-tracker",
+  "name": { "ar": "متتبع العادات", "en": "Habit Tracker" },
+  "description": { "ar": "تتبع عاداتك اليومية وابنِ سلاسل منتظمة لتحقيق أهدافك.", "en": "Track your daily habits and build consistent streaks to achieve your goals." },
+  "category": "utility-tools",
+  "icon": "CheckCircle",
+  "privacy": "local",
+  "keywords": ["habit", "tracker", "streak", "daily", "عادة", "تتبع", "سلسلة", "يومي"],
+  "component": "HabitTracker",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

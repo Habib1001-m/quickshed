@@ -1,0 +1,12 @@
+{
+  "id": "math-equation-solver",
+  "name": { "ar": "حل المعادلات الرياضية", "en": "Math Equation Solver" },
+  "description": { "ar": "حل المعادلات الرياضية خطوة بخطوة مع شرح مفصل.", "en": "Solve mathematical equations step by step with detailed explanations." },
+  "category": "student-tools",
+  "icon": "Variable",
+  "privacy": "local",
+  "keywords": ["equation", "solver", "algebra", "math", "معادلة", "حل", "جبر", "رياضيات"],
+  "component": "MathEquationSolver",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

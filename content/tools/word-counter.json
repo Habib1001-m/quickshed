@@ -1,0 +1,12 @@
+{
+  "id": "word-counter",
+  "name": { "ar": "عداد الكلمات", "en": "Word Counter" },
+  "description": { "ar": "احسب عدد الكلمات والحروف والجمل والفقرات في أي نص.", "en": "Count words, characters, sentences, and paragraphs in any text." },
+  "category": "text-tools",
+  "icon": "Type",
+  "privacy": "local",
+  "keywords": ["word count", "character count", "text analysis", "عداد الكلمات", "عدد الحروف", "تحليل النص"],
+  "component": "WordCounter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

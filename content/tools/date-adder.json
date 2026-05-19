@@ -1,0 +1,12 @@
+{
+  "id": "date-adder",
+  "name": { "ar": "إضافة للتاريخ", "en": "Date Adder" },
+  "description": { "ar": "أضف أو أنقص أياماً أو شهوراً أو سنوات من تاريخ معين.", "en": "Add or subtract days, months, or years from a given date." },
+  "category": "time-tools",
+  "icon": "CalendarPlus",
+  "privacy": "local",
+  "keywords": ["date add", "date calculator", "future date", "إضافة تاريخ", "حاسبة تاريخ", "تاريخ مستقبلي"],
+  "component": "DateAdder",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

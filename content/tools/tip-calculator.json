@@ -1,0 +1,12 @@
+{
+  "id": "tip-calculator",
+  "name": { "ar": "حاسبة البقشيش", "en": "Tip Calculator" },
+  "description": { "ar": "احسب مبلغ البقشيش وحصة كل شخص في الفاتورة بسهولة.", "en": "Calculate the tip amount and each person's share of the bill easily." },
+  "category": "calculators",
+  "icon": "Receipt",
+  "privacy": "local",
+  "keywords": ["tip", "bill", "restaurant", "split", "بقشيش", "فاتورة", "مطعم", "تقسيم"],
+  "component": "TipCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

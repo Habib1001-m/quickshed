@@ -1,0 +1,12 @@
+{
+  "id": "citation-generator",
+  "name": { "ar": "مولد التوثيق", "en": "Citation Generator" },
+  "description": { "ar": "أنشئ توثيقات أكاديمية بتنسيقات APA و MLA وشيكاغو.", "en": "Generate academic citations in APA, MLA, and Chicago formats." },
+  "category": "student-tools",
+  "icon": "BookOpen",
+  "privacy": "local",
+  "keywords": ["citation", "reference", "bibliography", "APA", "توثيق", "مراجع", "ببليوغرافيا"],
+  "component": "CitationGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

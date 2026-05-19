@@ -1,0 +1,12 @@
+{
+  "id": "hash-generator",
+  "name": { "ar": "مولد الهاش", "en": "Hash Generator" },
+  "description": { "ar": "أنشئ قيم هاش باستخدام خوارزميات مختلفة مثل MD5 و SHA-256.", "en": "Generate hash values using different algorithms like MD5 and SHA-256." },
+  "category": "developer-tools",
+  "icon": "ShieldCheck",
+  "privacy": "local",
+  "keywords": ["hash", "md5", "sha", "checksum", "هاش", "بصمة", "تشفير"],
+  "component": "HashGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "jwt-decoder",
+  "name": { "ar": "فاك تشفير JWT", "en": "JWT Decoder" },
+  "description": { "ar": "فك تشفير وفحص محتوى رموز JSON Web Tokens.", "en": "Decode and inspect the contents of JSON Web Tokens." },
+  "category": "developer-tools",
+  "icon": "Key",
+  "privacy": "local",
+  "keywords": ["jwt", "token", "decode", "inspect", "رمز", "فك تشفير", "توكن"],
+  "component": "JwtDecoder",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

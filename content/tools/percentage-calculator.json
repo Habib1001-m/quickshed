@@ -1,0 +1,12 @@
+{
+  "id": "percentage-calculator",
+  "name": { "ar": "حاسبة النسبة المئوية", "en": "Percentage Calculator" },
+  "description": { "ar": "أداة لحساب النسب المئوية بسرعة وسهولة، بما في ذلك الزيادة والنقصان والنسبة من رقم.", "en": "A tool to quickly calculate percentages, including increase, decrease, and percentage of a number." },
+  "category": "calculators",
+  "icon": "Percent",
+  "privacy": "local",
+  "keywords": ["percentage", "percent", "ratio", "نسبة مئوية", "نسبة", "مئة"],
+  "component": "PercentageCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

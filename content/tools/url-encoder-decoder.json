@@ -1,0 +1,12 @@
+{
+  "id": "url-encoder-decoder",
+  "name": { "ar": "مشفر وفاك تشفير URL", "en": "URL Encoder Decoder" },
+  "description": { "ar": "شفّر وألغِ تشفير عناوين URL للتعامل مع الأحرف الخاصة.", "en": "Encode and decode URLs to handle special characters." },
+  "category": "security-tools",
+  "icon": "LinkIcon",
+  "privacy": "local",
+  "keywords": ["url", "encode", "decode", "percent encoding", "ترميز", "فك ترميز", "رابط"],
+  "component": "UrlEncoderDecoder",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

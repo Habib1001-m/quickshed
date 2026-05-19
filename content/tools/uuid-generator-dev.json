@@ -1,0 +1,12 @@
+{
+  "id": "uuid-generator-dev",
+  "name": { "ar": "مولد UUID للمطورين", "en": "UUID Generator Dev" },
+  "description": { "ar": "أنشئ معرفات UUID بتنسيقات مختلفة للاستخدام في التطوير.", "en": "Generate UUIDs in different formats for development use." },
+  "category": "developer-tools",
+  "icon": "Hash",
+  "privacy": "local",
+  "keywords": ["uuid", "developer", "unique id", "guid", "معرف فريد", "مطور", "جي آي دي"],
+  "component": "UuidGeneratorDev",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

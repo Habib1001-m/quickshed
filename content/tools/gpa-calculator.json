@@ -1,0 +1,12 @@
+{
+  "id": "gpa-calculator",
+  "name": { "ar": "حاسبة المعدل التراكمي", "en": "GPA Calculator" },
+  "description": { "ar": "احسب معدلك التراكمي بسهولة بإدخال درجاتك وساعاتك لكل مادة.", "en": "Easily calculate your GPA by entering your grades and credit hours for each course." },
+  "category": "calculators",
+  "icon": "GraduationCap",
+  "privacy": "local",
+  "keywords": ["gpa", "grade point average", "grades", "المعدل التراكمي", "درجات", "معدل"],
+  "component": "GpaCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "age-calculator",
+  "name": { "ar": "حاسبة العمر", "en": "Age Calculator" },
+  "description": { "ar": "احسب عمرك بالتفصيل من تاريخ ميلادك، بالسنوات والأشهر والأيام.", "en": "Calculate your exact age in detail from your date of birth, in years, months, and days." },
+  "category": "calculators",
+  "icon": "CalendarDays",
+  "privacy": "local",
+  "keywords": ["age", "birthday", "date of birth", "العمر", "تاريخ الميلاد", "عيد ميلاد"],
+  "component": "AgeCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

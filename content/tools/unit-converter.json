@@ -1,0 +1,12 @@
+{
+  "id": "unit-converter",
+  "name": { "ar": "محول الوحدات", "en": "Unit Converter" },
+  "description": { "ar": "حوّل بين وحدات القياس المختلفة مثل الطول والوزن والحجم.", "en": "Convert between different measurement units like length, weight, and volume." },
+  "category": "converters",
+  "icon": "Ruler",
+  "privacy": "local",
+  "keywords": ["unit", "measurement", "conversion", "وحدة", "قياس", "تحويل"],
+  "component": "UnitConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

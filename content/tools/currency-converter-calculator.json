@@ -1,0 +1,12 @@
+{
+  "id": "currency-converter-calculator",
+  "name": { "ar": "محول العملات", "en": "Currency Converter Calculator" },
+  "description": { "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.", "en": "Convert between different currencies with current exchange rates." },
+  "category": "calculators",
+  "icon": "ArrowLeftRight",
+  "privacy": "local",
+  "keywords": ["currency", "exchange", "conversion", "money", "عملات", "صرف", "تحويل", "نقود"],
+  "component": "CurrencyConverterCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "random-number-generator",
+  "name": { "ar": "مولد الأرقام العشوائية", "en": "Random Number Generator" },
+  "description": { "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.", "en": "Generate random numbers within a specified range with advanced options." },
+  "category": "utility-tools",
+  "icon": "Dice5",
+  "privacy": "local",
+  "keywords": ["random", "number", "dice", "عشوائي", "رقم", "نرد"],
+  "component": "RandomNumberGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

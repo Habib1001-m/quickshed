@@ -1,0 +1,12 @@
+{
+  "id": "cron-expression-parser",
+  "name": { "ar": "محلل تعبيرات Cron", "en": "Cron Expression Parser" },
+  "description": { "ar": "حلل واشرح تعبيرات Cron المجدولة بسهولة.", "en": "Parse and explain scheduled Cron expressions easily." },
+  "category": "developer-tools",
+  "icon": "Clock",
+  "privacy": "local",
+  "keywords": ["cron", "schedule", "expression", "parse", "كرون", "جدولة", "تعبير"],
+  "component": "CronExpressionParser",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "case-converter",
+  "name": { "ar": "محول الحالة", "en": "Case Converter" },
+  "description": { "ar": "حوّل النص بين الحالات المختلفة: كبير، صغير، جملة، عنوان.", "en": "Convert text between different cases: upper, lower, sentence, and title case." },
+  "category": "text-tools",
+  "icon": "CaseSensitive",
+  "privacy": "local",
+  "keywords": ["case", "uppercase", "lowercase", "title case", "حالة", "أحرف كبيرة", "أحرف صغيرة"],
+  "component": "CaseConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

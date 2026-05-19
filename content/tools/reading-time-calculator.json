@@ -1,0 +1,12 @@
+{
+  "id": "reading-time-calculator",
+  "name": { "ar": "حاسبة وقت القراءة", "en": "Reading Time Calculator" },
+  "description": { "ar": "احسب الوقت المقدر لقراءة أي نص بناءً على سرعة القراءة.", "en": "Calculate the estimated reading time for any text based on reading speed." },
+  "category": "student-tools",
+  "icon": "BookOpenCheck",
+  "privacy": "local",
+  "keywords": ["reading time", "reading speed", "estimate", "وقت القراءة", "سرعة القراءة", "تقدير"],
+  "component": "ReadingTimeCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

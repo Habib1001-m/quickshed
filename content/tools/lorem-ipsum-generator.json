@@ -1,0 +1,12 @@
+{
+  "id": "lorem-ipsum-generator",
+  "name": { "ar": "مولد نص لوريم إيبسوم", "en": "Lorem Ipsum Generator" },
+  "description": { "ar": "أنشئ نص لوريم إيبسوم نائب للاستخدام في التصميم والنماذج.", "en": "Generate placeholder Lorem Ipsum text for use in design and mockups." },
+  "category": "text-tools",
+  "icon": "AlignLeft",
+  "privacy": "local",
+  "keywords": ["lorem ipsum", "placeholder", "dummy text", "لوريم إيبسوم", "نص نائب", "نص تجريبي"],
+  "component": "LoremIpsumGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

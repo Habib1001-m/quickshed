@@ -1,0 +1,12 @@
+{
+  "id": "world-clock",
+  "name": { "ar": "الساعة العالمية", "en": "World Clock" },
+  "description": { "ar": "اعرض الوقت الحالي في مدن ومناطق زمنية مختلفة حول العالم.", "en": "Display the current time in different cities and time zones around the world." },
+  "category": "time-tools",
+  "icon": "Clock",
+  "privacy": "local",
+  "keywords": ["world clock", "time zones", "cities", "الساعة العالمية", "مناطق زمنية", "مدن"],
+  "component": "WorldClock",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

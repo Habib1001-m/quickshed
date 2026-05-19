@@ -1,0 +1,12 @@
+{
+  "id": "priority-matrix",
+  "name": { "ar": "مصفوفة الأولويات", "en": "Priority Matrix" },
+  "description": { "ar": "نظّم مهامك حسب الأولوية والاستعجال باستخدام مصفوفة آيزنهاور.", "en": "Organize tasks by priority and urgency using the Eisenhower matrix." },
+  "category": "utility-tools",
+  "icon": "LayoutGrid",
+  "privacy": "local",
+  "keywords": ["priority", "matrix", "eisenhower", "task", "أولوية", "مصفوفة", "آيزنهاور", "مهام"],
+  "component": "PriorityMatrix",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

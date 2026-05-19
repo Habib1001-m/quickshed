@@ -1,0 +1,12 @@
+{
+  "id": "pdf-to-text",
+  "name": { "ar": "تحويل PDF إلى نص", "en": "PDF to Text" },
+  "description": { "ar": "استخرج النص من ملفات PDF بسهولة وسرعة.", "en": "Extract text from PDF files easily and quickly." },
+  "category": "pdf-tools",
+  "icon": "FileSearch",
+  "privacy": "local",
+  "keywords": ["pdf", "text extraction", "ocr", "استخراج نص", "بي دي إف", "نص"],
+  "component": "PdfToText",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

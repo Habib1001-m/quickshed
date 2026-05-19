@@ -1,0 +1,12 @@
+{
+  "id": "loan-calculator",
+  "name": { "ar": "حاسبة القروض", "en": "Loan Calculator" },
+  "description": { "ar": "احسب الأقساط الشهرية وإجمالي الفائدة لأي قرض بسهولة.", "en": "Calculate monthly installments and total interest for any loan easily." },
+  "category": "calculators",
+  "icon": "Banknote",
+  "privacy": "local",
+  "keywords": ["loan", "mortgage", "interest", "installment", "قرض", "رهن", "فائدة", "قسط"],
+  "component": "LoanCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

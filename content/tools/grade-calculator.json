@@ -1,0 +1,12 @@
+{
+  "id": "grade-calculator",
+  "name": { "ar": "حاسبة الدرجات", "en": "Grade Calculator" },
+  "description": { "ar": "احسب درجتك النهائية بناءً على درجات الواجبات والاختبارات وأوزانها.", "en": "Calculate your final grade based on assignment and test scores with weights." },
+  "category": "student-tools",
+  "icon": "Award",
+  "privacy": "local",
+  "keywords": ["grade", "score", "final grade", "درجة", "علامة", "درجة نهائية"],
+  "component": "GradeCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

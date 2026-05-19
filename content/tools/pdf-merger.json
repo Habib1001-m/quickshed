@@ -1,0 +1,12 @@
+{
+  "id": "pdf-merger",
+  "name": { "ar": "دمج ملفات PDF", "en": "PDF Merger" },
+  "description": { "ar": "ادمج عدة ملفات PDF في ملف واحد بسهولة.", "en": "Merge multiple PDF files into one document easily." },
+  "category": "pdf-tools",
+  "icon": "Merge",
+  "privacy": "local",
+  "keywords": ["pdf", "merge", "combine", "دمج", "تجميع", "بي دي إف"],
+  "component": "PdfMerger",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

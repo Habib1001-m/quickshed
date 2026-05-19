@@ -1,0 +1,12 @@
+{
+  "id": "pdf-page-remover",
+  "name": { "ar": "حذف صفحات PDF", "en": "PDF Page Remover" },
+  "description": { "ar": "احذف صفحات محددة من ملف PDF بسهولة.", "en": "Remove specific pages from a PDF file easily." },
+  "category": "pdf-tools",
+  "icon": "Scissors",
+  "privacy": "local",
+  "keywords": ["pdf", "remove pages", "delete", "حذف صفحات", "بي دي إف", "إزالة"],
+  "component": "PdfPageRemover",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

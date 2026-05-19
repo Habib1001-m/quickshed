@@ -1,0 +1,12 @@
+{
+  "id": "text-reverser",
+  "name": { "ar": "عكس النص", "en": "Text Reverser" },
+  "description": { "ar": "اعكس ترتيب أحرف أو كلمات أي نص بسهولة.", "en": "Easily reverse the order of characters or words in any text." },
+  "category": "text-tools",
+  "icon": "ArrowRightLeft",
+  "privacy": "local",
+  "keywords": ["reverse", "flip", "backwards", "عكس", "قلب", "ترتيب عكسي"],
+  "component": "TextReverser",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

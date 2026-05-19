@@ -1,0 +1,12 @@
+{
+  "id": "alarm-creator",
+  "name": { "ar": "منشئ المنبهات", "en": "Alarm Creator" },
+  "description": { "ar": "أنشئ وأدر منبهات متعددة مع أصوات مخصصة.", "en": "Create and manage multiple alarms with custom sounds." },
+  "category": "time-tools",
+  "icon": "Bell",
+  "privacy": "local",
+  "keywords": ["alarm", "reminder", "alert", "منبه", "تذكير", "تنبيه"],
+  "component": "AlarmCreator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

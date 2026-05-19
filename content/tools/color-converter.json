@@ -1,0 +1,12 @@
+{
+  "id": "color-converter",
+  "name": { "ar": "محول الألوان", "en": "Color Converter" },
+  "description": { "ar": "حوّل الألوان بين تنسيقات HEX و RGB و HSL.", "en": "Convert colors between HEX, RGB, and HSL formats." },
+  "category": "converters",
+  "icon": "Palette",
+  "privacy": "local",
+  "keywords": ["color", "hex", "rgb", "hsl", "لون", "ألوان", "تحويل ألوان"],
+  "component": "ColorConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

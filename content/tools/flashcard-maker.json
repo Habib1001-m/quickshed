@@ -1,0 +1,12 @@
+{
+  "id": "flashcard-maker",
+  "name": { "ar": "صانع البطاقات التعليمية", "en": "Flashcard Maker" },
+  "description": { "ar": "أنشئ بطاقات تعليمية للمراجعة والحفظ مع دعم الوجهين.", "en": "Create flashcards for review and memorization with front and back support." },
+  "category": "student-tools",
+  "icon": "Layers",
+  "privacy": "local",
+  "keywords": ["flashcard", "study", "memorize", "review", "بطاقات تعليمية", "مذاكرة", "حفظ", "مراجعة"],
+  "component": "FlashcardMaker",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

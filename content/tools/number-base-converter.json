@@ -1,0 +1,12 @@
+{
+  "id": "number-base-converter",
+  "name": { "ar": "محول أنظمة العد", "en": "Number Base Converter" },
+  "description": { "ar": "حوّل الأرقام بين أنظمة العد المختلفة: ثنائي، ثماني، عشري، وسداسي عشري.", "en": "Convert numbers between different bases: binary, octal, decimal, and hexadecimal." },
+  "category": "converters",
+  "icon": "Binary",
+  "privacy": "local",
+  "keywords": ["binary", "hexadecimal", "octal", "base", "ثنائي", "سداسي عشري", "نظام عد"],
+  "component": "NumberBaseConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

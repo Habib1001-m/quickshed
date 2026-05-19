@@ -1,0 +1,12 @@
+{
+  "id": "text-encoder-decoder",
+  "name": { "ar": "مشفر وفاك تشفير النص", "en": "Text Encoder Decoder" },
+  "description": { "ar": "شفّر وألغِ تشفير النص باستخدام بروتوكولات مختلفة مثل Base64 و URL encoding.", "en": "Encode and decode text using different protocols like Base64 and URL encoding." },
+  "category": "text-tools",
+  "icon": "Lock",
+  "privacy": "local",
+  "keywords": ["encode", "decode", "base64", "url encoding", "تشفير", "فك تشفير", "ترميز"],
+  "component": "TextEncoderDecoder",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

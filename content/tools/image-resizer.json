@@ -1,0 +1,12 @@
+{
+  "id": "image-resizer",
+  "name": { "ar": "تغيير حجم الصور", "en": "Image Resizer" },
+  "description": { "ar": "غيّر حجم الصور مع الحفاظ على الجودة ونسبة العرض إلى الارتفاع.", "en": "Resize images while maintaining quality and aspect ratio." },
+  "category": "image-tools",
+  "icon": "Move",
+  "privacy": "local",
+  "keywords": ["resize", "image", "dimensions", "تغيير حجم", "صورة", "أبعاد"],
+  "component": "ImageResizer",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "morse-code-translator",
+  "name": { "ar": "مترجم شفرة مورس", "en": "Morse Code Translator" },
+  "description": { "ar": "ترجم النص إلى شفرة مورس والعكس.", "en": "Translate text to Morse code and vice versa." },
+  "category": "utility-tools",
+  "icon": "Radio",
+  "privacy": "local",
+  "keywords": ["morse", "code", "translator", "مورس", "شفرة", "ترجمة"],
+  "component": "MorseCodeTranslator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "study-timer",
+  "name": { "ar": "مؤقت المذاكرة", "en": "Study Timer" },
+  "description": { "ar": "تتبع وقت المذاكرة مع تقنيات بومودورو وإحصائيات الجلسات.", "en": "Track study time with Pomodoro techniques and session statistics." },
+  "category": "student-tools",
+  "icon": "Clock4",
+  "privacy": "local",
+  "keywords": ["study timer", "pomodoro", "focus", "مؤقت مذاكرة", "بومودورو", "تركيز"],
+  "component": "StudyTimer",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "serp-simulator",
+  "name": { "ar": "محاكي نتائج البحث", "en": "SERP Simulator" },
+  "description": { "ar": "شاهد كيف سيظهر موقعك في نتائج محركات البحث قبل نشره.", "en": "Preview how your website will appear in search engine results before publishing." },
+  "category": "seo-tools",
+  "icon": "Search",
+  "privacy": "local",
+  "keywords": ["serp", "search results", "preview", "google", "نتائج البحث", "محركات البحث", "معاينة"],
+  "component": "SerpSimulator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

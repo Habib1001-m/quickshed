@@ -1,0 +1,12 @@
+{
+  "id": "sql-formatter",
+  "name": { "ar": "منسق SQL", "en": "SQL Formatter" },
+  "description": { "ar": "نسّق استعلامات SQL لتصبح أكثر قابلية للقراءة والفهم.", "en": "Format SQL queries for better readability and understanding." },
+  "category": "developer-tools",
+  "icon": "Database",
+  "privacy": "local",
+  "keywords": ["sql", "format", "query", "database", "تنسيق", "استعلام", "قاعدة بيانات"],
+  "component": "SqlFormatter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

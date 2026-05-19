@@ -1,0 +1,12 @@
+{
+  "id": "fuel-cost-calculator",
+  "name": { "ar": "حاسبة تكلفة الوقود", "en": "Fuel Cost Calculator" },
+  "description": { "ar": "احسب تكلفة الوقود لرحلتك بناءً على المسافة واستهلاك السيارة.", "en": "Calculate fuel cost for your trip based on distance and vehicle consumption." },
+  "category": "calculators",
+  "icon": "Fuel",
+  "privacy": "local",
+  "keywords": ["fuel", "gas", "trip cost", "mileage", "وقود", "بنزين", "تكلفة الرحلة", "استهلاك"],
+  "component": "FuelCostCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

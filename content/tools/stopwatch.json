@@ -1,0 +1,12 @@
+{
+  "id": "stopwatch",
+  "name": { "ar": "ساعة إيقاف", "en": "Stopwatch" },
+  "description": { "ar": "ساعة إيقاف دقيقة لقياس الوقت بالمللي ثانية مع خاصية اللفات.", "en": "A precise stopwatch to measure time in milliseconds with lap functionality." },
+  "category": "time-tools",
+  "icon": "Timer",
+  "privacy": "local",
+  "keywords": ["stopwatch", "lap", "timing", "ساعة إيقاف", "لفات", "توقيت"],
+  "component": "Stopwatch",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

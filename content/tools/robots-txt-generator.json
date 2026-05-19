@@ -1,0 +1,12 @@
+{
+  "id": "robots-txt-generator",
+  "name": { "ar": "مولد robots.txt", "en": "Robots.txt Generator" },
+  "description": { "ar": "أنشئ ملف robots.txt للتحكم في سلوك عناكب محركات البحث.", "en": "Generate a robots.txt file to control search engine crawler behavior." },
+  "category": "seo-tools",
+  "icon": "Bot",
+  "privacy": "local",
+  "keywords": ["robots.txt", "crawlers", "seo", "bot", "روبوتس", "عناكب", "سيو"],
+  "component": "RobotsTxtGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

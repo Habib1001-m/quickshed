@@ -1,0 +1,12 @@
+{
+  "id": "image-cropper",
+  "name": { "ar": "قص الصور", "en": "Image Cropper" },
+  "description": { "ar": "قص الصور بالأبعاد والمنطقة التي تريدها.", "en": "Crop images to the dimensions and area you want." },
+  "category": "image-tools",
+  "icon": "Crop",
+  "privacy": "local",
+  "keywords": ["crop", "image", "trim", "قص", "صورة", "تقليم"],
+  "component": "ImageCropper",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

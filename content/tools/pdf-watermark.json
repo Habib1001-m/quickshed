@@ -1,0 +1,12 @@
+{
+  "id": "pdf-watermark",
+  "name": { "ar": "علامة مائية PDF", "en": "PDF Watermark" },
+  "description": { "ar": "أضف علامة مائية نصية أو صورية إلى ملف PDF.", "en": "Add a text or image watermark to a PDF file." },
+  "category": "pdf-tools",
+  "icon": "Droplets",
+  "privacy": "local",
+  "keywords": ["pdf", "watermark", "stamp", "علامة مائية", "بي دي إف", "ختم"],
+  "component": "PdfWatermark",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

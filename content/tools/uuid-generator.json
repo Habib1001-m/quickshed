@@ -1,0 +1,12 @@
+{
+  "id": "uuid-generator",
+  "name": { "ar": "مولد UUID", "en": "UUID Generator" },
+  "description": { "ar": "أنشئ معرفات فريدة عالمية (UUID) للاستخدام في التطبيقات والأنظمة.", "en": "Generate Universally Unique Identifiers (UUID) for use in applications and systems." },
+  "category": "utility-tools",
+  "icon": "Fingerprint",
+  "privacy": "local",
+  "keywords": ["uuid", "unique id", "identifier", "معرف فريد", "مولد", "يو آي دي"],
+  "component": "UuidGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

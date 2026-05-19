@@ -1,0 +1,12 @@
+{
+  "id": "color-palette-extractor",
+  "name": { "ar": "مستخرج لوحة الألوان", "en": "Color Palette Extractor" },
+  "description": { "ar": "استخرج لوحة الألوان السائدة من أي صورة.", "en": "Extract the dominant color palette from any image." },
+  "category": "image-tools",
+  "icon": "Palette",
+  "privacy": "local",
+  "keywords": ["color palette", "extract", "dominant colors", "لوحة ألوان", "استخراج", "ألوان سائدة"],
+  "component": "ColorPaletteExtractor",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "pdf-rotate",
+  "name": { "ar": "تدوير PDF", "en": "PDF Rotate" },
+  "description": { "ar": "دوّر صفحات ملف PDF بالزاوية التي تريدها.", "en": "Rotate PDF pages to the angle you need." },
+  "category": "pdf-tools",
+  "icon": "RotateCw",
+  "privacy": "local",
+  "keywords": ["pdf", "rotate", "orientation", "تدوير", "بي دي إف", "اتجاه"],
+  "component": "PdfRotate",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

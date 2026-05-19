@@ -1,0 +1,12 @@
+{
+  "id": "length-converter",
+  "name": { "ar": "محول الطول", "en": "Length Converter" },
+  "description": { "ar": "حوّل بين وحدات الطول المختلفة مثل المتر والقدم والبوصة والياردة.", "en": "Convert between different length units like meters, feet, inches, and yards." },
+  "category": "converters",
+  "icon": "MoveHorizontal",
+  "privacy": "local",
+  "keywords": ["length", "distance", "meter", "feet", "طول", "مسافة", "متر", "قدم"],
+  "component": "LengthConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

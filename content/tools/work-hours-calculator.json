@@ -1,0 +1,12 @@
+{
+  "id": "work-hours-calculator",
+  "name": { "ar": "حاسبة ساعات العمل", "en": "Work Hours Calculator" },
+  "description": { "ar": "احسب ساعات العمل الإجمالية مع مراعاة فترات الراحة.", "en": "Calculate total work hours accounting for break times." },
+  "category": "time-tools",
+  "icon": "Briefcase",
+  "privacy": "local",
+  "keywords": ["work hours", "timesheet", "attendance", "ساعات العمل", "جدول دوام", "حضور"],
+  "component": "WorkHoursCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

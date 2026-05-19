@@ -1,0 +1,12 @@
+{
+  "id": "time-zone-converter",
+  "name": { "ar": "محول المنطقة الزمنية", "en": "Time Zone Converter" },
+  "description": { "ar": "حوّل الوقت بين المناطق الزمنية المختلفة بسهولة.", "en": "Easily convert time between different time zones." },
+  "category": "time-tools",
+  "icon": "Globe",
+  "privacy": "local",
+  "keywords": ["time zone", "convert", "gmt", "المنطقة الزمنية", "تحويل", "توقيت"],
+  "component": "TimeZoneConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "keyword-density-checker",
+  "name": { "ar": "مدقق كثافة الكلمات المفتاحية", "en": "Keyword Density Checker" },
+  "description": { "ar": "تحقق من كثافة الكلمات المفتاحية في محتواك لتحسين SEO.", "en": "Check keyword density in your content for SEO optimization." },
+  "category": "seo-tools",
+  "icon": "BarChart3",
+  "privacy": "local",
+  "keywords": ["keyword", "density", "seo", "content", "كلمات مفتاحية", "كثافة", "سيو", "محتوى"],
+  "component": "KeywordDensityChecker",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

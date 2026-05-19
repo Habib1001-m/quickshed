@@ -1,0 +1,12 @@
+{
+  "id": "meta-tag-generator",
+  "name": { "ar": "مولد العلامات الوصفية", "en": "Meta Tag Generator" },
+  "description": { "ar": "أنشئ علامات Meta الوصفية لتحسين ظهور موقعك في محركات البحث.", "en": "Generate meta tags to improve your website's search engine visibility." },
+  "category": "seo-tools",
+  "icon": "Code2",
+  "privacy": "local",
+  "keywords": ["meta tags", "seo", "html", "keywords", "علامات وصفية", "سيو", "كلمات مفتاحية"],
+  "component": "MetaTagGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

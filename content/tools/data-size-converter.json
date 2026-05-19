@@ -1,0 +1,12 @@
+{
+  "id": "data-size-converter",
+  "name": { "ar": "محول حجم البيانات", "en": "Data Size Converter" },
+  "description": { "ar": "حوّل بين وحدات البيانات الرقمية مثل البايت والكيلوبايت والميغابايت والجيجابايت.", "en": "Convert between digital data units like bytes, kilobytes, megabytes, and gigabytes." },
+  "category": "converters",
+  "icon": "HardDrive",
+  "privacy": "local",
+  "keywords": ["data size", "bytes", "storage", "حجم بيانات", "بايت", "تخزين"],
+  "component": "DataSizeConverter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

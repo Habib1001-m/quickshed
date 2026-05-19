@@ -1,0 +1,12 @@
+{
+  "id": "qr-code-generator",
+  "name": { "ar": "مولد رمز QR", "en": "QR Code Generator" },
+  "description": { "ar": "أنشئ رموز QR من النصوص والروابط ومعلومات الاتصال.", "en": "Generate QR codes from text, URLs, and contact information." },
+  "category": "utility-tools",
+  "icon": "QrCode",
+  "privacy": "local",
+  "keywords": ["qr code", "qr", "scan", "رمز كيو آر", "مسح", "باركود"],
+  "component": "QrCodeGenerator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

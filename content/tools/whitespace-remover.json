@@ -1,0 +1,12 @@
+{
+  "id": "whitespace-remover",
+  "name": { "ar": "إزالة المسافات", "en": "Whitespace Remover" },
+  "description": { "ar": "أزل المسافات الزائدة والفراغات من النص.", "en": "Remove extra spaces and whitespace from text." },
+  "category": "utility-tools",
+  "icon": "ScissorsLineDashed",
+  "privacy": "local",
+  "keywords": ["whitespace", "spaces", "trim", "مسافات", "فراغات", "تنظيف"],
+  "component": "WhitespaceRemover",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

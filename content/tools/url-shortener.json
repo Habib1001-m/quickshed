@@ -1,0 +1,12 @@
+{
+  "id": "url-shortener",
+  "name": { "ar": "مختصر الروابط", "en": "URL Shortener" },
+  "description": { "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.", "en": "Shorten long URLs to make them easier to share." },
+  "category": "utility-tools",
+  "icon": "Link2",
+  "privacy": "local",
+  "keywords": ["url", "shortener", "link", "رابط", "اختصار", "مختصر"],
+  "component": "UrlShortener",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

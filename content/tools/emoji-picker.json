@@ -1,0 +1,12 @@
+{
+  "id": "emoji-picker",
+  "name": { "ar": "منتقي الرموز التعبيرية", "en": "Emoji Picker" },
+  "description": { "ar": "تصفح واختر من آلاف الرموز التعبيرية المنظمة في فئات.", "en": "Browse and choose from thousands of emojis organized in categories." },
+  "category": "utility-tools",
+  "icon": "Smile",
+  "privacy": "local",
+  "keywords": ["emoji", "picker", "emoticon", "رموز تعبيرية", "إيموجي", "وجوه"],
+  "component": "EmojiPicker",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

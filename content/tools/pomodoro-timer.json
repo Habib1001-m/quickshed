@@ -1,0 +1,12 @@
+{
+  "id": "pomodoro-timer",
+  "name": { "ar": "مؤقت بومودورو", "en": "Pomodoro Timer" },
+  "description": { "ar": "نفذ تقنية بومودورو لإدارة الوقت مع فترات عمل وراحة متناوبة.", "en": "Implement the Pomodoro technique for time management with alternating work and break periods." },
+  "category": "utility-tools",
+  "icon": "Tomato",
+  "privacy": "local",
+  "keywords": ["pomodoro", "timer", "focus", "productivity", "بومودورو", "مؤقت", "تركيز", "إنتاجية"],
+  "component": "PomodoroTimer",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

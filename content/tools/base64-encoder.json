@@ -1,0 +1,12 @@
+{
+  "id": "base64-encoder",
+  "name": { "ar": "مشفر Base64", "en": "Base64 Encoder" },
+  "description": { "ar": "شفّر وألغِ تشفير النصوص والملفات باستخدام Base64.", "en": "Encode and decode text and files using Base64." },
+  "category": "developer-tools",
+  "icon": "FileCode",
+  "privacy": "local",
+  "keywords": ["base64", "encode", "decode", "binary", "تشفير", "فك تشفير", "بيس 64"],
+  "component": "Base64Encoder",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

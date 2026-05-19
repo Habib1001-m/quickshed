@@ -1,0 +1,12 @@
+{
+  "id": "salary-calculator",
+  "name": { "ar": "حاسبة الراتب", "en": "Salary Calculator" },
+  "description": { "ar": "احسب راتبك الصافي بعد الخصومات والضرائب.", "en": "Calculate your net salary after deductions and taxes." },
+  "category": "calculators",
+  "icon": "Wallet",
+  "privacy": "local",
+  "keywords": ["salary", "income", "tax", "net pay", "راتب", "دخل", "ضريبة", "صافي"],
+  "component": "SalaryCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

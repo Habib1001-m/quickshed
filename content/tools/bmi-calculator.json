@@ -1,0 +1,12 @@
+{
+  "id": "bmi-calculator",
+  "name": { "ar": "حاسبة مؤشر كتلة الجسم", "en": "BMI Calculator" },
+  "description": { "ar": "احسب مؤشر كتلة جسمك لمعرفة إذا كان وزنك مثالياً أم لا.", "en": "Calculate your Body Mass Index to find out if your weight is in a healthy range." },
+  "category": "calculators",
+  "icon": "Activity",
+  "privacy": "local",
+  "keywords": ["bmi", "body mass index", "weight", "health", "كتلة الجسم", "وزن", "صحة"],
+  "component": "BmiCalculator",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}

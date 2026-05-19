@@ -1,0 +1,12 @@
+{
+  "id": "essay-word-counter",
+  "name": { "ar": "عداد كلمات المقال", "en": "Essay Word Counter" },
+  "description": { "ar": "احسب عدد كلمات مقالك وتحقق من متطلبات الطول الأكاديمية.", "en": "Count your essay words and check academic length requirements." },
+  "category": "student-tools",
+  "icon": "FileText",
+  "privacy": "local",
+  "keywords": ["essay", "word count", "academic writing", "مقال", "عدد كلمات", "كتابة أكاديمية"],
+  "component": "EssayWordCounter",
+  "createdAt": "2026-06-01",
+  "updatedAt": "2026-06-01"
+}
