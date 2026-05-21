@@ -46,7 +46,26 @@
     "yourFavoritesDesc": "أدواتك المفضلة المحفوظة",
     "noFavorites": "لا توجد مفضلات بعد. انقر على أيقونة القلب على أي أداة لإضافتها.",
     "addToFavorites": "إضافة إلى المفضلة",
-    "removeFromFavorites": "إزالة من المفضلة"
+    "removeFromFavorites": "إزالة من المفضلة",
+    "whyQuickShed": "لماذا كويك شيد؟",
+    "toolSpotlight": "أداة مميزة",
+    "tryNow": "جرب الآن",
+    "localProcessing": "معالجة محلية",
+    "requiresConnection": "يحتاج اتصال"
+  },
+  "favorites": {
+    "noFavoritesYet": "لا توجد أدوات مفضلة",
+    "noFavoritesDesc": "اضغط على أيقونة القلب في أي أداة لإضافتها إلى المفضلة",
+    "exploreTools": "استكشف الأدوات",
+    "myFavorites": "أدواتي المفضلة",
+    "savedTools": "{count} أداة محفوظة",
+    "searchPlaceholder": "ابحث في المفضلة...",
+    "noMatchingFavorites": "لا توجد نتائج",
+    "tryDifferentSearch": "جرب مصطلح بحث مختلف",
+    "sortRecent": "المستخدمة مؤخراً",
+    "sortName": "الاسم",
+    "sortCategory": "الفئة",
+    "sortMostUsed": "الأكثر استخداماً"
   },
   "category": {
     "calculators": "الآلات الحاسبة",
@@ -101,7 +120,10 @@
     "copyright": "© ٢٠٢٦ كويك شيد. جميع الحقوق محفوظة.",
     "madeWith": "صُنع بـ",
     "builtForPrivacy": "من أجل الخصوصية",
-    "connect": "تواصل معنا"
+    "connect": "تواصل معنا",
+    "newsletterComingSoon": "النشرة البريدية — قريباً",
+    "newsletterDesc": "سنعلمك بالأدوات الجديدة قريباً. ابقَ على اطلاع!",
+    "comingSoon": "🚀 قريباً"
   },
   "search": {
     "placeholder": "ابحث عن أداة...",
@@ -141,6 +163,13 @@
     "yes": "نعم",
     "no": "لا",
     "all": "الكل",
+    "settings": "الإعدادات",
+    "freeTools": "أداة مجانية",
+    "categoriesCount": "فئة",
+    "free": "مجاني",
+    "backToTop": "العودة للأعلى",
+    "noCollectionsYet": "لا توجد مجموعات بعد",
+    "copyLink": "نسخ الرابط",
     "collection": "مجموعة",
     "collections": "المجموعات",
     "newCollection": "مجموعة جديدة",

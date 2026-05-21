@@ -67,6 +67,8 @@ interface AppState {
   setSearchQuery: (query: string) => void;
   setSearchOpen: (open: boolean) => void;
   hydrateLocale: () => void;
+  initFromURL: (pathname?: string) => void;
+  initFromProps: (view: View, toolId?: string | null, categorySlug?: string | null) => void;
 }
 
 const LOCALE_STORAGE_KEY = 'quickshed-locale';
@@ -213,6 +215,13 @@ function persistCompare(ids: string[]): void {
   }
 }
 
+/** Helper to push browser history state without full navigation */
+function pushURL(url: string) {
+  if (typeof window === 'undefined') return;
+  if (window.location.pathname === url) return;
+  window.history.pushState({}, '', url);
+}
+
 export const useAppStore = create<AppState>((set, get) => ({
   // Navigation
   currentView: 'home',
@@ -343,53 +352,77 @@ export const useAppStore = create<AppState>((set, get) => ({
     return get().compareToolIds.includes(toolId);
   },
 
-  // Actions
-  navigateHome: () =>
+  // Actions — locale-aware navigation with URL updates
+  navigateHome: () => {
+    const locale = get().locale;
+    pushURL(`/${locale}`);
     set({
       currentView: 'home',
       selectedCategory: null,
       selectedTool: null,
       searchQuery: '',
       isSearchOpen: false,
-    }),
+    });
+  },
 
-  navigateToCategory: (categorySlug: string) =>
+  navigateToCategory: (categorySlug: string) => {
+    const locale = get().locale;
+    pushURL(`/${locale}/category/${categorySlug}`);
     set({
       currentView: 'category',
       selectedCategory: categorySlug,
       selectedTool: null,
       searchQuery: '',
       isSearchOpen: false,
-    }),
+    });
+  },
 
-  navigateToTool: (toolId: string) =>
+  navigateToTool: (toolId: string) => {
+    const locale = get().locale;
+    pushURL(`/${locale}/tools/${toolId}`);
     set({
       currentView: 'tool',
       selectedTool: toolId,
       searchQuery: '',
       isSearchOpen: false,
-    }),
+    });
+  },
 
-  navigateToAllTools: () =>
+  navigateToAllTools: () => {
+    const locale = get().locale;
+    pushURL(`/${locale}/all-tools`);
     set({
       currentView: 'all-tools',
       selectedCategory: null,
       selectedTool: null,
       searchQuery: '',
       isSearchOpen: false,
-    }),
+    });
+  },
 
-  navigateToFavorites: () =>
+  navigateToFavorites: () => {
+    const locale = get().locale;
+    pushURL(`/${locale}/favorites`);
     set({
       currentView: 'favorites',
       selectedCategory: null,
       selectedTool: null,
       searchQuery: '',
       isSearchOpen: false,
-    }),
+    });
+  },
 
   setLocale: (locale: Locale) => {
     persistLocale(locale);
+    // Update URL to reflect new locale
+    if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname;
+      const pathWithoutLocale = currentPath.replace(/^\/(en|ar)/, '') || '/';
+      const newPath = `/${locale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
+      if (currentPath !== newPath) {
+        window.history.replaceState({}, '', newPath);
+      }
+    }
     set({ locale });
   },
 
@@ -413,6 +446,60 @@ export const useAppStore = create<AppState>((set, get) => ({
       collections: storedCollections,
       compareToolIds: storedCompare,
       isHydrated: true,
+    });
+  },
+
+  // Initialize navigation state from the current browser URL
+  initFromURL: (pathname?: string) => {
+    if (typeof window === 'undefined') return;
+    const path = pathname || window.location.pathname;
+
+    // Extract locale from URL
+    const localeMatch = path.match(/^\/(en|ar)(?:\/|$)/);
+    if (localeMatch) {
+      const urlLocale = localeMatch[1];
+      if (urlLocale !== get().locale) {
+        persistLocale(urlLocale as Locale);
+        set({ locale: urlLocale as Locale });
+      }
+    }
+
+    const pathWithoutLocale = path.replace(/^\/(en|ar)/, '') || '/';
+
+    const toolMatch = pathWithoutLocale.match(/^\/tools\/([^/]+)$/);
+    if (toolMatch) {
+      set({ currentView: 'tool', selectedTool: toolMatch[1], selectedCategory: null, searchQuery: '', isSearchOpen: false });
+      return;
+    }
+
+    const categoryMatch = pathWithoutLocale.match(/^\/category\/([^/]+)$/);
+    if (categoryMatch) {
+      set({ currentView: 'category', selectedCategory: categoryMatch[1], selectedTool: null, searchQuery: '', isSearchOpen: false });
+      return;
+    }
+
+    if (pathWithoutLocale === '/all-tools') {
+      set({ currentView: 'all-tools', selectedCategory: null, selectedTool: null, searchQuery: '', isSearchOpen: false });
+      return;
+    }
+
+    if (pathWithoutLocale === '/favorites') {
+      set({ currentView: 'favorites', selectedCategory: null, selectedTool: null, searchQuery: '', isSearchOpen: false });
+      return;
+    }
+
+    // Default: home
+    set({ currentView: 'home', selectedCategory: null, selectedTool: null, searchQuery: '', isSearchOpen: false });
+  },
+
+  // Initialize navigation state from server component props
+  initFromProps: (view: View, toolId?: string | null, categorySlug?: string | null) => {
+    set({
+      currentView: view,
+      selectedTool: toolId ?? null,
+      selectedCategory: categorySlug ?? null,
+      searchQuery: '',
+      isSearchOpen: false,
     });
   },
 }));

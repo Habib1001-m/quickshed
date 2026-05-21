@@ -62,7 +62,6 @@ const toolComponentMap: Record<string, ComponentType<ToolProps>> = {
   StudentGpaCalculator: dynamic(() => import('./StudentGpaCalculator')),
   GradeCalculator: dynamic(() => import('./GradeCalculator')),
   ReadingTimeCalculator: dynamic(() => import('./ReadingTimeCalculator')),
-  PlagarismChecker: dynamic(() => import('./PlagarismChecker')),
   PlagiarismChecker: dynamic(() => import('./PlagiarismChecker')),
   MathEquationSolver: dynamic(() => import('./MathEquationSolver')),
   NoteOrganizer: dynamic(() => import('./NoteOrganizer')),

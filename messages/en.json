@@ -46,7 +46,26 @@
     "yourFavoritesDesc": "Your saved favorite tools",
     "noFavorites": "No favorites yet. Click the heart icon on any tool to add it.",
     "addToFavorites": "Add to favorites",
-    "removeFromFavorites": "Remove from favorites"
+    "removeFromFavorites": "Remove from favorites",
+    "whyQuickShed": "Why QuickShed?",
+    "toolSpotlight": "Tool Spotlight",
+    "tryNow": "Try Now",
+    "localProcessing": "Local Processing",
+    "requiresConnection": "Requires Connection"
+  },
+  "favorites": {
+    "noFavoritesYet": "No Favorite Tools Yet",
+    "noFavoritesDesc": "Click the heart icon on any tool to add it to your favorites for quick access",
+    "exploreTools": "Explore Tools",
+    "myFavorites": "My Favorites",
+    "savedTools": "{count} saved tools",
+    "searchPlaceholder": "Search favorites...",
+    "noMatchingFavorites": "No matching favorites",
+    "tryDifferentSearch": "Try a different search term",
+    "sortRecent": "Recently Used",
+    "sortName": "Name",
+    "sortCategory": "Category",
+    "sortMostUsed": "Most Used"
   },
   "category": {
     "calculators": "Calculators",
@@ -101,7 +120,10 @@
     "copyright": "© 2026 QuickShed. All rights reserved.",
     "madeWith": "Built with",
     "builtForPrivacy": "for privacy",
-    "connect": "Connect"
+    "connect": "Connect",
+    "newsletterComingSoon": "Newsletter — Coming Soon",
+    "newsletterDesc": "We'll notify you when new tools drop. Stay tuned!",
+    "comingSoon": "🚀 Coming Soon"
   },
   "search": {
     "placeholder": "Search tools...",
@@ -141,6 +163,13 @@
     "yes": "Yes",
     "no": "No",
     "all": "All",
+    "settings": "Settings",
+    "freeTools": "Free Tools",
+    "categoriesCount": "Categories",
+    "free": "Free",
+    "backToTop": "Back to top",
+    "noCollectionsYet": "No collections yet",
+    "copyLink": "Copy Link",
     "collection": "Collection",
     "collections": "Collections",
     "newCollection": "New Collection",

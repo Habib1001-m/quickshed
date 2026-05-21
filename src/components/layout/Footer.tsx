@@ -69,7 +69,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-2xl font-bold gradient-text">{allTools.length}+</p>
-                <p className="text-xs text-muted-foreground font-medium">{locale === 'ar' ? 'أداة مجانية' : 'Free Tools'}</p>
+                <p className="text-xs text-muted-foreground font-medium">{t('common.freeTools')}</p>
               </div>
             </div>
             <div className="stat-card footer-stat-lift flex flex-col items-center gap-2 text-center rounded-2xl p-4">
@@ -78,7 +78,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-2xl font-bold gradient-text">{categories.length}</p>
-                <p className="text-xs text-muted-foreground font-medium">{locale === 'ar' ? 'فئة' : 'Categories'}</p>
+                <p className="text-xs text-muted-foreground font-medium">{t('common.categoriesCount')}</p>
               </div>
             </div>
             <div className="stat-card footer-stat-lift flex flex-col items-center gap-2 text-center rounded-2xl p-4">
@@ -87,7 +87,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-2xl font-bold gradient-text">100%</p>
-                <p className="text-xs text-muted-foreground font-medium">{locale === 'ar' ? 'مجاني' : 'Free'}</p>
+                <p className="text-xs text-muted-foreground font-medium">{t('common.free')}</p>
               </div>
             </div>
             <div className="stat-card footer-stat-lift flex flex-col items-center gap-2 text-center rounded-2xl p-4">
@@ -96,7 +96,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-2xl font-bold gradient-text">{localTools}%</p>
-                <p className="text-xs text-muted-foreground font-medium">{locale === 'ar' ? 'محلي' : 'Local'}</p>
+                <p className="text-xs text-muted-foreground font-medium">{t('tool.privacyLocalShort')}</p>
               </div>
             </div>
           </div>
@@ -110,18 +110,15 @@ export default function Footer() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-foreground">
-                    {locale === 'ar' ? 'النشرة البريدية — قريباً' : 'Newsletter — Coming Soon'}
+                    {t('footer.newsletterComingSoon')}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    {locale === 'ar'
-                      ? 'سنعلمك بالأدوات الجديدة قريباً. ابقَ على اطلاع!'
-                      : 'We\'ll notify you when new tools drop. Stay tuned!'
-                    }
+                    {t('footer.newsletterDesc')}
                   </p>
                 </div>
               </div>
               <span className="shrink-0 text-xs font-medium px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 coming-soon-shimmer">
-                {locale === 'ar' ? '🚀 قريباً' : '🚀 Coming Soon'}
+                {t('footer.comingSoon')}
               </span>
             </div>
           </div>
@@ -204,7 +201,7 @@ export default function Footer() {
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-red-500 dark:hover:text-red-400 transition-colors duration-200"
                   >
                     <Star className="h-3.5 w-3.5" />
-                    {locale === 'ar' ? 'المفضلة' : 'Favorites'}
+                    {t('common.favorites')}
                     {favorites.length > 0 && (
                       <span className="text-[10px] font-bold text-red-500">({favorites.length})</span>
                     )}
@@ -301,7 +298,7 @@ export default function Footer() {
                 className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-emerald-500 transition-colors micro-bounce"
               >
                 <ArrowUp className="size-3" />
-                {locale === 'ar' ? 'العودة للأعلى' : 'Back to top'}
+                {t('common.backToTop')}
               </button>
               <p className="text-xs text-muted-foreground flex items-center gap-1">
                 {t('footer.madeWith')} <Heart className="size-3 text-emerald-500 fill-emerald-500" /> {t('footer.builtForPrivacy')}

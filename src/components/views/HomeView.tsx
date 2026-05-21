@@ -24,6 +24,7 @@ import { ToolHistoryTimeline } from '@/components/ToolHistoryTimeline';
 import { SmartRecommendations } from '@/components/SmartRecommendations';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { getCategoryColor } from '@/lib/category-config';
 
 // ─── Feature card data ──────────────────────────────────────────────
 
@@ -77,14 +78,14 @@ const ACCENT_BORDER_COLORS: Record<string, string> = {
   orange: '#f97316',
 };
 
-// ─── Stats items ────────────────────────────────────────────────────
+// ─── Stats items (values computed dynamically inside component) ──
 
-const STATS = [
-  { key: 'home.statsTools', icon: Wrench, value: 90 },
-  { key: 'home.statsCategories', icon: LayoutGrid, value: 11 },
-  { key: 'home.statsFree', icon: Heart, value: 100 },
-  { key: 'home.statsPrivacy', icon: Lock, value: 100 },
-] as const;
+const STATS_CONFIG = [
+  { key: 'home.statsTools', icon: Wrench, type: 'tools' as const },
+  { key: 'home.statsCategories', icon: LayoutGrid, type: 'categories' as const },
+  { key: 'home.statsFree', icon: Heart, type: 'free' as const },
+  { key: 'home.statsPrivacy', icon: Lock, type: 'privacy' as const },
+];
 
 // ─── Category example tools ────────────────────────────────────────
 
@@ -157,20 +158,7 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.06 } },
 };
 
-// Category color mapping for recently used mini cards
-const CATEGORY_COLORS: Record<string, string> = {
-  calculators: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-  'time-tools': 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-  'text-tools': 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-  converters: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-  'student-tools': 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-  'pdf-tools': 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-  'utility-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-  'seo-tools': 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-  'developer-tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-  'image-tools': 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-  'security-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-};
+// Category colors are now imported from @/lib/category-config
 
 // ─── Animated Number Counter ────────────────────────────────────────
 
@@ -232,6 +220,19 @@ export function HomeView() {
   const featuredTools = useMemo(() => getDiverseFeaturedTools(8), []);
   const spotlightTool = useMemo(() => getDiverseFeaturedTools(1)[0], []);
 
+  // Hero search
+  const allTools = useMemo(() => getAllTools(), []);
+
+  // Dynamic stats computed from actual data
+  const stats = useMemo(() => {
+    const toolsCount = allTools.length;
+    const categoriesCount = categories.length;
+    return STATS_CONFIG.map((s) => ({
+      ...s,
+      value: s.type === 'tools' ? toolsCount : s.type === 'categories' ? categoriesCount : 100,
+    }));
+  }, [allTools, categories]);
+
   // Resolve recent tool descriptors
   const recentToolDescriptors = useMemo(() => {
     return recentTools
@@ -246,8 +247,7 @@ export function HomeView() {
       .filter(Boolean) as ReturnType<typeof getToolById>[];
   }, [favorites]);
 
-  // Hero search
-  const allTools = useMemo(() => getAllTools(), []);
+  // Hero search state
   const [heroQuery, setHeroQuery] = useState('');
   const [heroResults, setHeroResults] = useState<typeof allTools>([]);
   const [heroSearchOpen, setHeroSearchOpen] = useState(false);
@@ -350,7 +350,7 @@ export function HomeView() {
             <motion.div variants={fadeUp} custom={0} className="hero-badge-float">
               <span className="floating-label text-sm font-bold shadow-lg shadow-emerald-500/15 dark:shadow-emerald-500/25 px-4 py-1.5 gap-2">
                 <span className="size-3 rounded-full bg-emerald-500 animate-pulse-ring" />
-                <AnimatedCounter value={90} suffix="+ " />
+                <AnimatedCounter value={allTools.length} suffix="+ " />
                 {t('home.statsTools', { count: '' }).replace(/\d+\+?\s*/, '')}
               </span>
             </motion.div>
@@ -460,7 +460,7 @@ export function HomeView() {
               custom={4}
               className="mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6"
             >
-              {STATS.map((stat, i) => (
+              {stats.map((stat, i) => (
                 <div key={stat.key} className="stat-card flex flex-col items-center gap-1 rounded-xl px-6 py-4">
                   <div className="flex size-9 items-center justify-center rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 mb-1">
                     <stat.icon className="size-4 text-emerald-500 dark:text-emerald-400" />
@@ -487,7 +487,7 @@ export function HomeView() {
             className="text-center mb-10"
           >
             <h2 className="text-2xl md:text-3xl font-bold gradient-text section-heading">
-              {locale === 'ar' ? 'لماذا كويك شيد؟' : 'Why QuickShed?'}
+              {t('home.whyQuickShed')}
             </h2>
           </motion.div>
           <motion.div
@@ -581,7 +581,7 @@ export function HomeView() {
             </div>
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
               {recentToolDescriptors.map((tool) => {
-                const colorClass = CATEGORY_COLORS[tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+                const colorClass = getCategoryColor(tool.category).icon;
                 return (
                   <button
                     key={tool.id}
@@ -701,7 +701,7 @@ export function HomeView() {
             >
               <Star className="size-5 text-emerald-500" />
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                {locale === 'ar' ? 'أداة مميزة' : 'Tool Spotlight'}
+                {t('home.toolSpotlight')}
               </h2>
             </motion.div>
 
@@ -741,13 +741,13 @@ export function HomeView() {
                       className="gap-2 rounded-full px-10 h-13 text-base bg-emerald-500 hover:bg-emerald-600 text-white shadow-xl shadow-emerald-500/30 micro-bounce glow-focus"
                     >
                       <Zap className="size-5" />
-                      {locale === 'ar' ? 'جرب الآن' : 'Try Now'}
+                      {t('home.tryNow')}
                     </Button>
                     <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
                       <Shield className="size-3.5 text-emerald-500" />
                       {spotlightTool.privacy === 'local'
-                        ? (locale === 'ar' ? 'معالجة محلية' : 'Local Processing')
-                        : (locale === 'ar' ? 'يحتاج اتصال' : 'Requires Connection')
+                        ? t('home.localProcessing')
+                        : t('home.requiresConnection')
                       }
                     </span>
                   </div>
@@ -843,34 +843,7 @@ interface EnhancedCategoryCardProps {
   examples: string[];
 }
 
-// Category-specific colors for tool count badge and example pills
-const CATEGORY_BADGE_COLORS: Record<string, string> = {
-  calculators: 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300',
-  'time-tools': 'bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300',
-  'text-tools': 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300',
-  converters: 'bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300',
-  'student-tools': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
-  'pdf-tools': 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300',
-  'utility-tools': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
-  'seo-tools': 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300',
-  'developer-tools': 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/50 dark:text-cyan-300',
-  'image-tools': 'bg-pink-100 text-pink-700 dark:bg-pink-900/50 dark:text-pink-300',
-  'security-tools': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
-};
-
-const CATEGORY_PILL_HOVER: Record<string, string> = {
-  calculators: 'group-hover:bg-violet-200/60 group-hover:text-violet-800 dark:group-hover:bg-violet-900/30 dark:group-hover:text-violet-300',
-  'time-tools': 'group-hover:bg-sky-200/60 group-hover:text-sky-800 dark:group-hover:bg-sky-900/30 dark:group-hover:text-sky-300',
-  'text-tools': 'group-hover:bg-rose-200/60 group-hover:text-rose-800 dark:group-hover:bg-rose-900/30 dark:group-hover:text-rose-300',
-  converters: 'group-hover:bg-teal-200/60 group-hover:text-teal-800 dark:group-hover:bg-teal-900/30 dark:group-hover:text-teal-300',
-  'student-tools': 'group-hover:bg-amber-200/60 group-hover:text-amber-800 dark:group-hover:bg-amber-900/30 dark:group-hover:text-amber-300',
-  'pdf-tools': 'group-hover:bg-red-200/60 group-hover:text-red-800 dark:group-hover:bg-red-900/30 dark:group-hover:text-red-300',
-  'utility-tools': 'group-hover:bg-emerald-200/60 group-hover:text-emerald-800 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-300',
-  'seo-tools': 'group-hover:bg-orange-200/60 group-hover:text-orange-800 dark:group-hover:bg-orange-900/30 dark:group-hover:text-orange-300',
-  'developer-tools': 'group-hover:bg-cyan-200/60 group-hover:text-cyan-800 dark:group-hover:bg-cyan-900/30 dark:group-hover:text-cyan-300',
-  'image-tools': 'group-hover:bg-pink-200/60 group-hover:text-pink-800 dark:group-hover:bg-pink-900/30 dark:group-hover:text-pink-300',
-  'security-tools': 'group-hover:bg-emerald-200/60 group-hover:text-emerald-800 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-300',
-};
+// Category colors are now imported from @/lib/category-config
 
 function EnhancedCategoryCard({ category, examples }: EnhancedCategoryCardProps) {
   const { t, locale } = useI18n();
@@ -891,39 +864,11 @@ function EnhancedCategoryCard({ category, examples }: EnhancedCategoryCardProps)
     }
   };
 
-  // Category-specific gradient border
-  const borderColors: Record<string, string> = {
-    calculators: 'hover:border-violet-400 dark:hover:border-violet-600',
-    'time-tools': 'hover:border-sky-400 dark:hover:border-sky-600',
-    'text-tools': 'hover:border-rose-400 dark:hover:border-rose-600',
-    converters: 'hover:border-teal-400 dark:hover:border-teal-600',
-    'student-tools': 'hover:border-amber-400 dark:hover:border-amber-600',
-    'pdf-tools': 'hover:border-red-400 dark:hover:border-red-600',
-    'utility-tools': 'hover:border-emerald-400 dark:hover:border-emerald-600',
-    'seo-tools': 'hover:border-orange-400 dark:hover:border-orange-600',
-    'developer-tools': 'hover:border-cyan-400 dark:hover:border-cyan-600',
-    'image-tools': 'hover:border-pink-400 dark:hover:border-pink-600',
-    'security-tools': 'hover:border-emerald-400 dark:hover:border-emerald-600',
-  };
-
-  const hoverShadow: Record<string, string> = {
-    calculators: 'hover:shadow-violet-500/10',
-    'time-tools': 'hover:shadow-sky-500/10',
-    'text-tools': 'hover:shadow-rose-500/10',
-    converters: 'hover:shadow-teal-500/10',
-    'student-tools': 'hover:shadow-amber-500/10',
-    'pdf-tools': 'hover:shadow-red-500/10',
-    'utility-tools': 'hover:shadow-emerald-500/10',
-    'seo-tools': 'hover:shadow-orange-500/10',
-    'developer-tools': 'hover:shadow-cyan-500/10',
-    'image-tools': 'hover:shadow-pink-500/10',
-    'security-tools': 'hover:shadow-emerald-500/10',
-  };
-
-  const borderHover = borderColors[category.slug] || 'hover:border-emerald-400';
-  const shadowHover = hoverShadow[category.slug] || 'hover:shadow-emerald-500/10';
-  const badgeColor = CATEGORY_BADGE_COLORS[category.slug] || 'bg-muted text-muted-foreground';
-  const pillHover = CATEGORY_PILL_HOVER[category.slug] || 'group-hover:bg-emerald-200/60 group-hover:text-emerald-800 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-300';
+  const colors = getCategoryColor(category.slug);
+  const borderHover = colors.borderHover;
+  const shadowHover = colors.shadow;
+  const badgeColor = colors.badge;
+  const pillHover = colors.pillHover;
 
   return (
     <div

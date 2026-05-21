@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { getCategoryColor } from '@/lib/category-config';
 
 interface ToolCompareProps {
   open: boolean;
@@ -85,23 +86,6 @@ export function ToolCompare({ open, onOpenChange }: ToolCompareProps) {
     },
     [onOpenChange, clearCompare]
   );
-
-  // Category accent colors for icons
-  const CATEGORY_ACCENT: Record<string, string> = {
-    calculators: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-    'time-tools': 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-    'text-tools': 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-    converters: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-    'student-tools': 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-    'pdf-tools': 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-    'utility-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-    'seo-tools': 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-    'developer-tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-    'image-tools': 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-    'security-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-  };
-
-  const defaultAccent = 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -168,7 +152,7 @@ export function ToolCompare({ open, onOpenChange }: ToolCompareProps) {
                           hover:bg-emerald-50 hover:border-emerald-500/30 dark:hover:bg-emerald-950/20
                           transition-colors text-start"
                       >
-                        <div className={`flex size-7 shrink-0 items-center justify-center rounded-md ${CATEGORY_ACCENT[tool.category] || defaultAccent}`}>
+                        <div className={`flex size-7 shrink-0 items-center justify-center rounded-md ${getCategoryColor(tool.category).icon}`}>
                           <DynamicIcon name={tool.icon} className="size-3.5" />
                         </div>
                         <span className="truncate text-foreground">{localize(tool.name, locale)}</span>
@@ -191,7 +175,7 @@ export function ToolCompare({ open, onOpenChange }: ToolCompareProps) {
                     {selectedTools.map((tool) => (
                       <th key={tool.id} className="p-3 border-b min-w-[180px]">
                         <div className="flex items-center gap-2">
-                          <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg ${CATEGORY_ACCENT[tool.category] || defaultAccent}`}>
+                          <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg ${getCategoryColor(tool.category).icon}`}>
                             <DynamicIcon name={tool.icon} className="size-4" />
                           </div>
                           <span className="font-semibold text-foreground text-sm truncate">

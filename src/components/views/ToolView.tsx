@@ -35,38 +35,7 @@ import { getToolComponent, ToolRenderer } from '@/components/tools';
 import { ShareTool } from '@/components/ShareTool';
 import { ToolRating } from '@/components/ToolRating';
 import { ScrollProgress } from '@/components/ScrollProgress';
-
-// Category accent colors for the header icon
-const CATEGORY_ACCENT: Record<string, string> = {
-  calculators: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-  'time-tools': 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-  'text-tools': 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-  converters: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-  'student-tools': 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-  'pdf-tools': 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-  'utility-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-  'seo-tools': 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-  'developer-tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-  'image-tools': 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-  'security-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-};
-
-// Category gradient for header background
-const CATEGORY_GRADIENT: Record<string, { from: string; to: string }> = {
-  calculators: { from: 'from-violet-500/12', to: 'to-violet-400/5' },
-  'time-tools': { from: 'from-sky-500/12', to: 'to-sky-400/5' },
-  'text-tools': { from: 'from-rose-500/12', to: 'to-rose-400/5' },
-  converters: { from: 'from-teal-500/12', to: 'to-teal-400/5' },
-  'student-tools': { from: 'from-amber-500/12', to: 'to-amber-400/5' },
-  'pdf-tools': { from: 'from-red-500/12', to: 'to-red-400/5' },
-  'utility-tools': { from: 'from-emerald-500/12', to: 'to-emerald-400/5' },
-  'seo-tools': { from: 'from-orange-500/12', to: 'to-orange-400/5' },
-  'developer-tools': { from: 'from-cyan-500/12', to: 'to-cyan-400/5' },
-  'image-tools': { from: 'from-pink-500/12', to: 'to-pink-400/5' },
-  'security-tools': { from: 'from-emerald-500/12', to: 'to-emerald-400/5' },
-};
-
-const DEFAULT_GRADIENT = { from: 'from-gray-500/12', to: 'to-gray-400/5' };
+import { getCategoryColor } from '@/lib/category-config';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -87,7 +56,7 @@ function ToolPlaceholder({ tool }: { tool: ToolDescriptor }) {
   const { t, locale } = useI18n();
   const toolName = localize(tool.name, locale);
   const toolDescription = localize(tool.description, locale);
-  const accentClass = CATEGORY_ACCENT[tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+  const accentClass = getCategoryColor(tool.category).icon;
 
   return (
     <Card className="border-dashed">
@@ -172,7 +141,7 @@ function ToolContent({ tool }: { tool: ToolDescriptor }) {
 function CompactToolCard({ tool }: { tool: ToolDescriptor }) {
   const { locale } = useI18n();
   const navigateToTool = useAppStore((s) => s.navigateToTool);
-  const accentClass = CATEGORY_ACCENT[tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+  const accentClass = getCategoryColor(tool.category).icon;
   const toolName = localize(tool.name, locale);
 
   return (
@@ -272,8 +241,8 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
           <Copy className="size-3.5" />
         )}
         {linkCopied
-          ? (locale === 'ar' ? 'تم النسخ!' : 'Copied!')
-          : (locale === 'ar' ? 'نسخ الرابط' : 'Copy Link')
+          ? t('tool.copied')
+          : t('common.copyLink')
         }
       </Button>
 
@@ -320,7 +289,7 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
               </div>
             ) : (
               <p className="text-xs text-muted-foreground py-2">
-                {locale === 'ar' ? 'لا توجد مجموعات بعد' : 'No collections yet'}
+                {t('common.noCollectionsYet')}
               </p>
             )}
 
@@ -412,8 +381,9 @@ export function ToolView() {
   const toolName = localize(tool.name, locale);
   const toolDescription = localize(tool.description, locale);
   const categoryName = category ? localize(category.name, locale) : getCategoryName(tool.category, locale);
-  const accentClass = CATEGORY_ACCENT[tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
-  const gradient = CATEGORY_GRADIENT[tool.category] || DEFAULT_GRADIENT;
+  const colors = getCategoryColor(tool.category);
+  const accentClass = colors.icon;
+  const gradient = colors.gradient;
 
   return (
     <div dir={isRtl ? 'rtl' : 'ltr'}>

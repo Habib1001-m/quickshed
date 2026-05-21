@@ -15,21 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import Fuse from 'fuse.js';
-
-// Category color mapping
-const CATEGORY_COLORS: Record<string, string> = {
-  calculators: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-  'time-tools': 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-  'text-tools': 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-  converters: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-  'student-tools': 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-  'pdf-tools': 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-  'utility-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-  'seo-tools': 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-  'developer-tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-  'image-tools': 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-  'security-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-};
+import { getCategoryColor } from '@/lib/category-config';
 
 type SortMode = 'recent' | 'name' | 'category' | 'most-used';
 type ViewMode = 'grid' | 'list';
@@ -139,11 +125,11 @@ export function FavoritesView() {
     return getCategories().filter((c) => cats.has(c.slug));
   }, [favoriteToolDescriptors]);
 
-  const sortModes: { key: SortMode; label: string; labelAr: string }[] = [
-    { key: 'recent', label: 'Recently Used', labelAr: 'المستخدمة مؤخراً' },
-    { key: 'name', label: 'Name', labelAr: 'الاسم' },
-    { key: 'category', label: 'Category', labelAr: 'الفئة' },
-    { key: 'most-used', label: 'Most Used', labelAr: 'الأكثر استخداماً' },
+  const sortModes: { key: SortMode; labelKey: string }[] = [
+    { key: 'recent', labelKey: 'favorites.sortRecent' },
+    { key: 'name', labelKey: 'favorites.sortName' },
+    { key: 'category', labelKey: 'favorites.sortCategory' },
+    { key: 'most-used', labelKey: 'favorites.sortMostUsed' },
   ];
 
   // Empty state
@@ -155,19 +141,17 @@ export function FavoritesView() {
             <Heart className="size-10 text-red-400 dark:text-red-500" />
           </div>
           <h2 className="text-2xl font-bold text-foreground">
-            {locale === 'ar' ? 'لا توجد أدوات مفضلة' : 'No Favorite Tools Yet'}
+            {t('favorites.noFavoritesYet')}
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            {locale === 'ar'
-              ? 'اضغط على أيقونة القلب في أي أداة لإضافتها إلى المفضلة'
-              : 'Click the heart icon on any tool to add it to your favorites for quick access'}
+            {t('favorites.noFavoritesDesc')}
           </p>
           <Button
             onClick={navigateHome}
             className="gap-2 rounded-full px-8 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 micro-bounce"
           >
             <Sparkles className="size-4" />
-            {locale === 'ar' ? 'استكشف الأدوات' : 'Explore Tools'}
+            {t('favorites.exploreTools')}
           </Button>
         </div>
       </div>
@@ -190,7 +174,7 @@ export function FavoritesView() {
               className="gap-1.5 text-muted-foreground hover:text-foreground back-btn-glow micro-bounce"
             >
               <ArrowLeft className={`size-4 ${isRtl ? 'rotate-180' : ''}`} />
-              {locale === 'ar' ? 'الرئيسية' : 'Home'}
+              {t('header.home')}
             </Button>
           </div>
 
@@ -201,13 +185,10 @@ export function FavoritesView() {
               </div>
               <div>
                 <h1 className="text-2xl md:text-3xl font-extrabold text-foreground">
-                  {locale === 'ar' ? 'أدواتي المفضلة' : 'My Favorites'}
+                  {t('favorites.myFavorites')}
                 </h1>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  {locale === 'ar'
-                    ? `${favorites.length} أداة محفوظة`
-                    : `${favorites.length} saved tool${favorites.length !== 1 ? 's' : ''}`
-                  }
+                  {t('favorites.savedTools', { count: favorites.length })}
                 </p>
               </div>
             </div>
@@ -231,7 +212,7 @@ export function FavoritesView() {
               <Search className="absolute top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground start-3" />
               <Input
                 type="text"
-                placeholder={locale === 'ar' ? 'ابحث في المفضلة...' : 'Search favorites...'}
+                placeholder={t('favorites.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="ps-9 pe-4 h-9 glass-input bg-muted/50 border-border/50"
@@ -256,7 +237,7 @@ export function FavoritesView() {
                     : 'bg-muted/70 text-muted-foreground hover:bg-muted'
                 }`}
               >
-                {locale === 'ar' ? 'الكل' : 'All'}
+                {t('common.all')}
               </button>
               {availableCategories.map((cat) => (
                 <button
@@ -286,7 +267,7 @@ export function FavoritesView() {
                       : 'bg-muted/70 text-muted-foreground hover:bg-muted'
                   }`}
                 >
-                  {locale === 'ar' ? mode.labelAr : mode.label}
+                  {t(mode.labelKey)}
                 </button>
               ))}
 
@@ -324,7 +305,7 @@ export function FavoritesView() {
             <div className="space-y-8">
               {Object.entries(groupedByCategory).map(([catSlug, tools]) => {
                 const catName = getCategoryName(catSlug, locale);
-                const colorClass = CATEGORY_COLORS[catSlug] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+                const colorClass = getCategoryColor(catSlug).icon;
                 return (
                   <div key={catSlug}>
                     <div className="flex items-center gap-2 mb-4">
@@ -365,10 +346,10 @@ export function FavoritesView() {
                 <div className="glass-card rounded-2xl p-8 text-center">
                   <Search className="size-10 text-muted-foreground/50 mx-auto mb-3" />
                   <p className="text-muted-foreground font-medium">
-                    {locale === 'ar' ? 'لا توجد نتائج' : 'No matching favorites'}
+                    {t('favorites.noMatchingFavorites')}
                   </p>
                   <p className="text-sm text-muted-foreground/70 mt-1">
-                    {locale === 'ar' ? 'جرب مصطلح بحث مختلف' : 'Try a different search term'}
+                    {t('favorites.tryDifferentSearch')}
                   </p>
                 </div>
               ) : (
@@ -412,7 +393,7 @@ function FavoriteListItem({ tool, locale }: { tool: ReturnType<typeof getToolByI
 
   const toolName = localize(tool.name, locale);
   const categoryName = getCategoryName(tool.category, locale);
-  const colorClass = CATEGORY_COLORS[tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+  const colorClass = getCategoryColor(tool.category).icon;
   const usageCount = toolUsageCount[tool.id] || 0;
 
   return (

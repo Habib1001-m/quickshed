@@ -15,83 +15,7 @@ import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-
-// Category gradient colors for the header background and icon
-const CATEGORY_GRADIENT: Record<string, { from: string; to: string; iconBg: string; iconText: string }> = {
-  calculators: {
-    from: 'from-violet-500/14',
-    to: 'to-violet-400/6',
-    iconBg: 'bg-violet-100 dark:bg-violet-900/40',
-    iconText: 'text-violet-600 dark:text-violet-400',
-  },
-  'time-tools': {
-    from: 'from-sky-500/14',
-    to: 'to-sky-400/6',
-    iconBg: 'bg-sky-100 dark:bg-sky-900/40',
-    iconText: 'text-sky-600 dark:text-sky-400',
-  },
-  'text-tools': {
-    from: 'from-rose-500/14',
-    to: 'to-rose-400/6',
-    iconBg: 'bg-rose-100 dark:bg-rose-900/40',
-    iconText: 'text-rose-600 dark:text-rose-400',
-  },
-  converters: {
-    from: 'from-teal-500/14',
-    to: 'to-teal-400/6',
-    iconBg: 'bg-teal-100 dark:bg-teal-900/40',
-    iconText: 'text-teal-600 dark:text-teal-400',
-  },
-  'student-tools': {
-    from: 'from-amber-500/14',
-    to: 'to-amber-400/6',
-    iconBg: 'bg-amber-100 dark:bg-amber-900/40',
-    iconText: 'text-amber-600 dark:text-amber-400',
-  },
-  'pdf-tools': {
-    from: 'from-red-500/14',
-    to: 'to-red-400/6',
-    iconBg: 'bg-red-100 dark:bg-red-900/40',
-    iconText: 'text-red-600 dark:text-red-400',
-  },
-  'utility-tools': {
-    from: 'from-emerald-500/14',
-    to: 'to-emerald-400/6',
-    iconBg: 'bg-emerald-100 dark:bg-emerald-900/40',
-    iconText: 'text-emerald-600 dark:text-emerald-400',
-  },
-  'seo-tools': {
-    from: 'from-orange-500/14',
-    to: 'to-orange-400/6',
-    iconBg: 'bg-orange-100 dark:bg-orange-900/40',
-    iconText: 'text-orange-600 dark:text-orange-400',
-  },
-  'developer-tools': {
-    from: 'from-cyan-500/14',
-    to: 'to-cyan-400/6',
-    iconBg: 'bg-cyan-100 dark:bg-cyan-900/40',
-    iconText: 'text-cyan-600 dark:text-cyan-400',
-  },
-  'image-tools': {
-    from: 'from-pink-500/14',
-    to: 'to-pink-400/6',
-    iconBg: 'bg-pink-100 dark:bg-pink-900/40',
-    iconText: 'text-pink-600 dark:text-pink-400',
-  },
-  'security-tools': {
-    from: 'from-emerald-500/14',
-    to: 'to-emerald-400/6',
-    iconBg: 'bg-emerald-100 dark:bg-emerald-900/40',
-    iconText: 'text-emerald-600 dark:text-emerald-400',
-  },
-};
-
-const DEFAULT_GRADIENT = {
-  from: 'from-gray-500/14',
-  to: 'to-gray-400/6',
-  iconBg: 'bg-gray-100 dark:bg-gray-800',
-  iconText: 'text-gray-600 dark:text-gray-400',
-};
+import { getCategoryColor } from '@/lib/category-config';
 
 type FilterType = 'all' | 'local' | 'api';
 
@@ -149,7 +73,8 @@ export function CategoryView() {
   }
 
   const categoryName = localize(category.name, locale);
-  const gradient = CATEGORY_GRADIENT[category.slug] || DEFAULT_GRADIENT;
+  const colors = getCategoryColor(category.slug);
+  const gradient = colors.gradient;
 
   const localCount = allCategoryTools.filter((tool) => tool.privacy === 'local').length;
   const apiCount = allCategoryTools.filter((tool) => tool.privacy === 'api').length;
@@ -197,7 +122,7 @@ export function CategoryView() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className={`relative flex size-20 md:size-24 items-center justify-center rounded-3xl ${gradient.iconBg} shrink-0 shadow-lg animate-pulse-ring`}
+              className={`relative flex size-20 md:size-24 items-center justify-center rounded-3xl ${colors.icon} shrink-0 shadow-lg animate-pulse-ring`}
             >
               <DynamicIcon name={category.icon} className="size-10 md:size-12" />
               {/* Decorative ring */}
@@ -249,11 +174,11 @@ export function CategoryView() {
                 <div className="flex items-center gap-5 text-xs">
                   <span className="inline-flex items-center gap-1.5 text-foreground/70 font-medium">
                     <span className="size-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/30" />
-                    {locale === 'ar' ? 'محلي' : 'Local'}: {localCount} ({localPercent}%)
+                    {t('tool.privacyLocalShort')}: {localCount} ({localPercent}%)
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-foreground/70 font-medium">
                     <span className="size-2.5 rounded-full bg-orange-500 shadow-sm shadow-orange-500/30" />
-                    {locale === 'ar' ? 'API' : 'API'}: {apiCount} ({apiPercent}%)
+                    {t('tool.privacyApiShort')}: {apiCount} ({apiPercent}%)
                   </span>
                 </div>
               </motion.div>

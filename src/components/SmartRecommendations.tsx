@@ -11,21 +11,7 @@ import {
 } from '@/lib/tool-utils';
 import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
-
-// Category color mapping
-const CATEGORY_COLORS: Record<string, string> = {
-  calculators: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-  'time-tools': 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-  'text-tools': 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-  converters: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-  'student-tools': 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-  'pdf-tools': 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-  'utility-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-  'seo-tools': 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-  'developer-tools': 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-  'image-tools': 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-  'security-tools': 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-};
+import { getCategoryColor } from '@/lib/category-config';
 
 interface Recommendation {
   tool: ReturnType<typeof getToolById>;
@@ -203,7 +189,7 @@ export function SmartRecommendations() {
           {recommendations.map((rec, i) => {
             const TypeIcon = typeIcons[rec.type];
             const typeColor = typeColors[rec.type];
-            const colorClass = CATEGORY_COLORS[rec.tool.category] || 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400';
+            const colorClass = getCategoryColor(rec.tool.category).icon;
             const toolName = localize(rec.tool.name, locale);
 
             return (

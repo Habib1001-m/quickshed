@@ -444,7 +444,7 @@ export default function Header() {
             size="sm"
             className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-red-50 dark:hover:bg-red-950/30 transition-all duration-200 micro-bounce relative"
             onClick={navigateToFavorites}
-            aria-label={locale === 'ar' ? 'المفضلة' : 'Favorites'}
+            aria-label={t('common.favorites')}
           >
             <Heart className="h-4 w-4 text-red-500" />
             {favorites.length > 0 && (
@@ -476,7 +476,7 @@ export default function Header() {
           >
             <Globe className="h-4 w-4" />
             <span>
-              {locale === 'en' ? 'عربي' : 'English'}
+              {t('header.languageSwitch')}
             </span>
           </Button>
 
@@ -488,7 +488,7 @@ export default function Header() {
             onClick={() => {
               window.dispatchEvent(new CustomEvent('quickshed-theme-customizer'));
             }}
-            aria-label={locale === 'ar' ? 'تخصيص المظهر' : 'Theme Customizer'}
+            aria-label={t('common.themeCustomizer')}
           >
             <Paintbrush className="h-4 w-4" />
           </Button>
@@ -502,7 +502,7 @@ export default function Header() {
               // Dispatch custom event for settings panel
               window.dispatchEvent(new CustomEvent('quickshed-settings'));
             }}
-            aria-label={locale === 'ar' ? 'الإعدادات' : 'Settings'}
+            aria-label={t('common.settings')}
           >
             <Settings className="h-4 w-4" />
           </Button>
@@ -597,7 +597,7 @@ export default function Header() {
                     className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-muted transition-colors"
                   >
                     <Heart className="h-4 w-4 text-red-500" />
-                    {locale === 'ar' ? 'المفضلة' : 'Favorites'}
+                    {t('common.favorites')}
                     {favorites.length > 0 && (
                       <span className="ms-auto text-xs font-bold text-red-500">{favorites.length}</span>
                     )}
