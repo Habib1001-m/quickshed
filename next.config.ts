@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   {
     key: "X-Content-Type-Options",
@@ -8,10 +10,6 @@ const securityHeaders = [
   {
     key: "X-Frame-Options",
     value: "DENY",
-  },
-  {
-    key: "X-XSS-Protection",
-    value: "1; mode=block",
   },
   {
     key: "Referrer-Policy",
@@ -25,7 +23,9 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+      // Dev mode requires unsafe-eval/unsafe-inline for HMR & hydration;
+      // production uses strict CSP (Next.js can add nonce support later)
+      `script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",
@@ -36,7 +36,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  output: "standalone",
   typescript: {
     ignoreBuildErrors: false,
   },

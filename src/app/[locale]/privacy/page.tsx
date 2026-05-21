@@ -73,7 +73,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-10">
         <section className="space-y-8 text-base leading-7">
-          <div className="glass-card rounded-2xl p-6 border-l-4 border-emerald-500">
+          <div className="glass-card rounded-2xl p-6 border-s-4 border-emerald-500">
             <h2 className="text-xl font-semibold mb-3 text-foreground">
               {isArabic ? 'وعدنا بالخصوصية' : 'Our Privacy Promise'}
             </h2>

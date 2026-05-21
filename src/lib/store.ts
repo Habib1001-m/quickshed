@@ -414,13 +414,14 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   setLocale: (locale: Locale) => {
     persistLocale(locale);
-    // Update URL to reflect new locale
+    // Navigate to the new locale URL so server components re-render
     if (typeof window !== 'undefined') {
       const currentPath = window.location.pathname;
       const pathWithoutLocale = currentPath.replace(/^\/(en|ar)/, '') || '/';
       const newPath = `/${locale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
       if (currentPath !== newPath) {
-        window.history.replaceState({}, '', newPath);
+        window.location.href = newPath;
+        return; // Navigation will re-mount the app
       }
     }
     set({ locale });

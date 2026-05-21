@@ -317,6 +317,8 @@ export function HomeView() {
     <div dir={isRtl ? 'rtl' : 'ltr'}>
       {/* ─── Hero Section ─────────────────────────────────────────── */}
       <section className="relative overflow-hidden mesh-gradient" data-onboarding="welcome">
+        {/* Radial glow accent */}
+        <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-emerald-500/[0.04] dark:bg-emerald-500/[0.06] blur-3xl pointer-events-none" />
 
         {/* Floating geometric shapes - reduced opacity by 50% */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -339,7 +341,7 @@ export function HomeView() {
         {/* Animated border line below hero */}
         <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-14 md:pt-16 md:pb-20">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-16 md:pt-20 md:pb-24">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -458,12 +460,12 @@ export function HomeView() {
             <motion.div
               variants={fadeUp}
               custom={4}
-              className="mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6"
+              className="mt-10 flex flex-wrap items-center justify-center gap-4 md:gap-5"
             >
               {stats.map((stat, i) => (
-                <div key={stat.key} className="stat-card flex flex-col items-center gap-1 rounded-xl px-6 py-4">
-                  <div className="flex size-9 items-center justify-center rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 mb-1">
-                    <stat.icon className="size-4 text-emerald-500 dark:text-emerald-400" />
+                <div key={stat.key} className="stat-card flex flex-col items-center gap-2 rounded-2xl px-6 py-5 min-w-[120px]">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20">
+                    <stat.icon className="size-5 text-emerald-500 dark:text-emerald-400" />
                   </div>
                   <span className="hero-stat-number stat-number-pulse">
                     <AnimatedCounter value={stat.value} suffix={i >= 2 ? '%' : '+'} />
@@ -477,7 +479,7 @@ export function HomeView() {
       </section>
 
       {/* ─── Features Section with enhanced cards ───────────────── */}
-      <section className="py-12 md:py-20">
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

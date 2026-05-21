@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, ThumbsUp, ArrowRight } from 'lucide-react';
+import { Heart, ThumbsUp, ArrowRight, Shield } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { localize, getCategoryName, type ToolDescriptor } from '@/lib/tool-utils';
@@ -71,10 +71,11 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
       className={`
         group relative flex flex-col rounded-xl border border-border bg-card p-5
         shadow-sm transition-all duration-300
-        hover:scale-[1.02] hover:shadow-lg ${shadowClass} ${borderClass}
+        hover:scale-[1.02] hover:shadow-xl ${shadowClass} ${borderClass}
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
         cursor-pointer select-none overflow-hidden
         gradient-border card-hover-lift card-elevated glow-focus glow-ring-hover tool-card-gradient-border
+        hover:border-emerald-500/20 dark:hover:border-emerald-500/10
       `}
       dir={isRtl ? 'rtl' : 'ltr'}
     >
@@ -104,9 +105,14 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
       </div>
 
       {/* Privacy badge — top-end, slightly larger, with pulse */}
-      <div className="absolute top-3 end-3 z-10 scale-110" data-onboarding="privacy">
-        <span className={tool.privacy === 'local' ? 'privacy-badge-pulse' : 'privacy-badge-pulse-amber'}>
-          <PrivacyBadge level={tool.privacy} />
+      <div className="absolute top-3 end-3 z-10" data-onboarding="privacy">
+        <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold backdrop-blur-sm transition-transform duration-200 group-hover:scale-105 ${
+          tool.privacy === 'local'
+            ? 'bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 privacy-badge-pulse'
+            : 'bg-amber-500/15 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 privacy-badge-pulse-amber'
+        }`}>
+          <Shield className="size-3" />
+          {tool.privacy === 'local' ? t('tool.privacyLocalShort') : t('tool.privacyApiShort')}
         </span>
       </div>
 
@@ -151,24 +157,23 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
       <div className="flex items-start gap-3 mb-2 mt-1">
         <div
           className={`
-            flex size-11 shrink-0 items-center justify-center rounded-xl
+            flex size-12 shrink-0 items-center justify-center rounded-xl
             transition-all duration-300 group-hover:scale-110 group-hover:rotate-3
             group-hover:shadow-lg group-hover:shadow-emerald-500/15
-            group-hover:animate-pulse
             ${colorClass}
           `}
         >
           <DynamicIcon name={tool.icon} className="size-5" />
         </div>
-        <div className="min-w-0 flex-1 pe-14">
-          <h3 className="text-sm font-semibold text-card-foreground leading-snug truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+        <div className="min-w-0 flex-1 pe-16">
+          <h3 className="text-sm font-semibold text-card-foreground leading-snug truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-200">
             {toolName}
           </h3>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-xs text-muted-foreground dark:text-muted-foreground leading-relaxed line-clamp-2 mb-3 flex-1">
+      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3 flex-1">
         {toolDescription}
       </p>
 
@@ -189,7 +194,7 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
               </span>
             )}
             {/* Arrow indicator */}
-            <ArrowRight className="size-3 text-muted-foreground/40 group-hover:text-emerald-500 transition-all duration-300 group-hover:translate-x-0.5 rtl:rotate-180" />
+            <ArrowRight className="size-3 text-muted-foreground/40 group-hover:text-emerald-500 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-all duration-300 rtl:rotate-180" />
           </div>
         </div>
       </div>

@@ -2233,3 +2233,133 @@
     transform: none;
   }
 }
+
+/* ─── Task 7-b: UI Styling & Visual Enhancement ──────────────────── */
+
+/* RTL-specific overrides for Arabic layout */
+[dir="rtl"] .section-heading::after {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .gradient-separator {
+  background: linear-gradient(
+    270deg,
+    transparent 0%,
+    oklch(0.65 0.18 163 / 20%) 30%,
+    oklch(0.65 0.18 163 / 15%) 50%,
+    oklch(0.65 0.18 163 / 20%) 70%,
+    transparent 100%
+  );
+}
+
+/* Improved smooth scrolling with reduced motion respect */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Better transition utilities */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-bounce {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Enhanced glass-strong for header with better blur */
+.glass-strong {
+  background: oklch(1 0 0 / 88%);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid oklch(0 0 0 / 6%);
+}
+.dark .glass-strong {
+  background: oklch(0.15 0.015 261 / 92%);
+  border-bottom: 1px solid oklch(1 0 0 / 8%);
+  box-shadow: 0 4px 24px oklch(0 0 0 / 20%), inset 0 1px 0 oklch(1 0 0 / 4%);
+}
+
+/* Footer stat card lift animation */
+.footer-stat-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.footer-stat-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px oklch(0 0 0 / 10%), 0 2px 8px oklch(0.65 0.18 163 / 6%);
+}
+
+/* Privacy badge inline styling */
+.privacy-badge-pulse {
+  position: relative;
+}
+.privacy-badge-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: oklch(0.65 0.18 163 / 0%);
+  animation: privacy-badge-pulse-anim 2.5s ease-in-out infinite;
+}
+@keyframes privacy-badge-pulse-anim {
+  0%, 100% { background: oklch(0.65 0.18 163 / 0%); }
+  50% { background: oklch(0.65 0.18 163 / 8%); }
+}
+
+.privacy-badge-pulse-amber {
+  position: relative;
+}
+.privacy-badge-pulse-amber::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: oklch(0.75 0.15 80 / 0%);
+  animation: privacy-badge-amber-pulse-anim 2.5s ease-in-out infinite;
+}
+@keyframes privacy-badge-amber-pulse-anim {
+  0%, 100% { background: oklch(0.75 0.15 80 / 0%); }
+  50% { background: oklch(0.75 0.15 80 / 8%); }
+}
+
+/* Category card hover background shift */
+.category-bg-shift {
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enhanced scrollbar with emerald accent on hover */
+::-webkit-scrollbar-thumb:active {
+  background: oklch(0.65 0.18 163 / 50%);
+}
+.dark ::-webkit-scrollbar-thumb:active {
+  background: oklch(0.65 0.18 163 / 40%);
+}
+
+/* Focus ring glow for interactive elements */
+.glow-ring-hover {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.glow-ring-hover:hover {
+  box-shadow: 0 0 0 1px oklch(0.65 0.18 163 / 20%), 0 4px 16px oklch(0.65 0.18 163 / 10%);
+}
+.dark .glow-ring-hover:hover {
+  box-shadow: 0 0 0 1px oklch(0.65 0.18 163 / 25%), 0 4px 16px oklch(0.65 0.18 163 / 12%);
+}
+
+/* Heart favorite animation */
+.heart-favorite-anim {
+  animation: heart-favorite-anim 0.3s ease;
+}
+@keyframes heart-favorite-anim {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.3); }
+  60% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}

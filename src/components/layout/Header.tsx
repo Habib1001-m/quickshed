@@ -179,7 +179,7 @@ export default function Header() {
   // Detect macOS for keyboard shortcut badge
   const [isMac] = useState(() => {
     if (typeof navigator === 'undefined') return false;
-    return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    return navigator.userAgent.toUpperCase().includes('MAC');
   });
 
   // Search state
@@ -326,7 +326,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 glass-strong ${
+      className={`fixed top-0 inset-x-0 z-50 glass-strong shadow-sm shadow-emerald-500/[0.03] dark:shadow-emerald-500/[0.05] ${
         isRTL ? 'rtl' : 'ltr'
       }`}
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -335,10 +335,10 @@ export default function Header() {
         {/* Logo */}
         <button
           onClick={navigateHome}
-          className="flex items-center gap-2 shrink-0 group transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-1 glow-focus hover:shadow-lg hover:shadow-emerald-500/20"
+          className="flex items-center gap-2.5 shrink-0 group transition-all duration-200 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-1.5 glow-focus hover:shadow-lg hover:shadow-emerald-500/20"
           aria-label={t('header.home')}
         >
-          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-emerald-500 text-white">
+          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-emerald-500 text-white shadow-md shadow-emerald-500/20 transition-shadow duration-200 group-hover:shadow-lg group-hover:shadow-emerald-500/30">
             <Wrench className="h-4 w-4" />
           </div>
           <span className="text-lg font-bold text-foreground tracking-tight">
@@ -371,9 +371,9 @@ export default function Header() {
             {isSearchOpen && searchResults.length > 0 && (
               <div
                 ref={searchDropdownRef}
-                className="absolute top-full mt-1 inset-x-0 bg-popover border border-border rounded-lg shadow-lg overflow-hidden z-50"
+                className="absolute top-full mt-1.5 inset-x-0 bg-popover/95 backdrop-blur-xl border border-border/80 rounded-xl shadow-xl shadow-emerald-500/[0.03] overflow-hidden z-50"
               >
-                <div className="max-h-96 overflow-y-auto">
+                <div className="max-h-96 overflow-y-auto scrollbar-thin">
                   {searchResults.map((result, index) => {
                     const Icon = getToolIcon(result.tool.icon);
                     const isSelected = index === selectedIndex;
@@ -382,17 +382,17 @@ export default function Header() {
                         key={result.tool.id}
                         onClick={() => handleResultClick(result.tool.id)}
                         onMouseEnter={() => setSelectedIndex(index)}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 text-start transition-colors ${
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 text-start transition-all duration-150 ${
                           isSelected
                             ? 'bg-emerald-500/10 text-foreground'
-                            : 'hover:bg-muted text-foreground'
+                            : 'hover:bg-emerald-500/5 text-foreground'
                         }`}
                       >
                         <div
-                          className={`flex items-center justify-center h-8 w-8 rounded-md shrink-0 ${
+                          className={`flex items-center justify-center h-8 w-8 rounded-lg shrink-0 transition-colors duration-150 ${
                             isSelected
                               ? 'bg-emerald-500/20 text-emerald-600'
-                              : 'bg-muted text-muted-foreground'
+                              : 'bg-muted/80 text-muted-foreground'
                           }`}
                         >
                           <Icon className="h-4 w-4" />
@@ -421,7 +421,7 @@ export default function Header() {
                     );
                   })}
                 </div>
-                <div className="border-t border-border px-3 py-2 text-xs text-muted-foreground">
+                <div className="border-t border-border/60 px-3 py-2 text-xs text-muted-foreground/70 bg-muted/30">
                   {t('search.searchBy')}
                 </div>
               </div>
@@ -429,7 +429,7 @@ export default function Header() {
 
             {/* No Results */}
             {isSearchOpen && searchQuery.trim() && searchResults.length === 0 && (
-              <div className="absolute top-full mt-1 inset-x-0 bg-popover border border-border rounded-lg shadow-lg z-50 p-4 text-center text-sm text-muted-foreground">
+              <div className="absolute top-full mt-1.5 inset-x-0 bg-popover/95 backdrop-blur-xl border border-border/80 rounded-xl shadow-xl z-50 p-4 text-center text-sm text-muted-foreground">
                 {t('search.noResults')}
               </div>
             )}
@@ -442,7 +442,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-red-50 dark:hover:bg-red-950/30 transition-all duration-200 micro-bounce relative"
+            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-red-50 dark:hover:bg-red-950/30 hover:shadow-md hover:shadow-red-500/10 transition-all duration-200 micro-bounce relative"
             onClick={navigateToFavorites}
             aria-label={t('common.favorites')}
           >
@@ -458,7 +458,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 micro-bounce"
+            className="h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
             onClick={toggleTheme}
             aria-label={t('header.themeToggle')}
           >
@@ -470,7 +470,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-muted transition-all duration-200 micro-bounce"
+            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:shadow-sm transition-all duration-200 micro-bounce"
             onClick={toggleLocale}
             aria-label={t('header.languageSwitch')}
           >
@@ -484,7 +484,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 micro-bounce"
+            className="h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
             onClick={() => {
               window.dispatchEvent(new CustomEvent('quickshed-theme-customizer'));
             }}
@@ -497,7 +497,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 micro-bounce"
+            className="h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
             onClick={() => {
               // Dispatch custom event for settings panel
               window.dispatchEvent(new CustomEvent('quickshed-settings'));
@@ -697,7 +697,8 @@ export default function Header() {
       </div>
 
       {/* Animated gradient border at bottom */}
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
+      <div className="absolute bottom-px inset-x-0 h-4 bg-gradient-to-b from-emerald-500/[0.02] to-transparent pointer-events-none" />
     </header>
   );
 }
