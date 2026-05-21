@@ -56,8 +56,14 @@ export type TranslateFn = (
  * return <span>{t('category.toolsInCategory', { count: 5 })}</span>
  * ```
  */
+import { useSsrLocale } from './ssr-locale';
+
 export function useI18n(): { t: TranslateFn; locale: Locale } {
-  const locale = useAppStore((state) => state.locale);
+  const storeLocale = useAppStore((state) => state.locale);
+  const ssrLocale = useSsrLocale();
+  // Use SSR locale context if available (for correct SSR rendering),
+  // otherwise fall back to Zustand store locale (for client-side interactivity)
+  const locale = ssrLocale ?? storeLocale;
 
   const t = useMemo<TranslateFn>(() => {
     const messages = translations[locale];

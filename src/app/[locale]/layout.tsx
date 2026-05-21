@@ -46,8 +46,8 @@ export async function generateMetadata({
   const isArabic = locale === 'ar';
 
   const title = isArabic
-    ? 'QuickShed - صندوق أدواتك الفوري الذي يحترم الخصوصية'
-    : 'QuickShed - Your Instant Privacy-First Toolbox';
+    ? 'صندوق أدواتك الفوري الذي يحترم الخصوصية'
+    : 'Your Instant Privacy-First Toolbox';
   const description = isArabic
     ? 'صندوق أدوات ويب مجاني يحترم الخصوصية مع أكثر من 90 أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
     : 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.';
@@ -57,7 +57,9 @@ export async function generateMetadata({
     title,
     description,
     openGraph: {
-      title,
+      title: isArabic
+        ? 'QuickShed - صندوق أدواتك الفوري الذي يحترم الخصوصية'
+        : 'QuickShed - Your Instant Privacy-First Toolbox',
       description,
       siteName: 'QuickShed',
       type: 'website',
@@ -67,7 +69,9 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: isArabic
+        ? 'QuickShed - صندوق أدواتك الفوري الذي يحترم الخصوصية'
+        : 'QuickShed - Your Instant Privacy-First Toolbox',
       description,
       images: ['/og-image.png'],
     },

@@ -3,13 +3,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { AnnouncementBanner } from '@/components/AnnouncementBanner';
-import { useAppStore, type View } from '@/lib/store';
+import { useAppStore, type View, type Locale } from '@/lib/store';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { BackToTop } from '@/components/BackToTop';
 import { PageTransition } from '@/components/PageTransition';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { applyAccentColor, getSavedAccentColor } from '@/lib/accent-colors';
+import { SsrLocaleContext, useSsrLocale } from '@/lib/ssr-locale';
 
 // ViewSkeleton for lazy-loaded views
 function ViewSkeleton() {
@@ -70,7 +71,9 @@ interface RoutePageShellProps {
 
 function RoutePageContent({ initialView = 'home', initialToolId, initialCategorySlug, initialLocale }: RoutePageShellProps) {
   const currentView = useAppStore((state) => state.currentView);
-  const locale = useAppStore((state) => state.locale);
+  const storeLocale = useAppStore((state) => state.locale);
+  const ssrLocale = useSsrLocale();
+  const locale = ssrLocale ?? storeLocale;
   const hydrateLocale = useAppStore((state) => state.hydrateLocale);
   const isHydrated = useAppStore((state) => state.isHydrated);
   const recentTools = useAppStore((state) => state.recentTools);
@@ -90,6 +93,17 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
   const gPrefixRef = useRef(false);
   const gPrefixTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Synchronously set locale from server before first render
+  // This ensures SSR renders with the correct locale (not default 'en')
+  const ssrLocaleRef = useRef(false);
+  if (!ssrLocaleRef.current && initialLocale && (initialLocale === 'ar' || initialLocale === 'en')) {
+    const currentStoreLocale = useAppStore.getState().locale;
+    if (currentStoreLocale !== initialLocale) {
+      useAppStore.setState({ locale: initialLocale as 'ar' | 'en' });
+    }
+    ssrLocaleRef.current = true;
+  }
+
   // Remove server-rendered SEO content after hydration
   useEffect(() => {
     const seoEl = document.getElementById('seo-content');
@@ -101,12 +115,16 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
     hydrateLocale();
   }, [hydrateLocale]);
 
-  // Set locale from URL param on first mount
+  // Locale is now set synchronously above before first render
+  // This useEffect is kept as a safety net for any edge cases
   useEffect(() => {
     if (initialLocale && (initialLocale === 'ar' || initialLocale === 'en')) {
-      setLocale(initialLocale as 'ar' | 'en');
+      const currentStoreLocale = useAppStore.getState().locale;
+      if (currentStoreLocale !== initialLocale) {
+        useAppStore.setState({ locale: initialLocale as 'ar' | 'en' });
+      }
     }
-  }, [initialLocale, setLocale]);
+  }, [initialLocale]);
 
   // Initialize navigation from server component props
   useEffect(() => {
@@ -286,9 +304,15 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
 }
 
 export default function RoutePageShell(props: RoutePageShellProps) {
+  const ssrLocale = (props.initialLocale === 'ar' || props.initialLocale === 'en')
+    ? (props.initialLocale as Locale)
+    : null;
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <RoutePageContent {...props} />
-    </ThemeProvider>
+    <SsrLocaleContext.Provider value={ssrLocale}>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <RoutePageContent {...props} />
+      </ThemeProvider>
+    </SsrLocaleContext.Provider>
   );
 }
