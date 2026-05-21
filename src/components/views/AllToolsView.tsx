@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useCallback, useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import Fuse from 'fuse.js';
 import { Search, ArrowLeft, ArrowUpDown, Shield, Zap, Hash, Wrench, GitCompareArrows } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
@@ -18,12 +18,12 @@ type PrivacyFilter = 'all' | 'local' | 'api';
 
 // ─── Animation variants ─────────────────────────────────────────────
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.03, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.03, duration: 0.4, ease: 'easeOut' as const },
   }),
 };
 
@@ -35,7 +35,7 @@ const stagger = {
 
 export function AllToolsView() {
   const { t, locale } = useI18n();
-  const navigateHome = useAppStore((s) => s.navigateToHome);
+  const navigateHome = useAppStore((s) => s.navigateHome);
   const toolUsageCount = useAppStore((s) => s.toolUsageCount);
   const compareToolIds = useAppStore((s) => s.compareToolIds);
   const isRtl = locale === 'ar';

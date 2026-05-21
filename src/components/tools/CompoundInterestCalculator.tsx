@@ -64,7 +64,7 @@ export default function CompoundInterestCalculator({ locale }: { locale: 'ar' | 
     const totalInterest = finalAmount - p;
 
     // Year-by-year growth
-    const growthData = [];
+    const growthData: { year: number; balance: number; interest: number }[] = [];
     for (let year = 1; year <= Math.min(t, 30); year++) {
       const balance = p * Math.pow(1 + r / 100 / n, n * year);
       growthData.push({

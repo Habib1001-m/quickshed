@@ -93,12 +93,8 @@ export default async function LocalePage({ params }: LocalePageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      {/* SEO content visible to crawlers, hidden after JS hydration */}
-      <div
-        id="seo-content"
-        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
-        aria-hidden="true"
-      >
+      {/* SEO content visible to crawlers and screen readers, removed after JS hydration */}
+      <div id="seo-content" className="sr-only">
         <h1>{heroTitle}</h1>
         <p>{heroSubtitle}</p>
         <h2>{categoriesLabel}</h2>

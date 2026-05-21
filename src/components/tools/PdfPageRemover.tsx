@@ -99,7 +99,7 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
         }
       }
       const bytes = await newPdf.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const blob = new Blob([new Uint8Array(bytes)], { type: 'application/pdf' });
       setResultUrl(URL.createObjectURL(blob));
     } catch (e) {
       setError(t.error);

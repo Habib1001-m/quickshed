@@ -97,7 +97,7 @@ function uuidV1(): string {
 
 /* Simple SHA-1 for UUID v5 using Web Crypto */
 async function sha1Digest(data: Uint8Array): Promise<Uint8Array> {
-  const hash = await crypto.subtle.digest('SHA-1', data);
+  const hash = await crypto.subtle.digest('SHA-1', data.buffer as ArrayBuffer);
   return new Uint8Array(hash);
 }
 

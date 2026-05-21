@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { Clock, Search, Trash2, Inbox, Wrench } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -92,14 +92,14 @@ const GROUP_LABEL_KEYS: Record<DateGroup, string> = {
 
 // ── Animation variants ────────────────────────────────────────────────
 
-const listVariants = {
+const listVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.04 } },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, x: -8 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.25, ease: 'easeOut' } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.25, ease: 'easeOut' as const } },
 };
 
 // ── Component ─────────────────────────────────────────────────────────

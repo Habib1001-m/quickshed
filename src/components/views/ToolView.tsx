@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { Home, ChevronRight, Wrench, Construction, ArrowRight, Sparkles, Heart, Copy, Check, FolderPlus, Share2, Plus } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -37,12 +37,12 @@ import { ToolRating } from '@/components/ToolRating';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { getCategoryColor } from '@/lib/category-config';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.06, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.06, duration: 0.4, ease: 'easeOut' as const },
   }),
 };
 

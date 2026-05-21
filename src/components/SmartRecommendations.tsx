@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { getCategoryColor } from '@/lib/category-config';
 
 interface Recommendation {
-  tool: ReturnType<typeof getToolById>;
+  tool: NonNullable<ReturnType<typeof getToolById>>;
   reason: string;
   reasonAr: string;
   type: 'similar' | 'trending' | 'discovery';
@@ -113,7 +113,7 @@ export function SmartRecommendations() {
         .sort(([, a], [, b]) => b - a)
         .slice(0, 3)
         .map(([id]) => getToolById(id))
-        .filter(Boolean);
+        .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
       for (const tool of topUsed) {
         if (tool && !recs.find((r) => r.tool.id === tool.id)) {
@@ -147,8 +147,10 @@ export function SmartRecommendations() {
     // Deduplicate and limit to 6
     const seen = new Set<string>();
     return recs.filter((r) => {
-      if (seen.has(r.tool.id)) return false;
-      seen.add(r.tool.id);
+      const id = r.tool.id;
+      if (!id) return false;
+      if (seen.has(id)) return false;
+      seen.add(id);
       return true;
     }).slice(0, 6);
   }, [recentTools, toolUsageCount, favorites]);

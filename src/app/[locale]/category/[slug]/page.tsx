@@ -83,11 +83,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div
-        id="seo-content"
-        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
-        aria-hidden="true"
-      >
+      {/* SEO content visible to crawlers and screen readers, removed after JS hydration */}
+      <div id="seo-content" className="sr-only">
         <h1>{catName}</h1>
         <ul>
           {getToolsByCategory(category.slug).map((tool) => (

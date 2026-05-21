@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useCallback, useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import Fuse from 'fuse.js';
 import {
   Shield, Gift, Globe, UserX, Search, ArrowRight,
@@ -13,6 +13,7 @@ import { useI18n } from '@/lib/i18n';
 import {
   getCategories, getDiverseFeaturedTools, getAllTools,
   getToolById, getToolsByCategory, localize, getCategoryName,
+  type ToolDescriptor,
 } from '@/lib/tool-utils';
 import { CategoryCard } from '@/components/CategoryCard';
 import { ToolCard } from '@/components/ToolCard';
@@ -145,12 +146,12 @@ const CATEGORY_EXAMPLES: Record<string, { en: string; ar: string }[]> = {
 
 // ─── Animation variants ─────────────────────────────────────────────
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' },
+    transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' as const },
   }),
 };
 
@@ -237,14 +238,14 @@ export function HomeView() {
   const recentToolDescriptors = useMemo(() => {
     return recentTools
       .map((id) => getToolById(id))
-      .filter(Boolean) as ReturnType<typeof getToolById>[];
+      .filter((t): t is ToolDescriptor => t !== undefined);
   }, [recentTools]);
 
   // Resolve favorite tool descriptors
   const favoriteToolDescriptors = useMemo(() => {
     return favorites
       .map((id) => getToolById(id))
-      .filter(Boolean) as ReturnType<typeof getToolById>[];
+      .filter((t): t is ToolDescriptor => t !== undefined);
   }, [favorites]);
 
   // Hero search state

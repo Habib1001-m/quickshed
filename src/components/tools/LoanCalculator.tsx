@@ -80,7 +80,7 @@ export default function LoanCalculator({ locale }: { locale: 'ar' | 'en' }) {
     const totalInterest = totalPayment - principal;
 
     // Amortization schedule (first 12 months)
-    const schedule = [];
+    const schedule: { month: number; payment: number; principal: number; interest: number; balance: number }[] = [];
     let balance = principal;
     const monthsToShow = Math.min(12, totalMonths);
 

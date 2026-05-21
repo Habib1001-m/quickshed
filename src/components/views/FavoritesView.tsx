@@ -1,14 +1,15 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import {
   Heart, ArrowLeft, Search, LayoutGrid, List, SortAsc, X, Trash2,
   Sparkles, FolderHeart,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
-import { getToolById, localize, getCategoryName, getCategories } from '@/lib/tool-utils';
+import { getToolById, localize, getCategoryName, getCategories, type ToolDescriptor } from '@/lib/tool-utils';
+import type { Locale } from '@/lib/store';
 import { ToolCard } from '@/components/ToolCard';
 import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
@@ -20,12 +21,12 @@ import { getCategoryColor } from '@/lib/category-config';
 type SortMode = 'recent' | 'name' | 'category' | 'most-used';
 type ViewMode = 'grid' | 'list';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' as const },
   }),
 };
 
@@ -50,7 +51,7 @@ export function FavoritesView() {
   const favoriteToolDescriptors = useMemo(() => {
     return favorites
       .map((id) => getToolById(id))
-      .filter(Boolean) as ReturnType<typeof getToolById>[];
+      .filter((t): t is ToolDescriptor => t !== undefined);
   }, [favorites]);
 
   // Filter by category
@@ -384,7 +385,7 @@ export function FavoritesView() {
 
 // ─── List Item Component ─────────────────────────────────────
 
-function FavoriteListItem({ tool, locale }: { tool: ReturnType<typeof getToolById>; locale: string }) {
+function FavoriteListItem({ tool, locale }: { tool: ToolDescriptor; locale: Locale }) {
   const navigateToTool = useAppStore((s) => s.navigateToTool);
   const toolUsageCount = useAppStore((s) => s.toolUsageCount);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);

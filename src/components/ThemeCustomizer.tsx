@@ -96,7 +96,6 @@ export function ThemeCustomizer() {
                       }`}
                       style={{
                         backgroundColor: color.hex,
-                        ringColor: isSelected ? color.hex : undefined,
                         boxShadow: isSelected
                           ? `0 0 12px ${color.hex}40`
                           : undefined,

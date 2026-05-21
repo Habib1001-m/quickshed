@@ -23,6 +23,7 @@ const labels = {
     copied: 'Copied!',
     copy: 'Copy',
     invalidInput: 'Invalid input for decoding',
+    encodingType: 'Encoding Type',
   },
   ar: {
     title: 'ترميز / فك ترميز النص',
@@ -37,6 +38,7 @@ const labels = {
     copied: 'تم النسخ!',
     copy: 'نسخ',
     invalidInput: 'إدخال غير صالح لفك الترميز',
+    encodingType: 'نوع الترميز',
   },
 };
 

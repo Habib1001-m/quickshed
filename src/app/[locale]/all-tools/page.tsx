@@ -63,11 +63,8 @@ export default async function AllToolsPage({ params }: AllToolsPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div
-        id="seo-content"
-        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
-        aria-hidden="true"
-      >
+      {/* SEO content visible to crawlers and screen readers, removed after JS hydration */}
+      <div id="seo-content" className="sr-only">
         <h1>{isArabic ? 'جميع الأدوات' : 'All Tools'}</h1>
         {categories.map((cat) => (
           <section key={cat.slug}>

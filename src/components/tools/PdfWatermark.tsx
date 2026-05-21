@@ -117,7 +117,7 @@ export default function PdfWatermark({ locale }: { locale: 'ar' | 'en' }) {
       }
 
       const bytes = await pdf.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const blob = new Blob([new Uint8Array(bytes)], { type: 'application/pdf' });
       setResultUrl(URL.createObjectURL(blob));
     } catch (e) {
       setError(t.error);

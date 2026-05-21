@@ -82,7 +82,7 @@ function getTooltipPosition(
   }
 
   // Clamp tooltip to viewport
-  if (position !== 'center') {
+  {
     const estimatedLeft = left - tooltipWidth / 2;
     if (estimatedLeft < 16) {
       left = 16 + tooltipWidth / 2;

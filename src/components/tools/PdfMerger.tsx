@@ -88,7 +88,7 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
         pages.forEach((page) => merged.addPage(page));
       }
       const bytes = await merged.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const blob = new Blob([new Uint8Array(bytes)], { type: 'application/pdf' });
       setMergedUrl(URL.createObjectURL(blob));
     } catch (e) {
       setError(t.error);

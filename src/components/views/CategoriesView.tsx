@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -11,12 +11,12 @@ import { Button } from '@/components/ui/button';
 import { getCategoryColor } from '@/lib/category-config';
 import type { Locale } from '@/lib/store';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' as const },
   }),
 };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ArrowLeft, Shield, Zap, Search, FilterX, Wrench } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -19,12 +19,12 @@ import { getCategoryColor } from '@/lib/category-config';
 
 type FilterType = 'all' | 'local' | 'api';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.05, duration: 0.4, ease: 'easeOut' as const },
   }),
 };
 

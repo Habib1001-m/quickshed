@@ -77,11 +77,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div
-        id="seo-content"
-        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
-        aria-hidden="true"
-      >
+      {/* SEO content visible to crawlers and screen readers, removed after JS hydration */}
+      <div id="seo-content" className="sr-only">
         <h1>{localize(tool.name, loc)}</h1>
         <p>{localize(tool.description, loc)}</p>
         <p>
