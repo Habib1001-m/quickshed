@@ -16,6 +16,7 @@ export default function Footer() {
   const navigateHome = useAppStore((s) => s.navigateHome);
   const navigateToAllTools = useAppStore((s) => s.navigateToAllTools);
   const navigateToCategory = useAppStore((s) => s.navigateToCategory);
+  const navigateToCategories = useAppStore((s) => s.navigateToCategories);
   const navigateToFavorites = useAppStore((s) => s.navigateToFavorites);
   const favorites = useAppStore((s) => s.favorites);
 
@@ -158,11 +159,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <button
-                    onClick={() => {
-                      if (categories.length > 0) {
-                        navigateToCategory(categories[0].slug);
-                      }
-                    }}
+                    onClick={navigateToCategories}
                     className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Grid3X3 className="h-3.5 w-3.5 shrink-0" />

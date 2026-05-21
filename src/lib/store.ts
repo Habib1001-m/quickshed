@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { addToolHistoryEntry } from '@/lib/tool-history';
 
-export type View = 'home' | 'category' | 'tool' | 'all-tools' | 'favorites';
+export type View = 'home' | 'category' | 'categories' | 'tool' | 'all-tools' | 'favorites';
 
 export type Locale = 'ar' | 'en';
 
@@ -60,6 +60,7 @@ interface AppState {
   // Actions
   navigateHome: () => void;
   navigateToCategory: (categorySlug: string) => void;
+  navigateToCategories: () => void;
   navigateToTool: (toolId: string) => void;
   navigateToAllTools: () => void;
   navigateToFavorites: () => void;
@@ -377,6 +378,18 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
   },
 
+  navigateToCategories: () => {
+    const locale = get().locale;
+    pushURL(`/${locale}/category`);
+    set({
+      currentView: 'categories',
+      selectedCategory: null,
+      selectedTool: null,
+      searchQuery: '',
+      isSearchOpen: false,
+    });
+  },
+
   navigateToTool: (toolId: string) => {
     const locale = get().locale;
     pushURL(`/${locale}/tools/${toolId}`);
@@ -470,6 +483,11 @@ export const useAppStore = create<AppState>((set, get) => ({
     const toolMatch = pathWithoutLocale.match(/^\/tools\/([^/]+)$/);
     if (toolMatch) {
       set({ currentView: 'tool', selectedTool: toolMatch[1], selectedCategory: null, searchQuery: '', isSearchOpen: false });
+      return;
+    }
+
+    if (pathWithoutLocale === '/category') {
+      set({ currentView: 'categories', selectedCategory: null, selectedTool: null, searchQuery: '', isSearchOpen: false });
       return;
     }
 

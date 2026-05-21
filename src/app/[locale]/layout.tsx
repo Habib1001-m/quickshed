@@ -49,7 +49,7 @@ export async function generateMetadata({
     ? 'QuickShed - صندوق أدواتك الفوري الذي يحترم الخصوصية'
     : 'QuickShed - Your Instant Privacy-First Toolbox';
   const description = isArabic
-    ? 'صندوق أدوات وي مجاني يحترم الخصوصية مع أكثر من 90 أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
+    ? 'صندوق أدوات ويب مجاني يحترم الخصوصية مع أكثر من 90 أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
     : 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.';
   const localeUrl = `${SITE_URL}/${locale}`;
 

@@ -59,6 +59,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   if (!tool) notFound();
 
   const loc = (locale === 'ar' || locale === 'en' ? locale : 'en') as AppLocale;
+  const isArabic = loc === 'ar';
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -76,6 +77,23 @@ export default async function ToolPage({ params }: ToolPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <div
+        id="seo-content"
+        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
+        aria-hidden="true"
+      >
+        <h1>{localize(tool.name, loc)}</h1>
+        <p>{localize(tool.description, loc)}</p>
+        <p>
+          {isArabic ? 'الفئة' : 'Category'}:{' '}
+          <a href={`${SITE_URL}/${loc}/category/${tool.category}`}>{tool.category}</a>
+        </p>
+        <p>
+          {isArabic ? 'الخصوصية' : 'Privacy'}: {tool.privacy === 'local'
+            ? isArabic ? 'محلي — بياناتك تبقى على جهازك' : 'Local — your data stays on your device'
+            : isArabic ? 'يستخدم API خارجي آمن' : 'Uses secure external API'}
+        </p>
+      </div>
       <RoutePageShell initialView="tool" initialToolId={tool.id} initialLocale={locale} />
     </>
   );

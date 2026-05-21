@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getCategories, getCategoryBySlug, localize } from '@/lib/tool-utils';
+import { getCategories, getCategoryBySlug, getToolsByCategory, localize } from '@/lib/tool-utils';
 import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 import RoutePageShell from '@/components/RoutePageShell';
 
@@ -83,6 +83,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <div
+        id="seo-content"
+        style={{ position: 'absolute', left: '-9999px', top: 0, overflow: 'hidden' }}
+        aria-hidden="true"
+      >
+        <h1>{catName}</h1>
+        <ul>
+          {getToolsByCategory(category.slug).map((tool) => (
+            <li key={tool.id}>
+              <a href={`${SITE_URL}/${loc}/tools/${tool.slug}`}>
+                {localize(tool.name, loc)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
       <RoutePageShell initialView="category" initialCategorySlug={slug} initialLocale={locale} />
     </>
   );

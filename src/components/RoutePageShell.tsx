@@ -44,6 +44,10 @@ const FavoritesView = dynamic(() => import('@/components/views/FavoritesView').t
   ssr: false,
   loading: () => <ViewSkeleton />,
 });
+const CategoriesView = dynamic(() => import('@/components/views/CategoriesView').then(m => ({ default: m.CategoriesView })), {
+  ssr: false,
+  loading: () => <ViewSkeleton />,
+});
 
 // Lazy-loaded heavy feature components
 const CommandPalette = dynamic(() => import('@/components/CommandPalette').then(m => ({ default: m.CommandPalette })), { ssr: false });
@@ -85,6 +89,12 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
 
   const gPrefixRef = useRef(false);
   const gPrefixTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Remove server-rendered SEO content after hydration
+  useEffect(() => {
+    const seoEl = document.getElementById('seo-content');
+    if (seoEl) seoEl.remove();
+  }, []);
 
   // Hydrate locale from localStorage after mount
   useEffect(() => {
@@ -251,6 +261,7 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
         ) : (
           <PageTransition>
             {currentView === 'home' && <HomeView />}
+            {currentView === 'categories' && <CategoriesView />}
             {currentView === 'category' && <CategoryView />}
             {currentView === 'tool' && <ToolView />}
             {currentView === 'all-tools' && <AllToolsView />}
