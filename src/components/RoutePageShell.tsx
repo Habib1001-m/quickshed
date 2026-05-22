@@ -75,7 +75,6 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
   const ssrLocale = useSsrLocale();
   const locale = ssrLocale ?? storeLocale;
   const hydrateLocale = useAppStore((state) => state.hydrateLocale);
-  const isHydrated = useAppStore((state) => state.isHydrated);
   const recentTools = useAppStore((state) => state.recentTools);
   const navigateToTool = useAppStore((state) => state.navigateToTool);
   const navigateHome = useAppStore((state) => state.navigateHome);
@@ -269,23 +268,14 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
       <AnnouncementBanner onVisibilityChange={setBannerVisible} />
       <Header />
       <main className={`flex-1 ${bannerVisible ? 'pt-[88px]' : 'pt-16'}`}>
-        {!isHydrated ? (
-          <div className="flex items-center justify-center h-[60vh]">
-            <div className="flex flex-col items-center gap-4">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-              <p className="text-muted-foreground text-sm">Loading QuickShed...</p>
-            </div>
-          </div>
-        ) : (
-          <PageTransition>
-            {currentView === 'home' && <HomeView />}
-            {currentView === 'categories' && <CategoriesView />}
-            {currentView === 'category' && <CategoryView />}
-            {currentView === 'tool' && <ToolView />}
-            {currentView === 'all-tools' && <AllToolsView />}
-            {currentView === 'favorites' && <FavoritesView />}
-          </PageTransition>
-        )}
+        <PageTransition>
+          {currentView === 'home' && <HomeView />}
+          {currentView === 'categories' && <CategoriesView />}
+          {currentView === 'category' && <CategoryView />}
+          {currentView === 'tool' && <ToolView />}
+          {currentView === 'all-tools' && <AllToolsView />}
+          {currentView === 'favorites' && <FavoritesView />}
+        </PageTransition>
       </main>
       <Footer />
       <BackToTop />

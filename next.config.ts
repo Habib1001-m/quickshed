@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
-
 const securityHeaders = [
   {
     key: "X-Content-Type-Options",
@@ -23,9 +21,9 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Dev mode requires unsafe-eval/unsafe-inline for HMR & hydration;
-      // production uses strict CSP (Next.js can add nonce support later)
-      `script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""}`,
+      // Next.js requires 'unsafe-inline' for script-src to support hydration
+      // and inline scripts (theme detection, etc.)
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",
