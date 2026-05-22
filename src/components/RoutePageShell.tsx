@@ -104,10 +104,11 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
     ssrLocaleRef.current = true;
   }
 
-  // Remove server-rendered SEO content after hydration
+  // Hide server-rendered SEO content after hydration
+  // Using display:none instead of .remove() to avoid React removeChild errors
   useEffect(() => {
     const seoEl = document.getElementById('seo-content');
-    if (seoEl) seoEl.remove();
+    if (seoEl) seoEl.style.display = 'none';
   }, []);
 
   // Hydrate locale from localStorage after mount
