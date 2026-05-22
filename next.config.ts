@@ -23,9 +23,9 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Dev mode requires unsafe-eval/unsafe-inline for HMR & hydration;
-      // production uses strict CSP (Next.js can add nonce support later)
-      `script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""}`,
+      // Next.js requires 'unsafe-inline' for __NEXT_DATA__ hydration script;
+      // 'unsafe-eval' is only needed in dev mode (HMR & hot reload)
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",
