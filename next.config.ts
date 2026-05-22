@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   {
     key: "X-Content-Type-Options",
@@ -21,9 +23,9 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js requires 'unsafe-inline' for script-src to support hydration
-      // and inline scripts (theme detection, etc.)
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+      // Dev mode requires unsafe-eval/unsafe-inline for HMR & hydration;
+      // production uses strict CSP (Next.js can add nonce support later)
+      `script-src 'self'${isDev ? " 'unsafe-eval' 'unsafe-inline'" : ""}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",
@@ -38,6 +40,20 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   reactStrictMode: true,
+  experimental: {
+    // Reduce bundle size by tree-shaking large icon/animation libraries
+    // This directly addresses the 900ms TBT by eliminating dead imports
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-icons',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tooltip',
+    ],
+  },
   async headers() {
     return [
       {
