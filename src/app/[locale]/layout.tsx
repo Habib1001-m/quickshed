@@ -12,18 +12,24 @@ const outfit = Outfit({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   display: 'swap',
+  adjustFontFallback: false,
+  preload: false,
 });
 
 const inter = Inter({
   variable: '--font-sans',
   subsets: ['latin'],
   display: 'swap',
+  adjustFontFallback: false,
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
   subsets: ['latin'],
   display: 'swap',
+  adjustFontFallback: false,
+  preload: false,
 });
 
 const tajawal = Tajawal({
@@ -31,6 +37,8 @@ const tajawal = Tajawal({
   subsets: ['arabic', 'latin'],
   weight: ['400', '500', '700'],
   display: 'swap',
+  adjustFontFallback: false,
+  preload: false,
 });
 
 export async function generateStaticParams() {

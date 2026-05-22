@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import {
   Shield, Home, Grid3X3, Wrench, FileText, Scale, Github, Twitter, Heart,
-  ArrowUp, Zap, Lock, LayoutGrid, Mail, Star,
+  BookOpen, ArrowUp, Zap, Lock, LayoutGrid, Mail, Star,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -187,6 +187,15 @@ export default function Footer() {
                     )}
                   </button>
                 </li>
+                <li>
+                  <Link
+                    href={`/${locale}/blog`}
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                  >
+                    <BookOpen className="h-3.5 w-3.5 shrink-0" />
+                    {t('header.blog')}
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -293,3 +302,4 @@ export default function Footer() {
     </footer>
   );
 }
+

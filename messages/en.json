@@ -11,7 +11,7 @@
     "mobileMenu": "Menu",
     "home": "Home",
     "categories": "Categories",
-    "allTools": "All Tools"
+    "allTools": "All Tools", "blog": "Blog"
   },
   "home": {
     "heroTitle": "Your Instant Privacy-First Toolbox",
