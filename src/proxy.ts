@@ -9,7 +9,7 @@ function getLocaleFromHeaders(request: NextRequest): string {
   return DEFAULT_LOCALE;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Skip static files, API routes, and Next.js internals
