@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Scale, ArrowLeft } from 'lucide-react';
+import { Scale } from 'lucide-react';
 import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 
 interface TermsPageProps {
@@ -45,34 +44,21 @@ export default async function TermsPage({ params }: TermsPageProps) {
   const isArabic = loc === 'ar';
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-gradient-to-b from-emerald-50 to-transparent dark:from-emerald-950/20 dark:to-transparent border-b border-border/50">
-        <div className="max-w-3xl mx-auto px-6 py-12">
-          <Link
-            href={`/${locale}`}
-            className="inline-flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors mb-6 group"
-          >
-            <ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-            {isArabic ? 'العودة إلى QuickShed' : 'Back to QuickShed'}
-          </Link>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
-              <Scale className="size-6" />
-            </div>
-            <h1 className="text-3xl font-bold text-foreground">
-              {isArabic ? 'شروط الخدمة' : 'Terms of Service'}
-            </h1>
-          </div>
-          <p className="text-muted-foreground text-sm">
-            {isArabic ? 'آخر تحديث: ١٩ مايو ٢٠٢٦' : 'Last updated: May 19, 2026'}
-          </p>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="flex items-center gap-3 mb-2">
+        <div className="flex size-12 items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400">
+          <Scale className="size-6" />
         </div>
+        <h1 className="text-3xl font-bold text-foreground">
+          {isArabic ? 'شروط الخدمة' : 'Terms of Service'}
+        </h1>
       </div>
+      <p className="text-muted-foreground text-sm mb-8">
+        {isArabic ? 'آخر تحديث: ١٩ مايو ٢٠٢٦' : 'Last updated: May 19, 2026'}
+      </p>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-6 py-10">
-        <section className="space-y-8 text-base leading-7">
+      <section className="space-y-8 text-base leading-7">
           <div className="glass-card rounded-2xl p-6 border-s-4 border-emerald-500">
             <h2 className="text-xl font-semibold mb-3 text-foreground">
               {isArabic ? 'قبول الشروط' : 'Acceptance of Terms'}
@@ -173,7 +159,6 @@ export default async function TermsPage({ params }: TermsPageProps) {
             </p>
           </div>
         </section>
-      </div>
-    </main>
+    </div>
   );
 }

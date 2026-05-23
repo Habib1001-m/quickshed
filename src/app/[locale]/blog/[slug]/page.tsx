@@ -3,24 +3,57 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
-
+import { LOCALES, SITE_URL } from '@/lib/site-config';
+import type { Metadata } from 'next';
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
 
-// Generate static params for SSG
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const post = getPostBySlug(slug, locale);
+
+  if (!post) {
+    return { title: 'Not Found' };
+  }
+
+  const isArabic = locale === 'ar';
+  const title = `${post.title} — QuickShed Blog`;
+  const description = post.description;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      siteName: 'QuickShed',
+      type: 'article',
+      url: `${SITE_URL}/${locale}/blog/${slug}`,
+      publishedTime: post.date,
+      tags: post.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/blog/${slug}`,
+    },
+  };
+}
+
 export async function generateStaticParams() {
-  const locales = ['ar', 'en'];
   const paths: { locale: string; slug: string }[] = [];
 
-  locales.forEach((locale) => {
+  LOCALES.forEach((locale) => {
     const posts = getAllPosts(locale);
     posts.forEach((post) => {
       paths.push({ locale, slug: post.slug });
     });
   });
-
 
   return paths;
 }
@@ -60,6 +93,10 @@ const mdxComponents = {
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote className="border-l-4 border-emerald-500 pl-4 my-4 italic text-muted-foreground" {...props} />
   ),
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line jsx-a11y/alt-text
+    <img className="rounded-lg max-w-full my-4 border border-border/50" {...props} />
+  ),
   hr: () => <hr className="my-8 border-border/60" />,
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
     <strong className="font-semibold text-foreground" {...props} />
@@ -70,9 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   const post = getPostBySlug(slug, locale);
 
-
   if (!post) notFound();
-
 
   const isRtl = locale === 'ar';
 
@@ -89,9 +124,8 @@ export default async function BlogPostPage({ params }: Props) {
 
   const t = translations[locale as keyof typeof translations] || translations.en;
 
-
   return (
-    <article className="container max-w-3xl mx-auto py-12 px-4 min-h-screen">
+    <article className="container max-w-3xl mx-auto py-12 px-4">
       <div className="mb-8">
         <Link
           href={`/${locale}/blog`}
@@ -113,19 +147,19 @@ export default async function BlogPostPage({ params }: Props) {
             <Tag className="h-3 w-3" />
             {post.category}
           </span>
-          <span className="text-muted-foreground">•</span>
+          <span className="text-muted-foreground">&bull;</span>
           <span className="inline-flex items-center gap-1 text-muted-foreground">
             <Calendar className="h-3 w-3" />
             {post.date}
           </span>
-          <span className="text-muted-foreground">•</span>
+          <span className="text-muted-foreground">&bull;</span>
           <span className="inline-flex items-center gap-1 text-muted-foreground">
             <Clock className="h-3 w-3" />
             {post.readingTime}
           </span>
         </div>
 
-        <h1 className={`text-3xl md:text-4xl font-extrabold tracking-tight text-foreground mb-4 leading-tight ${isRtl ? 'font-tajawal' : 'font-outfit'}`}>
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground mb-4 leading-tight">
           {post.title}
         </h1>
         <p className="text-xl text-muted-foreground leading-relaxed italic">
@@ -136,7 +170,7 @@ export default async function BlogPostPage({ params }: Props) {
       <hr className="my-8 border-border/60" />
 
       {/* MDX Content */}
-      <div className={`prose dark:prose-invert max-w-none ${isRtl ? 'font-tajawal' : 'font-inter'} prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-emerald-500 prose-a:no-underline hover:prose-a:underline`}>
+      <div className="max-w-none">
         <MDXRemote source={post.content} components={mdxComponents} />
       </div>
 

@@ -30,13 +30,14 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
     return {
       slug,
       locale,
-      title: data.title,
-      description: data.description,
-      date: data.date,
-      category: data.category,
-      tags: data.tags || [],
-      readingTime: data.readingTime || '5 min',
-      image: data.image,
+      title: String(data.title || ''),
+      description: String(data.description || ''),
+      // gray-matter parses YAML dates as Date objects — always convert to string
+      date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date || ''),
+      category: String(data.category || ''),
+      tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
+      readingTime: String(data.readingTime || '5 min'),
+      image: data.image ? String(data.image) : undefined,
       content,
     };
   } catch (error) {

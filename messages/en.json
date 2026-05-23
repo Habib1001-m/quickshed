@@ -11,7 +11,18 @@
     "mobileMenu": "Menu",
     "home": "Home",
     "categories": "Categories",
-    "allTools": "All Tools", "blog": "Blog"
+    "allTools": "All Tools",
+    "blog": "Blog"
+  },
+  "blog": {
+    "title": "QuickShed Tech Blog",
+    "subtitle": "Exclusive insights and technical guides to solve everyday tasks locally.",
+    "noPosts": "No articles published yet.",
+    "readMore": "Read More",
+    "backToBlog": "Back to Blog",
+    "relatedPosts": "Related Posts",
+    "publishedOn": "Published on {date}",
+    "minRead": "{time} min read"
   },
   "home": {
     "heroTitle": "Your Instant Privacy-First Toolbox",
