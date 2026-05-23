@@ -1,5 +1,6 @@
 'use client';
 
+
 import { getAllPosts } from '@/lib/blog';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
@@ -7,6 +8,7 @@ import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 interface Props {
   params: Promise<{ locale: string }>;
 }
+
 
 // Generate static params for SSG
 export async function generateStaticParams() {
@@ -35,6 +37,7 @@ export default async function BlogListPage({ params }: Props) {
     },
   };
 
+
   const t = translations[locale as keyof typeof translations] || translations.en;
 
   return (
@@ -47,6 +50,7 @@ export default async function BlogListPage({ params }: Props) {
           {t.subtitle}
         </p>
       </header>
+
 
       {posts.length === 0 ? (
         <div className="text-center text-muted-foreground py-12">
@@ -73,6 +77,7 @@ export default async function BlogListPage({ params }: Props) {
                   {post.description}
                 </p>
               </div>
+
 
               <div className="flex items-center justify-between pt-4 border-t border-border/40 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1">

@@ -17,7 +17,8 @@ export interface BlogPost {
   content: string;
 }
 
-// 1. قراءة مقال واحد بناءً على الرابط واللغة
+
+// 1. Read single post by slug and locale
 export function getPostBySlug(slug: string, locale: string): BlogPost | null {
   try {
     const filePath = path.join(BLOG_DIR, locale, `${slug}.mdx`);
@@ -44,7 +45,7 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
   }
 }
 
-// 2. جلب جميع المقالات الخاصة بلغة معينة مرتبة من الأحدث للأقدم
+// 2. Get all posts for a locale, sorted newest first
 export function getAllPosts(locale: string): BlogPost[] {
   const localeDir = path.join(BLOG_DIR, locale);
   if (!fs.existsSync(localeDir)) return [];
@@ -61,7 +62,7 @@ export function getAllPosts(locale: string): BlogPost[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-// 3. جلب المقالات المتعلقة (نفس الفئة)
+// 3. Get related posts (same category)
 export function getRelatedPosts(currentSlug: string, locale: string, category: string, limit: number = 3): BlogPost[] {
   const allPosts = getAllPosts(locale);
   return allPosts
@@ -69,14 +70,14 @@ export function getRelatedPosts(currentSlug: string, locale: string, category: s
     .slice(0, limit);
 }
 
-// 4. جلب جميع التصنيفات
+// 4. Get all categories
 export function getAllCategories(locale: string): string[] {
   const posts = getAllPosts(locale);
   const categories = new Set(posts.map((post) => post.category));
   return Array.from(categories);
 }
 
-// 5. جلب المقالات حسب التصنيف
+// 5. Get posts by category
 export function getPostsByCategory(locale: string, category: string): BlogPost[] {
   const allPosts = getAllPosts(locale);
   return allPosts.filter((post) => post.category === category);

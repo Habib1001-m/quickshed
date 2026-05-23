@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 
+
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
 }
@@ -19,6 +20,7 @@ export async function generateStaticParams() {
       paths.push({ locale, slug: post.slug });
     });
   });
+
 
   return paths;
 }
@@ -68,7 +70,9 @@ export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   const post = getPostBySlug(slug, locale);
 
+
   if (!post) notFound();
+
 
   const isRtl = locale === 'ar';
 
@@ -84,6 +88,7 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   const t = translations[locale as keyof typeof translations] || translations.en;
+
 
   return (
     <article className="container max-w-3xl mx-auto py-12 px-4 min-h-screen">
