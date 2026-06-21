@@ -48,6 +48,19 @@ test.describe('QuickShed smoke', () => {
     await expect(page.getByRole('main').getByText(/JSON Formatter/i).first()).toBeVisible();
   });
 
+  test('does not serve release archives from the app', async ({ request }) => {
+    for (const path of [
+      '/quickshed-complete.zip',
+      '/quickshed-complete.tar.gz',
+      '/quickshed-v1.0.0.zip',
+      '/quickshed-v1.0.0.tar.gz',
+    ]) {
+      const response = await request.get(path);
+      expect(response.status(), path).toBe(404);
+      expect(response.headers()['content-type'] ?? '', path).not.toMatch(/application\/(zip|gzip)/i);
+    }
+  });
+
   test('copies canonical tool share URLs', async ({ page }) => {
     await page.addInitScript(() => {
       Object.defineProperty(navigator, 'clipboard', {
