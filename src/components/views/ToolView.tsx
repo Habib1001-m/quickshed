@@ -185,7 +185,7 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
   const createCollection = useAppStore((s) => s.createCollection);
 
   const handleCopyLink = () => {
-    const url = `${window.location.origin}?tool=${tool.id}`;
+    const url = `${window.location.origin}/${locale}/tools/${encodeURIComponent(tool.id)}`;
     navigator.clipboard.writeText(url).then(() => {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);

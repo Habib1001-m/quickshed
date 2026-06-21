@@ -19,7 +19,7 @@ export function ExportShareSection({ toolId, toolName }: ExportShareSectionProps
   const [embedCopied, setEmbedCopied] = useState(false);
 
   const toolUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}?tool=${toolId}`
+    ? `${window.location.origin}/${locale}/tools/${encodeURIComponent(toolId)}`
     : '';
 
   const embedCode = `<iframe src="${toolUrl}" width="100%" height="600" frameborder="0" title="${toolName} - QuickShed"></iframe>`;

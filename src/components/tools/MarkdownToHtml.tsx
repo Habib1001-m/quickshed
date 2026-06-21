@@ -26,8 +26,25 @@ const labels = {
   },
 };
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function sanitizeUrl(value: string): string {
+  const trimmed = value.trim();
+  if (/^(https?:|mailto:|tel:|\/|#)/i.test(trimmed)) {
+    return trimmed;
+  }
+  return '#';
+}
+
 function markdownToHtml(md: string): string {
-  let html = md;
+  let html = escapeHtml(md);
 
   // Code blocks (must be before other rules)
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>');
@@ -58,11 +75,15 @@ function markdownToHtml(md: string): string {
   // Strikethrough
   html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
   // Images
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />');
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt: string, url: string) => {
+    return `<img src="${sanitizeUrl(url)}" alt="${alt}" />`;
+  });
+
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text: string, url: string) => {
+    return `<a href="${sanitizeUrl(url)}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+  });
 
   // Horizontal rule
   html = html.replace(/^(---|\*\*\*|___)$/gm, '<hr />');

@@ -1,0 +1,10 @@
+# Default owners for repository changes.
+* @Habib1001-m
+
+# Security-sensitive release surfaces.
+/public/ @Habib1001-m
+/scripts/check-public-assets.mjs @Habib1001-m
+/next.config.ts @Habib1001-m
+/package.json @Habib1001-m
+/package-lock.json @Habib1001-m
+/.github/ @Habib1001-m

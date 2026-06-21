@@ -77,7 +77,7 @@ export function CommandPalette() {
   // Listen for Cmd+K / Ctrl+K
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setIsOpen((prev) => !prev);
       }
@@ -142,6 +142,9 @@ export function CommandPalette() {
 
           {/* Command Palette */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={locale === 'ar' ? 'لوحة الأوامر' : 'Command palette'}
             initial={{ opacity: 0, scale: 0.95, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}

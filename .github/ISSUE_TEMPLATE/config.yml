@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Habib1001-m/quickshed/security/advisories/new
+    about: Please report exploitable security issues privately when private reporting is enabled.

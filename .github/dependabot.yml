@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: Africa/Cairo
+    open-pull-requests-limit: 10
+    groups:
+      nextjs:
+        patterns:
+          - next
+          - next-intl
+      testing:
+        patterns:
+          - "@playwright/test"
+          - playwright
+    labels:
+      - dependencies
+      - security
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:30"
+      timezone: Africa/Cairo
+    labels:
+      - dependencies
+      - ci

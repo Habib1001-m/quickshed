@@ -14,29 +14,148 @@ interface Step {
   result: string;
 }
 
-function safeEval(expr: string): number | null {
-  try {
-    // Sanitize: only allow numbers, operators, parentheses, decimal points, spaces
-    const sanitized = expr.replace(/\s/g, '');
-    if (!/^[0-9+\-*/().^√eE]+$/.test(sanitized)) return null;
-    if (/[a-df-zA-DF-Z]/.test(sanitized)) return null; // reject letters except e/E
+type Token =
+  | { type: 'number'; value: number }
+  | { type: 'operator'; value: '+' | '-' | '*' | '/' | '^' }
+  | { type: 'sqrt'; value: '√' }
+  | { type: 'paren'; value: '(' | ')' };
 
-    // Replace √ with Math.sqrt
-    let jsExpr = sanitized
-      .replace(/√\(/g, 'Math.sqrt(')
-      .replace(/\^/g, '**');
+function tokenize(expr: string): Token[] | null {
+  const tokens: Token[] = [];
+  let i = 0;
 
-    // Handle implicit sqrt: √9 → Math.sqrt(9)
-    jsExpr = jsExpr.replace(/√(\d+(\.\d+)?)/g, 'Math.sqrt($1)');
+  while (i < expr.length) {
+    const char = expr[i];
+    if (/\s/.test(char)) {
+      i += 1;
+      continue;
+    }
 
-    // Use Function constructor for safe-ish eval
-    const fn = new Function(`"use strict"; return (${jsExpr});`);
-    const result = fn();
-    if (typeof result === 'number' && isFinite(result)) return result;
-    return null;
-  } catch {
+    if (char === '√') {
+      tokens.push({ type: 'sqrt', value: '√' });
+      i += 1;
+      continue;
+    }
+
+    if (char === '(' || char === ')') {
+      tokens.push({ type: 'paren', value: char });
+      i += 1;
+      continue;
+    }
+
+    if (char === '+' || char === '-' || char === '*' || char === '/' || char === '^') {
+      tokens.push({ type: 'operator', value: char });
+      i += 1;
+      continue;
+    }
+
+    if (/\d|\./.test(char)) {
+      const start = i;
+      while (i < expr.length && /\d|\./.test(expr[i])) i += 1;
+      if (i < expr.length && /e/i.test(expr[i])) {
+        i += 1;
+        if (expr[i] === '+' || expr[i] === '-') i += 1;
+        while (i < expr.length && /\d/.test(expr[i])) i += 1;
+      }
+      const value = Number(expr.slice(start, i));
+      if (!Number.isFinite(value)) return null;
+      tokens.push({ type: 'number', value });
+      continue;
+    }
+
     return null;
   }
+
+  return tokens;
+}
+
+function safeEval(expr: string): number | null {
+  const tokens = tokenize(expr);
+  if (!tokens) return null;
+  const parsedTokens = tokens;
+  let index = 0;
+
+  function peek(): Token | undefined {
+    return parsedTokens[index];
+  }
+
+  function consume(): Token | undefined {
+    const token = parsedTokens[index];
+    index += 1;
+    return token;
+  }
+
+  function parsePrimary(): number | null {
+    const token = consume();
+    if (!token) return null;
+    if (token.type === 'number') return token.value;
+    if (token.type === 'paren' && token.value === '(') {
+      const value = parseAddSub();
+      const closing = consume();
+      if (!closing || closing.type !== 'paren' || closing.value !== ')') return null;
+      return value;
+    }
+    return null;
+  }
+
+  function parseUnary(): number | null {
+    const token = peek();
+    if (token?.type === 'operator' && (token.value === '+' || token.value === '-')) {
+      consume();
+      const value = parseUnary();
+      return value === null ? null : token.value === '-' ? -value : value;
+    }
+    if (token?.type === 'sqrt') {
+      consume();
+      const value = parseUnary();
+      if (value === null || value < 0) return null;
+      return Math.sqrt(value);
+    }
+    return parsePrimary();
+  }
+
+  function parsePower(): number | null {
+    const left = parseUnary();
+    if (left === null) return null;
+    const token = peek();
+    if (token?.type === 'operator' && token.value === '^') {
+      consume();
+      const right = parsePower();
+      if (right === null) return null;
+      return Math.pow(left, right);
+    }
+    return left;
+  }
+
+  function parseMulDiv(): number | null {
+    let value = parsePower();
+    while (value !== null) {
+      const token = peek();
+      if (token?.type !== 'operator' || (token.value !== '*' && token.value !== '/')) break;
+      consume();
+      const right = parsePower();
+      if (right === null) return null;
+      value = token.value === '*' ? value * right : value / right;
+    }
+    return value;
+  }
+
+  function parseAddSub(): number | null {
+    let value = parseMulDiv();
+    while (value !== null) {
+      const token = peek();
+      if (token?.type !== 'operator' || (token.value !== '+' && token.value !== '-')) break;
+      consume();
+      const right = parseMulDiv();
+      if (right === null) return null;
+      value = token.value === '+' ? value + right : value - right;
+    }
+    return value;
+  }
+
+  const result = parseAddSub();
+  if (index !== parsedTokens.length || result === null || !Number.isFinite(result)) return null;
+  return result;
 }
 
 function generateSteps(expr: string): { steps: Step[]; finalResult: number | null } {

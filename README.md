@@ -109,7 +109,9 @@ Install QuickShed on your device like a native app. Works offline with Service W
 ## 🚀 Getting Started
 
 ### Prerequisites
-- [Bun](https://bun.sh/) (recommended) or Node.js 18+
+- Node.js 22 for CI parity
+- npm for release checks
+- [Bun](https://bun.sh/) optional for local development
 - Git
 
 ### Installation
@@ -120,23 +122,26 @@ git clone https://github.com/Habib1001-m/quickshed.git
 cd quickshed
 
 # Install dependencies
-bun install
+npm ci
 
 # Start development server
-bun run dev
+npm run dev
 
 # Open in browser
-open http://localhost:3000
+open http://127.0.0.1:7125
 ```
 
 ### Build for Production
 
 ```bash
 # Create optimized production build
-bun run build
+npm run build
 
 # Run linting
-bun run lint
+npm run lint
+
+# Run the full release gate
+npm run release:check
 ```
 
 ---

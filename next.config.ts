@@ -36,6 +36,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    // Explicitly set the project root to resolve multiple lockfiles
+    root: __dirname,
+  },
   typescript: {
     ignoreBuildErrors: false,
   },

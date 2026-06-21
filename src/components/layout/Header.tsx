@@ -193,6 +193,7 @@ export default function Header() {
 
   // Mobile menu state
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClientReady, setIsClientReady] = useState(false);
 
   // All tools for Fuse
   const allTools = useMemo(() => getAllTools(), []);
@@ -244,7 +245,9 @@ export default function Header() {
 
   // Cleanup debounce on unmount
   useEffect(() => {
+    const readyTimer = window.setTimeout(() => setIsClientReady(true), 0);
     return () => {
+      window.clearTimeout(readyTimer);
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, []);
@@ -508,6 +511,7 @@ export default function Header() {
           </Button>
 
           {/* Mobile Hamburger Menu */}
+          {isClientReady ? (
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
@@ -632,6 +636,9 @@ export default function Header() {
               </nav>
             </SheetContent>
           </Sheet>
+          ) : (
+            <span className="lg:hidden h-9 w-9" aria-hidden="true" />
+          )}
         </div>
       </div>
 

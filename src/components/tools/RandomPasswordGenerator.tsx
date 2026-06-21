@@ -46,14 +46,26 @@ const labels = {
 const CONSONANTS = 'bcdfghjklmnpqrstvwxz';
 const VOWELS = 'aeiou';
 
+function randomIndex(max: number): number {
+  if (max <= 0) return 0;
+  const values = new Uint32Array(1);
+  const limit = Math.floor(0x100000000 / max) * max;
+
+  do {
+    crypto.getRandomValues(values);
+  } while (values[0] >= limit);
+
+  return values[0] % max;
+}
+
 function generatePronounceable(length: number): string {
   let result = '';
   let useConsonant = true;
   for (let i = 0; i < length; i++) {
     if (useConsonant) {
-      result += CONSONANTS[Math.floor(Math.random() * CONSONANTS.length)];
+      result += CONSONANTS[randomIndex(CONSONANTS.length)];
     } else {
-      result += VOWELS[Math.floor(Math.random() * VOWELS.length)];
+      result += VOWELS[randomIndex(VOWELS.length)];
     }
     useConsonant = !useConsonant;
   }
@@ -81,7 +93,7 @@ export default function RandomPasswordGenerator({ locale }: { locale: 'ar' | 'en
       for (let i = 0; i < count; i++) {
         let pin = '';
         for (let j = 0; j < length; j++) {
-          pin += Math.floor(Math.random() * 10).toString();
+          pin += randomIndex(10).toString();
         }
         pins.push(pin);
       }
@@ -109,7 +121,7 @@ export default function RandomPasswordGenerator({ locale }: { locale: 'ar' | 'en
     for (let i = 0; i < count; i++) {
       let pwd = '';
       for (let j = 0; j < length; j++) {
-        pwd += charset[Math.floor(Math.random() * charset.length)];
+        pwd += charset[randomIndex(charset.length)];
       }
       results.push(pwd);
     }

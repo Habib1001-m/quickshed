@@ -21,7 +21,7 @@ export function ShareTool({ toolId, toolName }: ShareToolProps) {
   const [copied, setCopied] = useState(false);
 
   const toolUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}?tool=${toolId}`
+    ? `${window.location.origin}/${locale}/tools/${encodeURIComponent(toolId)}`
     : '';
 
   const copyLink = useCallback(async () => {

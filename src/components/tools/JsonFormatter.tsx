@@ -53,24 +53,47 @@ const labels = {
   },
 };
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /* ---------- syntax-highlighted JSON ---------- */
 function highlightJson(json: string): string {
-  return json.replace(
-    /("(?:\\.|[^"\\])*")\s*:/g,
-    '<span style="color:#e06c75">$1</span>:'
-  ).replace(
-    /:\s*("(?:\\.|[^"\\])*")/g,
-    ': <span style="color:#98c379">$1</span>'
-  ).replace(
-    /:\s*(\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g,
-    ': <span style="color:#d19a66">$1</span>'
-  ).replace(
-    /:\s*(true|false)/g,
-    ': <span style="color:#56b6c2">$1</span>'
-  ).replace(
-    /:\s*(null)/g,
-    ': <span style="color:#c678dd">$1</span>'
-  );
+  const tokenPattern = /("(?:\\.|[^"\\])*")(\s*:)?|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null/g;
+  let highlighted = '';
+  let lastIndex = 0;
+
+  for (const match of json.matchAll(tokenPattern)) {
+    const token = match[0];
+    const index = match.index ?? 0;
+    const isKey = Boolean(match[2]);
+    const value = isKey ? token.slice(0, -match[2]!.length) : token;
+    const suffix = isKey ? match[2] : '';
+
+    highlighted += escapeHtml(json.slice(lastIndex, index));
+
+    if (isKey) {
+      highlighted += `<span style="color:#e06c75">${escapeHtml(value)}</span>${escapeHtml(suffix)}`;
+    } else if (value.startsWith('"')) {
+      highlighted += `<span style="color:#98c379">${escapeHtml(value)}</span>`;
+    } else if (/^-?\d/.test(value)) {
+      highlighted += `<span style="color:#d19a66">${escapeHtml(value)}</span>`;
+    } else if (value === 'true' || value === 'false') {
+      highlighted += `<span style="color:#56b6c2">${value}</span>`;
+    } else {
+      highlighted += `<span style="color:#c678dd">${value}</span>`;
+    }
+
+    lastIndex = index + token.length;
+  }
+
+  highlighted += escapeHtml(json.slice(lastIndex));
+  return highlighted;
 }
 
 /* ---------- collapsible tree node ---------- */
