@@ -9,6 +9,7 @@ import {
 import { useTheme } from 'next-themes';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
+import { APP_VERSION } from '@/lib/version';
 import { Button } from '@/components/ui/button';
 import { getAllTools } from '@/lib/tool-utils';
 import { ExportImport } from '@/components/ExportImport';
@@ -270,7 +271,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-foreground">QuickShed</p>
-                        <p className="text-[11px] text-muted-foreground">v1.0.0</p>
+                        <p className="text-[11px] text-muted-foreground">v{APP_VERSION}</p>
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">

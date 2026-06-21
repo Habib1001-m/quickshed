@@ -6,6 +6,16 @@ The format follows Keep a Changelog, and this project uses semantic versioning o
 
 ## [Unreleased]
 
+### Changed
+
+- Set the release identity to v0.6.0.
+- Standardized release checks on npm and Chromium Playwright smoke tests to match GitHub Actions.
+- Corrected public security and repository links to match implemented controls and the official GitHub repository.
+
+### Added
+
+- Release incident record and dependency audit policy for v0.6.0.
+
 ### Security
 
 - Removed public release archives from the static site source.
@@ -22,6 +32,6 @@ The format follows Keep a Changelog, and this project uses semantic versioning o
 
 ### Added
 
-- QuickShed Playwright smoke tests across Chromium, Firefox, and WebKit.
+- QuickShed Playwright smoke tests for desktop Chromium, mobile Chromium, service-worker-safe navigation, archive blocking, canonical sharing, RTL, and XSS regressions.
 - Release readiness audit and v0.6.0 launch plan.
 - GitHub governance templates for issues, pull requests, code ownership, security, and Dependabot.

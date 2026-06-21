@@ -254,7 +254,7 @@ export default function Footer() {
                 </h3>
                 <div className="flex items-center gap-3">
                   <a
-                    href="https://github.com/quickshed"
+                    href="https://github.com/Habib1001-m/quickshed"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub"
@@ -302,4 +302,3 @@ export default function Footer() {
     </footer>
   );
 }
-
