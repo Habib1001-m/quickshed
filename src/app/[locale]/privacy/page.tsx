@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Shield } from 'lucide-react';
-import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
-
-const REPOSITORY_URL = 'https://github.com/Habib1001-m/quickshed';
+import { SITE_URL, REPOSITORY_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 
 interface PrivacyPageProps {
   params: Promise<{ locale: string }>;

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
+import { REPOSITORY_URL } from '@/lib/site-config';
 import { getCategories, localize, getAllTools } from '@/lib/tool-utils';
 import type { Locale } from '@/lib/store';
 
@@ -254,7 +255,7 @@ export default function Footer() {
                 </h3>
                 <div className="flex items-center gap-3">
                   <a
-                    href="https://github.com/Habib1001-m/quickshed"
+                    href={REPOSITORY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub"
