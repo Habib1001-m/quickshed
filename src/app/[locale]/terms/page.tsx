@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Scale } from 'lucide-react';
-import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
+import { SITE_URL, REPOSITORY_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 
 interface TermsPageProps {
   params: Promise<{ locale: string }>;
@@ -143,14 +143,14 @@ export default async function TermsPage({ params }: TermsPageProps) {
               {isArabic ? (
                 <>
                   أسئلة حول هذه الشروط؟ تواصل معنا عبر صفحتنا على{' '}
-                  <a href="https://github.com/quickshed" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
                     GitHub
                   </a>.
                 </>
               ) : (
                 <>
                   Questions about these terms? Reach us via our{' '}
-                  <a href="https://github.com/quickshed" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
                     GitHub
                   </a>{' '}
                   page.

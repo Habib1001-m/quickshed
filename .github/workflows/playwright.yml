@@ -24,10 +24,12 @@ jobs:
       run: npm run typecheck
     - name: Build
       run: npm run build
+    - name: Dependency audit
+      run: npm run audit:release
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps chromium
     - name: Run Playwright tests
-      run: npx playwright test --project=chromium
+      run: npm run test:e2e
     - uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
       with:

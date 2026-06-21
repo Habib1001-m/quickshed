@@ -6,6 +6,8 @@
 
 **90+ free tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.**
 
+Current release target: **v0.6.0**.
+
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://quickshed.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?style=for-the-badge&logo=github)](https://github.com/Habib1001-m/quickshed)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
@@ -110,7 +112,7 @@ Install QuickShed on your device like a native app. Works offline with Service W
 
 ### Prerequisites
 - Node.js 22 for CI parity
-- npm for release checks
+- npm 10 for installs and release checks
 - [Bun](https://bun.sh/) optional for local development
 - Git
 
@@ -142,6 +144,10 @@ npm run lint
 
 # Run the full release gate
 npm run release:check
+
+# Optional full browser smoke suite, after installing all Playwright browsers
+npx playwright install
+npm run test:e2e:all
 ```
 
 ---
@@ -272,7 +278,7 @@ That's it! The tool will automatically appear in the correct category.
 
 | Header | Value |
 |--------|-------|
-| `Content-Security-Policy` | Strict CSP with nonce support |
+| `Content-Security-Policy` | Restrictive same-origin policy with inline styles/scripts only where currently required by Next.js |
 | `X-Content-Type-Options` | `nosniff` |
 | `X-Frame-Options` | `DENY` |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` |
@@ -281,7 +287,7 @@ That's it! The tool will automatically appear in the correct category.
 - **No cookies** — All preferences stored in `localStorage`
 - **No tracking** — Zero analytics, zero third-party scripts
 - **No server** — All processing happens in the browser
-- **CSP compliant** — Strict Content Security Policy prevents XSS
+- **Browser security headers** — CSP, frame protection, content-type protection, referrer policy, and reduced permissions are configured in `next.config.ts`
 
 ---
 
@@ -338,7 +344,7 @@ Contributions are welcome! Here's how you can help:
 - Add translations for both English and Arabic
 - Test in both LTR and RTL layouts
 - Ensure all tools work client-side only (no server dependencies)
-- Run `bun run lint` before submitting
+- Run `npm run release:check` before submitting
 
 ---
 

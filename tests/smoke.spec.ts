@@ -137,4 +137,23 @@ test.describe('QuickShed smoke', () => {
 
     await expect(page.getByRole('dialog', { name: /command palette/i })).toBeVisible();
   });
+
+  test('renders the home page on a mobile viewport', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'mobile viewport coverage runs in the mobile-chromium project');
+
+    await page.goto('/en');
+
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.getByRole('heading', { name: /privacy-first toolbox/i })).toBeVisible();
+    await expect(page.getByRole('main').getByText(/90\+ free tools/i)).toBeVisible();
+  });
+
+  test('keeps navigation safe when service workers are unavailable', async ({ page, context }) => {
+    await context.route('**/sw.js', (route) => route.fulfill({ status: 404, body: '' }));
+
+    await page.goto('/en/tools/json-formatter');
+
+    await expect(page).toHaveURL(/\/en\/tools\/json-formatter$/);
+    await expect(page.getByRole('main').getByText(/JSON Formatter/i).first()).toBeVisible();
+  });
 });

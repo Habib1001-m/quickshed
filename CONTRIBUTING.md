@@ -4,7 +4,7 @@ QuickShed is a privacy-first browser toolbox. Contributions should preserve loca
 
 ## Development Setup
 
-Use Node.js 22 for CI parity. Bun can be used locally, but npm is the release gate until the project formally chooses one package manager.
+Use Node.js 22 for CI parity. npm is the official package manager and release gate. Do not update or introduce a second lockfile for release work.
 
 ```bash
 npm ci
@@ -27,7 +27,15 @@ This runs:
 - ESLint
 - TypeScript
 - production build
-- Playwright smoke tests across Chromium, Firefox, and WebKit
+- critical production dependency audit gate
+- Playwright smoke tests on Chromium desktop and mobile, matching GitHub Actions
+
+For a broader local browser pass, install all Playwright browsers and run:
+
+```bash
+npx playwright install
+npm run test:e2e:all
+```
 
 ## Security and Privacy Rules
 

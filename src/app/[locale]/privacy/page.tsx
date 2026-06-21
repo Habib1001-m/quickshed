@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Shield } from 'lucide-react';
-import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
+import { SITE_URL, REPOSITORY_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 
 interface PrivacyPageProps {
   params: Promise<{ locale: string }>;
@@ -95,10 +95,10 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
                 },
                 {
                   num: '2',
-                  title: isArabic ? 'تحليلات مجهولة فقط.' : 'Anonymous analytics only.',
+                  title: isArabic ? 'لا تحليلات حالياً.' : 'No analytics currently.',
                   desc: isArabic
-                    ? 'نستخدم تحليلات تحترم الخصوصية (Plausible) لا تجمع معرفات شخصية أو عناوين IP ولا تضع ملفات تعريف الارتباط.'
-                    : 'We use privacy-friendly analytics (Plausible) that collects no personal identifiers, no IP addresses, and sets no cookies.',
+                    ? 'لا نستخدم حالياً أي سكربت تحليلات أو تتبع تابع لطرف ثالث. إذا أضفنا قياساً يحترم الخصوصية لاحقاً، فسيتم توثيقه هنا قبل الإطلاق.'
+                    : 'We currently use no analytics scripts and no third-party tracking. If privacy-friendly measurement is added later, it will be documented here before launch.',
                 },
                 {
                   num: '3',
@@ -159,8 +159,8 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             </h2>
             <p className="text-muted-foreground">
               {isArabic
-                ? 'الموقع يُقدم عبر HTTPS. تمنع رؤوس سياسة أمان المحتوى الصارمة (CSP) البرامج النصية غير المصرح بها. نقوم بتدقيق الاعتماديات أسبوعيًا ونصلح الثغرات الحرجة خلال ٢٤ ساعة.'
-                : 'The site is served over HTTPS. Strict Content Security Policy (CSP) headers prevent unauthorized scripts. We run weekly dependency audits and patch critical vulnerabilities within 24 hours.'}
+                ? 'الموقع يُقدم عبر HTTPS ويستخدم رؤوس أمان للمتصفح، بما في ذلك سياسة أمان المحتوى (CSP)، وتقليل صلاحيات المتصفح، ومنع التضمين داخل الإطارات. نتابع تنبيهات الاعتماديات عبر GitHub Dependabot ونوثق قرارات المعالجة أو قبول المخاطر قبل الإطلاق.'
+                : 'The site is served over HTTPS and uses browser security headers, including Content Security Policy (CSP), reduced browser permissions, and frame protection. Dependency alerts are tracked through GitHub Dependabot, with remediation or risk decisions documented before launch.'}
             </p>
           </div>
 
@@ -172,14 +172,14 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {isArabic ? (
                 <>
                   أسئلة حول هذه السياسة؟ تواصل معنا عبر صفحتنا على{' '}
-                  <a href="https://github.com/quickshed" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
                     GitHub
                   </a>.
                 </>
               ) : (
                 <>
                   Questions about this policy? Reach us via our{' '}
-                  <a href="https://github.com/quickshed" className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
                     GitHub
                   </a>{' '}
                   page.
