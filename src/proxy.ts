@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const LOCALES = ['en', 'ar'];
 const DEFAULT_LOCALE = 'en';
+const BLOCKED_PUBLIC_PATH_PATTERN = /(?:\.tar\.gz|\.zip|\.tar|\.tgz|\.7z|\.rar)$/i;
 
 function getLocaleFromHeaders(request: NextRequest): string {
   const acceptLanguage = request.headers.get('accept-language') || '';
@@ -11,6 +12,13 @@ function getLocaleFromHeaders(request: NextRequest): string {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (BLOCKED_PUBLIC_PATH_PATTERN.test(pathname)) {
+    return new NextResponse('Not found', {
+      status: 404,
+      headers: { 'content-type': 'text/plain; charset=utf-8' },
+    });
+  }
 
   // Skip static files, API routes, and Next.js internals
   if (
