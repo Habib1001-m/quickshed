@@ -7,16 +7,12 @@ updates:
       day: monday
       time: "08:00"
       timezone: Africa/Cairo
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 0
     groups:
-      nextjs:
+      npm-security:
+        applies-to: security-updates
         patterns:
-          - next
-          - next-intl
-      testing:
-        patterns:
-          - "@playwright/test"
-          - playwright
+          - "*"
     labels:
       - dependencies
       - security
@@ -27,6 +23,13 @@ updates:
       day: monday
       time: "08:30"
       timezone: Africa/Cairo
+    open-pull-requests-limit: 0
+    groups:
+      github-actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
     labels:
       - dependencies
       - ci
+      - security
