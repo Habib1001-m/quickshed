@@ -34,7 +34,6 @@ export function BackToTop() {
           onClick={scrollToTop}
           aria-label="Back to top"
           className={`
-            fixed bottom-6 end-6 z-50
             flex size-12 items-center justify-center rounded-full
             scroll-top-btn
             text-white shadow-lg shadow-emerald-500/25
@@ -42,6 +41,7 @@ export function BackToTop() {
             transition-shadow duration-200
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2
           `}
+          data-testid="back-to-top"
         >
           <ArrowUp className="size-5" />
         </motion.button>

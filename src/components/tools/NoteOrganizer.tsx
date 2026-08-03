@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,15 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { StickyNote, Plus, Trash2, Pencil, Search, X } from 'lucide-react';
-
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  category: string;
-  color: string;
-  updatedAt: number;
-}
+import { normalizeNotes, safeJsonParse, type Note } from '@/lib/storage-shapes';
 
 const COLORS = [
   { value: 'default', label: 'Default', labelAr: 'افتراضي', bg: 'bg-card', border: 'border-border' },
@@ -39,11 +31,13 @@ const CATEGORIES = [
 
 const STORAGE_KEY = 'quickshed-notes';
 
+// F2: validate each note against the shared shape so a malformed value (a
+// non-array root or entries with missing/non-string fields) can never reach
+// the renderer. Returns [] for malformed JSON, primitives, and null.
 function loadNotes(): Note[] {
   if (typeof window === 'undefined') return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    return normalizeNotes(safeJsonParse(localStorage.getItem(STORAGE_KEY)));
   } catch {
     return [];
   }
@@ -59,7 +53,13 @@ function saveNotes(notes: Note[]) {
 
 export default function NoteOrganizer({ locale }: { locale: 'ar' | 'en' }) {
   const isAr = locale === 'ar';
-  const [notes, setNotes] = useState<Note[]>([]);
+  // Lazy-initialize from localStorage once on mount (client-only: tools mount
+  // with ssr:false and loadNotes guards typeof window). Reading storage during
+  // the initial render — instead of a separate load effect — avoids a
+  // load/save race where the save effect below would otherwise persist the
+  // initial [] over valid data before/around the load (notably under React
+  // StrictMode's simulated remount in dev). Mirrors HabitTracker/EmojiPicker.
+  const [notes, setNotes] = useState<Note[]>(loadNotes);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
   const [editingNote, setEditingNote] = useState<Note | null>(null);
@@ -69,11 +69,6 @@ export default function NoteOrganizer({ locale }: { locale: 'ar' | 'en' }) {
   const [category, setCategory] = useState('general');
   const [color, setColor] = useState('default');
   const titleRef = useRef<HTMLInputElement>(null);
-
-  // Load from localStorage
-  useEffect(() => {
-    setNotes(loadNotes());
-  }, []);
 
   // Save to localStorage
   useEffect(() => {

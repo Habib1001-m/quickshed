@@ -1,12 +1,51 @@
 {
   "id": "slug-generator",
-  "name": { "ar": "مولد الرابط الودي", "en": "Slug Generator" },
-  "description": { "ar": "أنشئ روابط ودية من أي نص لإعداد عناوين URL ملائمة لمحركات البحث.", "en": "Generate URL-friendly slugs from any text for SEO-friendly URLs." },
+  "slug": "slug-generator",
+  "name": {
+    "ar": "مولد الرابط الودي",
+    "en": "Slug Generator"
+  },
+  "description": {
+    "ar": "أنشئ روابط ودية من أي نص لإعداد عناوين URL ملائمة لمحركات البحث.",
+    "en": "Generate URL-friendly slugs from any text for SEO-friendly URLs."
+  },
   "category": "text-tools",
   "icon": "Link",
-  "privacy": "local",
-  "keywords": ["slug", "url", "seo", "permalink", "رابط ودود", "رابط", "سيو"],
   "component": "SlugGenerator",
+  "route": "/[locale]/tools/slug-generator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "slug",
+    "url",
+    "seo",
+    "permalink",
+    "رابط ودود",
+    "رابط",
+    "سيو"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "transformed / analyzed text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/SlugGenerator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: SlugGenerator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -1,12 +1,52 @@
 {
   "id": "keyword-density-checker",
-  "name": { "ar": "مدقق كثافة الكلمات المفتاحية", "en": "Keyword Density Checker" },
-  "description": { "ar": "تحقق من كثافة الكلمات المفتاحية في محتواك لتحسين SEO.", "en": "Check keyword density in your content for SEO optimization." },
+  "slug": "keyword-density-checker",
+  "name": {
+    "ar": "مدقق كثافة الكلمات المفتاحية",
+    "en": "Keyword Density Checker"
+  },
+  "description": {
+    "ar": "تحقق من كثافة الكلمات المفتاحية في محتواك لتحسين SEO.",
+    "en": "Check keyword density in your content for SEO optimization."
+  },
   "category": "seo-tools",
   "icon": "BarChart3",
-  "privacy": "local",
-  "keywords": ["keyword", "density", "seo", "content", "كلمات مفتاحية", "كثافة", "سيو", "محتوى"],
   "component": "KeywordDensityChecker",
+  "route": "/[locale]/tools/keyword-density-checker",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "keyword",
+    "density",
+    "seo",
+    "content",
+    "كلمات مفتاحية",
+    "كثافة",
+    "سيو",
+    "محتوى"
+  ],
+  "inputs": [
+    "text / content / metadata"
+  ],
+  "outputs": [
+    "generated markup / simulated / analyzed output"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/KeywordDensityChecker.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: KeywordDensityChecker)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -315,15 +315,12 @@ That's it! The tool will automatically appear in the correct category.
 | **Tailwind CSS** | Utility-first CSS | 4 |
 | **shadcn/ui** | Component Library (New York) | Latest |
 | **Zustand** | Client State Management | 5 |
-| **TanStack Query** | Server State Management | 5 |
 | **Framer Motion** | Animations & Transitions | 12 |
 | **Lucide React** | Icon Library | Latest |
 | **next-themes** | Dark/Light Mode | 0.4 |
 | **pdf-lib** | PDF Manipulation | 1.17 |
-| **recharts** | Data Visualization | 2 |
 | **fuse.js** | Fuzzy Search | 7 |
-| **sharp** | Image Processing | 0.34 |
-| **date-fns** | Date Utilities | 4 |
+| **sharp** | Image Processing | 0.35 |
 | **zod** | Schema Validation | 4 |
 | **Vercel** | Deployment & CDN | — |
 

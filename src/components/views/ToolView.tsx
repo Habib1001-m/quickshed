@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState, useEffect, useRef } from 'react';
-import { motion, type Variants } from 'framer-motion';
-import { Home, ChevronRight, Wrench, Construction, ArrowRight, Sparkles, Heart, Copy, Check, FolderPlus, Share2, Plus } from 'lucide-react';
+import { useMemo, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Home, ChevronRight, Wrench, Construction, ArrowRight, Sparkles, Heart, Copy, Check, FolderPlus, Plus } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import {
@@ -13,13 +13,11 @@ import {
   getCategoryName,
   type ToolDescriptor,
 } from '@/lib/tool-utils';
-import { ToolCard } from '@/components/ToolCard';
 import { PrivacyBadge } from '@/components/PrivacyBadge';
 import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
 import { ExportShareSection } from '@/components/ExportShareSection';
 
-import { Badge } from '@/components/ui/badge';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -36,19 +34,6 @@ import { ShareTool } from '@/components/ShareTool';
 import { ToolRating } from '@/components/ToolRating';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { getCategoryColor } from '@/lib/category-config';
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.06, duration: 0.4, ease: 'easeOut' as const },
-  }),
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.06 } },
-};
 
 // ─── Tool Placeholder Component ─────────────────────────────────────
 
@@ -83,34 +68,9 @@ function ToolPlaceholder({ tool }: { tool: ToolDescriptor }) {
 
 function ToolContent({ tool }: { tool: ToolDescriptor }) {
   const { locale } = useI18n();
-  const [isLoading, setIsLoading] = useState(true);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toolComponentAvailable = getToolComponent(tool.component) !== null;
 
-  // Check if a real component exists for this tool
-  const hasComponent = getToolComponent(tool.component) !== null;
-
-  useEffect(() => {
-    timerRef.current = setTimeout(() => setIsLoading(false), 500);
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="space-y-4">
-        <div className="h-8 w-48 rounded-lg tool-skeleton" />
-        <div className="h-48 w-full rounded-xl tool-skeleton" />
-        <div className="grid grid-cols-2 gap-4">
-          <div className="h-10 w-full rounded-lg tool-skeleton" />
-          <div className="h-10 w-full rounded-lg tool-skeleton" />
-        </div>
-      </div>
-    );
-  }
-
-  // If a real tool component exists, render it via ToolRenderer
-  if (hasComponent) {
+  if (!toolComponentAvailable) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -118,12 +78,11 @@ function ToolContent({ tool }: { tool: ToolDescriptor }) {
         transition={{ duration: 0.3 }}
         className="tool-content-enter"
       >
-        <ToolRenderer componentName={tool.component} locale={locale} />
+        <ToolPlaceholder tool={tool} />
       </motion.div>
     );
   }
 
-  // Otherwise show placeholder
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -131,7 +90,7 @@ function ToolContent({ tool }: { tool: ToolDescriptor }) {
       transition={{ duration: 0.3 }}
       className="tool-content-enter"
     >
-      <ToolPlaceholder tool={tool} />
+      <ToolRenderer componentName={tool.component} locale={locale} />
     </motion.div>
   );
 }

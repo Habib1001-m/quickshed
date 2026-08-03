@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import Link from 'next/link';
 import {
   Shield, Home, Grid3X3, Wrench, FileText, Scale, Github, Twitter, Heart,
   BookOpen, ArrowUp, Zap, Lock, LayoutGrid, Mail, Star,
@@ -9,7 +8,7 @@ import {
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { REPOSITORY_URL } from '@/lib/site-config';
-import { getCategories, localize, getAllTools } from '@/lib/tool-utils';
+import { getCategories, localize, getAllTools, isOnDevice } from '@/lib/tool-utils';
 import type { Locale } from '@/lib/store';
 
 export default function Footer() {
@@ -24,7 +23,12 @@ export default function Footer() {
   const isRTL = locale === 'ar';
   const categories = useMemo(() => getCategories(), []);
   const allTools = useMemo(() => getAllTools(), []);
-  const localTools = allTools.filter((t) => t.privacy === 'local').length;
+  // QS-SPEC-001 T005c: on-device share = local + file-only + storage.
+  // A raw `local`-only count is NOT an on-device percentage, so we compute
+  // the real share over all tools and label it accurately.
+  const onDeviceCount = allTools.filter((tool) => isOnDevice(tool.privacy)).length;
+  const onDevicePercent =
+    allTools.length > 0 ? Math.round((onDeviceCount / allTools.length) * 100) : 0;
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -77,8 +81,8 @@ export default function Footer() {
                 <Lock className="size-5" />
               </div>
               <div>
-                <p className="text-2xl font-extrabold gradient-text tracking-tight">{localTools}%</p>
-                <p className="text-[11px] text-muted-foreground font-medium mt-0.5">{t('tool.privacyLocalShort')}</p>
+                <p className="text-2xl font-extrabold gradient-text tracking-tight">{onDevicePercent}%</p>
+                <p className="text-[11px] text-muted-foreground font-medium mt-0.5">{t('footer.onDeviceShare')}</p>
               </div>
             </div>
           </div>
@@ -189,13 +193,13 @@ export default function Footer() {
                   </button>
                 </li>
                 <li>
-                  <Link
+                  <a
                     href={`/${locale}/blog`}
                     className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <BookOpen className="h-3.5 w-3.5 shrink-0" />
                     {t('header.blog')}
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -228,22 +232,22 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2.5">
                 <li>
-                  <Link
+                  <a
                     href={`/${locale}/privacy`}
                     className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <FileText className="h-3.5 w-3.5 shrink-0" />
                     {t('footer.privacyPolicy')}
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link
+                  <a
                     href={`/${locale}/terms`}
                     className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Scale className="h-3.5 w-3.5 shrink-0" />
                     {t('footer.termsOfService')}
-                  </Link>
+                  </a>
                 </li>
               </ul>
 

@@ -30,11 +30,22 @@ export default function StaticPageShell({ locale, children }: BlogPageShellProps
     const originalPushState = window.history.pushState.bind(window.history);
 
     window.history.pushState = function (...args) {
-      originalPushState(...args);
-      // pushState was called — do a full navigation to the new URL
+      const currentPathname = window.location.pathname;
       const newUrl = args[2];
-      if (typeof newUrl === 'string' && newUrl !== window.location.pathname) {
-        window.location.href = newUrl;
+      const targetUrl = typeof newUrl === 'string'
+        ? new URL(newUrl, window.location.href)
+        : null;
+
+      originalPushState(...args);
+
+      // pushState was called — do a full navigation to a different same-origin path.
+      if (
+        typeof newUrl === 'string' &&
+        targetUrl &&
+        targetUrl.origin === window.location.origin &&
+        targetUrl.pathname !== currentPathname
+      ) {
+        window.location.assign(newUrl);
       }
     };
 

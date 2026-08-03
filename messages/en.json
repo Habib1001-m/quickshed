@@ -62,6 +62,8 @@
     "toolSpotlight": "Tool Spotlight",
     "tryNow": "Try Now",
     "localProcessing": "Local Processing",
+    "processesFileLocally": "Processed in your file",
+    "savedOnDevice": "Saved on your device",
     "requiresConnection": "Requires Connection"
   },
   "favorites": {
@@ -93,6 +95,8 @@
     "toolsInCategory": "{count} tools in this category",
     "filterAll": "All",
     "filterLocal": "Local Only",
+    "filterFileOnly": "File-only",
+    "filterStorage": "On-device",
     "filterApi": "Uses API",
     "backToCategories": "Back to Categories",
     "noToolsForFilter": "Try changing the filter to see more tools."
@@ -106,6 +110,10 @@
     "privacyApi": "Uses a secure external service",
     "privacyLocalShort": "Local",
     "privacyApiShort": "API",
+    "privacyFileOnly": "Your data stays inside the file you load",
+    "privacyFileOnlyShort": "File-only",
+    "privacyStorage": "Your data is saved in your browser",
+    "privacyStorageShort": "On-device",
     "copyResult": "Copy Result",
     "copied": "Copied!",
     "reset": "Reset",
@@ -115,10 +123,12 @@
     "error": "Something went wrong. Please try again.",
     "tryAgain": "Try Again",
     "downloadResult": "Download",
-    "clearInput": "Clear"
+    "clearInput": "Clear",
+    "markdownImageBlocked": "Image blocked: remote or unsafe images are not loaded in the local preview."
   },
   "footer": {
     "tagline": "Your Instant Privacy-First Toolbox",
+    "onDeviceShare": "On-device",
     "privacyPromise": "Privacy Promise",
     "privacyPromiseDesc": "Your data never leaves your device. All tools run locally in your browser.",
     "quickLinks": "Quick Links",
@@ -158,6 +168,8 @@
     "filterPrivacy": "Privacy",
     "filterAll": "All",
     "filterLocal": "Local",
+    "filterFileOnly": "File-only",
+    "filterStorage": "On-device",
     "filterApi": "API"
   },
   "common": {
@@ -196,7 +208,7 @@
     "tipTitle": "Did You Know?",
     "tipKeyboardNav": "Use arrow keys to navigate between tools",
     "tipCommandPalette": "Press Ctrl+K to quickly search and open any tool",
-    "tipPrivacyBadge": "Green badge means your data never leaves your device",
+    "tipPrivacyBadge": "Privacy badges show how each tool handles data: Local, File-only, On-device, or API (external service)",
     "tipFavorites": "Click the heart icon to save your favorite tools",
     "tipCollections": "Create collections to organize your most-used tools",
     "compareTools": "Compare Tools",
@@ -268,6 +280,17 @@
     "rateTool": "Rate",
     "quickAccess": "Quick Access",
     "minimize": "Minimize",
-    "sortByRating": "By Rating"
+    "sortByRating": "By Rating",
+    "backupImportTitle": "Import Backup?",
+    "backupImportSummary": "Import {count} item(s). {replaceCount} will replace existing data on this device.",
+    "backupImportWarning": "This replaces data stored on this device and cannot be undone.",
+    "backupImportAction": "Import",
+    "backupErrorInvalid": "This file is not a valid QuickShed backup.",
+    "backupErrorUnknownKeys": "Backup rejected: it contains unknown keys ({keys}).",
+    "backupErrorFailed": "Import failed. Your previous data was restored."
+  },
+  "a11y": {
+    "skipToMain": "Skip to main content",
+    "navigatedTo": "Navigated to {view}"
   }
 }

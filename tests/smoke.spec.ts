@@ -156,4 +156,93 @@ test.describe('QuickShed smoke', () => {
     await expect(page).toHaveURL(/\/en\/tools\/json-formatter$/);
     await expect(page.getByRole('main').getByText(/JSON Formatter/i).first()).toBeVisible();
   });
+
+  test('shortens to a same-browser hash route under the localized tool path', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText: async (text: string) => {
+            (window as TestWindow).__copiedText = text;
+          },
+        },
+      });
+    });
+
+    await page.goto('/en/tools/url-shortener');
+    await dismissOnboarding(page);
+
+    await page
+      .getByPlaceholder(/https:\/\/example\.com\/very\/long\/url/)
+      .fill('http://127.0.0.1:7125/en?short-target=1');
+    await page.getByPlaceholder('my-link').fill('mytest');
+    await page.getByRole('button', { name: /^shorten$/i }).click();
+
+    await expect(
+      page.getByText(/\/en\/tools\/url-shortener#s\/mytest/).first()
+    ).toBeVisible();
+
+    await page.getByRole('button', { name: /^copy$/i }).click();
+    await expect.poll(() =>
+      page.evaluate(() => (window as TestWindow).__copiedText)
+    ).toBe('http://127.0.0.1:7125/en/tools/url-shortener#s/mytest');
+  });
+
+  test('resolves a same-browser short link to an explicit CTA without auto-navigating', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        'quickshed-url-shortener',
+        JSON.stringify([
+          {
+            alias: 'demo',
+            original: 'http://127.0.0.1:7125/en?short-target=1',
+            createdAt: '2024-01-01T00:00:00.000Z',
+          },
+        ])
+      );
+    });
+
+    await page.goto('/en/tools/url-shortener#s/demo');
+
+    // The hash resolves to an explicit user-action CTA (rendered above the
+    // stored-links list, hence .first()) instead of auto-navigating.
+    const cta = page.getByRole('link', { name: /open original url/i }).first();
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute('href', /short-target=1/);
+    await expect(cta).toHaveAttribute('rel', /noopener/);
+    await expect(cta).toHaveAttribute('rel', /noreferrer/);
+
+    // No automatic external navigation occurred.
+    await expect(page).toHaveURL(/\/en\/tools\/url-shortener/);
+    await expect(page).not.toHaveURL(/short-target=1/);
+
+    // The explicit CTA opens the stored target.
+    const [popup] = await Promise.all([
+      page.waitForEvent('popup'),
+      cta.click(),
+    ]);
+    await expect(popup).toHaveURL(/short-target=1/);
+  });
+
+  test('does not navigate from an unsafe stored short link', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        'quickshed-url-shortener',
+        JSON.stringify([
+          {
+            alias: 'demo',
+            original: 'javascript:alert(1)',
+            createdAt: '2024-01-01T00:00:00.000Z',
+          },
+        ])
+      );
+    });
+
+    await page.goto('/en/tools/url-shortener#s/demo');
+
+    await expect(page).toHaveURL(/\/en\/tools\/url-shortener/);
+    await expect(
+      page.getByText(/Short link not found or unavailable in this browser/i)
+    ).toBeVisible();
+  });
 });

@@ -2,12 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HelpCircle, X } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
 
 export function ShortcutHelpFab() {
   const { locale } = useI18n();
-  const [visible, setVisible] = useState(true);
   const [pulse, setPulse] = useState(true);
 
   // Stop pulse after 5 seconds
@@ -22,15 +20,14 @@ export function ShortcutHelpFab() {
 
   return (
     <AnimatePresence>
-      {visible && (
-        <motion.button
+      <motion.button
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
           onClick={handleOpen}
           className={`
-            fixed bottom-6 end-6 z-30 flex size-11 items-center justify-center rounded-full
+            flex size-12 items-center justify-center rounded-full
             bg-background/80 backdrop-blur-lg border border-border/50 shadow-lg
             hover:bg-emerald-500 hover:text-white hover:border-emerald-500 hover:shadow-emerald-500/20
             transition-all duration-200
@@ -39,12 +36,12 @@ export function ShortcutHelpFab() {
           `}
           aria-label={locale === 'ar' ? 'اختصارات لوحة المفاتيح' : 'Keyboard shortcuts'}
           dir={locale === 'ar' ? 'rtl' : 'ltr'}
+          data-testid="shortcut-help-fab"
         >
           <span className="text-sm font-bold text-muted-foreground group-hover:text-white">
             ?
           </span>
-        </motion.button>
-      )}
+      </motion.button>
     </AnimatePresence>
   );
 }

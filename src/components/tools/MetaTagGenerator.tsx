@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Code, Eye, Globe, Twitter, Facebook } from 'lucide-react';
 
@@ -30,6 +29,7 @@ const labels = {
     titleWarn: 'Title should be under 60 characters for optimal display',
     descWarn: 'Description should be under 160 characters for optimal display',
     noPreview: 'Enter title and description to see preview',
+    imagePrivacy: 'Remote image preview is disabled to keep this tool local.',
     yourUrl: 'example.com',
   },
   ar: {
@@ -52,6 +52,7 @@ const labels = {
     titleWarn: 'يجب أن يكون العنوان أقل من 60 حرفاً للعرض الأمثل',
     descWarn: 'يجب أن يكون الوصف أقل من 160 حرفاً للعرض الأمثل',
     noPreview: 'أدخل العنوان والوصف لرؤية المعاينة',
+    imagePrivacy: 'تم تعطيل معاينة الصور الخارجية للحفاظ على عمل الأداة محليًا.',
     yourUrl: 'example.com',
   },
 };
@@ -191,8 +192,9 @@ export default function MetaTagGenerator({ locale }: { locale: 'ar' | 'en' }) {
             <CardContent>
               <div className="rounded-xl border overflow-hidden max-w-xl bg-white dark:bg-gray-950">
                 {imageUrl ? (
-                  <div className="aspect-[2/1] bg-muted flex items-center justify-center">
-                    <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                  <div className="aspect-[2/1] bg-muted flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <span className="text-xs text-muted-foreground">{t.imagePrivacy}</span>
+                    <span className="max-w-full break-all text-xs text-foreground/70">{imageUrl}</span>
                   </div>
                 ) : (
                   <div className="aspect-[2/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">Image</div>
@@ -213,8 +215,9 @@ export default function MetaTagGenerator({ locale }: { locale: 'ar' | 'en' }) {
             <CardContent>
               <div className="rounded-lg border overflow-hidden max-w-xl bg-white dark:bg-gray-950">
                 {imageUrl ? (
-                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center">
-                    <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                  <div className="aspect-[1.91/1] bg-muted flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <span className="text-xs text-muted-foreground">{t.imagePrivacy}</span>
+                    <span className="max-w-full break-all text-xs text-foreground/70">{imageUrl}</span>
                   </div>
                 ) : (
                   <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">Image</div>

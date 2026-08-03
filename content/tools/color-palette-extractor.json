@@ -1,12 +1,50 @@
 {
   "id": "color-palette-extractor",
-  "name": { "ar": "مستخرج لوحة الألوان", "en": "Color Palette Extractor" },
-  "description": { "ar": "استخرج لوحة الألوان السائدة من أي صورة.", "en": "Extract the dominant color palette from any image." },
+  "slug": "color-palette-extractor",
+  "name": {
+    "ar": "مستخرج لوحة الألوان",
+    "en": "Color Palette Extractor"
+  },
+  "description": {
+    "ar": "استخرج لوحة الألوان السائدة من أي صورة.",
+    "en": "Extract the dominant color palette from any image."
+  },
   "category": "image-tools",
   "icon": "Palette",
-  "privacy": "local",
-  "keywords": ["color palette", "extract", "dominant colors", "لوحة ألوان", "استخراج", "ألوان سائدة"],
   "component": "ColorPaletteExtractor",
+  "route": "/[locale]/tools/color-palette-extractor",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "color palette",
+    "extract",
+    "dominant colors",
+    "لوحة ألوان",
+    "استخراج",
+    "ألوان سائدة"
+  ],
+  "inputs": [
+    "user-selected image file(s)"
+  ],
+  "outputs": [
+    "processed image / extracted data"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/ColorPaletteExtractor.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: ColorPaletteExtractor)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

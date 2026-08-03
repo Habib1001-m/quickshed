@@ -55,6 +55,12 @@ server.log
 .z-ai-config
 agent-ctx/
 .zscripts/
+/.codex/
+/.remember/
+/agent.md
+/competitive_analysis/
+/quickshed-dev-workflow/
+/AGENTS.md
 
 # Skills SDK directory (not part of the project)
 skills/

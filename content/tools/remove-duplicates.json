@@ -1,12 +1,50 @@
 {
   "id": "remove-duplicates",
-  "name": { "ar": "إزالة المكررات", "en": "Remove Duplicates" },
-  "description": { "ar": "أزل الأسطر أو الكلمات المكررة من أي نص.", "en": "Remove duplicate lines or words from any text." },
+  "slug": "remove-duplicates",
+  "name": {
+    "ar": "إزالة المكررات",
+    "en": "Remove Duplicates"
+  },
+  "description": {
+    "ar": "أزل الأسطر أو الكلمات المكررة من أي نص.",
+    "en": "Remove duplicate lines or words from any text."
+  },
   "category": "text-tools",
   "icon": "ListMinus",
-  "privacy": "local",
-  "keywords": ["duplicates", "unique", "deduplicate", "مكرر", "فريد", "إزالة التكرار"],
   "component": "RemoveDuplicates",
+  "route": "/[locale]/tools/remove-duplicates",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "duplicates",
+    "unique",
+    "deduplicate",
+    "مكرر",
+    "فريد",
+    "إزالة التكرار"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "transformed / analyzed text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/RemoveDuplicates.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: RemoveDuplicates)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

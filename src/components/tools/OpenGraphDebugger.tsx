@@ -29,6 +29,7 @@ const labels = {
     property: 'Property',
     content: 'Content',
     noTags: 'No OG tags found. Paste HTML containing og: meta tags.',
+    imagePrivacy: 'Image preview is disabled to keep processing local.',
   },
   ar: {
     title: 'مصحح Open Graph',
@@ -46,11 +47,11 @@ const labels = {
     property: 'الخاصية',
     content: 'المحتوى',
     noTags: 'لم يتم العثور على وصفيات OG. الصق HTML يحتوي على og: meta tags.',
+    imagePrivacy: 'تم تعطيل معاينة الصورة للحفاظ على المعالجة محليًا.',
   },
 };
 
 const REQUIRED_OG = ['og:title', 'og:description', 'og:image', 'og:url'];
-const OPTIONAL_OG = ['og:type', 'og:site_name', 'og:locale', 'og:image:width', 'og:image:height', 'twitter:card', 'twitter:title', 'twitter:description', 'twitter:image'];
 
 export default function OpenGraphDebugger({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
@@ -177,8 +178,9 @@ export default function OpenGraphDebugger({ locale }: { locale: 'ar' | 'en' }) {
             <CardContent>
               <div className="rounded-lg border overflow-hidden max-w-xl bg-white dark:bg-gray-950">
                 {image ? (
-                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center">
-                    <img src={image} alt="OG Preview" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                  <div className="aspect-[1.91/1] bg-muted flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <span className="text-xs text-muted-foreground">{t.imagePrivacy}</span>
+                    <span className="max-w-full break-all text-xs text-foreground/70">{image}</span>
                   </div>
                 ) : (
                   <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">No Image</div>

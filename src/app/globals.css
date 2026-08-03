@@ -49,6 +49,7 @@
 
 :root {
   --radius: 0.625rem;
+  --quick-access-bar-reserve: 3.75rem;
   /* QuickShed Design System - Light Mode */
   /* Primary: slate-900 (#0F172A) — trust, depth */
   /* Accent: emerald-500 (#10B981) — privacy/safety, speed */
@@ -617,6 +618,70 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
+}
+
+/* F3: SPA skip link. Visually hidden until keyboard focus so it stays the
+   first focusable element without taking layout space. Uses logical
+   `inset-inline-start` so it appears correctly in both LTR and RTL, and the
+   theme tokens so it stays legible in light/dark. */
+.spa-skip-link {
+  position: fixed;
+  top: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 9999;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease-in-out;
+  background: var(--background);
+  color: var(--foreground);
+  border: 2px solid var(--ring);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 24px oklch(0 0 0 / 20%);
+}
+.spa-skip-link:focus,
+.spa-skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* F4: one logical end-side slot for the floating controls. The reserved
+   footprint matches the full-width Quick Access bar; the extra gap and safe
+   area keep the dock clear of that surface on mobile. */
+.floating-control-dock {
+  position: fixed;
+  inset-inline-end: 1.5rem;
+  bottom: calc(var(--quick-access-bar-reserve) + 0.75rem);
+  bottom: calc(var(--quick-access-bar-reserve) + 0.75rem + env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.floating-control-dock > * {
+  pointer-events: auto;
+}
+
+.quick-access-bar {
+  min-height: calc(var(--quick-access-bar-reserve) + env(safe-area-inset-bottom));
+  padding-block-end: env(safe-area-inset-bottom);
+}
+
+.quick-access-layout-reserve {
+  flex: 0 0 calc(var(--quick-access-bar-reserve) + env(safe-area-inset-bottom));
+  height: calc(var(--quick-access-bar-reserve) + env(safe-area-inset-bottom));
+  pointer-events: none;
+}
+
+.quick-access-minimized {
+  position: fixed;
+  inset-inline-start: 1.5rem;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 40;
 }
 
 /* Enhanced interactive feedback */
@@ -2003,7 +2068,7 @@
   content: '';
   position: absolute;
   top: 8px;
-  start: 8px;
+  inset-inline-start: 8px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -2186,7 +2251,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  start: 48px;
+  inset-inline-start: 48px;
   font-size: 1rem;
   color: oklch(0.50 0.01 261);
   pointer-events: none;
@@ -2201,7 +2266,7 @@
   color: oklch(0.65 0.18 163);
   background: oklch(1 0 0 / 85%);
   border-radius: 2px;
-  start: 40px;
+  inset-inline-start: 40px;
 }
 .dark .search-floating-label-active {
   background: oklch(0.22 0.015 261 / 90%);

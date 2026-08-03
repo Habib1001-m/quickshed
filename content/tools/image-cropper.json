@@ -1,12 +1,50 @@
 {
   "id": "image-cropper",
-  "name": { "ar": "قص الصور", "en": "Image Cropper" },
-  "description": { "ar": "قص الصور بالأبعاد والمنطقة التي تريدها.", "en": "Crop images to the dimensions and area you want." },
+  "slug": "image-cropper",
+  "name": {
+    "ar": "قص الصور",
+    "en": "Image Cropper"
+  },
+  "description": {
+    "ar": "قص الصور بالأبعاد والمنطقة التي تريدها.",
+    "en": "Crop images to the dimensions and area you want."
+  },
   "category": "image-tools",
   "icon": "Crop",
-  "privacy": "local",
-  "keywords": ["crop", "image", "trim", "قص", "صورة", "تقليم"],
   "component": "ImageCropper",
+  "route": "/[locale]/tools/image-cropper",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "crop",
+    "image",
+    "trim",
+    "قص",
+    "صورة",
+    "تقليم"
+  ],
+  "inputs": [
+    "user-selected image file(s)"
+  ],
+  "outputs": [
+    "processed image / extracted data"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/ImageCropper.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: ImageCropper)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

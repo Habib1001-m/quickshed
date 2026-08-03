@@ -1,12 +1,50 @@
 {
   "id": "text-reverser",
-  "name": { "ar": "عكس النص", "en": "Text Reverser" },
-  "description": { "ar": "اعكس ترتيب أحرف أو كلمات أي نص بسهولة.", "en": "Easily reverse the order of characters or words in any text." },
+  "slug": "text-reverser",
+  "name": {
+    "ar": "عكس النص",
+    "en": "Text Reverser"
+  },
+  "description": {
+    "ar": "اعكس ترتيب أحرف أو كلمات أي نص بسهولة.",
+    "en": "Easily reverse the order of characters or words in any text."
+  },
   "category": "text-tools",
   "icon": "ArrowRightLeft",
-  "privacy": "local",
-  "keywords": ["reverse", "flip", "backwards", "عكس", "قلب", "ترتيب عكسي"],
   "component": "TextReverser",
+  "route": "/[locale]/tools/text-reverser",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "reverse",
+    "flip",
+    "backwards",
+    "عكس",
+    "قلب",
+    "ترتيب عكسي"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "transformed / analyzed text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/TextReverser.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: TextReverser)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

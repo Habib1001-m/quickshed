@@ -1,12 +1,51 @@
 {
   "id": "bmi-calculator",
-  "name": { "ar": "حاسبة مؤشر كتلة الجسم", "en": "BMI Calculator" },
-  "description": { "ar": "احسب مؤشر كتلة جسمك لمعرفة إذا كان وزنك مثالياً أم لا.", "en": "Calculate your Body Mass Index to find out if your weight is in a healthy range." },
+  "slug": "bmi-calculator",
+  "name": {
+    "ar": "حاسبة مؤشر كتلة الجسم",
+    "en": "BMI Calculator"
+  },
+  "description": {
+    "ar": "احسب مؤشر كتلة جسمك لمعرفة إذا كان وزنك مثالياً أم لا.",
+    "en": "Calculate your Body Mass Index to find out if your weight is in a healthy range."
+  },
   "category": "calculators",
   "icon": "Activity",
-  "privacy": "local",
-  "keywords": ["bmi", "body mass index", "weight", "health", "كتلة الجسم", "وزن", "صحة"],
   "component": "BmiCalculator",
+  "route": "/[locale]/tools/bmi-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "bmi",
+    "body mass index",
+    "weight",
+    "health",
+    "كتلة الجسم",
+    "وزن",
+    "صحة"
+  ],
+  "inputs": [
+    "numeric inputs / values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/BmiCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: BmiCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

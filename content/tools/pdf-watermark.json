@@ -1,12 +1,50 @@
 {
   "id": "pdf-watermark",
-  "name": { "ar": "علامة مائية PDF", "en": "PDF Watermark" },
-  "description": { "ar": "أضف علامة مائية نصية أو صورية إلى ملف PDF.", "en": "Add a text or image watermark to a PDF file." },
+  "slug": "pdf-watermark",
+  "name": {
+    "ar": "علامة مائية PDF",
+    "en": "PDF Watermark"
+  },
+  "description": {
+    "ar": "أضف علامة مائية نصية أو صورية إلى ملف PDF.",
+    "en": "Add a text or image watermark to a PDF file."
+  },
   "category": "pdf-tools",
   "icon": "Droplets",
-  "privacy": "local",
-  "keywords": ["pdf", "watermark", "stamp", "علامة مائية", "بي دي إف", "ختم"],
   "component": "PdfWatermark",
+  "route": "/[locale]/tools/pdf-watermark",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "pdf",
+    "watermark",
+    "stamp",
+    "علامة مائية",
+    "بي دي إف",
+    "ختم"
+  ],
+  "inputs": [
+    "user-selected PDF file(s)"
+  ],
+  "outputs": [
+    "processed PDF / extracted text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PdfWatermark.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: PdfWatermark)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

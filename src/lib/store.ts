@@ -1,17 +1,23 @@
 import { create } from 'zustand';
 import { addToolHistoryEntry } from '@/lib/tool-history';
+import {
+  safeJsonParse,
+  normalizeStringArray,
+  normalizeUsageRecord,
+  normalizeCollections,
+  MAX_RECENT_TOOLS,
+  MAX_COMPARE_TOOLS,
+  type ToolCollection,
+} from '@/lib/storage-shapes';
 
 export type View = 'home' | 'category' | 'categories' | 'tool' | 'all-tools' | 'favorites';
 
 export type Locale = 'ar' | 'en';
 
-export interface ToolCollection {
-  id: string;
-  name: string;
-  tools: string[];
-  createdAt: number;
-  updatedAt: number;
-}
+// ToolCollection is owned by src/lib/storage-shapes (shared with the
+// backup-import validator and the runtime normalizers) and re-exported here
+// so existing `import { ToolCollection } from '@/lib/store'` sites work.
+export type { ToolCollection };
 
 interface AppState {
   // Navigation
@@ -78,8 +84,8 @@ const RECENT_STORAGE_KEY = 'quickshed-recent';
 const USAGE_COUNT_KEY = 'quickshed-usage';
 const COLLECTIONS_KEY = 'quickshed-collections';
 const COMPARE_KEY = 'quickshed-compare';
-const MAX_RECENT_TOOLS = 10;
-const MAX_COMPARE_TOOLS = 3;
+// MAX_RECENT_TOOLS and MAX_COMPARE_TOOLS are imported from storage-shapes so
+// the readers and writers share one definition of each cap.
 
 function getStoredLocale(): Locale {
   if (typeof window === 'undefined') return 'en';
@@ -104,13 +110,9 @@ function persistLocale(locale: Locale): void {
 function getStoredFavorites(): string[] {
   if (typeof window === 'undefined') return [];
   try {
-    const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return parsed;
-    }
+    return normalizeStringArray(safeJsonParse(localStorage.getItem(FAVORITES_STORAGE_KEY)));
   } catch {
-    // localStorage not available or invalid JSON
+    // localStorage not available
   }
   return [];
 }
@@ -127,13 +129,12 @@ function persistFavorites(favorites: string[]): void {
 function getStoredRecentTools(): string[] {
   if (typeof window === 'undefined') return [];
   try {
-    const stored = localStorage.getItem(RECENT_STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return parsed;
-    }
+    return normalizeStringArray(
+      safeJsonParse(localStorage.getItem(RECENT_STORAGE_KEY)),
+      MAX_RECENT_TOOLS,
+    );
   } catch {
-    // localStorage not available or invalid JSON
+    // localStorage not available
   }
   return [];
 }
@@ -150,13 +151,9 @@ function persistRecentTools(recentTools: string[]): void {
 function getStoredUsageCount(): Record<string, number> {
   if (typeof window === 'undefined') return {};
   try {
-    const stored = localStorage.getItem(USAGE_COUNT_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (typeof parsed === 'object' && parsed !== null) return parsed;
-    }
+    return normalizeUsageRecord(safeJsonParse(localStorage.getItem(USAGE_COUNT_KEY)));
   } catch {
-    // localStorage not available or invalid JSON
+    // localStorage not available
   }
   return {};
 }
@@ -170,16 +167,17 @@ function persistUsageCount(counts: Record<string, number>): void {
   }
 }
 
+// F2: collections are normalized via the shared storage-shapes helper so a
+// malformed/stale value (e.g. a collection missing `tools`, or a non-array
+// root) can never crash a consumer that dereferences `collection.tools`.
+// The import validator (src/lib/backup-import.ts) is the gate for the import
+// path; this is defense-in-depth for any other source of stored data.
 function getStoredCollections(): ToolCollection[] {
   if (typeof window === 'undefined') return [];
   try {
-    const stored = localStorage.getItem(COLLECTIONS_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return parsed;
-    }
+    return normalizeCollections(safeJsonParse(localStorage.getItem(COLLECTIONS_KEY)));
   } catch {
-    // localStorage not available or invalid JSON
+    // localStorage not available
   }
   return [];
 }
@@ -196,13 +194,12 @@ function persistCollections(collections: ToolCollection[]): void {
 function getStoredCompare(): string[] {
   if (typeof window === 'undefined') return [];
   try {
-    const stored = localStorage.getItem(COMPARE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) return parsed.slice(0, MAX_COMPARE_TOOLS);
-    }
+    return normalizeStringArray(
+      safeJsonParse(localStorage.getItem(COMPARE_KEY)),
+      MAX_COMPARE_TOOLS,
+    );
   } catch {
-    // localStorage not available or invalid JSON
+    // localStorage not available
   }
   return [];
 }

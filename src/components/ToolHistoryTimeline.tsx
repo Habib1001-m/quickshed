@@ -10,6 +10,7 @@ import { DynamicIcon } from '@/components/IconMapper';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
+  getToolHistory,
   type ToolHistoryEntry,
 } from '@/lib/tool-history';
 import Fuse from 'fuse.js';
@@ -114,37 +115,14 @@ export function ToolHistoryTimeline() {
 
   // Read history from localStorage lazily
   const [history, setHistory] = useState<ToolHistoryEntry[]>(() => {
-    if (typeof window === 'undefined') return [];
-    try {
-      const stored = localStorage.getItem('quickshed-tool-history');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          return parsed.sort((a: ToolHistoryEntry, b: ToolHistoryEntry) => b.timestamp - a.timestamp);
-        }
-      }
-    } catch { /* ignore */ }
-    return [];
+    return getToolHistory();
   });
 
   // Poll for changes every 3 seconds
   useEffect(() => {
     const poll = () => {
-      if (typeof window === 'undefined') return;
-      try {
-        const stored = localStorage.getItem('quickshed-tool-history');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            requestAnimationFrame(() => {
-              setHistory(parsed.sort((a: ToolHistoryEntry, b: ToolHistoryEntry) => b.timestamp - a.timestamp));
-            });
-            return;
-          }
-        }
-      } catch { /* ignore */ }
       requestAnimationFrame(() => {
-        setHistory([]);
+        setHistory(getToolHistory());
       });
     };
 
@@ -194,7 +172,11 @@ export function ToolHistoryTimeline() {
 
   const handleClearAll = () => {
     if (typeof window === 'undefined') return;
-    localStorage.removeItem('quickshed-tool-history');
+    try {
+      localStorage.removeItem('quickshed-tool-history');
+    } catch {
+      // localStorage unavailable — still reset in-memory state below
+    }
     setHistory([]);
     setHistoryVersion((v) => v + 1);
   };
@@ -296,7 +278,7 @@ export function ToolHistoryTimeline() {
 
                               return (
                                 <motion.button
-                                  key={`${entry.toolId}-${entry.timestamp}`}
+                                  key={entry.id}
                                   variants={itemVariants}
                                   onClick={() => navigateToTool(entry.toolId)}
                                   className="relative w-full flex items-center gap-3 rounded-lg px-3 py-2 text-start hover:bg-emerald-500/5 transition-colors group"

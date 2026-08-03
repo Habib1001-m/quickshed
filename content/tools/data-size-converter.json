@@ -1,12 +1,50 @@
 {
   "id": "data-size-converter",
-  "name": { "ar": "محول حجم البيانات", "en": "Data Size Converter" },
-  "description": { "ar": "حوّل بين وحدات البيانات الرقمية مثل البايت والكيلوبايت والميغابايت والجيجابايت.", "en": "Convert between digital data units like bytes, kilobytes, megabytes, and gigabytes." },
+  "slug": "data-size-converter",
+  "name": {
+    "ar": "محول حجم البيانات",
+    "en": "Data Size Converter"
+  },
+  "description": {
+    "ar": "حوّل بين وحدات البيانات الرقمية مثل البايت والكيلوبايت والميغابايت والجيجابايت.",
+    "en": "Convert between digital data units like bytes, kilobytes, megabytes, and gigabytes."
+  },
   "category": "converters",
   "icon": "HardDrive",
-  "privacy": "local",
-  "keywords": ["data size", "bytes", "storage", "حجم بيانات", "بايت", "تخزين"],
   "component": "DataSizeConverter",
+  "route": "/[locale]/tools/data-size-converter",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "data size",
+    "bytes",
+    "storage",
+    "حجم بيانات",
+    "بايت",
+    "تخزين"
+  ],
+  "inputs": [
+    "one or more values to convert"
+  ],
+  "outputs": [
+    "converted value(s)"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/DataSizeConverter.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: DataSizeConverter)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

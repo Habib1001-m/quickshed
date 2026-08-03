@@ -1,12 +1,52 @@
 {
   "id": "currency-converter-calculator",
-  "name": { "ar": "محول العملات", "en": "Currency Converter Calculator" },
-  "description": { "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.", "en": "Convert between different currencies with current exchange rates." },
+  "slug": "currency-converter-calculator",
+  "name": {
+    "ar": "محول العملات",
+    "en": "Currency Converter Calculator"
+  },
+  "description": {
+    "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.",
+    "en": "Convert between different currencies with current exchange rates."
+  },
   "category": "calculators",
   "icon": "ArrowLeftRight",
-  "privacy": "local",
-  "keywords": ["currency", "exchange", "conversion", "money", "عملات", "صرف", "تحويل", "نقود"],
   "component": "CurrencyConverterCalculator",
+  "route": "/[locale]/tools/currency-converter-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "currency",
+    "exchange",
+    "conversion",
+    "money",
+    "عملات",
+    "صرف",
+    "تحويل",
+    "نقود"
+  ],
+  "inputs": [
+    "numeric inputs / values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/CurrencyConverterCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: CurrencyConverterCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

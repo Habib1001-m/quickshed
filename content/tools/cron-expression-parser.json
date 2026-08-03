@@ -1,12 +1,51 @@
 {
   "id": "cron-expression-parser",
-  "name": { "ar": "محلل تعبيرات Cron", "en": "Cron Expression Parser" },
-  "description": { "ar": "حلل واشرح تعبيرات Cron المجدولة بسهولة.", "en": "Parse and explain scheduled Cron expressions easily." },
+  "slug": "cron-expression-parser",
+  "name": {
+    "ar": "محلل تعبيرات Cron",
+    "en": "Cron Expression Parser"
+  },
+  "description": {
+    "ar": "حلل واشرح تعبيرات Cron المجدولة بسهولة.",
+    "en": "Parse and explain scheduled Cron expressions easily."
+  },
   "category": "developer-tools",
   "icon": "Clock",
-  "privacy": "local",
-  "keywords": ["cron", "schedule", "expression", "parse", "كرون", "جدولة", "تعبير"],
   "component": "CronExpressionParser",
+  "route": "/[locale]/tools/cron-expression-parser",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "cron",
+    "schedule",
+    "expression",
+    "parse",
+    "كرون",
+    "جدولة",
+    "تعبير"
+  ],
+  "inputs": [
+    "code / text / data"
+  ],
+  "outputs": [
+    "formatted / encoded / decoded / parsed result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/CronExpressionParser.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: CronExpressionParser)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

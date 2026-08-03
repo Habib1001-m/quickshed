@@ -1,12 +1,50 @@
 {
   "id": "random-number-generator",
-  "name": { "ar": "مولد الأرقام العشوائية", "en": "Random Number Generator" },
-  "description": { "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.", "en": "Generate random numbers within a specified range with advanced options." },
+  "slug": "random-number-generator",
+  "name": {
+    "ar": "مولد الأرقام العشوائية",
+    "en": "Random Number Generator"
+  },
+  "description": {
+    "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.",
+    "en": "Generate random numbers within a specified range with advanced options."
+  },
   "category": "utility-tools",
   "icon": "Dice5",
-  "privacy": "local",
-  "keywords": ["random", "number", "dice", "عشوائي", "رقم", "نرد"],
   "component": "RandomNumberGenerator",
+  "route": "/[locale]/tools/random-number-generator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "random",
+    "number",
+    "dice",
+    "عشوائي",
+    "رقم",
+    "نرد"
+  ],
+  "inputs": [
+    "numeric values"
+  ],
+  "outputs": [
+    "generated numbers"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/RandomNumberGenerator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: RandomNumberGenerator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

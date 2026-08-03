@@ -1,12 +1,50 @@
 {
   "id": "percentage-calculator",
-  "name": { "ar": "حاسبة النسبة المئوية", "en": "Percentage Calculator" },
-  "description": { "ar": "أداة لحساب النسب المئوية بسرعة وسهولة، بما في ذلك الزيادة والنقصان والنسبة من رقم.", "en": "A tool to quickly calculate percentages, including increase, decrease, and percentage of a number." },
+  "slug": "percentage-calculator",
+  "name": {
+    "ar": "حاسبة النسبة المئوية",
+    "en": "Percentage Calculator"
+  },
+  "description": {
+    "ar": "أداة لحساب النسب المئوية بسرعة وسهولة، بما في ذلك الزيادة والنقصان والنسبة من رقم.",
+    "en": "A tool to quickly calculate percentages, including increase, decrease, and percentage of a number."
+  },
   "category": "calculators",
   "icon": "Percent",
-  "privacy": "local",
-  "keywords": ["percentage", "percent", "ratio", "نسبة مئوية", "نسبة", "مئة"],
   "component": "PercentageCalculator",
+  "route": "/[locale]/tools/percentage-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "percentage",
+    "percent",
+    "ratio",
+    "نسبة مئوية",
+    "نسبة",
+    "مئة"
+  ],
+  "inputs": [
+    "numeric inputs / values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PercentageCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: PercentageCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

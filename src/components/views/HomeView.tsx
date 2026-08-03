@@ -6,16 +6,17 @@ import Fuse from 'fuse.js';
 import {
   Shield, Gift, Globe, UserX, Search, ArrowRight,
   Wrench, LayoutGrid, Heart, Lock, Clock, X,
-  Sparkles, Zap, ChevronRight, Star, ExternalLink,
+  Sparkles, Zap, ChevronRight, Star,
+  FileLock2, Database, ShieldAlert,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import {
   getCategories, getDiverseFeaturedTools, getAllTools,
-  getToolById, getToolsByCategory, localize, getCategoryName,
-  type ToolDescriptor,
+  getToolById, localize, getCategoryName,
+  type ToolDescriptor, type Privacy,
 } from '@/lib/tool-utils';
-import { CategoryCard } from '@/components/CategoryCard';
 import { ToolCard } from '@/components/ToolCard';
 import { DynamicIcon } from '@/components/IconMapper';
 import { DidYouKnowTip } from '@/components/DidYouKnowTip';
@@ -146,6 +147,39 @@ const CATEGORY_EXAMPLES: Record<string, { en: string; ar: string }[]> = {
 
 // ─── Animation variants ─────────────────────────────────────────────
 
+/**
+ * QS-SPEC-001 T005c: exhaustive four-way spotlight disclosure. Every Privacy
+ * value resolves to its own label key — on-device classes (`local`,
+ * `file-only`, `storage`) never say `requiresConnection`. The switch is
+ * exhaustive over the shared {@link Privacy} union; a future value fails
+ * typecheck (the function must return on every path).
+ */
+function spotlightPrivacyLabelKey(privacy: Privacy): string {
+  switch (privacy) {
+    case 'local':
+      return 'home.localProcessing';
+    case 'file-only':
+      return 'home.processesFileLocally';
+    case 'storage':
+      return 'home.savedOnDevice';
+    case 'api':
+      return 'home.requiresConnection';
+  }
+}
+
+/**
+ * QS-SPEC-001 T005c: exhaustive four-way spotlight icon + hue. Every Privacy
+ * value resolves to its own icon and color; on-device classes (`local`,
+ * `file-only`, `storage`) never fall through to the API amber. Typed
+ * `Record<Privacy, ...>` so a future enum value fails typecheck until added.
+ */
+const SPOTLIGHT_PRIVACY_ICON: Record<Privacy, { Icon: LucideIcon; color: string }> = {
+  local: { Icon: Shield, color: 'text-emerald-500' },
+  'file-only': { Icon: FileLock2, color: 'text-sky-500' },
+  storage: { Icon: Database, color: 'text-violet-500' },
+  api: { Icon: ShieldAlert, color: 'text-amber-500' },
+};
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
@@ -220,6 +254,11 @@ export function HomeView() {
   const categories = useMemo(() => getCategories(), []);
   const featuredTools = useMemo(() => getDiverseFeaturedTools(8), []);
   const spotlightTool = useMemo(() => getDiverseFeaturedTools(1)[0], []);
+  // QS-SPEC-001 T005c: exhaustive four-way spotlight icon + hue; guarded so
+  // SSR and a missing spotlight tool stay safe.
+  const SpotlightPrivacy = spotlightTool
+    ? SPOTLIGHT_PRIVACY_ICON[spotlightTool.privacy]
+    : null;
 
   // Hero search
   const allTools = useMemo(() => getAllTools(), []);
@@ -644,7 +683,7 @@ export function HomeView() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.4 }}
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+            <h2 data-onboarding="categories-heading" className="text-2xl md:text-3xl font-bold text-foreground">
               {t('home.allCategories')}
             </h2>
             <p className="mt-2 text-muted-foreground">
@@ -746,13 +785,12 @@ export function HomeView() {
                       <Zap className="size-5" />
                       {t('home.tryNow')}
                     </Button>
-                    <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                      <Shield className="size-3.5 text-emerald-500" />
-                      {spotlightTool.privacy === 'local'
-                        ? t('home.localProcessing')
-                        : t('home.requiresConnection')
-                      }
-                    </span>
+                    {SpotlightPrivacy ? (
+                      <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                        <SpotlightPrivacy.Icon className={`size-3.5 ${SpotlightPrivacy.color}`} />
+                        {t(spotlightPrivacyLabelKey(spotlightTool.privacy))}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
               </div>

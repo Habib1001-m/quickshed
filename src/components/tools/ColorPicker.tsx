@@ -110,7 +110,7 @@ function generatePalette(hex: string): { complementary: string[]; analogous: str
   return { complementary, analogous, triadic };
 }
 
-function CopyButton({ value, t }: { value: string; t: typeof labels.en }) {
+function CopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     navigator.clipboard.writeText(value);
@@ -182,21 +182,21 @@ export default function ColorPicker({ locale }: { locale: 'ar' | 'en' }) {
                 <div className="text-xs text-muted-foreground mb-1">{t.hex}</div>
                 <div className="font-mono text-sm">{hex.toUpperCase()}</div>
               </div>
-              <CopyButton value={hex.toUpperCase()} t={t} />
+              <CopyButton value={hex.toUpperCase()} />
             </div>
             <div className="flex items-center gap-2 rounded-lg border p-3">
               <div className="flex-1">
                 <div className="text-xs text-muted-foreground mb-1">{t.rgb}</div>
                 <div className="font-mono text-sm">{rgbStr}</div>
               </div>
-              <CopyButton value={rgbStr} t={t} />
+              <CopyButton value={rgbStr} />
             </div>
             <div className="flex items-center gap-2 rounded-lg border p-3">
               <div className="flex-1">
                 <div className="text-xs text-muted-foreground mb-1">{t.hsl}</div>
                 <div className="font-mono text-sm">{hslStr}</div>
               </div>
-              <CopyButton value={hslStr} t={t} />
+              <CopyButton value={hslStr} />
             </div>
           </div>
         </CardContent>

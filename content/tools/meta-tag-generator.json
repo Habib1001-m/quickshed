@@ -1,12 +1,51 @@
 {
   "id": "meta-tag-generator",
-  "name": { "ar": "مولد العلامات الوصفية", "en": "Meta Tag Generator" },
-  "description": { "ar": "أنشئ علامات Meta الوصفية لتحسين ظهور موقعك في محركات البحث.", "en": "Generate meta tags to improve your website's search engine visibility." },
+  "slug": "meta-tag-generator",
+  "name": {
+    "ar": "مولد العلامات الوصفية",
+    "en": "Meta Tag Generator"
+  },
+  "description": {
+    "ar": "أنشئ علامات Meta الوصفية لتحسين ظهور موقعك في محركات البحث.",
+    "en": "Generate meta tags to improve your website's search engine visibility."
+  },
   "category": "seo-tools",
   "icon": "Code2",
-  "privacy": "local",
-  "keywords": ["meta tags", "seo", "html", "keywords", "علامات وصفية", "سيو", "كلمات مفتاحية"],
   "component": "MetaTagGenerator",
+  "route": "/[locale]/tools/meta-tag-generator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "meta tags",
+    "seo",
+    "html",
+    "keywords",
+    "علامات وصفية",
+    "سيو",
+    "كلمات مفتاحية"
+  ],
+  "inputs": [
+    "text / content / metadata"
+  ],
+  "outputs": [
+    "generated markup / simulated / analyzed output"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/MetaTagGenerator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: MetaTagGenerator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

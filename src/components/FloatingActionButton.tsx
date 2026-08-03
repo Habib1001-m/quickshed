@@ -66,7 +66,11 @@ export function FloatingActionButton() {
   return (
     <AnimatePresence>
       {visible && (
-        <div ref={containerRef} className="fixed bottom-6 end-6 z-40 flex flex-col items-center gap-2">
+        <div
+          ref={containerRef}
+          className="relative flex flex-col items-center gap-6"
+          data-testid="floating-quick-actions-root"
+        >
           {/* Expanded menu items */}
           <AnimatePresence>
             {expanded && (
@@ -84,6 +88,7 @@ export function FloatingActionButton() {
                       delay: (actions.length - 1 - index) * 0.05,
                     }}
                     onClick={action.onClick}
+                    data-testid="floating-action-item"
                     className={`
                       group relative flex size-11 items-center justify-center rounded-full
                       bg-background/80 backdrop-blur-lg border border-border/50
@@ -99,8 +104,8 @@ export function FloatingActionButton() {
                     {/* Tooltip label */}
                     <span
                       className={`
-                        absolute ${locale === 'ar' ? 'right-full mr-2' : 'left-full ml-2'}
-                        whitespace-nowrap rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-background
+                        absolute ${locale === 'ar' ? 'left-full ml-2' : 'right-full mr-2'}
+                        max-w-[calc(100vw-6rem)] truncate whitespace-nowrap rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-background
                         opacity-0 group-hover:opacity-100 transition-opacity duration-200
                         pointer-events-none shadow-md
                       `}
@@ -122,6 +127,7 @@ export function FloatingActionButton() {
             onClick={() => setExpanded((prev) => !prev)}
             aria-label="Quick actions"
             aria-expanded={expanded}
+            data-testid="floating-quick-actions"
             className={`
               flex size-14 items-center justify-center rounded-full
               shadow-xl backdrop-blur-lg border border-border/30

@@ -177,7 +177,7 @@ function generateSteps(expr: string): { steps: Step[]; finalResult: number | nul
         const v = safeEval(inner);
         return v !== null ? `√(${inner})=${Math.sqrt(v).toFixed(4)}` : `√(${inner})`;
       })
-      .replace(/√(\d+(\.\d+)?)/g, (match, num) => {
+      .replace(/√(\d+(\.\d+)?)/g, (_match, num) => {
         const v = Math.sqrt(parseFloat(num));
         return v.toFixed(4);
       });

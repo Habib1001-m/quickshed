@@ -53,7 +53,6 @@ export default function PlagarismChecker({ locale }: { locale: 'ar' | 'en' }) {
     const yourWords = yours.split(/(\s+)/);
 
     let currentPhrase = '';
-    let currentStart = 0;
 
     for (let i = 0; i < yourWords.length; i++) {
       currentPhrase += yourWords[i];
@@ -63,12 +62,10 @@ export default function PlagarismChecker({ locale }: { locale: 'ar' | 'en' }) {
         // This phrase matches — mark it
         yourHighlighted.push({ text: currentPhrase, isMatch: true });
         currentPhrase = '';
-        currentStart = i + 1;
       } else if (normalized.split(/\s+/).length > 6) {
         // Phrase too long, reset
         yourHighlighted.push({ text: currentPhrase, isMatch: false });
         currentPhrase = '';
-        currentStart = i + 1;
       }
     }
     if (currentPhrase.trim()) {

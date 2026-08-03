@@ -1,12 +1,50 @@
 {
   "id": "stopwatch",
-  "name": { "ar": "ساعة إيقاف", "en": "Stopwatch" },
-  "description": { "ar": "ساعة إيقاف دقيقة لقياس الوقت بالمللي ثانية مع خاصية اللفات.", "en": "A precise stopwatch to measure time in milliseconds with lap functionality." },
+  "slug": "stopwatch",
+  "name": {
+    "ar": "ساعة إيقاف",
+    "en": "Stopwatch"
+  },
+  "description": {
+    "ar": "ساعة إيقاف دقيقة لقياس الوقت بالمللي ثانية مع خاصية اللفات.",
+    "en": "A precise stopwatch to measure time in milliseconds with lap functionality."
+  },
   "category": "time-tools",
   "icon": "Timer",
-  "privacy": "local",
-  "keywords": ["stopwatch", "lap", "timing", "ساعة إيقاف", "لفات", "توقيت"],
   "component": "Stopwatch",
+  "route": "/[locale]/tools/stopwatch",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "stopwatch",
+    "lap",
+    "timing",
+    "ساعة إيقاف",
+    "لفات",
+    "توقيت"
+  ],
+  "inputs": [
+    "date / time values"
+  ],
+  "outputs": [
+    "computed time / duration / converted time"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/Stopwatch.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: Stopwatch)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

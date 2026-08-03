@@ -2,22 +2,63 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import { ArrowLeft, Shield, Zap, Search, FilterX, Wrench } from 'lucide-react';
+import { ArrowLeft, Shield, Zap, Search, FilterX, Wrench, FileLock2, Database } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import {
   getCategoryBySlug,
   getToolsByCategory,
   localize,
+  countByPrivacy,
+  type Privacy,
 } from '@/lib/tool-utils';
 import { ToolCard } from '@/components/ToolCard';
 import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { getCategoryColor } from '@/lib/category-config';
 
-type FilterType = 'all' | 'local' | 'api';
+/**
+ * QS-SPEC-001 T005c: privacy filter covers all four levels plus `all`.
+ * Derived from the shared {@link Privacy} union, so adding a value to the
+ * contract flows through here automatically.
+ */
+type FilterType = 'all' | Privacy;
+
+/**
+ * Exhaustive per-class presentation config (filter label + chart swatch).
+ * Typed `Record<Privacy, ...>` so a future enum value fails typecheck until
+ * it is added — no local-vs-API-only chart or filter set remains.
+ */
+const PRIVACY_CLASSES: Record<
+  Privacy,
+  { filterLabelKey: string; chartLabelKey: string; swatch: string; Icon: typeof Shield }
+> = {
+  local: {
+    filterLabelKey: 'category.filterLocal',
+    chartLabelKey: 'tool.privacyLocalShort',
+    swatch: 'bg-emerald-500',
+    Icon: Shield,
+  },
+  'file-only': {
+    filterLabelKey: 'category.filterFileOnly',
+    chartLabelKey: 'tool.privacyFileOnlyShort',
+    swatch: 'bg-sky-500',
+    Icon: FileLock2,
+  },
+  storage: {
+    filterLabelKey: 'category.filterStorage',
+    chartLabelKey: 'tool.privacyStorageShort',
+    swatch: 'bg-violet-500',
+    Icon: Database,
+  },
+  api: {
+    filterLabelKey: 'category.filterApi',
+    chartLabelKey: 'tool.privacyApiShort',
+    swatch: 'bg-amber-500',
+    Icon: Zap,
+  },
+};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -39,6 +80,18 @@ export function CategoryView() {
 
   const [filter, setFilter] = useState<FilterType>('all');
   const isRtl = locale === 'ar';
+
+  // QS-SPEC-001 T005c: reset the privacy filter whenever the selected
+  // category changes, so a filter that has no tools in the next category
+  // can never carry over and produce a stale empty state. This is the
+  // React "adjusting state during render" idiom (a synchronous setState
+  // in render, NOT inside an effect), which the repo lint rule permits and
+  // which is correct under arbitrary category navigation.
+  const [prevCategory, setPrevCategory] = useState(selectedCategory);
+  if (selectedCategory !== prevCategory) {
+    setPrevCategory(selectedCategory);
+    setFilter('all');
+  }
 
   // Get category data
   const category = useMemo(
@@ -76,15 +129,20 @@ export function CategoryView() {
   const colors = getCategoryColor(category.slug);
   const gradient = colors.gradient;
 
-  const localCount = allCategoryTools.filter((tool) => tool.privacy === 'local').length;
-  const apiCount = allCategoryTools.filter((tool) => tool.privacy === 'api').length;
-  const localPercent = allCategoryTools.length > 0 ? Math.round((localCount / allCategoryTools.length) * 100) : 0;
-  const apiPercent = allCategoryTools.length > 0 ? Math.round((apiCount / allCategoryTools.length) * 100) : 0;
+  // QS-SPEC-001 T005c: exhaustive four-class counts; no local/API-only tally.
+  const privacyCounts = countByPrivacy(allCategoryTools);
+  const totalInCategory = allCategoryTools.length;
+  const onDeviceCount = privacyCounts.local + privacyCounts['file-only'] + privacyCounts.storage;
+  const onDevicePercent = totalInCategory > 0 ? Math.round((onDeviceCount / totalInCategory) * 100) : 0;
 
-  const filters: { key: FilterType; label: string; count: number; icon?: typeof Shield }[] = [
-    { key: 'all', label: t('category.filterAll'), count: allCategoryTools.length },
-    { key: 'local', label: t('category.filterLocal'), count: localCount, icon: Shield },
-    { key: 'api', label: t('category.filterApi'), count: apiCount, icon: Zap },
+  const filters: { key: FilterType; label: string; count: number; Icon?: typeof Shield }[] = [
+    { key: 'all', label: t('category.filterAll'), count: totalInCategory },
+    ...(['local', 'file-only', 'storage', 'api'] as const).map((p) => ({
+      key: p,
+      label: t(PRIVACY_CLASSES[p].filterLabelKey),
+      count: privacyCounts[p],
+      Icon: PRIVACY_CLASSES[p].Icon,
+    })),
   ];
 
   return (
@@ -160,26 +218,33 @@ export function CategoryView() {
                 transition={{ duration: 0.3, delay: 0.2 }}
                 className="mt-4 glass-card rounded-xl p-4"
               >
-                {/* Progress bar showing local vs API split */}
+                {/* On-device share bar (local + file-only + storage vs api). */}
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex-1 h-3 rounded-full bg-muted overflow-hidden privacy-progress-animated">
                     <motion.div
                       initial={{ width: 0 }}
-                      animate={{ width: `${localPercent}%` }}
+                      animate={{ width: `${onDevicePercent}%` }}
                       transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
                       className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400"
                     />
                   </div>
                 </div>
-                <div className="flex items-center gap-5 text-xs">
-                  <span className="inline-flex items-center gap-1.5 text-foreground/70 font-medium">
-                    <span className="size-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/30" />
-                    {t('tool.privacyLocalShort')}: {localCount} ({localPercent}%)
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-foreground/70 font-medium">
-                    <span className="size-2.5 rounded-full bg-orange-500 shadow-sm shadow-orange-500/30" />
-                    {t('tool.privacyApiShort')}: {apiCount} ({apiPercent}%)
-                  </span>
+                {/* Exhaustive four-class legend; every Privacy value shown. */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs">
+                  {(['local', 'file-only', 'storage', 'api'] as const).map((p) => {
+                    const cls = PRIVACY_CLASSES[p];
+                    const count = privacyCounts[p];
+                    const pct = totalInCategory > 0 ? Math.round((count / totalInCategory) * 100) : 0;
+                    return (
+                      <span
+                        key={p}
+                        className="inline-flex items-center gap-1.5 text-foreground/70 font-medium"
+                      >
+                        <span className={`size-2.5 rounded-full ${cls.swatch} shadow-sm`} />
+                        {t(cls.chartLabelKey)}: {count} ({pct}%)
+                      </span>
+                    );
+                  })}
                 </div>
               </motion.div>
             </div>
@@ -208,7 +273,7 @@ export function CategoryView() {
                     }
                   `}
                 >
-                  {f.icon && <f.icon className="size-3.5" />}
+                  {f.Icon && <f.Icon className="size-3.5" />}
                   {f.label}
                   <span
                     className={`

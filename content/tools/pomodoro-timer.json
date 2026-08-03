@@ -1,12 +1,52 @@
 {
   "id": "pomodoro-timer",
-  "name": { "ar": "مؤقت بومودورو", "en": "Pomodoro Timer" },
-  "description": { "ar": "نفذ تقنية بومودورو لإدارة الوقت مع فترات عمل وراحة متناوبة.", "en": "Implement the Pomodoro technique for time management with alternating work and break periods." },
+  "slug": "pomodoro-timer",
+  "name": {
+    "ar": "مؤقت بومودورو",
+    "en": "Pomodoro Timer"
+  },
+  "description": {
+    "ar": "نفذ تقنية بومودورو لإدارة الوقت مع فترات عمل وراحة متناوبة.",
+    "en": "Implement the Pomodoro technique for time management with alternating work and break periods."
+  },
   "category": "utility-tools",
   "icon": "Tomato",
-  "privacy": "local",
-  "keywords": ["pomodoro", "timer", "focus", "productivity", "بومودورو", "مؤقت", "تركيز", "إنتاجية"],
   "component": "PomodoroTimer",
+  "route": "/[locale]/tools/pomodoro-timer",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "focus",
+    "productivity",
+    "بومودورو",
+    "مؤقت",
+    "تركيز",
+    "إنتاجية"
+  ],
+  "inputs": [
+    "numeric values"
+  ],
+  "outputs": [
+    "timed session"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PomodoroTimer.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: PomodoroTimer)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

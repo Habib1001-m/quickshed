@@ -1,12 +1,50 @@
 {
   "id": "reading-time-calculator",
-  "name": { "ar": "حاسبة وقت القراءة", "en": "Reading Time Calculator" },
-  "description": { "ar": "احسب الوقت المقدر لقراءة أي نص بناءً على سرعة القراءة.", "en": "Calculate the estimated reading time for any text based on reading speed." },
+  "slug": "reading-time-calculator",
+  "name": {
+    "ar": "حاسبة وقت القراءة",
+    "en": "Reading Time Calculator"
+  },
+  "description": {
+    "ar": "احسب الوقت المقدر لقراءة أي نص بناءً على سرعة القراءة.",
+    "en": "Calculate the estimated reading time for any text based on reading speed."
+  },
   "category": "student-tools",
   "icon": "BookOpenCheck",
-  "privacy": "local",
-  "keywords": ["reading time", "reading speed", "estimate", "وقت القراءة", "سرعة القراءة", "تقدير"],
   "component": "ReadingTimeCalculator",
+  "route": "/[locale]/tools/reading-time-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "reading time",
+    "reading speed",
+    "estimate",
+    "وقت القراءة",
+    "سرعة القراءة",
+    "تقدير"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "computed reading time"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/ReadingTimeCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: ReadingTimeCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

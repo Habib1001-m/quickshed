@@ -62,6 +62,8 @@
     "toolSpotlight": "أداة مميزة",
     "tryNow": "جرب الآن",
     "localProcessing": "معالجة محلية",
+    "processesFileLocally": "تتم المعالجة داخل ملفك",
+    "savedOnDevice": "محفوظة على جهازك",
     "requiresConnection": "يحتاج اتصال"
   },
   "favorites": {
@@ -93,6 +95,8 @@
     "toolsInCategory": "{count} أداة في هذا التصنيف",
     "filterAll": "الكل",
     "filterLocal": "محلي فقط",
+    "filterFileOnly": "ملف فقط",
+    "filterStorage": "على الجهاز",
     "filterApi": "يستخدم API",
     "backToCategories": "العودة إلى التصنيفات",
     "noToolsForFilter": "جرّب تغيير الفلتر لعرض المزيد من الأدوات."
@@ -106,6 +110,10 @@
     "privacyApi": "يستخدم خدمة خارجية آمنة",
     "privacyLocalShort": "محلي",
     "privacyApiShort": "API",
+    "privacyFileOnly": "تبقى بياناتك داخل الملف الذي تفتحه",
+    "privacyFileOnlyShort": "داخل الملف",
+    "privacyStorage": "تُحفظ بياناتك في متصفحك",
+    "privacyStorageShort": "على الجهاز",
     "copyResult": "نسخ النتيجة",
     "copied": "تم النسخ!",
     "reset": "إعادة تعيين",
@@ -115,10 +123,12 @@
     "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     "tryAgain": "حاول مرة أخرى",
     "downloadResult": "تنزيل",
-    "clearInput": "مسح"
+    "clearInput": "مسح",
+    "markdownImageBlocked": "تم حظر الصورة: لا يتم تحميل الصور البعيدة أو غير الآمنة في المعاينة المحلية."
   },
   "footer": {
     "tagline": "صندوق أدواتك الفوري والآمن",
+    "onDeviceShare": "على الجهاز",
     "privacyPromise": "وعد الخصوصية",
     "privacyPromiseDesc": "بياناتك لا تغادر جهازك أبداً. جميع الأدوات تعمل محلياً في متصفحك.",
     "quickLinks": "روابط سريعة",
@@ -158,6 +168,8 @@
     "filterPrivacy": "الخصوصية",
     "filterAll": "الكل",
     "filterLocal": "محلي",
+    "filterFileOnly": "ملف فقط",
+    "filterStorage": "على الجهاز",
     "filterApi": "API"
   },
   "common": {
@@ -196,7 +208,7 @@
     "tipTitle": "هل تعلم؟",
     "tipKeyboardNav": "استخدم مفاتيح الأسهم للتنقل بين الأدوات",
     "tipCommandPalette": "اضغط Ctrl+K للبحث السريع وفتح أي أداة",
-    "tipPrivacyBadge": "الشارة الخضراء تعني أن بياناتك لا تغادر جهازك أبداً",
+    "tipPrivacyBadge": "شارات الخصوصية توضح كيفية تعامل كل أداة مع بياناتك: محلي، داخل الملف، على الجهاز، أو API (خدمة خارجية)",
     "tipFavorites": "انقر على أيقونة القلب لحفظ أدواتك المفضلة",
     "tipCollections": "أنشئ مجموعات لتنظيم أدواتك الأكثر استخداماً",
     "compareTools": "مقارنة الأدوات",
@@ -268,7 +280,17 @@
     "rateTool": "قيّم",
     "quickAccess": "وصول سريع",
     "minimize": "تصغير",
-    "sortByRating": "بالتقييم"
+    "sortByRating": "بالتقييم",
+    "backupImportTitle": "استيراد نسخة احتياطية؟",
+    "backupImportSummary": "استيراد {count} عنصراً. سيستبدل {replaceCount} منها بيانات موجودة على هذا الجهاز.",
+    "backupImportWarning": "سيتم استبدال البيانات المخزّنة على هذا الجهاز ولا يمكن التراجع عن ذلك.",
+    "backupImportAction": "استيراد",
+    "backupErrorInvalid": "هذا الملف ليس نسخة احتياطية صالحة من QuickShed.",
+    "backupErrorUnknownKeys": "تم رفض النسخة الاحتياطية: تحتوي على مفاتيح غير معروفة ({keys}).",
+    "backupErrorFailed": "فشل الاستيراد. تمت استعادة بياناتك السابقة."
+  },
+  "a11y": {
+    "skipToMain": "تخطّي إلى المحتوى الرئيسي",
+    "navigatedTo": "تم الانتقال إلى {view}"
   }
 }
-

@@ -1,11 +1,39 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllTools, getToolById, localize } from '@/lib/tool-utils';
+import type { Privacy } from '@/lib/tool-schema';
 import { SITE_URL, LOCALES, type AppLocale } from '@/lib/site-config';
 import RoutePageShell from '@/components/RoutePageShell';
 
 interface ToolPageProps {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+/**
+ * QS-SPEC-001 T005c: exhaustive four-level SEO/privacy disclosure. Every
+ * Privacy value gets its own accurate copy; `file-only` and `storage` are
+ * NOT described as an external API. The switch is exhaustive over the
+ * shared {@link Privacy} union, so a future value fails typecheck.
+ */
+function seoPrivacyText(privacy: Privacy, isArabic: boolean): string {
+  switch (privacy) {
+    case 'local':
+      return isArabic
+        ? 'محلي — بياناتك تبقى على جهازك'
+        : 'Local — your data stays on your device';
+    case 'file-only':
+      return isArabic
+        ? 'ملف فقط — تتم المعالجة داخل الملف الذي تحمّله'
+        : 'File-only — processed inside the file you load';
+    case 'storage':
+      return isArabic
+        ? 'على الجهاز — يُحفظ في متصفحك'
+        : 'On-device — saved in your browser';
+    case 'api':
+      return isArabic
+        ? 'يستخدم خدمة خارجية آمنة'
+        : 'Uses a secure external service';
+  }
 }
 
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
@@ -74,6 +102,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   return (
     <>
       <script
+        id={`json-ld-tool-${tool.slug}-${loc}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
@@ -86,9 +115,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <a href={`${SITE_URL}/${loc}/category/${tool.category}`}>{tool.category}</a>
         </p>
         <p>
-          {isArabic ? 'الخصوصية' : 'Privacy'}: {tool.privacy === 'local'
-            ? isArabic ? 'محلي — بياناتك تبقى على جهازك' : 'Local — your data stays on your device'
-            : isArabic ? 'يستخدم API خارجي آمن' : 'Uses secure external API'}
+          {isArabic ? 'الخصوصية' : 'Privacy'}: {seoPrivacyText(tool.privacy, isArabic)}
         </p>
       </div>
       <RoutePageShell initialView="tool" initialToolId={tool.id} initialLocale={locale} />
