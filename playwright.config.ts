@@ -62,9 +62,11 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* Exercise the built artifact in CI; local runs can still use fast dev mode. */
   webServer: {
-    command: './node_modules/.bin/next dev -p 7125',
+    command: process.env.CI
+      ? './node_modules/.bin/next start -p 7125'
+      : './node_modules/.bin/next dev -p 7125',
     url: 'http://[::1]:7125/en',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
