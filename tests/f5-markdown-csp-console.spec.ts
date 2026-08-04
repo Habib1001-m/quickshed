@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { continuePastToolDisclosure } from './helpers/tool-disclosure';
 
 const REMOTE_IMAGE = 'https://privacy-test.example/f5-remote.png';
 
@@ -37,6 +38,7 @@ async function blockTestOriginImage(page: Page) {
 
 async function openMarkdownTool(page: Page, locale: 'en' | 'ar') {
   await page.goto(`/${locale}/tools/markdown-to-html`);
+  await continuePastToolDisclosure(page);
   const input = page.getByPlaceholder(locale === 'ar' ? 'اكتب ماركداون هنا...' : /type your markdown here/i);
   await expect(input).toBeVisible();
   return input;
@@ -136,6 +138,7 @@ test.describe('F5 Markdown, CSP, and console hygiene', () => {
   test('UnitConverter computes three desktop grid columns after the CSS fix', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/en/tools/unit-converter');
+    await continuePastToolDisclosure(page);
 
     const grid = page.getByTestId('unit-converter-grid');
     await expect(grid).toBeVisible();

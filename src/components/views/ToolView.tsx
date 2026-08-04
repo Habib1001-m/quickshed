@@ -14,6 +14,7 @@ import {
   type ToolDescriptor,
 } from '@/lib/tool-utils';
 import { PrivacyBadge } from '@/components/PrivacyBadge';
+import { PrivacyDisclosure } from '@/components/PrivacyDisclosure';
 import { DynamicIcon } from '@/components/IconMapper';
 import { Button } from '@/components/ui/button';
 import { ExportShareSection } from '@/components/ExportShareSection';
@@ -92,6 +93,26 @@ function ToolContent({ tool }: { tool: ToolDescriptor }) {
     >
       <ToolRenderer componentName={tool.component} locale={locale} />
     </motion.div>
+  );
+}
+
+function ToolUseGate({ tool, onCancel }: { tool: ToolDescriptor; onCancel: () => void }) {
+  const [canUseTool, setCanUseTool] = useState(false);
+
+  if (!canUseTool) {
+    return (
+      <PrivacyDisclosure
+        tool={tool}
+        onCancel={onCancel}
+        onContinue={() => setCanUseTool(true)}
+      />
+    );
+  }
+
+  return (
+    <div data-testid="tool-use-content">
+      <ToolContent tool={tool} />
+    </div>
   );
 }
 
@@ -482,7 +503,7 @@ export function ToolView() {
             transition={{ duration: 0.3, delay: 0.2 }}
             className="tool-wrapper-card rounded-2xl border border-border bg-card shadow-sm p-4 sm:p-6 md:p-8 card-elevated"
           >
-            <ToolContent key={tool.id} tool={tool} />
+            <ToolUseGate key={tool.id} tool={tool} onCancel={navigateHome} />
           </motion.div>
 
           {/* ─── Tool Rating ─────────────────────────────────────────── */}

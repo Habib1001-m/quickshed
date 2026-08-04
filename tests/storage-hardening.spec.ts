@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { continuePastToolDisclosure } from './helpers/tool-disclosure';
 
 /**
  * F2 route-level hardening: seed the confirmed malformed-storage fixtures
@@ -89,6 +90,7 @@ test('habit-tracker (EN) survives malformed habits and keeps valid ones', async 
   ]);
 
   await page.goto('/en/tools/habit-tracker');
+  await continuePastToolDisclosure(page);
   // "Add Habit" only renders once the lazy tool component mounted + read storage.
   await expect(page.getByRole('button', { name: 'Add Habit' })).toBeVisible();
   await expect(page.getByText('ValidHabit')).toBeVisible();
@@ -110,6 +112,7 @@ test('note-organizer (EN) survives malformed notes and keeps valid ones', async 
   ]);
 
   await page.goto('/en/tools/note-organizer');
+  await continuePastToolDisclosure(page);
   // The search input only renders once the tool mounted + read storage.
   await expect(page.getByPlaceholder('Search notes...')).toBeVisible();
   await expect(page.getByText('ValidNote')).toBeVisible();
@@ -125,6 +128,7 @@ test('emoji-picker (EN) survives an object root', async ({ page }) => {
   await seedMalformed(page, 'quickshed-emoji-recent', { not: 'an array' });
 
   await page.goto('/en/tools/emoji-picker');
+  await continuePastToolDisclosure(page);
   await expect(page.getByPlaceholder('Search emojis...')).toBeVisible();
   // Recents resolved to [] instead of crashing on .slice; the recents section
   // (which only renders when recent.length > 0) is correctly absent.
@@ -141,6 +145,7 @@ test('emoji-picker (EN) filters mixed elements and caps recents at 24', async ({
   await seedMalformed(page, 'quickshed-emoji-recent', big);
 
   await page.goto('/en/tools/emoji-picker');
+  await continuePastToolDisclosure(page);
   await expect(page.getByPlaceholder('Search emojis...')).toBeVisible();
   // Recents were capped to EMOJI_RECENT_CAP (24) and rendered without crashing.
   await expect(page.getByText('Recently Used')).toBeVisible();

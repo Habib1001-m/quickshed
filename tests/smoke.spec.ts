@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { continuePastToolDisclosure } from './helpers/tool-disclosure';
 
 type TestWindow = Window & {
   __copiedText?: string;
@@ -75,6 +76,7 @@ test.describe('QuickShed smoke', () => {
 
     await page.goto('/en/tools/json-formatter');
     await dismissOnboarding(page);
+    await continuePastToolDisclosure(page);
     await page.getByRole('button', { name: /copy link/i }).click();
 
     await expect.poll(
@@ -89,6 +91,7 @@ test.describe('QuickShed smoke', () => {
 
     await page.goto('/en/tools/markdown-to-html');
     await dismissOnboarding(page);
+    await continuePastToolDisclosure(page);
     await page.getByPlaceholder(/type your markdown here/i).fill([
       '<img data-xss="markdown" src=x onerror="window.__xss=true">',
       '[bad](javascript:alert(1))',
@@ -110,6 +113,7 @@ test.describe('QuickShed smoke', () => {
 
     await page.goto('/en/tools/json-formatter');
     await dismissOnboarding(page);
+    await continuePastToolDisclosure(page);
     await page.getByPlaceholder(/paste your json here/i).fill(
       JSON.stringify({
         payload: '<img data-xss="json" src=x onerror="window.__xss=true">',
@@ -171,6 +175,7 @@ test.describe('QuickShed smoke', () => {
 
     await page.goto('/en/tools/url-shortener');
     await dismissOnboarding(page);
+    await continuePastToolDisclosure(page);
 
     await page
       .getByPlaceholder(/https:\/\/example\.com\/very\/long\/url/)
@@ -203,6 +208,7 @@ test.describe('QuickShed smoke', () => {
     });
 
     await page.goto('/en/tools/url-shortener#s/demo');
+    await continuePastToolDisclosure(page);
 
     // The hash resolves to an explicit user-action CTA (rendered above the
     // stored-links list, hence .first()) instead of auto-navigating.
@@ -239,6 +245,7 @@ test.describe('QuickShed smoke', () => {
     });
 
     await page.goto('/en/tools/url-shortener#s/demo');
+    await continuePastToolDisclosure(page);
 
     await expect(page).toHaveURL(/\/en\/tools\/url-shortener/);
     await expect(
