@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { getScrollBehavior } from '@/lib/utils';
 
 /**
  * A floating button that appears when user scrolls down 300px.
@@ -20,7 +21,7 @@ export function BackToTop() {
   }, []);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: getScrollBehavior() });
   }, []);
 
   return (

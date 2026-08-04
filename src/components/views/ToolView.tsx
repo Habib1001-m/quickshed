@@ -268,7 +268,7 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
                   size="sm"
                   onClick={handleCreateCollection}
                   disabled={!newCollectionName.trim()}
-                  className="h-8 px-2.5 bg-emerald-500 hover:bg-emerald-600 text-white shrink-0"
+                  className="h-8 px-2.5 bg-emerald-700 hover:bg-emerald-800 text-white shrink-0"
                 >
                   <Plus className="size-3.5" />
                 </Button>

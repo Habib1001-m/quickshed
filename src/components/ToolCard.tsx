@@ -117,7 +117,7 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
       {/* "New" badge — appears for tools with usage < 5, more prominent */}
       {isNew && (
         <div className="absolute top-3 start-3 z-10">
-          <Badge className="badge-bounce bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-[11px] px-2 py-0 h-5 font-bold shadow-md shadow-emerald-500/30 border-0">
+          <Badge className="badge-bounce bg-gradient-to-r from-emerald-700 to-emerald-800 text-white text-[11px] px-2 py-0 h-5 font-bold shadow-md shadow-emerald-500/30 border-0">
             {locale === 'ar' ? 'جديد' : 'New'}
           </Badge>
         </div>

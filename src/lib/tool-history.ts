@@ -62,16 +62,3 @@ export function addToolHistoryEntry(toolId: string): void {
   const updated = [{ id, toolId, timestamp }, ...entries].slice(0, MAX_HISTORY_ENTRIES);
   writeToStorage(updated);
 }
-
-/** Clear all history */
-export function clearToolHistory(): void {
-  writeToStorage([]);
-}
-
-/** Search history by tool name (match against toolId) */
-export function searchToolHistory(query: string): ToolHistoryEntry[] {
-  if (!query.trim()) return getToolHistory();
-  const lower = query.toLowerCase();
-  const entries = getToolHistory();
-  return entries.filter((entry) => entry.toolId.toLowerCase().includes(lower));
-}

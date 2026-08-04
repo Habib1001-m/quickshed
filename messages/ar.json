@@ -143,7 +143,7 @@
     "builtForPrivacy": "من أجل الخصوصية",
     "connect": "تواصل معنا",
     "newsletterComingSoon": "النشرة البريدية — قريباً",
-    "newsletterDesc": "سنعلمك بالأدوات الجديدة قريباً. ابقَ على اطلاع!",
+    "newsletterDesc": "نخطط لقائمة تحديثات تحترم الخصوصية. لا يوجد نموذج اشتراك بعد.",
     "comingSoon": "🚀 قريباً"
   },
   "search": {
@@ -288,6 +288,28 @@
     "backupErrorInvalid": "هذا الملف ليس نسخة احتياطية صالحة من QuickShed.",
     "backupErrorUnknownKeys": "تم رفض النسخة الاحتياطية: تحتوي على مفاتيح غير معروفة ({keys}).",
     "backupErrorFailed": "فشل الاستيراد. تمت استعادة بياناتك السابقة."
+  },
+  "settings": {
+    "language": "اللغة",
+    "english": "English",
+    "arabic": "عربي",
+    "theme": "المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "statistics": "الإحصائيات",
+    "tools": "أداة",
+    "favorites": "مفضلة",
+    "recent": "مستخدمة مؤخراً",
+    "onDevice": "على الجهاز",
+    "dataManagement": "إدارة البيانات",
+    "clearHistory": "مسح السجل",
+    "clearAllData": "مسح جميع البيانات",
+    "clearAllConfirm": "هل أنت متأكد؟ سيتم حذف جميع بيانات التطبيق والأدوات المحفوظة.",
+    "confirmClear": "نعم، مسح",
+    "guidedTour": "الجولة التعريفية",
+    "backup": "نسخ احتياطي",
+    "about": "حول",
+    "aboutDescription": "صندوق أدوات مجاني يحترم خصوصيتك. جميع الأدوات تعمل محلياً في متصفحك."
   },
   "a11y": {
     "skipToMain": "تخطّي إلى المحتوى الرئيسي",

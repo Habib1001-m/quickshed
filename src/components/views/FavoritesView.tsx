@@ -149,7 +149,7 @@ export function FavoritesView() {
           </p>
           <Button
             onClick={navigateHome}
-            className="gap-2 rounded-full px-8 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20 micro-bounce"
+            className="gap-2 rounded-full px-8 bg-emerald-700 hover:bg-emerald-800 text-white shadow-lg shadow-emerald-500/20 micro-bounce"
           >
             <Sparkles className="size-4" />
             {t('favorites.exploreTools')}
@@ -264,7 +264,7 @@ export function FavoritesView() {
                   onClick={() => setSortMode(mode.key)}
                   className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-200 micro-bounce ${
                     sortMode === mode.key
-                      ? 'bg-emerald-500 text-white shadow-sm pill-active-glow'
+                      ? 'bg-emerald-700 text-white shadow-sm pill-active-glow'
                       : 'bg-muted/70 text-muted-foreground hover:bg-muted'
                   }`}
                 >

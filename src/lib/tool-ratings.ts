@@ -46,18 +46,6 @@ export function getAllRatings(): Record<string, ToolRatingData> {
 }
 
 /**
- * Calculate the average rating across all tools (for "Top Rated" sorting).
- * Returns a map of toolId -> average rating.
- * Since each user only has one rating per tool, this is just their rating.
- * But the function is designed to be extended for multi-user scenarios.
- */
-export function getAverageRating(toolId: string): number {
-  const all = getAllRatings();
-  const data = all[toolId];
-  return data?.rating || 0;
-}
-
-/**
  * Get a map of toolId -> rating for sorting purposes.
  */
 export function getRatingsMap(): Record<string, number> {

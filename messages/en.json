@@ -143,7 +143,7 @@
     "builtForPrivacy": "for privacy",
     "connect": "Connect",
     "newsletterComingSoon": "Newsletter — Coming Soon",
-    "newsletterDesc": "We'll notify you when new tools drop. Stay tuned!",
+    "newsletterDesc": "A privacy-first update list is planned. There is no sign-up form yet.",
     "comingSoon": "🚀 Coming Soon"
   },
   "search": {
@@ -288,6 +288,28 @@
     "backupErrorInvalid": "This file is not a valid QuickShed backup.",
     "backupErrorUnknownKeys": "Backup rejected: it contains unknown keys ({keys}).",
     "backupErrorFailed": "Import failed. Your previous data was restored."
+  },
+  "settings": {
+    "language": "Language",
+    "english": "English",
+    "arabic": "عربي",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "statistics": "Statistics",
+    "tools": "Tools",
+    "favorites": "Favorites",
+    "recent": "Recent",
+    "onDevice": "On-device",
+    "dataManagement": "Data Management",
+    "clearHistory": "Clear History",
+    "clearAllData": "Clear All Data",
+    "clearAllConfirm": "Are you sure? All saved app and tool data will be deleted.",
+    "confirmClear": "Yes, Clear",
+    "guidedTour": "Guided Tour",
+    "backup": "Backup",
+    "about": "About",
+    "aboutDescription": "Your free privacy-first toolbox. All tools run locally in your browser."
   },
   "a11y": {
     "skipToMain": "Skip to main content",

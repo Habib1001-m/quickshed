@@ -151,7 +151,7 @@ export function ToolCollections() {
                   onClick={handleCreate}
                   size="sm"
                   disabled={!newName.trim()}
-                  className="gap-1 bg-emerald-500 hover:bg-emerald-600 text-white"
+                  className="gap-1 bg-emerald-700 hover:bg-emerald-800 text-white"
                 >
                   <Check className="size-4" />
                   {t('common.createCollection')}

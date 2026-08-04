@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Wrench, Search, ArrowUp, LayoutGrid } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
+import { getScrollBehavior } from '@/lib/utils';
 
 interface FabAction {
   icon: React.ReactNode;
@@ -49,7 +50,7 @@ export function FloatingActionButton() {
 
   const handleBackToTop = useCallback(() => {
     setExpanded(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: getScrollBehavior() });
   }, []);
 
   const handleAllTools = useCallback(() => {
@@ -93,7 +94,7 @@ export function FloatingActionButton() {
                       group relative flex size-11 items-center justify-center rounded-full
                       bg-background/80 backdrop-blur-lg border border-border/50
                       shadow-lg text-foreground
-                      hover:bg-emerald-500 hover:text-white hover:border-emerald-500
+                      hover:bg-emerald-700 hover:text-white hover:border-emerald-700
                       transition-colors duration-200
                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
                       micro-bounce
@@ -135,8 +136,8 @@ export function FloatingActionButton() {
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
               micro-bounce
               ${expanded
-                ? 'bg-emerald-600 text-white shadow-emerald-500/30 rotate-45'
-                : 'bg-emerald-500 text-white shadow-emerald-500/25 hover:bg-emerald-600 hover:shadow-emerald-500/40'
+                ? 'bg-emerald-700 text-white shadow-emerald-500/30 rotate-45'
+                : 'bg-emerald-700 text-white shadow-emerald-500/25 hover:bg-emerald-800 hover:shadow-emerald-500/40'
               }
             `}
           >

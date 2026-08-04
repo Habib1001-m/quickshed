@@ -220,7 +220,7 @@ export default function HabitTracker({ locale }: { locale: 'ar' | 'en' }) {
                       onClick={() => toggleToday(habit.id)}
                       className={`size-8 rounded-full flex items-center justify-center border-2 transition-colors ${
                         isTodayDone
-                          ? 'bg-emerald-500 border-emerald-500 text-white'
+                          ? 'bg-emerald-700 border-emerald-700 text-white'
                           : 'border-muted-foreground/30 hover:border-emerald-500'
                       }`}
                     >
@@ -257,7 +257,7 @@ export default function HabitTracker({ locale }: { locale: 'ar' | 'en' }) {
                           <div
                             className={`size-6 rounded-full flex items-center justify-center text-[9px] font-medium transition-colors ${
                               done
-                                ? 'bg-emerald-500 text-white'
+                                ? 'bg-emerald-700 text-white'
                                 : dayStr === todayStr
                                 ? 'bg-primary/20 text-primary border border-primary/40'
                                 : 'bg-muted'

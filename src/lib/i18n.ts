@@ -87,26 +87,3 @@ export function useI18n(): { t: TranslateFn; locale: Locale } {
 
   return { t, locale };
 }
-
-/**
- * Non-hook version for use outside React components.
- * Returns a translation function for the given locale.
- */
-export function createTranslator(locale: Locale): TranslateFn {
-  const messages = translations[locale];
-  return (key: string, params?: Record<string, string | number>) => {
-    const value = getNestedValue(messages as unknown as Record<string, unknown>, key);
-    if (value === undefined) {
-      const fallback = getNestedValue(
-        translations.en as unknown as Record<string, unknown>,
-        key
-      );
-      if (fallback === undefined) {
-        console.warn(`[i18n] Missing translation key: ${key}`);
-        return key;
-      }
-      return interpolate(fallback, params);
-    }
-    return interpolate(value, params);
-  };
-}

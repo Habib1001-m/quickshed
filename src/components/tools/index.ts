@@ -149,5 +149,3 @@ export function ToolRenderer({ componentName, locale }: { componentName: string;
   if (!Component) return null;
   return React.createElement(Component, { locale });
 }
-
-export const availableTools = Object.keys(toolComponentMap);

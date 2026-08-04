@@ -175,9 +175,6 @@ export const DEFAULT_CATEGORY_COLOR: CategoryColorConfig = {
   glowColor: 'rgba(128, 128, 128, 0.15)',
 };
 
-/** Default gradient for unknown categories */
-export const DEFAULT_GRADIENT = { from: 'from-gray-500/12', to: 'to-gray-400/5' };
-
 /** Get category color config by slug */
 export function getCategoryColor(slug: string): CategoryColorConfig {
   return CATEGORY_COLORS[slug] || DEFAULT_CATEGORY_COLOR;

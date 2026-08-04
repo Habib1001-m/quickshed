@@ -16,6 +16,7 @@ import {
   resetOnboarding,
   type OnboardingStep,
 } from '@/lib/onboarding-steps';
+import { getScrollBehavior } from '@/lib/utils';
 
 interface SpotlightRect {
   x: number;
@@ -41,7 +42,7 @@ function scrollTargetIntoView(step: OnboardingStep) {
   if (step.position === 'center') return;
 
   const target = document.querySelector(step.targetSelector);
-  target?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+  target?.scrollIntoView({ behavior: getScrollBehavior(), block: 'center', inline: 'nearest' });
 }
 
 function getTooltipPosition(
@@ -497,7 +498,7 @@ export function OnboardingTour() {
                 <Button
                   size="sm"
                   onClick={handleNext}
-                  className="gap-1 bg-emerald-500 hover:bg-emerald-600 text-white text-xs rounded-lg"
+                  className="gap-1 bg-emerald-700 hover:bg-emerald-800 text-white text-xs rounded-lg"
                 >
                   {isLastStep
                     ? t('common.onboardingComplete')

@@ -268,7 +268,7 @@ export function CategoryView() {
                     transition-all duration-200 cursor-pointer micro-bounce
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                     ${isActive
-                      ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25 hover:bg-emerald-600 pill-active-glow'
+                      ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 hover:bg-emerald-800 pill-active-glow'
                       : 'bg-muted/80 text-muted-foreground hover:bg-muted hover:text-foreground'
                     }
                   `}

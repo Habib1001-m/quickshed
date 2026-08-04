@@ -175,13 +175,6 @@ export function countByPrivacy(tools: ToolDescriptor[]): Record<Privacy, number>
 }
 
 /**
- * Get featured tools (first few tools across categories).
- */
-export function getFeaturedTools(limit = 8): ToolDescriptor[] {
-  return getAllTools().slice(0, limit);
-}
-
-/**
  * Get featured tools from different categories (one per category, cycling if needed).
  */
 export function getDiverseFeaturedTools(limit = 8): ToolDescriptor[] {

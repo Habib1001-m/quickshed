@@ -252,7 +252,7 @@ export function AllToolsView() {
             <GitCompareArrows className="size-4" />
             {t('common.compareTools')}
             {compareToolIds.length > 0 && (
-              <span className="inline-flex items-center justify-center size-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">
+              <span className="inline-flex items-center justify-center size-5 rounded-full bg-emerald-700 text-white text-[10px] font-bold">
                 {compareToolIds.length}
               </span>
             )}
@@ -343,7 +343,7 @@ export function AllToolsView() {
                       shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium
                       transition-all duration-200 cursor-pointer micro-bounce
                       ${isActive
-                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
+                        ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }
                     `}
@@ -368,7 +368,7 @@ export function AllToolsView() {
                       shrink-0 rounded-full px-4 py-1.5 text-sm font-medium
                       transition-all duration-200 cursor-pointer micro-bounce
                       ${isActive
-                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
+                        ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }
                     `}
@@ -387,7 +387,7 @@ export function AllToolsView() {
               className={`
                 shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 micro-bounce hover:scale-105
                 ${selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-sm pill-active-glow'
+                  ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-sm pill-active-glow'
                   : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }
               `}
@@ -403,7 +403,7 @@ export function AllToolsView() {
                   className={`
                     shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 micro-bounce hover:scale-105
                     ${selectedCategory === cat.slug
-                      ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-sm pill-active-glow'
+                      ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-sm pill-active-glow'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }
                   `}

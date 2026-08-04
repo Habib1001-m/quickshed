@@ -94,6 +94,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className={`fixed top-0 ${isRtl ? 'left-0' : 'right-0'} z-[70] h-full w-80 glass-strong border-${isRtl ? 'r' : 'l'} border-border/50 shadow-2xl`}
             dir={isRtl ? 'rtl' : 'ltr'}
+            data-testid="settings-panel"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
@@ -101,7 +102,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 <div className="flex items-center gap-2.5">
                   <Settings className="size-5 text-emerald-500" />
                   <h2 className="text-lg font-bold text-foreground">
-                    {locale === 'ar' ? 'الإعدادات' : 'Settings'}
+                    {t('common.settings')}
                   </h2>
                 </div>
                 <Button
@@ -119,30 +120,30 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Language */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'اللغة' : 'Language'}
+                    {t('settings.language')}
                   </h3>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setLocale('en')}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                         locale === 'en'
-                          ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/25'
+                          ? 'bg-emerald-700 text-white shadow-md shadow-emerald-500/25'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     >
                       <Globe className="size-4" />
-                      English
+                      {t('settings.english')}
                     </button>
                     <button
                       onClick={() => setLocale('ar')}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                         locale === 'ar'
-                          ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/25'
+                          ? 'bg-emerald-700 text-white shadow-md shadow-emerald-500/25'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     >
                       <Globe className="size-4" />
-                      عربي
+                      {t('settings.arabic')}
                     </button>
                   </div>
                 </div>
@@ -150,30 +151,30 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Theme */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'المظهر' : 'Theme'}
+                    {t('settings.theme')}
                   </h3>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setTheme('light')}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                         theme === 'light'
-                          ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/25'
+                          ? 'bg-emerald-700 text-white shadow-md shadow-emerald-500/25'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     >
                       <Sun className="size-4" />
-                      {locale === 'ar' ? 'فاتح' : 'Light'}
+                      {t('settings.light')}
                     </button>
                     <button
                       onClick={() => setTheme('dark')}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                         theme === 'dark'
-                          ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/25'
+                          ? 'bg-emerald-700 text-white shadow-md shadow-emerald-500/25'
                           : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     >
                       <Moon className="size-4" />
-                      {locale === 'ar' ? 'داكن' : 'Dark'}
+                      {t('settings.dark')}
                     </button>
                   </div>
                 </div>
@@ -181,28 +182,28 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Statistics */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'الإحصائيات' : 'Statistics'}
+                    {t('settings.statistics')}
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="rounded-xl bg-muted/50 p-3 text-center">
                       <Wrench className="size-5 text-emerald-500 mx-auto mb-1" />
                       <p className="text-xl font-bold text-foreground">{allTools.length}</p>
-                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'أداة' : 'Tools'}</p>
+                      <p className="text-[11px] text-muted-foreground">{t('settings.tools')}</p>
                     </div>
                     <div className="rounded-xl bg-muted/50 p-3 text-center">
                       <Heart className="size-5 text-red-500 mx-auto mb-1" />
                       <p className="text-xl font-bold text-foreground">{favorites.length}</p>
-                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'مفضلة' : 'Favorites'}</p>
+                      <p className="text-[11px] text-muted-foreground">{t('settings.favorites')}</p>
                     </div>
                     <div className="rounded-xl bg-muted/50 p-3 text-center">
                       <Clock className="size-5 text-sky-500 mx-auto mb-1" />
                       <p className="text-xl font-bold text-foreground">{recentTools.length}</p>
-                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'مستخدمة مؤخراً' : 'Recent'}</p>
+                      <p className="text-[11px] text-muted-foreground">{t('settings.recent')}</p>
                     </div>
                     <div className="rounded-xl bg-muted/50 p-3 text-center">
                       <Shield className="size-5 text-violet-500 mx-auto mb-1" />
                       <p className="text-xl font-bold text-foreground">{onDeviceCount}</p>
-                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'على الجهاز' : 'On-device'}</p>
+                      <p className="text-[11px] text-muted-foreground">{t('settings.onDevice')}</p>
                     </div>
                   </div>
                 </div>
@@ -210,7 +211,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Data Management */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'إدارة البيانات' : 'Data Management'}
+                    {t('settings.dataManagement')}
                   </h3>
                   <div className="space-y-2">
                     <Button
@@ -220,7 +221,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                       onClick={clearRecentTools}
                     >
                       <RotateCcw className="size-3.5" />
-                      {locale === 'ar' ? 'مسح السجل' : 'Clear History'}
+                      {t('settings.clearHistory')}
                     </Button>
                     
                     {!showConfirmClear ? (
@@ -231,12 +232,12 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                         onClick={() => setShowConfirmClear(true)}
                       >
                         <Trash2 className="size-3.5" />
-                        {locale === 'ar' ? 'مسح جميع البيانات' : 'Clear All Data'}
+                        {t('settings.clearAllData')}
                       </Button>
                     ) : (
                       <div className="rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 p-3">
                         <p className="text-xs text-red-600 dark:text-red-400 mb-2">
-                          {locale === 'ar' ? 'هل أنت متأكد؟ سيتم حذف جميع بيانات التطبيق والأدوات المحفوظة.' : 'Are you sure? All saved app and tool data will be deleted.'}
+                          {t('settings.clearAllConfirm')}
                         </p>
                         <div className="flex gap-2">
                           <Button
@@ -245,7 +246,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                             className="flex-1 text-xs"
                             onClick={handleClearAll}
                           >
-                            {locale === 'ar' ? 'نعم، مسح' : 'Yes, Clear'}
+                            {t('settings.confirmClear')}
                           </Button>
                           <Button
                             size="sm"
@@ -253,7 +254,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                             className="flex-1 text-xs"
                             onClick={() => setShowConfirmClear(false)}
                           >
-                            {locale === 'ar' ? 'إلغاء' : 'Cancel'}
+                            {t('common.cancel')}
                           </Button>
                         </div>
                       </div>
@@ -264,7 +265,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Onboarding Tour */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'الجولة التعريفية' : 'Guided Tour'}
+                    {t('settings.guidedTour')}
                   </h3>
                   <Button
                     variant="outline"
@@ -283,7 +284,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* Export / Import */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'نسخ احتياطي' : 'Backup'}
+                    {t('settings.backup')}
                   </h3>
                   <ExportImport />
                 </div>
@@ -291,7 +292,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                 {/* About */}
                 <div>
                   <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    {locale === 'ar' ? 'حول' : 'About'}
+                    {t('settings.about')}
                   </h3>
                   <div className="rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100/50 dark:from-emerald-950/30 dark:to-emerald-900/10 border border-emerald-200/50 dark:border-emerald-800/50 p-4">
                     <div className="flex items-center gap-2.5 mb-2">
@@ -304,10 +305,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      {locale === 'ar' 
-                        ? 'صندوق أدوات مجاني يحترم خصوصيتك. جميع الأدوات تعمل محلياً في متصفحك.'
-                        : 'Your free privacy-first toolbox. All tools run locally in your browser.'
-                      }
+                      {t('settings.aboutDescription')}
                     </p>
                   </div>
                 </div>

@@ -13,7 +13,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/en"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/20"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition-colors shadow-lg shadow-emerald-500/20"
       >
         Back to QuickShed
       </Link>

@@ -11,6 +11,7 @@ import { FloatingControlDock } from '@/components/FloatingControlDock';
 import { PageTransition } from '@/components/PageTransition';
 import { ThemeCustomizer } from '@/components/ThemeCustomizer';
 import { ThemeProvider, useTheme } from 'next-themes';
+import { MotionConfig } from 'framer-motion';
 import { applyAccentColor, getSavedAccentColor } from '@/lib/accent-colors';
 import { SsrLocaleContext, useSsrLocale } from '@/lib/ssr-locale';
 import { useI18n } from '@/lib/i18n';
@@ -435,7 +436,9 @@ export default function RoutePageShell(props: RoutePageShellProps) {
   return (
     <SsrLocaleContext.Provider value={ssrLocale}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <RoutePageContent {...props} />
+        <MotionConfig reducedMotion="user">
+          <RoutePageContent {...props} />
+        </MotionConfig>
       </ThemeProvider>
     </SsrLocaleContext.Provider>
   );

@@ -63,24 +63,3 @@ export function getAllPosts(locale: string): BlogPost[] {
     .filter((post): post is BlogPost => post !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
-
-// 3. Get related posts (same category)
-export function getRelatedPosts(currentSlug: string, locale: string, category: string, limit: number = 3): BlogPost[] {
-  const allPosts = getAllPosts(locale);
-  return allPosts
-    .filter((post) => post.slug !== currentSlug && post.category === category)
-    .slice(0, limit);
-}
-
-// 4. Get all categories
-export function getAllCategories(locale: string): string[] {
-  const posts = getAllPosts(locale);
-  const categories = new Set(posts.map((post) => post.category));
-  return Array.from(categories);
-}
-
-// 5. Get posts by category
-export function getPostsByCategory(locale: string, category: string): BlogPost[] {
-  const allPosts = getAllPosts(locale);
-  return allPosts.filter((post) => post.category === category);
-}

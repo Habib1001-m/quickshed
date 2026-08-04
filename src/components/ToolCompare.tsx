@@ -123,7 +123,7 @@ export function ToolCompare({ open, onOpenChange }: ToolCompareProps) {
                           className={`
                             rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200
                             ${selectCategory === cat
-                              ? 'bg-emerald-500 text-white shadow-sm'
+                              ? 'bg-emerald-700 text-white shadow-sm'
                               : 'bg-muted text-muted-foreground hover:bg-muted/80'
                             }
                           `}

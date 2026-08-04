@@ -71,7 +71,7 @@ export function QuickAccessBar() {
             onClick={() => setIsMinimized(false)}
             className="quick-access-minimized flex size-12 items-center justify-center rounded-full
               bg-background/80 backdrop-blur-lg border border-border/50 shadow-lg
-              hover:bg-emerald-500 hover:text-white hover:border-emerald-500
+              hover:bg-emerald-700 hover:text-white hover:border-emerald-700
               transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             aria-label={t('common.quickAccess')}
             data-testid="quick-access-minimized"

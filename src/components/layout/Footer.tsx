@@ -9,6 +9,7 @@ import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { REPOSITORY_URL } from '@/lib/site-config';
 import { getCategories, localize, getAllTools, isOnDevice } from '@/lib/tool-utils';
+import { getScrollBehavior } from '@/lib/utils';
 import type { Locale } from '@/lib/store';
 
 export default function Footer() {
@@ -31,7 +32,7 @@ export default function Footer() {
     allTools.length > 0 ? Math.round((onDeviceCount / allTools.length) * 100) : 0;
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: getScrollBehavior() });
   };
 
   return (
@@ -89,24 +90,32 @@ export default function Footer() {
 
           {/* ─── Newsletter Coming Soon ──────────────────────────────── */}
           <div className="py-8 border-b border-border/50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 glass-card rounded-2xl p-6">
-              <div className="flex items-center gap-3">
-                <div className="flex size-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 shrink-0">
-                  <Mail className="size-5" />
+            <section
+              aria-labelledby="newsletter-placeholder-title"
+              aria-describedby="newsletter-placeholder-description"
+              data-testid="newsletter-placeholder"
+              className="flex flex-col items-start justify-between gap-4 glass-card rounded-2xl p-5 sm:p-6 md:flex-row md:items-center"
+            >
+              <div className="flex min-w-0 items-start gap-3">
+                <div
+                  aria-hidden="true"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400"
+                >
+                  <Mail aria-hidden="true" className="size-5" />
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-foreground">
+                <div className="min-w-0">
+                  <h3 id="newsletter-placeholder-title" className="text-base font-bold text-foreground">
                     {t('footer.newsletterComingSoon')}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p id="newsletter-placeholder-description" className="text-sm leading-relaxed text-muted-foreground">
                     {t('footer.newsletterDesc')}
                   </p>
                 </div>
               </div>
-              <span className="shrink-0 text-xs font-medium px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 coming-soon-shimmer">
+              <span className="shrink-0 self-start rounded-full bg-emerald-100 px-3 py-1.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 md:self-center">
                 {t('footer.comingSoon')}
               </span>
-            </div>
+            </section>
           </div>
 
           {/* ─── Footer Grid ────────────────────────────────────────── */}
@@ -132,7 +141,7 @@ export default function Footer() {
                     <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200">
                       {t('footer.privacyPromise')}
                     </p>
-                    <p className="text-xs text-emerald-700/80 dark:text-emerald-300/70 mt-1 leading-relaxed">
+                    <p className="text-xs text-emerald-800 dark:text-emerald-200 mt-1 leading-relaxed">
                       {t('footer.privacyPromiseDesc')}
                     </p>
                   </div>
@@ -156,7 +165,7 @@ export default function Footer() {
                 <li>
                   <button
                     onClick={navigateHome}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Home className="h-3.5 w-3.5 shrink-0" />
                     {t('header.home')}
@@ -165,7 +174,7 @@ export default function Footer() {
                 <li>
                   <button
                     onClick={navigateToCategories}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Grid3X3 className="h-3.5 w-3.5 shrink-0" />
                     {t('header.categories')}
@@ -174,7 +183,7 @@ export default function Footer() {
                 <li>
                   <button
                     onClick={navigateToAllTools}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Wrench className="h-3.5 w-3.5 shrink-0" />
                     {t('footer.allTools')}
@@ -195,7 +204,7 @@ export default function Footer() {
                 <li>
                   <a
                     href={`/${locale}/blog`}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <BookOpen className="h-3.5 w-3.5 shrink-0" />
                     {t('header.blog')}
@@ -215,7 +224,7 @@ export default function Footer() {
                   <li key={cat.slug}>
                     <button
                       onClick={() => navigateToCategory(cat.slug)}
-                      className="text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200 py-0.5"
+                      className="text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200 py-0.5"
                     >
                       {localize(cat.name, locale as Locale)}
                     </button>
@@ -234,7 +243,7 @@ export default function Footer() {
                 <li>
                   <a
                     href={`/${locale}/privacy`}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <FileText className="h-3.5 w-3.5 shrink-0" />
                     {t('footer.privacyPolicy')}
@@ -243,7 +252,7 @@ export default function Footer() {
                 <li>
                   <a
                     href={`/${locale}/terms`}
-                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
+                    className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 hover:ps-1 transition-all duration-200"
                   >
                     <Scale className="h-3.5 w-3.5 shrink-0" />
                     {t('footer.termsOfService')}
@@ -286,7 +295,7 @@ export default function Footer() {
           {/* ─── Bottom Bar ────────────────────────────────────────── */}
           <div className="relative py-5 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
-            <p className="text-xs text-muted-foreground/80">
+            <p className="text-xs text-muted-foreground">
               {t('footer.copyright')}
             </p>
             <div className="flex items-center gap-4">
@@ -297,7 +306,7 @@ export default function Footer() {
                 <ArrowUp className="size-3" />
                 {t('common.backToTop')}
               </button>
-              <p className="text-xs text-muted-foreground/80 flex items-center gap-1">
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
                 {t('footer.madeWith')} <Heart className="size-3 text-emerald-500 fill-emerald-500" /> {t('footer.builtForPrivacy')}
               </p>
             </div>

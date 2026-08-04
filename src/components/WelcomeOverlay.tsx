@@ -181,7 +181,7 @@ export function WelcomeOverlay() {
                           onClick={() => setLocale('en')}
                           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                             locale === 'en'
-                              ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25'
+                              ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25'
                               : 'bg-muted text-muted-foreground hover:bg-muted/80'
                           }`}
                         >
@@ -192,7 +192,7 @@ export function WelcomeOverlay() {
                           onClick={() => setLocale('ar')}
                           className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                             locale === 'ar'
-                              ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25'
+                              ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-500/25'
                               : 'bg-muted text-muted-foreground hover:bg-muted/80'
                           }`}
                         >
@@ -243,7 +243,7 @@ export function WelcomeOverlay() {
                 <Button
                   size="sm"
                   onClick={handleNext}
-                  className="gap-1 bg-emerald-500 hover:bg-emerald-600 text-white"
+                  className="gap-1 bg-emerald-700 hover:bg-emerald-800 text-white"
                 >
                   {step === STEPS.length - 1
                     ? (locale === 'ar' ? 'ابدأ' : 'Get Started')
