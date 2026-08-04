@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Layers, Plus, Trash2, RotateCcw, Eye, EyeOff, Download, Upload, CheckCircle2, XCircle } from 'lucide-react';
+import { Layers, Plus, Trash2, RotateCcw, Download, Upload, CheckCircle2, XCircle } from 'lucide-react';
 
 interface Flashcard {
   id: string;

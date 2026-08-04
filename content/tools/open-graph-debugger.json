@@ -1,12 +1,51 @@
 {
   "id": "open-graph-debugger",
-  "name": { "ar": "مدقق Open Graph", "en": "Open Graph Debugger" },
-  "description": { "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.", "en": "Check Open Graph tags and diagnose link sharing issues." },
+  "slug": "open-graph-debugger",
+  "name": {
+    "ar": "مدقق Open Graph",
+    "en": "Open Graph Debugger"
+  },
+  "description": {
+    "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.",
+    "en": "Check Open Graph tags and diagnose link sharing issues."
+  },
   "category": "seo-tools",
   "icon": "Share2",
-  "privacy": "local",
-  "keywords": ["open graph", "og tags", "social sharing", "debug", "أوبن غراف", "مشاركة اجتماعية", "تصحيح"],
   "component": "OpenGraphDebugger",
+  "route": "/[locale]/tools/open-graph-debugger",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "open graph",
+    "og tags",
+    "social sharing",
+    "debug",
+    "أوبن غراف",
+    "مشاركة اجتماعية",
+    "تصحيح"
+  ],
+  "inputs": [
+    "text / content / metadata"
+  ],
+  "outputs": [
+    "generated markup / simulated / analyzed output"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/OpenGraphDebugger.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: OpenGraphDebugger)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

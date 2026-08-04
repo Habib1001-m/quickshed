@@ -1,12 +1,51 @@
 {
   "id": "hash-generator",
-  "name": { "ar": "مولد الهاش", "en": "Hash Generator" },
-  "description": { "ar": "أنشئ قيم هاش باستخدام خوارزميات مختلفة مثل MD5 و SHA-256.", "en": "Generate hash values using different algorithms like MD5 and SHA-256." },
+  "slug": "hash-generator",
+  "name": {
+    "ar": "مولد الهاش",
+    "en": "Hash Generator"
+  },
+  "description": {
+    "ar": "أنشئ قيم هاش باستخدام خوارزميات مختلفة مثل MD5 و SHA-256.",
+    "en": "Generate hash values using different algorithms like MD5 and SHA-256."
+  },
   "category": "developer-tools",
   "icon": "ShieldCheck",
-  "privacy": "local",
-  "keywords": ["hash", "md5", "sha", "checksum", "هاش", "بصمة", "تشفير"],
   "component": "HashGenerator",
+  "route": "/[locale]/tools/hash-generator",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "hash",
+    "md5",
+    "sha",
+    "checksum",
+    "هاش",
+    "بصمة",
+    "تشفير"
+  ],
+  "inputs": [
+    "code / text / data"
+  ],
+  "outputs": [
+    "formatted / encoded / decoded / parsed result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/HashGenerator.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: HashGenerator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

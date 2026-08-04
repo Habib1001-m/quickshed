@@ -1,12 +1,53 @@
 {
   "id": "priority-matrix",
-  "name": { "ar": "مصفوفة الأولويات", "en": "Priority Matrix" },
-  "description": { "ar": "نظّم مهامك حسب الأولوية والاستعجال باستخدام مصفوفة آيزنهاور.", "en": "Organize tasks by priority and urgency using the Eisenhower matrix." },
+  "slug": "priority-matrix",
+  "name": {
+    "ar": "مصفوفة الأولويات",
+    "en": "Priority Matrix"
+  },
+  "description": {
+    "ar": "نظّم مهامك حسب الأولوية والاستعجال باستخدام مصفوفة آيزنهاور.",
+    "en": "Organize tasks by priority and urgency using the Eisenhower matrix."
+  },
   "category": "utility-tools",
   "icon": "LayoutGrid",
-  "privacy": "local",
-  "keywords": ["priority", "matrix", "eisenhower", "task", "أولوية", "مصفوفة", "آيزنهاور", "مهام"],
   "component": "PriorityMatrix",
+  "route": "/[locale]/tools/priority-matrix",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "priority",
+    "matrix",
+    "eisenhower",
+    "task",
+    "أولوية",
+    "مصفوفة",
+    "آيزنهاور",
+    "مهام"
+  ],
+  "inputs": [
+    "text",
+    "numeric values"
+  ],
+  "outputs": [
+    "prioritized task list"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PriorityMatrix.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: PriorityMatrix)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

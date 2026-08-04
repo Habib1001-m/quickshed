@@ -1,12 +1,50 @@
 {
   "id": "markdown-to-html",
-  "name": { "ar": "محول ماركداون إلى HTML", "en": "Markdown to HTML" },
-  "description": { "ar": "حوّل نص ماركداون إلى كود HTML جاهز للاستخدام.", "en": "Convert Markdown text to ready-to-use HTML code." },
+  "slug": "markdown-to-html",
+  "name": {
+    "ar": "محول ماركداون إلى HTML",
+    "en": "Markdown to HTML"
+  },
+  "description": {
+    "ar": "حوّل نص ماركداون إلى كود HTML جاهز للاستخدام.",
+    "en": "Convert Markdown text to ready-to-use HTML code."
+  },
   "category": "text-tools",
   "icon": "FileCode",
-  "privacy": "local",
-  "keywords": ["markdown", "html", "convert", "ماركداون", "تحويل", "أتش تي إم إل"],
   "component": "MarkdownToHtml",
+  "route": "/[locale]/tools/markdown-to-html",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "markdown",
+    "html",
+    "convert",
+    "ماركداون",
+    "تحويل",
+    "أتش تي إم إل"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "transformed / analyzed text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/MarkdownToHtml.tsx — local blob:/base64 raster data: images only; remote, unsafe, and malformed images become localized non-loading placeholders; no storage calls",
+      "src/components/tools/index.ts (registry entry: MarkdownToHtml)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "image preview rejects http(s), javascript:, and other non-local image URLs before rendering; only blob: and base64 raster data: URLs are allowed. Explicit links remain inert until user activation; no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource calls",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "F5 uncommitted worktree 2026-08-03"
+  },
   "createdAt": "2026-06-01",
-  "updatedAt": "2026-06-01"
+  "updatedAt": "2026-08-03"
 }

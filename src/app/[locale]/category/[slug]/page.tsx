@@ -80,6 +80,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
       <script
+        id={`json-ld-category-${category.slug}-${loc}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

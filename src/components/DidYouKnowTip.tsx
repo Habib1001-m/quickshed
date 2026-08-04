@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
-import { useAppStore } from '@/lib/store';
 
 const TIP_KEYS = [
   'common.tipKeyboardNav',

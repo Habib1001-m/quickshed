@@ -1,12 +1,52 @@
 {
   "id": "habit-tracker",
-  "name": { "ar": "متتبع العادات", "en": "Habit Tracker" },
-  "description": { "ar": "تتبع عاداتك اليومية وابنِ سلاسل منتظمة لتحقيق أهدافك.", "en": "Track your daily habits and build consistent streaks to achieve your goals." },
+  "slug": "habit-tracker",
+  "name": {
+    "ar": "متتبع العادات",
+    "en": "Habit Tracker"
+  },
+  "description": {
+    "ar": "تتبع عاداتك اليومية وابنِ سلاسل منتظمة لتحقيق أهدافك.",
+    "en": "Track your daily habits and build consistent streaks to achieve your goals."
+  },
   "category": "utility-tools",
   "icon": "CheckCircle",
-  "privacy": "local",
-  "keywords": ["habit", "tracker", "streak", "daily", "عادة", "تتبع", "سلسلة", "يومي"],
   "component": "HabitTracker",
+  "route": "/[locale]/tools/habit-tracker",
+  "privacy": "storage",
+  "offline": "full",
+  "retention": "browser-storage",
+  "riskLevel": "low",
+  "keywords": [
+    "habit",
+    "tracker",
+    "streak",
+    "daily",
+    "عادة",
+    "تتبع",
+    "سلسلة",
+    "يومي"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "habit history"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/HabitTracker.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-habits\"",
+      "src/components/tools/index.ts (registry entry: HabitTracker)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "localStorage (key: quickshed-habits)",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

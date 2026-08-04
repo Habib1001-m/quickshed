@@ -90,6 +90,7 @@ export default async function LocalePage({ params }: LocalePageProps) {
   return (
     <>
       <script
+        id={`json-ld-website-${loc}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

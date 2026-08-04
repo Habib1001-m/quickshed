@@ -1,12 +1,50 @@
 {
   "id": "url-shortener",
-  "name": { "ar": "مختصر الروابط", "en": "URL Shortener" },
-  "description": { "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.", "en": "Shorten long URLs to make them easier to share." },
+  "slug": "url-shortener",
+  "name": {
+    "ar": "مختصر الروابط",
+    "en": "URL Shortener"
+  },
+  "description": {
+    "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.",
+    "en": "Shorten long URLs to make them easier to share."
+  },
   "category": "utility-tools",
   "icon": "Link2",
-  "privacy": "local",
-  "keywords": ["url", "shortener", "link", "رابط", "اختصار", "مختصر"],
   "component": "UrlShortener",
+  "route": "/[locale]/tools/url-shortener",
+  "privacy": "storage",
+  "offline": "full",
+  "retention": "browser-storage",
+  "riskLevel": "low",
+  "keywords": [
+    "url",
+    "shortener",
+    "link",
+    "رابط",
+    "اختصار",
+    "مختصر"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "shortened link"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/UrlShortener.tsx — client-side localStorage (STORAGE_KEY=\"quickshed-url-shortener\"), localized hash resolution, explicit user-triggered http/https navigation",
+      "src/components/tools/index.ts (registry entry: UrlShortener)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no programmatic network API calls or automatic data transmission; the external target is only rendered as a validated, explicit user-action link and no tool input is sent to a service",
+    "storagePersistenceTargets": "localStorage (key: quickshed-url-shortener)",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

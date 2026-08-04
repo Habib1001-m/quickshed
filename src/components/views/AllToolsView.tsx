@@ -3,10 +3,10 @@
 import { useMemo, useCallback, useState, useRef, useEffect } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import Fuse from 'fuse.js';
-import { Search, ArrowLeft, ArrowUpDown, Shield, Zap, Hash, Wrench, GitCompareArrows } from 'lucide-react';
+import { Search, ArrowLeft, ArrowUpDown, Shield, Zap, Hash, Wrench, GitCompareArrows, FileLock2, Database } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
-import { getAllTools, getCategories, getCategoryName, type ToolDescriptor } from '@/lib/tool-utils';
+import { getAllTools, getCategories, getCategoryName, type ToolDescriptor, type Privacy } from '@/lib/tool-utils';
 import { getRatingsMap } from '@/lib/tool-ratings';
 import { ToolCard } from '@/components/ToolCard';
 import { ToolCompare } from '@/components/ToolCompare';
@@ -14,7 +14,23 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 type SortMode = 'name' | 'category' | 'privacy' | 'usage' | 'rating';
-type PrivacyFilter = 'all' | 'local' | 'api';
+/**
+ * QS-SPEC-001 T005c: privacy filter spans all four levels plus `all`, derived
+ * from the shared {@link Privacy} union. No binary local-vs-api set remains.
+ */
+type PrivacyFilter = 'all' | Privacy;
+
+/**
+ * Stable, exhaustive sort order for the four privacy levels. Typed
+ * `Record<Privacy, number>` so a future enum value fails typecheck until it
+ * is added — `sortMode === 'privacy'` can never collapse to local-vs-API.
+ */
+const PRIVACY_SORT_ORDER: Record<Privacy, number> = {
+  local: 0,
+  'file-only': 1,
+  storage: 2,
+  api: 3,
+};
 
 // ─── Animation variants ─────────────────────────────────────────────
 
@@ -112,7 +128,7 @@ export function AllToolsView() {
     } else if (sortMode === 'privacy') {
       tools.sort((a, b) => {
         if (a.privacy !== b.privacy) {
-          return a.privacy === 'local' ? -1 : 1;
+          return PRIVACY_SORT_ORDER[a.privacy] - PRIVACY_SORT_ORDER[b.privacy];
         }
         const nameA = a.name[locale === 'ar' ? 'ar' : 'en'];
         const nameB = b.name[locale === 'ar' ? 'ar' : 'en'];
@@ -149,10 +165,12 @@ export function AllToolsView() {
     { key: 'rating', label: t('allTools.sortByRating') },
   ];
 
-  const privacyFilters: { key: PrivacyFilter; label: string; icon?: typeof Shield }[] = [
+  const privacyFilters: { key: PrivacyFilter; label: string; Icon?: typeof Shield }[] = [
     { key: 'all', label: t('allTools.filterAll') },
-    { key: 'local', label: t('allTools.filterLocal'), icon: Shield },
-    { key: 'api', label: t('allTools.filterApi'), icon: Zap },
+    { key: 'local', label: t('allTools.filterLocal'), Icon: Shield },
+    { key: 'file-only', label: t('allTools.filterFileOnly'), Icon: FileLock2 },
+    { key: 'storage', label: t('allTools.filterStorage'), Icon: Database },
+    { key: 'api', label: t('allTools.filterApi'), Icon: Zap },
   ];
 
   // Keyboard navigation for tool grid
@@ -330,7 +348,7 @@ export function AllToolsView() {
                       }
                     `}
                   >
-                    {pf.icon && <pf.icon className="size-3.5" />}
+                    {pf.Icon && <pf.Icon className="size-3.5" />}
                     {pf.label}
                   </button>
                 );

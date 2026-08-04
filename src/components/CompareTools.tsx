@@ -1,10 +1,8 @@
 'use client';
 
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { GitCompareArrows, Search, X, Plus } from 'lucide-react';
 import Fuse from 'fuse.js';
-import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import {
   getAllTools, getToolById, getCategoryName, localize,

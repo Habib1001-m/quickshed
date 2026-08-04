@@ -72,13 +72,13 @@ import {
   Heart,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { useAppStore, type Locale } from '@/lib/store';
+import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { getAllTools, getCategoryName, localize, getCategories } from '@/lib/tool-utils';
 import type { ToolDescriptor } from '@/lib/tool-utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { PrivacyBadge } from '@/components/PrivacyBadge';
 import {
   Sheet,
   SheetContent,
@@ -164,7 +164,11 @@ interface SearchResultItem {
 
 // ─── Header Component ───────────────────────────────────────────────
 
-export default function Header() {
+interface HeaderProps {
+  announcementVisible?: boolean;
+}
+
+export default function Header({ announcementVisible = false }: HeaderProps) {
   const { t, locale } = useI18n();
   const { resolvedTheme, setTheme } = useTheme();
   const navigateHome = useAppStore((s) => s.navigateHome);
@@ -329,7 +333,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 glass-strong shadow-sm shadow-emerald-500/[0.03] dark:shadow-emerald-500/[0.05] ${
+      className={`fixed inset-x-0 z-50 glass-strong shadow-sm shadow-emerald-500/[0.03] dark:shadow-emerald-500/[0.05] transition-[top] duration-300 ease-in-out ${
+        announcementVisible ? 'top-14 md:top-11' : 'top-0'
+      } ${
         isRTL ? 'rtl' : 'ltr'
       }`}
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -357,6 +363,7 @@ export default function Header() {
               ref={searchInputRef}
               type="text"
               placeholder={t('header.searchPlaceholder')}
+              aria-label={t('header.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => handleSearchInput(e.target.value)}
               onFocus={() => {
@@ -408,18 +415,7 @@ export default function Header() {
                             {getCategoryName(result.tool.category, locale)}
                           </p>
                         </div>
-                        <Badge
-                          variant={
-                            result.tool.privacy === 'local'
-                              ? 'secondary'
-                              : 'outline'
-                          }
-                          className="shrink-0 text-[10px] px-1.5 py-0"
-                        >
-                          {result.tool.privacy === 'local'
-                            ? t('tool.privacyLocalShort')
-                            : t('tool.privacyApiShort')}
-                        </Badge>
+                        <PrivacyBadge level={result.tool.privacy} className="shrink-0" />
                       </button>
                     );
                   })}
@@ -445,7 +441,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-red-50 dark:hover:bg-red-950/30 hover:shadow-md hover:shadow-red-500/10 transition-all duration-200 micro-bounce relative"
+            className="hidden lg:inline-flex h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-red-50 dark:hover:bg-red-950/30 hover:shadow-md hover:shadow-red-500/10 transition-all duration-200 micro-bounce relative"
             onClick={navigateToFavorites}
             aria-label={t('common.favorites')}
           >
@@ -461,7 +457,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
+            className="hidden lg:inline-flex h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
             onClick={toggleTheme}
             aria-label={t('header.themeToggle')}
           >
@@ -473,7 +469,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:shadow-sm transition-all duration-200 micro-bounce"
+            className="hidden lg:inline-flex h-9 gap-1.5 px-3 text-sm font-medium rounded-full bg-muted/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:shadow-sm transition-all duration-200 micro-bounce"
             onClick={toggleLocale}
             aria-label={t('header.languageSwitch')}
           >
@@ -487,7 +483,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
+            className="hidden lg:inline-flex h-9 w-9 rounded-full hover:bg-muted/80 hover:shadow-sm micro-bounce transition-all duration-200"
             onClick={() => {
               window.dispatchEvent(new CustomEvent('quickshed-theme-customizer'));
             }}
@@ -525,7 +521,7 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent
               side={isRTL ? 'right' : 'left'}
-              className="w-72 bg-background"
+              className="w-72 max-w-[calc(100vw-1rem)] overflow-y-auto bg-background"
             >
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
@@ -543,6 +539,7 @@ export default function Header() {
                   <Input
                     type="text"
                     placeholder={t('header.searchPlaceholder')}
+                    aria-label={t('header.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => handleSearchInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -569,14 +566,75 @@ export default function Header() {
                           className="w-full flex items-center gap-2 px-3 py-2 text-start hover:bg-muted transition-colors"
                         >
                           <Icon className="h-4 w-4 text-muted-foreground shrink-0" />
-                          <span className="text-sm truncate">
+                          <span className="flex-1 min-w-0 text-sm truncate">
                             {localize(result.tool.name, locale)}
                           </span>
+                          <PrivacyBadge level={result.tool.privacy} className="shrink-0" />
                         </button>
                       );
                     })}
                   </div>
                 )}
+              </div>
+
+              {/* Mobile utility actions */}
+              <div className="grid grid-cols-2 gap-2 px-4 pb-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-10 justify-start gap-2 px-3 text-start"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    toggleTheme();
+                  }}
+                  aria-label={t('header.themeToggle')}
+                >
+                  <Sun className="h-4 w-4 dark:hidden" />
+                  <Moon className="hidden h-4 w-4 dark:block" />
+                  <span className="truncate">{t('header.themeToggle')}</span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-10 justify-start gap-2 px-3 text-start"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    toggleLocale();
+                  }}
+                  aria-label={t('header.languageSwitch')}
+                >
+                  <Globe className="h-4 w-4" />
+                  <span className="truncate">{t('header.languageSwitch')}</span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="col-span-2 h-10 justify-start gap-2 px-3 text-start"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    window.dispatchEvent(new CustomEvent('quickshed-theme-customizer'));
+                  }}
+                  aria-label={t('common.themeCustomizer')}
+                >
+                  <Paintbrush className="h-4 w-4" />
+                  <span className="truncate">{t('common.themeCustomizer')}</span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="col-span-2 h-10 justify-start gap-2 px-3 text-start"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    window.dispatchEvent(new CustomEvent('quickshed-settings'));
+                  }}
+                  aria-label={t('common.settings')}
+                >
+                  <Settings className="h-4 w-4" />
+                  <span className="truncate">{t('common.settings')}</span>
+                </Button>
               </div>
 
               {/* Navigation Links */}
@@ -649,6 +707,7 @@ export default function Header() {
           <Input
             type="text"
             placeholder={t('header.searchPlaceholder')}
+            aria-label={t('header.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => handleSearchInput(e.target.value)}
             onKeyDown={handleSearchKeyDown}
@@ -689,6 +748,7 @@ export default function Header() {
                         {getCategoryName(result.tool.category, locale)}
                       </p>
                     </div>
+                    <PrivacyBadge level={result.tool.privacy} className="shrink-0" />
                   </button>
                 );
               })}

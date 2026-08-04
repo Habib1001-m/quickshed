@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Link2, Twitter, Code, ChevronDown, Check, Copy } from 'lucide-react';
+import { Share2, Link2, Twitter, Code, ChevronDown, Check } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 

@@ -1,12 +1,50 @@
 {
   "id": "temperature-converter",
-  "name": { "ar": "محول درجة الحرارة", "en": "Temperature Converter" },
-  "description": { "ar": "حوّل بين مئوية وفهرنهايت وكلفن بسهولة.", "en": "Easily convert between Celsius, Fahrenheit, and Kelvin." },
+  "slug": "temperature-converter",
+  "name": {
+    "ar": "محول درجة الحرارة",
+    "en": "Temperature Converter"
+  },
+  "description": {
+    "ar": "حوّل بين مئوية وفهرنهايت وكلفن بسهولة.",
+    "en": "Easily convert between Celsius, Fahrenheit, and Kelvin."
+  },
   "category": "converters",
   "icon": "Thermometer",
-  "privacy": "local",
-  "keywords": ["temperature", "celsius", "fahrenheit", "درجة حرارة", "مئوية", "فهرنهايت"],
   "component": "TemperatureConverter",
+  "route": "/[locale]/tools/temperature-converter",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "temperature",
+    "celsius",
+    "fahrenheit",
+    "درجة حرارة",
+    "مئوية",
+    "فهرنهايت"
+  ],
+  "inputs": [
+    "one or more values to convert"
+  ],
+  "outputs": [
+    "converted value(s)"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/TemperatureConverter.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: TemperatureConverter)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fuse from 'fuse.js';
 import {
-  Search, Clock, Heart, Wrench, ArrowRight, Shield, Zap, X,
+  Search, Clock, Heart,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
@@ -160,6 +160,7 @@ export function CommandPalette() {
                   ref={inputRef}
                   type="text"
                   placeholder={t('home.heroSearchPlaceholder')}
+                  aria-label={t('home.heroSearchPlaceholder')}
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);

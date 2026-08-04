@@ -3,8 +3,8 @@
 import { useMemo, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import {
-  Heart, ArrowLeft, Search, LayoutGrid, List, SortAsc, X, Trash2,
-  Sparkles, FolderHeart,
+  Heart, ArrowLeft, Search, LayoutGrid, List, X,
+  Sparkles,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';

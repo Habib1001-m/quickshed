@@ -1,12 +1,51 @@
 {
   "id": "scientific-calculator",
-  "name": { "ar": "آلة حاسبة علمية", "en": "Scientific Calculator" },
-  "description": { "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.", "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations." },
+  "slug": "scientific-calculator",
+  "name": {
+    "ar": "آلة حاسبة علمية",
+    "en": "Scientific Calculator"
+  },
+  "description": {
+    "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
+    "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
+  },
   "category": "calculators",
   "icon": "FlaskConical",
-  "privacy": "local",
-  "keywords": ["scientific", "trigonometry", "logarithm", "advanced math", "علمية", "مثلثات", "لوغاريتمات"],
   "component": "ScientificCalculator",
+  "route": "/[locale]/tools/scientific-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "scientific",
+    "trigonometry",
+    "logarithm",
+    "advanced math",
+    "علمية",
+    "مثلثات",
+    "لوغاريتمات"
+  ],
+  "inputs": [
+    "numeric inputs / values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/ScientificCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: ScientificCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -1,12 +1,53 @@
 {
   "id": "student-gpa-calculator",
-  "name": { "ar": "حاسبة المعدل التراكمي للطالب", "en": "Student GPA Calculator" },
-  "description": { "ar": "أداة متكاملة لحساب المعدل التراكمي مع تتبع المواد والفصول الدراسية.", "en": "A comprehensive tool to calculate GPA with course and semester tracking." },
+  "slug": "student-gpa-calculator",
+  "name": {
+    "ar": "حاسبة المعدل التراكمي للطالب",
+    "en": "Student GPA Calculator"
+  },
+  "description": {
+    "ar": "أداة متكاملة لحساب المعدل التراكمي مع تتبع المواد والفصول الدراسية.",
+    "en": "A comprehensive tool to calculate GPA with course and semester tracking."
+  },
   "category": "student-tools",
   "icon": "ClipboardList",
-  "privacy": "local",
-  "keywords": ["gpa", "student", "semester", "courses", "معدل تراكمي", "طالب", "فصل دراسي", "مواد"],
   "component": "StudentGpaCalculator",
+  "route": "/[locale]/tools/student-gpa-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "gpa",
+    "student",
+    "semester",
+    "courses",
+    "معدل تراكمي",
+    "طالب",
+    "فصل دراسي",
+    "مواد"
+  ],
+  "inputs": [
+    "text",
+    "numeric values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/StudentGpaCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: StudentGpaCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

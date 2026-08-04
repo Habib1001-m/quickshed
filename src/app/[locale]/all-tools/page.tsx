@@ -60,6 +60,7 @@ export default async function AllToolsPage({ params }: AllToolsPageProps) {
   return (
     <>
       <script
+        id={`json-ld-all-tools-${loc}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />

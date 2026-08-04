@@ -3,14 +3,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Shield, Globe, Search, Heart, Wrench, X, ChevronRight,
-  ChevronLeft, Sparkles, ArrowRight, Zap, LayoutGrid,
+  Shield, Globe, Search, X, ChevronRight,
+  ChevronLeft, Sparkles,
 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-
-const WELCOME_KEY = 'quickshed-welcomed';
+import {
+  ONBOARDING_START_EVENT,
+  isWelcomeComplete,
+  markWelcomeComplete,
+} from '@/lib/onboarding-steps';
 
 const STEPS = [
   {
@@ -47,24 +50,37 @@ export function WelcomeOverlay() {
   const isRtl = locale === 'ar';
 
   useEffect(() => {
-    try {
-      const welcomed = localStorage.getItem(WELCOME_KEY);
-      if (!welcomed) {
-        // Small delay for page load
-        const timer = setTimeout(() => setIsVisible(true), 1500);
-        return () => clearTimeout(timer);
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const handleRestart = () => {
+      if (!isWelcomeComplete()) {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        setIsVisible(true);
       }
-    } catch {
-      // localStorage not available
+    };
+
+    window.addEventListener(ONBOARDING_START_EVENT, handleRestart);
+
+    if (!isWelcomeComplete()) {
+      // Small delay for page load
+      timer = setTimeout(() => {
+        timer = null;
+        setIsVisible(true);
+      }, 1500);
     }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener(ONBOARDING_START_EVENT, handleRestart);
+    };
   }, []);
 
   const handleClose = () => {
-    setIsVisible(false);
-    try {
-      localStorage.setItem(WELCOME_KEY, 'true');
-    } catch {
-      // localStorage not available
+    if (markWelcomeComplete()) {
+      setIsVisible(false);
     }
   };
 

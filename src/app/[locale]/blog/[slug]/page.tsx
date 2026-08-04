@@ -18,7 +18,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Not Found' };
   }
 
-  const isArabic = locale === 'ar';
   const title = `${post.title} — QuickShed Blog`;
   const description = post.description;
 

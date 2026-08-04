@@ -3,7 +3,6 @@
 import { useState, useCallback } from 'react';
 import { Share2, Link2, Twitter, Check, Copy } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
-import { useAppStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import {
   Popover,

@@ -1,12 +1,51 @@
 {
   "id": "basic-calculator",
-  "name": { "ar": "آلة حاسبة أساسية", "en": "Basic Calculator" },
-  "description": { "ar": "آلة حاسبة بسيطة لإجراء العمليات الحسابية الأساسية مثل الجمع والطرح والضرب والقسمة.", "en": "A simple calculator for basic arithmetic operations like addition, subtraction, multiplication, and division." },
+  "slug": "basic-calculator",
+  "name": {
+    "ar": "آلة حاسبة أساسية",
+    "en": "Basic Calculator"
+  },
+  "description": {
+    "ar": "آلة حاسبة بسيطة لإجراء العمليات الحسابية الأساسية مثل الجمع والطرح والضرب والقسمة.",
+    "en": "A simple calculator for basic arithmetic operations like addition, subtraction, multiplication, and division."
+  },
   "category": "calculators",
   "icon": "Calculator",
-  "privacy": "local",
-  "keywords": ["calculator", "arithmetic", "math", "basic", "حاسبة", "حساب", "رياضيات"],
   "component": "BasicCalculator",
+  "route": "/[locale]/tools/basic-calculator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "calculator",
+    "arithmetic",
+    "math",
+    "basic",
+    "حاسبة",
+    "حساب",
+    "رياضيات"
+  ],
+  "inputs": [
+    "numeric inputs / values"
+  ],
+  "outputs": [
+    "computed numeric result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/BasicCalculator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: BasicCalculator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -1,12 +1,50 @@
 {
   "id": "pdf-page-remover",
-  "name": { "ar": "حذف صفحات PDF", "en": "PDF Page Remover" },
-  "description": { "ar": "احذف صفحات محددة من ملف PDF بسهولة.", "en": "Remove specific pages from a PDF file easily." },
+  "slug": "pdf-page-remover",
+  "name": {
+    "ar": "حذف صفحات PDF",
+    "en": "PDF Page Remover"
+  },
+  "description": {
+    "ar": "احذف صفحات محددة من ملف PDF بسهولة.",
+    "en": "Remove specific pages from a PDF file easily."
+  },
   "category": "pdf-tools",
   "icon": "Scissors",
-  "privacy": "local",
-  "keywords": ["pdf", "remove pages", "delete", "حذف صفحات", "بي دي إف", "إزالة"],
   "component": "PdfPageRemover",
+  "route": "/[locale]/tools/pdf-page-remover",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "pdf",
+    "remove pages",
+    "delete",
+    "حذف صفحات",
+    "بي دي إف",
+    "إزالة"
+  ],
+  "inputs": [
+    "user-selected PDF file(s)"
+  ],
+  "outputs": [
+    "processed PDF / extracted text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PdfPageRemover.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: PdfPageRemover)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

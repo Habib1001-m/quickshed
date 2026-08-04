@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useI18n } from '@/lib/i18n';
 import { Copy, Check, FileCode, Eye } from 'lucide-react';
 
 const labels = {
@@ -43,7 +44,29 @@ function sanitizeUrl(value: string): string {
   return '#';
 }
 
-function markdownToHtml(md: string): string {
+/**
+ * Markdown images are a separate policy from explicit links. Only local blob
+ * URLs and base64-encoded raster data URLs can render; every other image URL
+ * becomes text so previewing Markdown cannot initiate network egress.
+ * SVG data URLs are intentionally excluded because an SVG can reference
+ * additional resources even though its outer URL is local.
+ */
+function sanitizeImageUrl(value: string): string | null {
+  const trimmed = value.trim();
+  if (/^blob:/i.test(trimmed)) return trimmed;
+  if (/^data:image\/(?:png|jpe?g|gif|webp|avif);base64,[a-z0-9+/]+={0,2}$/i.test(trimmed)) {
+    return trimmed;
+  }
+  return null;
+}
+
+function blockedImageHtml(alt: string, message: string): string {
+  // `alt` has already passed through escapeHtml before the Markdown rules run.
+  const altSuffix = alt ? ` — ${alt}` : '';
+  return `<span data-markdown-image-blocked="true" role="status">${escapeHtml(message)}${altSuffix}</span>`;
+}
+
+function markdownToHtml(md: string, imageBlockedMessage: string): string {
   let html = escapeHtml(md);
 
   // Code blocks (must be before other rules)
@@ -75,13 +98,17 @@ function markdownToHtml(md: string): string {
   // Strikethrough
   html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
 
-  // Images
-  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt: string, url: string) => {
-    return `<img src="${sanitizeUrl(url)}" alt="${alt}" />`;
+  // Images: never reuse the explicit-link sanitizer here; remote and unsafe
+  // image URLs must not become automatically loading <img> elements.
+  html = html.replace(/!\[([^\]]*)\]\(([^)\r\n]*)\)/g, (_match, alt: string, url: string) => {
+    const safeImageUrl = sanitizeImageUrl(url);
+    return safeImageUrl
+      ? `<img src="${safeImageUrl}" alt="${alt}" />`
+      : blockedImageHtml(alt, imageBlockedMessage);
   });
 
   // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text: string, url: string) => {
+  html = html.replace(/(?<!!)\[([^\]]+)\]\(([^)\r\n]+)\)/g, (_match, text: string, url: string) => {
     return `<a href="${sanitizeUrl(url)}" target="_blank" rel="noopener noreferrer">${text}</a>`;
   });
 
@@ -110,10 +137,15 @@ function markdownToHtml(md: string): string {
 export default function MarkdownToHtml({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
   const t = labels[locale];
+  const { t: translate } = useI18n();
   const [markdown, setMarkdown] = useState('');
   const [copied, setCopied] = useState(false);
+  const imageBlockedMessage = translate('tool.markdownImageBlocked');
 
-  const html = useMemo(() => (markdown ? markdownToHtml(markdown) : ''), [markdown]);
+  const html = useMemo(
+    () => (markdown ? markdownToHtml(markdown, imageBlockedMessage) : ''),
+    [markdown, imageBlockedMessage],
+  );
 
   const handleCopy = () => {
     navigator.clipboard.writeText(html);
@@ -160,11 +192,15 @@ export default function MarkdownToHtml({ locale }: { locale: 'ar' | 'en' }) {
             <TabsContent value="preview">
               <div
                 className="prose prose-sm dark:prose-invert max-w-none rounded-md border p-4 min-h-[200px]"
+                data-testid="markdown-preview"
                 dangerouslySetInnerHTML={{ __html: html || `<p class="text-muted-foreground">${t.inputPlaceholder}</p>` }}
               />
             </TabsContent>
             <TabsContent value="source">
-              <pre className="tool-output rounded-md border bg-muted/50 p-4 min-h-[200px] overflow-auto text-sm font-mono whitespace-pre-wrap break-all">
+              <pre
+                className="tool-output rounded-md border bg-muted/50 p-4 min-h-[200px] overflow-auto text-sm font-mono whitespace-pre-wrap break-all"
+                data-testid="markdown-source"
+              >
                 {html || `<p>${t.inputPlaceholder}</p>`}
               </pre>
             </TabsContent>

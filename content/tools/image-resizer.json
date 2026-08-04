@@ -1,12 +1,50 @@
 {
   "id": "image-resizer",
-  "name": { "ar": "تغيير حجم الصور", "en": "Image Resizer" },
-  "description": { "ar": "غيّر حجم الصور مع الحفاظ على الجودة ونسبة العرض إلى الارتفاع.", "en": "Resize images while maintaining quality and aspect ratio." },
+  "slug": "image-resizer",
+  "name": {
+    "ar": "تغيير حجم الصور",
+    "en": "Image Resizer"
+  },
+  "description": {
+    "ar": "غيّر حجم الصور مع الحفاظ على الجودة ونسبة العرض إلى الارتفاع.",
+    "en": "Resize images while maintaining quality and aspect ratio."
+  },
   "category": "image-tools",
   "icon": "Move",
-  "privacy": "local",
-  "keywords": ["resize", "image", "dimensions", "تغيير حجم", "صورة", "أبعاد"],
   "component": "ImageResizer",
+  "route": "/[locale]/tools/image-resizer",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "resize",
+    "image",
+    "dimensions",
+    "تغيير حجم",
+    "صورة",
+    "أبعاد"
+  ],
+  "inputs": [
+    "user-selected image file(s)"
+  ],
+  "outputs": [
+    "processed image / extracted data"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/ImageResizer.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: ImageResizer)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

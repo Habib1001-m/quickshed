@@ -1,12 +1,32 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import type { ComponentType } from 'react';
 
 // Tool component props type
 interface ToolProps {
   locale: 'ar' | 'en';
+}
+
+function ToolLoadingFallback() {
+  return React.createElement(
+    'div',
+    { className: 'space-y-4', 'aria-busy': 'true' },
+    React.createElement('div', { className: 'tool-skeleton h-12 w-full' }),
+    React.createElement('div', { className: 'tool-skeleton h-12 w-full' }),
+    React.createElement('div', { className: 'tool-skeleton h-32 w-full' }),
+    React.createElement('div', { className: 'tool-skeleton h-10 w-32' }),
+  );
+}
+
+type ToolLoader = () => Promise<{ default: ComponentType<ToolProps> }>;
+
+function dynamic(loader: ToolLoader) {
+  return nextDynamic(loader, {
+    ssr: false,
+    loading: () => React.createElement(ToolLoadingFallback),
+  });
 }
 
 // Lazy-loaded tool components map

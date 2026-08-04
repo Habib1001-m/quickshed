@@ -1,12 +1,51 @@
 {
   "id": "url-encoder-decoder",
-  "name": { "ar": "مشفر وفاك تشفير URL", "en": "URL Encoder Decoder" },
-  "description": { "ar": "شفّر وألغِ تشفير عناوين URL للتعامل مع الأحرف الخاصة.", "en": "Encode and decode URLs to handle special characters." },
+  "slug": "url-encoder-decoder",
+  "name": {
+    "ar": "مشفر وفاك تشفير URL",
+    "en": "URL Encoder Decoder"
+  },
+  "description": {
+    "ar": "شفّر وألغِ تشفير عناوين URL للتعامل مع الأحرف الخاصة.",
+    "en": "Encode and decode URLs to handle special characters."
+  },
   "category": "security-tools",
   "icon": "LinkIcon",
-  "privacy": "local",
-  "keywords": ["url", "encode", "decode", "percent encoding", "ترميز", "فك ترميز", "رابط"],
   "component": "UrlEncoderDecoder",
+  "route": "/[locale]/tools/url-encoder-decoder",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "url",
+    "encode",
+    "decode",
+    "percent encoding",
+    "ترميز",
+    "فك ترميز",
+    "رابط"
+  ],
+  "inputs": [
+    "text / value"
+  ],
+  "outputs": [
+    "generated / analyzed security output"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/UrlEncoderDecoder.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: UrlEncoderDecoder)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

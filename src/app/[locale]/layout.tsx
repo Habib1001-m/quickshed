@@ -5,7 +5,7 @@ import { JetBrains_Mono } from 'next/font/google';
 import { Tajawal } from 'next/font/google';
 import '../globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { LOCALES, type AppLocale, SITE_URL } from '@/lib/site-config';
+import { LOCALES, SITE_URL } from '@/lib/site-config';
 
 const outfit = Outfit({
   variable: '--font-heading',

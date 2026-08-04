@@ -4,10 +4,10 @@ import { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Trash2, Flame, Target, CheckCircle2 } from 'lucide-react';
+import { normalizeHabits, safeJsonParse, type Habit } from '@/lib/storage-shapes';
 
 const labels = {
   en: {
@@ -40,24 +40,28 @@ const labels = {
   },
 };
 
-interface Habit {
-  id: string;
-  name: string;
-  frequency: 'daily' | 'weekly';
-  completedDates: string[];
-}
-
 const STORAGE_KEY = 'quickshed-habits';
 
+// F2: never trust the parsed shape. Validate each habit so a malformed value
+// (non-array root, missing/non-array completedDates, wrong frequency, or
+// non-object entries) can never reach completedDates.includes / streak logic.
+// The window guard keeps the reader client-safe even though tools are lazy-
+// loaded with ssr:false.
 function loadHabits(): Habit[] {
+  if (typeof window === 'undefined') return [];
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch { return []; }
+    return normalizeHabits(safeJsonParse(localStorage.getItem(STORAGE_KEY)));
+  } catch {
+    return [];
+  }
 }
 
 function saveHabits(habits: Habit[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(habits));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(habits));
+  } catch {
+    // localStorage not available or quota exceeded — keep in-memory state
+  }
 }
 
 function getDateStr(date: Date): string {
@@ -244,7 +248,7 @@ export default function HabitTracker({ locale }: { locale: 'ar' | 'en' }) {
 
                   {/* 7-day calendar */}
                   <div className="flex gap-1.5">
-                    {last7Days.map((dayStr, i) => {
+                    {last7Days.map((dayStr) => {
                       const done = completedSet.has(dayStr);
                       const dayOfWeek = new Date(dayStr + 'T00:00:00').getDay();
                       return (

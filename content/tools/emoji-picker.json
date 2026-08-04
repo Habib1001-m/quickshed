@@ -1,12 +1,50 @@
 {
   "id": "emoji-picker",
-  "name": { "ar": "منتقي الرموز التعبيرية", "en": "Emoji Picker" },
-  "description": { "ar": "تصفح واختر من آلاف الرموز التعبيرية المنظمة في فئات.", "en": "Browse and choose from thousands of emojis organized in categories." },
+  "slug": "emoji-picker",
+  "name": {
+    "ar": "منتقي الرموز التعبيرية",
+    "en": "Emoji Picker"
+  },
+  "description": {
+    "ar": "تصفح واختر من آلاف الرموز التعبيرية المنظمة في فئات.",
+    "en": "Browse and choose from thousands of emojis organized in categories."
+  },
   "category": "utility-tools",
   "icon": "Smile",
-  "privacy": "local",
-  "keywords": ["emoji", "picker", "emoticon", "رموز تعبيرية", "إيموجي", "وجوه"],
   "component": "EmojiPicker",
+  "route": "/[locale]/tools/emoji-picker",
+  "privacy": "storage",
+  "offline": "full",
+  "retention": "browser-storage",
+  "riskLevel": "low",
+  "keywords": [
+    "emoji",
+    "picker",
+    "emoticon",
+    "رموز تعبيرية",
+    "إيموجي",
+    "وجوه"
+  ],
+  "inputs": [
+    "search query"
+  ],
+  "outputs": [
+    "selected emoji"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/EmojiPicker.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-emoji-recent\"",
+      "src/components/tools/index.ts (registry entry: EmojiPicker)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "localStorage (key: quickshed-emoji-recent)",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

@@ -1,12 +1,52 @@
 {
   "id": "length-converter",
-  "name": { "ar": "محول الطول", "en": "Length Converter" },
-  "description": { "ar": "حوّل بين وحدات الطول المختلفة مثل المتر والقدم والبوصة والياردة.", "en": "Convert between different length units like meters, feet, inches, and yards." },
+  "slug": "length-converter",
+  "name": {
+    "ar": "محول الطول",
+    "en": "Length Converter"
+  },
+  "description": {
+    "ar": "حوّل بين وحدات الطول المختلفة مثل المتر والقدم والبوصة والياردة.",
+    "en": "Convert between different length units like meters, feet, inches, and yards."
+  },
   "category": "converters",
   "icon": "MoveHorizontal",
-  "privacy": "local",
-  "keywords": ["length", "distance", "meter", "feet", "طول", "مسافة", "متر", "قدم"],
   "component": "LengthConverter",
+  "route": "/[locale]/tools/length-converter",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "length",
+    "distance",
+    "meter",
+    "feet",
+    "طول",
+    "مسافة",
+    "متر",
+    "قدم"
+  ],
+  "inputs": [
+    "one or more values to convert"
+  ],
+  "outputs": [
+    "converted value(s)"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/LengthConverter.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: LengthConverter)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

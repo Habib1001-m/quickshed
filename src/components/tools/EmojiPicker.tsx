@@ -4,8 +4,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { SmilePlus, Search, Copy, Check } from 'lucide-react';
+import { SmilePlus, Search, Check } from 'lucide-react';
+import { normalizeEmojiRecent, safeJsonParse, EMOJI_RECENT_CAP } from '@/lib/storage-shapes';
 
 const labels = {
   en: {
@@ -352,15 +352,25 @@ const EMOJI_CATEGORIES: Record<string, { name: string; nameAr: string; emojis: E
 
 const STORAGE_KEY = 'quickshed-emoji-recent';
 
+// F2: validate and cap recents so a malformed value (an object, a primitive,
+// mixed element types, or an over-cap array) can never reach .slice / array
+// operations. Capped to EMOJI_RECENT_CAP to match the writer. The window
+// guard keeps the reader client-safe even though tools load with ssr:false.
 function loadRecent(): string[] {
+  if (typeof window === 'undefined') return [];
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch { return []; }
+    return normalizeEmojiRecent(safeJsonParse(localStorage.getItem(STORAGE_KEY)));
+  } catch {
+    return [];
+  }
 }
 
 function saveRecent(emojis: string[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(emojis.slice(0, 24)));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(emojis.slice(0, EMOJI_RECENT_CAP)));
+  } catch {
+    // localStorage not available — keep in-memory state
+  }
 }
 
 export default function EmojiPicker({ locale }: { locale: 'ar' | 'en' }) {
@@ -388,7 +398,7 @@ export default function EmojiPicker({ locale }: { locale: 'ar' | 'en' }) {
   const handleCopy = (emoji: string) => {
     navigator.clipboard.writeText(emoji);
     setCopiedEmoji(emoji);
-    setRecent((prev) => [emoji, ...prev.filter((e) => e !== emoji)].slice(0, 24));
+    setRecent((prev) => [emoji, ...prev.filter((e) => e !== emoji)].slice(0, EMOJI_RECENT_CAP));
     setTimeout(() => setCopiedEmoji(''), 2000);
   };
 

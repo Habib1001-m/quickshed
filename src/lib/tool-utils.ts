@@ -1,7 +1,12 @@
 import type { Locale } from './store';
+import type { Privacy, Tool } from './tool-schema';
 import en from '../../messages/en.json';
 import ar from '../../messages/ar.json';
 import toolsIndex from '../../content/tools-index.json';
+
+// Re-export the shared four-level privacy union so UI consumers import the
+// contract from one place alongside the helpers below.
+export type { Privacy } from './tool-schema';
 
 // ─── Type Definitions ────────────────────────────────────────────────
 
@@ -10,19 +15,15 @@ export interface LocalizedString {
   en: string;
 }
 
-export interface ToolDescriptor {
-  id: string;
-  slug: string;
-  name: LocalizedString;
-  description: LocalizedString;
-  category: string;
-  icon: string;
-  privacy: 'local' | 'api';
-  keywords: string[];
-  component: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
+/**
+ * QS-SPEC-001 T005a: ToolDescriptor is the shared/inferred contract from
+ * tool-schema.ts — id, slug, name, description, category, icon, component,
+ * route, privacy, offline, retention, riskLevel, keywords, inputs, outputs,
+ * evidence, createdAt?, updatedAt?. The local LocalizedString below is kept
+ * for Category/localize() consumers; it is structurally identical to the
+ * schema's LocalizedStringSchema, so the two interoperate without drift.
+ */
+export type ToolDescriptor = Tool;
 
 export interface Category {
   slug: string;
@@ -73,6 +74,11 @@ export function getCategoryName(slug: string, locale: Locale): string {
 
 /**
  * Get all tools from the tools index.
+ *
+ * T006 boundary: content/tools-index.json is not yet populated with the full
+ * ToolDescriptor contract, so this deliberately keeps the `as unknown as`
+ * cast instead of calling ToolSchema.parse(...) — no runtime parser is
+ * introduced that would fail before T006 migrates the JSON.
  */
 export function getAllTools(): ToolDescriptor[] {
   return toolsIndex as unknown as ToolDescriptor[];
@@ -129,6 +135,37 @@ export function getRelatedTools(toolId: string, limit = 4): ToolDescriptor[] {
   return getToolsByCategory(tool.category)
     .filter((t) => t.id !== toolId)
     .slice(0, limit);
+}
+
+// ─── Four-level privacy presentation helpers (QS-SPEC-001 T005c) ─────
+
+/**
+ * True for the on-device classes: `local`, `file-only`, `storage`. The
+ * switch is exhaustive over {@link Privacy}; a fifth enum value fails
+ * typecheck (the function must return on every path), so callers cannot
+ * silently regress to a binary local-vs-API fallthrough. `api` is the only
+ * connection-required class.
+ */
+export function isOnDevice(privacy: Privacy): boolean {
+  switch (privacy) {
+    case 'local':
+    case 'file-only':
+    case 'storage':
+      return true;
+    case 'api':
+      return false;
+  }
+}
+
+/**
+ * Exhaustive per-class tally. The literal initializer is typed
+ * `Record<Privacy, number>`, so a future enum value fails typecheck until
+ * it is added to the initializer — the four-value contract stays intact.
+ */
+export function countByPrivacy(tools: ToolDescriptor[]): Record<Privacy, number> {
+  const counts: Record<Privacy, number> = { local: 0, 'file-only': 0, storage: 0, api: 0 };
+  for (const tool of tools) counts[tool.privacy]++;
+  return counts;
 }
 
 /**

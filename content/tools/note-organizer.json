@@ -1,12 +1,52 @@
 {
   "id": "note-organizer",
-  "name": { "ar": "منظم الملاحظات", "en": "Note Organizer" },
-  "description": { "ar": "نظّم ملاحظاتك الدراسية في فئات وأضف علامات وسهّل المراجعة.", "en": "Organize your study notes in categories, add tags, and simplify review." },
+  "slug": "note-organizer",
+  "name": {
+    "ar": "منظم الملاحظات",
+    "en": "Note Organizer"
+  },
+  "description": {
+    "ar": "نظّم ملاحظاتك الدراسية في فئات وأضف علامات وسهّل المراجعة.",
+    "en": "Organize your study notes in categories, add tags, and simplify review."
+  },
   "category": "student-tools",
   "icon": "StickyNote",
-  "privacy": "local",
-  "keywords": ["notes", "organize", "study", "tags", "ملاحظات", "تنظيم", "مذاكرة", "وسوم"],
   "component": "NoteOrganizer",
+  "route": "/[locale]/tools/note-organizer",
+  "privacy": "storage",
+  "offline": "full",
+  "retention": "browser-storage",
+  "riskLevel": "low",
+  "keywords": [
+    "notes",
+    "organize",
+    "study",
+    "tags",
+    "ملاحظات",
+    "تنظيم",
+    "مذاكرة",
+    "وسوم"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "saved notes"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/NoteOrganizer.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-notes\"",
+      "src/components/tools/index.ts (registry entry: NoteOrganizer)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "localStorage (key: quickshed-notes)",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

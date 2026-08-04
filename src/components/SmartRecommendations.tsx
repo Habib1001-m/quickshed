@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, TrendingUp, Clock, Star, ArrowRight } from 'lucide-react';
+import { Sparkles, TrendingUp, Star, ArrowRight } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import {
@@ -10,7 +10,6 @@ import {
   localize, getCategoryName,
 } from '@/lib/tool-utils';
 import { DynamicIcon } from '@/components/IconMapper';
-import { Button } from '@/components/ui/button';
 import { getCategoryColor } from '@/lib/category-config';
 
 interface Recommendation {
@@ -27,7 +26,7 @@ interface Recommendation {
  * 3. Popular/trending tools in the toolbox
  */
 export function SmartRecommendations() {
-  const { t, locale } = useI18n();
+  const { locale } = useI18n();
   const navigateToTool = useAppStore((s) => s.navigateToTool);
   const recentTools = useAppStore((s) => s.recentTools);
   const toolUsageCount = useAppStore((s) => s.toolUsageCount);

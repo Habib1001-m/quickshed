@@ -1,6 +1,6 @@
 # Dependency Audit Policy
 
-Date: 2026-06-21
+Date: 2026-08-01
 Release target: v0.6.0
 
 ## Policy
@@ -21,14 +21,19 @@ npm audit --omit=dev --audit-level=critical
 
 High, moderate, and low advisories are tracked through GitHub Dependabot alerts and reviewed before each release. They block a release when they affect a public runtime path, have a practical browser-origin exploit path, or have a compatible non-breaking fix available.
 
+## Historical v0.6.0 Baseline
+
+The earlier audit snapshot is preserved as historical evidence. Before the owner-approved Prisma removal and transitive dependency remediation, the production audit reported **15 vulnerabilities**: 1 critical, 6 high, 7 moderate, and 1 low. The release gate failed at its critical audit stage.
+
+At that time, Prisma was inactive tooling/scaffolding rather than a public runtime path. The owner-approved removal is complete; Prisma is no longer a current QuickShed dependency, configuration, schema, or runtime capability. The old Prisma-related finding must not be read as a current exception.
+
 ## Current v0.6.0 Decision
 
-Dependency remediation reduced open GitHub Dependabot alerts from 42 to 12. The remaining advisories require dependency-owner fixes, breaking downgrades, or transitive changes that are not suitable for a release-day forced update.
+The current local production audit after remediation is **0 vulnerabilities**: 0 critical, 0 high, 0 moderate, and 0 low. The compatible resolutions are recorded in the local QS-SPEC-001 evidence artifact and lockfile:
 
-Accepted for v0.6.0 with follow-up tracking:
+- Next's nested `postcss` resolves to `8.5.25`.
+- Next's optional `sharp` resolves to the root `sharp@0.35.3` through the global npm override.
+- Production `picomatch` resolves to `4.0.5`; the unrelated `micromatch` 2.x API edge remains on `picomatch@2.3.2`.
+- `gray-matter` resolves its 3.x `js-yaml` API to `3.15.1`.
 
-- `@hono/node-server` via Prisma tooling: development/tooling path, no public server route in QuickShed.
-- `js-yaml` via editor/content tooling: no current public YAML upload or parse path.
-- `@babel/core`, `diff`, `picomatch`, `minimatch`, `flatted`, `postcss`, and `uuid` transitive advisories: tracked in Dependabot and npm audit; remediate when compatible upstream releases are available.
-
-This acceptance must be revisited before any v0.6.x patch release and before promotion copy claims stronger audit guarantees.
+Future paid features, database/cloud capability, and Android/native app work remain deferred to a separate approved spec. This remediation introduces no such capability and does not restore Prisma.

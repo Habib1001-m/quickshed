@@ -1,12 +1,51 @@
 {
   "id": "citation-generator",
-  "name": { "ar": "مولد التوثيق", "en": "Citation Generator" },
-  "description": { "ar": "أنشئ توثيقات أكاديمية بتنسيقات APA و MLA وشيكاغو.", "en": "Generate academic citations in APA, MLA, and Chicago formats." },
+  "slug": "citation-generator",
+  "name": {
+    "ar": "مولد التوثيق",
+    "en": "Citation Generator"
+  },
+  "description": {
+    "ar": "أنشئ توثيقات أكاديمية بتنسيقات APA و MLA وشيكاغو.",
+    "en": "Generate academic citations in APA, MLA, and Chicago formats."
+  },
   "category": "student-tools",
   "icon": "BookOpen",
-  "privacy": "local",
-  "keywords": ["citation", "reference", "bibliography", "APA", "توثيق", "مراجع", "ببليوغرافيا"],
   "component": "CitationGenerator",
+  "route": "/[locale]/tools/citation-generator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "citation",
+    "reference",
+    "bibliography",
+    "APA",
+    "توثيق",
+    "مراجع",
+    "ببليوغرافيا"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "formatted citation"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/CitationGenerator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: CitationGenerator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

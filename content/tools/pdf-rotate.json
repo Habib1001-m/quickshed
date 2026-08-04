@@ -1,12 +1,50 @@
 {
   "id": "pdf-rotate",
-  "name": { "ar": "تدوير PDF", "en": "PDF Rotate" },
-  "description": { "ar": "دوّر صفحات ملف PDF بالزاوية التي تريدها.", "en": "Rotate PDF pages to the angle you need." },
+  "slug": "pdf-rotate",
+  "name": {
+    "ar": "تدوير PDF",
+    "en": "PDF Rotate"
+  },
+  "description": {
+    "ar": "دوّر صفحات ملف PDF بالزاوية التي تريدها.",
+    "en": "Rotate PDF pages to the angle you need."
+  },
   "category": "pdf-tools",
   "icon": "RotateCw",
-  "privacy": "local",
-  "keywords": ["pdf", "rotate", "orientation", "تدوير", "بي دي إف", "اتجاه"],
   "component": "PdfRotate",
+  "route": "/[locale]/tools/pdf-rotate",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "pdf",
+    "rotate",
+    "orientation",
+    "تدوير",
+    "بي دي إف",
+    "اتجاه"
+  ],
+  "inputs": [
+    "user-selected PDF file(s)"
+  ],
+  "outputs": [
+    "processed PDF / extracted text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/PdfRotate.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: PdfRotate)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

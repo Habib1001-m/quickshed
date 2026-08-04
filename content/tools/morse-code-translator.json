@@ -1,12 +1,50 @@
 {
   "id": "morse-code-translator",
-  "name": { "ar": "مترجم شفرة مورس", "en": "Morse Code Translator" },
-  "description": { "ar": "ترجم النص إلى شفرة مورس والعكس.", "en": "Translate text to Morse code and vice versa." },
+  "slug": "morse-code-translator",
+  "name": {
+    "ar": "مترجم شفرة مورس",
+    "en": "Morse Code Translator"
+  },
+  "description": {
+    "ar": "ترجم النص إلى شفرة مورس والعكس.",
+    "en": "Translate text to Morse code and vice versa."
+  },
   "category": "utility-tools",
   "icon": "Radio",
-  "privacy": "local",
-  "keywords": ["morse", "code", "translator", "مورس", "شفرة", "ترجمة"],
   "component": "MorseCodeTranslator",
+  "route": "/[locale]/tools/morse-code-translator",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "morse",
+    "code",
+    "translator",
+    "مورس",
+    "شفرة",
+    "ترجمة"
+  ],
+  "inputs": [
+    "text"
+  ],
+  "outputs": [
+    "transformed text"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/MorseCodeTranslator.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: MorseCodeTranslator)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

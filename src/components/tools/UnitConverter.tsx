@@ -168,7 +168,7 @@ export default function UnitConverter({ locale }: { locale: 'ar' | 'en' }) {
             </Select>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-[1fr,auto,1fr] gap-4 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-4 items-end" data-testid="unit-converter-grid">
             <div className="space-y-2">
               <Label>{t.from}</Label>
               <Select value={fromUnit} onValueChange={setFromUnit}>

@@ -4,14 +4,15 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Settings, X, Globe, Moon, Sun, Trash2, Heart, Clock,
-  Shield, Wrench, Info, RotateCcw, Compass,
+  Shield, Wrench, RotateCcw, Compass,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { APP_VERSION } from '@/lib/version';
 import { Button } from '@/components/ui/button';
-import { getAllTools } from '@/lib/tool-utils';
+import { getAllTools, isOnDevice } from '@/lib/tool-utils';
+import { requestOnboardingStart } from '@/lib/onboarding-steps';
 import { ExportImport } from '@/components/ExportImport';
 
 interface SettingsPanelProps {
@@ -31,16 +32,44 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
   const isRtl = locale === 'ar';
 
   const allTools = getAllTools();
-  const localTools = allTools.filter((t) => t.privacy === 'local').length;
-  const apiTools = allTools.filter((t) => t.privacy === 'api').length;
+  // QS-SPEC-001 T005c: on-device = local + file-only + storage. Counting only
+  // `local` and labelling it "Local" understates the on-device baseline; use
+  // the shared classifier so the metric matches Footer and the contract.
+  const onDeviceCount = allTools.filter((t) => isOnDevice(t.privacy)).length;
 
   const handleClearAll = () => {
-    clearRecentTools();
-    // Clear favorites by toggling each one
-    favorites.forEach((id) => {
-      useAppStore.getState().toggleFavorite(id);
+    // Clear All Data: wipe every QuickShed localStorage key (app + tool data:
+    // url-shortener, notes, habits, emoji, history, ratings, collections,
+    // compare, usage, recent, favorites, etc.). Defensive if localStorage is
+    // unavailable. Snapshot matching keys first, then remove, so we never
+    // mutate localStorage while iterating it.
+    try {
+      const quickshedKeys: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('quickshed-')) quickshedKeys.push(key);
+      }
+      quickshedKeys.forEach((key) => localStorage.removeItem(key));
+    } catch {
+      // localStorage unavailable — fall through to in-memory reset below
+    }
+
+    // Reset the in-memory app-store collections so the UI doesn't retain the
+    // deleted data. Use setState directly: the store actions re-persist to
+    // localStorage, which would recreate the keys we just removed.
+    useAppStore.setState({
+      favorites: [],
+      recentTools: [],
+      toolUsageCount: {},
+      collections: [],
+      compareToolIds: [],
     });
+
     setShowConfirmClear(false);
+
+    // Reload so every mounted tool component reinitializes without the deleted
+    // browser-storage state. Browser-local; SSR-guarded.
+    if (typeof window !== 'undefined') window.location.reload();
   };
 
   return (
@@ -172,8 +201,8 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                     </div>
                     <div className="rounded-xl bg-muted/50 p-3 text-center">
                       <Shield className="size-5 text-violet-500 mx-auto mb-1" />
-                      <p className="text-xl font-bold text-foreground">{localTools}</p>
-                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'محلية' : 'Local'}</p>
+                      <p className="text-xl font-bold text-foreground">{onDeviceCount}</p>
+                      <p className="text-[11px] text-muted-foreground">{locale === 'ar' ? 'على الجهاز' : 'On-device'}</p>
                     </div>
                   </div>
                 </div>
@@ -207,7 +236,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                     ) : (
                       <div className="rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 p-3">
                         <p className="text-xs text-red-600 dark:text-red-400 mb-2">
-                          {locale === 'ar' ? 'هل أنت متأكد؟ سيتم حذف جميع المفضلات والسجل.' : 'Are you sure? All favorites and history will be deleted.'}
+                          {locale === 'ar' ? 'هل أنت متأكد؟ سيتم حذف جميع بيانات التطبيق والأدوات المحفوظة.' : 'Are you sure? All saved app and tool data will be deleted.'}
                         </p>
                         <div className="flex gap-2">
                           <Button
@@ -243,7 +272,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                     className="w-full justify-start gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/50"
                     onClick={() => {
                       onClose();
-                      window.dispatchEvent(new CustomEvent('quickshed-start-onboarding'));
+                      requestOnboardingStart();
                     }}
                   >
                     <Compass className="size-3.5" />

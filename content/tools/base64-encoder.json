@@ -1,12 +1,51 @@
 {
   "id": "base64-encoder",
-  "name": { "ar": "مشفر Base64", "en": "Base64 Encoder" },
-  "description": { "ar": "شفّر وألغِ تشفير النصوص والملفات باستخدام Base64.", "en": "Encode and decode text and files using Base64." },
+  "slug": "base64-encoder",
+  "name": {
+    "ar": "مشفر Base64",
+    "en": "Base64 Encoder"
+  },
+  "description": {
+    "ar": "شفّر وألغِ تشفير النصوص والملفات باستخدام Base64.",
+    "en": "Encode and decode text and files using Base64."
+  },
   "category": "developer-tools",
   "icon": "FileCode",
-  "privacy": "local",
-  "keywords": ["base64", "encode", "decode", "binary", "تشفير", "فك تشفير", "بيس 64"],
   "component": "Base64Encoder",
+  "route": "/[locale]/tools/base64-encoder",
+  "privacy": "file-only",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "base64",
+    "encode",
+    "decode",
+    "binary",
+    "تشفير",
+    "فك تشفير",
+    "بيس 64"
+  ],
+  "inputs": [
+    "code / text / data"
+  ],
+  "outputs": [
+    "formatted / encoded / decoded / parsed result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/Base64Encoder.tsx — FileReader / <input type=\"file\">, on-device processing",
+      "src/components/tools/index.ts (registry entry: Base64Encoder)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

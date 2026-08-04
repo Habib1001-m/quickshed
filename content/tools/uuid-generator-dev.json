@@ -1,12 +1,51 @@
 {
   "id": "uuid-generator-dev",
-  "name": { "ar": "مولد UUID للمطورين", "en": "UUID Generator Dev" },
-  "description": { "ar": "أنشئ معرفات UUID بتنسيقات مختلفة للاستخدام في التطوير.", "en": "Generate UUIDs in different formats for development use." },
+  "slug": "uuid-generator-dev",
+  "name": {
+    "ar": "مولد UUID للمطورين",
+    "en": "UUID Generator Dev"
+  },
+  "description": {
+    "ar": "أنشئ معرفات UUID بتنسيقات مختلفة للاستخدام في التطوير.",
+    "en": "Generate UUIDs in different formats for development use."
+  },
   "category": "developer-tools",
   "icon": "Hash",
-  "privacy": "local",
-  "keywords": ["uuid", "developer", "unique id", "guid", "معرف فريد", "مطور", "جي آي دي"],
   "component": "UuidGeneratorDev",
+  "route": "/[locale]/tools/uuid-generator-dev",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "uuid",
+    "developer",
+    "unique id",
+    "guid",
+    "معرف فريد",
+    "مطور",
+    "جي آي دي"
+  ],
+  "inputs": [
+    "code / text / data"
+  ],
+  "outputs": [
+    "formatted / encoded / decoded / parsed result"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/UuidGeneratorDev.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: UuidGeneratorDev)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

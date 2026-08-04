@@ -102,10 +102,10 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
                 },
                 {
                   num: '3',
-                  title: isArabic ? 'تفضيلات التخزين المحلي.' : 'LocalStorage preferences.',
+                  title: isArabic ? 'بيانات التخزين المحلي.' : 'LocalStorage data.',
                   desc: isArabic
-                    ? 'نخزن تفضيل لغتك واختيار السمة وأدواتك المفضلة محليًا في متصفحك. هذه البيانات لا تغادر جهازك أبدًا.'
-                    : 'We store your language preference, theme choice, and favorite tools locally in your browser. This data never leaves your device.',
+                    ? 'نستخدم localStorage لتفضيلاتك (السمة، اللغة، المفضلة) ولحفظ بيانات الأدوات على جهازك لبعض الأدوات، مثل روابط مُقصِّر الروابط الخاصة بك. تبقى هذه البيانات في متصفحك؛ ولا يتم نقل أي بيانات أدوات عبر الشبكة. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.'
+                    : 'We use localStorage for your preferences (theme, language, favorites) and to save on-device tool data for some tools, such as your URL-shortener links. This data stays in your browser; no tool data is transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.',
                 },
               ].map((item) => (
                 <li key={item.num} className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 dark:bg-muted/20">
@@ -128,15 +128,15 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-muted-foreground">
               {isArabic ? (
                 <>
-                  QuickShed يستخدم <strong className="text-foreground">لا ملفات تعريف ارتباط للتتبع</strong>. التخزين الوحيد المستخدم في المتصفح هو{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>{' '}
-                  لتفضيلاتك (السمة، اللغة، المفضلة). يمكنك مسح هذا في أي وقت عبر الإعدادات ← مسح جميع البيانات.
+                  لا يستخدم QuickShed أي <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. التخزين الوحيد المستخدم في المتصفح هو{' '}
+                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>،
+                  الذي يحتفظ بتفضيلاتك (السمة، اللغة، المفضلة) و، لبعض الأدوات، ببيانات الأدوات على جهازك مثل روابط مُقصِّر الروابط المحفوظة. تبقى هذه البيانات في متصفحك ولا يتم نقلها عبر الشبكة أبدًا. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.
                 </>
               ) : (
                 <>
                   QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. The only browser storage used is{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>{' '}
-                  for your preferences (theme, language, favorites). You can clear this at any time via Settings &rarr; Clear All Data.
+                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>,
+                  which holds your preferences (theme, language, favorites) and, for some tools, on-device tool data such as saved URL-shortener links. This data stays in your browser and is never transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.
                 </>
               )}
             </p>

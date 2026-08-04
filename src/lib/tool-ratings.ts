@@ -1,9 +1,9 @@
+import { normalizeRatings, safeJsonParse, type ToolRatingData } from '@/lib/storage-shapes';
+
 const TOOL_RATINGS_KEY = 'quickshed-tool-ratings';
 
-export interface ToolRatingData {
-  rating: number; // 1-5 stars
-  timestamp: number;
-}
+// Canonical type lives in src/lib/storage-shapes; re-exported for back-compat.
+export type { ToolRatingData };
 
 /**
  * Save a rating for a tool (1-5 stars). Overwrites any previous rating by the same user.
@@ -81,11 +81,7 @@ export function getRatingCount(toolId: string): number {
 
 function getAllRatingsRaw(): Record<string, ToolRatingData> {
   try {
-    const stored = localStorage.getItem(TOOL_RATINGS_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (typeof parsed === 'object' && parsed !== null) return parsed;
-    }
+    return normalizeRatings(safeJsonParse(localStorage.getItem(TOOL_RATINGS_KEY)));
   } catch {
     // localStorage not available or invalid JSON
   }

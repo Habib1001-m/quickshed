@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, ThumbsUp, ArrowRight, Shield } from 'lucide-react';
+import { Heart, ThumbsUp, ArrowRight } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
 import { useI18n } from '@/lib/i18n';
 import { localize, getCategoryName, type ToolDescriptor } from '@/lib/tool-utils';
@@ -104,16 +104,14 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
         <div className={`absolute top-0 inset-x-0 h-px ${accentClass} opacity-50`} />
       </div>
 
-      {/* Privacy badge — top-end, slightly larger, with pulse */}
+      {/* Privacy badge — top-end. Reuses the exhaustive PrivacyBadge so all
+          four levels (local | file-only | storage | api) render the correct
+          label/icon/colour/tooltip with no binary local-vs-API fallthrough. */}
       <div className="absolute top-3 end-3 z-10" data-onboarding="privacy">
-        <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold backdrop-blur-sm transition-transform duration-200 group-hover:scale-105 ${
-          tool.privacy === 'local'
-            ? 'bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 privacy-badge-pulse'
-            : 'bg-amber-500/15 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 privacy-badge-pulse-amber'
-        }`}>
-          <Shield className="size-3" />
-          {tool.privacy === 'local' ? t('tool.privacyLocalShort') : t('tool.privacyApiShort')}
-        </span>
+        <PrivacyBadge
+          level={tool.privacy}
+          className="backdrop-blur-sm transition-transform duration-200 group-hover:scale-105"
+        />
       </div>
 
       {/* "New" badge — appears for tools with usage < 5, more prominent */}

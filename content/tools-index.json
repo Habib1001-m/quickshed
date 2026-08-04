@@ -12,7 +12,12 @@
     },
     "category": "student-tools",
     "icon": "SearchCheck",
+    "component": "PlagiarismChecker",
+    "route": "/[locale]/tools/plagiarism-checker",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "plagiarism",
       "originality",
@@ -21,7 +26,28 @@
       "أصالة",
       "فحص النسخ"
     ],
-    "component": "PlagiarismChecker"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "similarity analysis"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PlagiarismChecker.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PlagiarismChecker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "password-generator",
@@ -36,7 +62,12 @@
     },
     "category": "utility-tools",
     "icon": "KeyRound",
+    "component": "PasswordGenerator",
+    "route": "/[locale]/tools/password-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "medium",
     "keywords": [
       "password",
       "generator",
@@ -45,7 +76,28 @@
       "مولد",
       "آمن"
     ],
-    "component": "PasswordGenerator"
+    "inputs": [
+      "configuration options"
+    ],
+    "outputs": [
+      "generated password"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PasswordGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PasswordGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "image-format-converter",
@@ -60,7 +112,12 @@
     },
     "category": "image-tools",
     "icon": "Image",
-    "privacy": "local",
+    "component": "ImageFormatConverter",
+    "route": "/[locale]/tools/image-format-converter",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "image",
       "format",
@@ -71,7 +128,28 @@
       "صيغة",
       "تحويل"
     ],
-    "component": "ImageFormatConverter"
+    "inputs": [
+      "user-selected image file(s)"
+    ],
+    "outputs": [
+      "processed image / extracted data"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ImageFormatConverter.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: ImageFormatConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "compound-interest-calculator",
@@ -86,7 +164,12 @@
     },
     "category": "calculators",
     "icon": "TrendingUp",
+    "component": "CompoundInterestCalculator",
+    "route": "/[locale]/tools/compound-interest-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "compound interest",
       "investment",
@@ -97,7 +180,28 @@
       "ادخار",
       "نمو"
     ],
-    "component": "CompoundInterestCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CompoundInterestCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CompoundInterestCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "cursive-text-generator",
@@ -112,7 +216,12 @@
     },
     "category": "text-tools",
     "icon": "PenTool",
+    "component": "CursiveTextGenerator",
+    "route": "/[locale]/tools/cursive-text-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "cursive",
       "fancy text",
@@ -121,7 +230,28 @@
       "نص مزين",
       "خطوط جميلة"
     ],
-    "component": "CursiveTextGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CursiveTextGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CursiveTextGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "slug-generator",
@@ -136,7 +266,12 @@
     },
     "category": "text-tools",
     "icon": "Link",
+    "component": "SlugGenerator",
+    "route": "/[locale]/tools/slug-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "slug",
       "url",
@@ -146,7 +281,28 @@
       "رابط",
       "سيو"
     ],
-    "component": "SlugGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SlugGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SlugGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "line-sorter",
@@ -161,7 +317,12 @@
     },
     "category": "utility-tools",
     "icon": "ArrowDownUp",
+    "component": "LineSorter",
+    "route": "/[locale]/tools/line-sorter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "sort",
       "lines",
@@ -170,7 +331,28 @@
       "ترتيب",
       "أبجدي"
     ],
-    "component": "LineSorter"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/LineSorter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: LineSorter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "whitespace-remover",
@@ -185,7 +367,12 @@
     },
     "category": "utility-tools",
     "icon": "ScissorsLineDashed",
+    "component": "WhitespaceRemover",
+    "route": "/[locale]/tools/whitespace-remover",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "whitespace",
       "spaces",
@@ -194,7 +381,28 @@
       "فراغات",
       "تنظيف"
     ],
-    "component": "WhitespaceRemover"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/WhitespaceRemover.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: WhitespaceRemover)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "date-adder",
@@ -209,7 +417,12 @@
     },
     "category": "time-tools",
     "icon": "CalendarPlus",
+    "component": "DateAdder",
+    "route": "/[locale]/tools/date-adder",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "date add",
       "date calculator",
@@ -218,7 +431,28 @@
       "حاسبة تاريخ",
       "تاريخ مستقبلي"
     ],
-    "component": "DateAdder"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/DateAdder.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: DateAdder)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "alarm-creator",
@@ -233,7 +467,12 @@
     },
     "category": "time-tools",
     "icon": "Bell",
+    "component": "AlarmCreator",
+    "route": "/[locale]/tools/alarm-creator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "alarm",
       "reminder",
@@ -242,7 +481,28 @@
       "تذكير",
       "تنبيه"
     ],
-    "component": "AlarmCreator"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/AlarmCreator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: AlarmCreator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "speed-converter",
@@ -257,7 +517,12 @@
     },
     "category": "converters",
     "icon": "Gauge",
+    "component": "SpeedConverter",
+    "route": "/[locale]/tools/speed-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "speed",
       "velocity",
@@ -267,7 +532,28 @@
       "كيلومتر",
       "ميل"
     ],
-    "component": "SpeedConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SpeedConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SpeedConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "length-converter",
@@ -282,7 +568,12 @@
     },
     "category": "converters",
     "icon": "MoveHorizontal",
+    "component": "LengthConverter",
+    "route": "/[locale]/tools/length-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "length",
       "distance",
@@ -293,7 +584,28 @@
       "متر",
       "قدم"
     ],
-    "component": "LengthConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/LengthConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: LengthConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "hash-generator",
@@ -308,7 +620,12 @@
     },
     "category": "developer-tools",
     "icon": "ShieldCheck",
-    "privacy": "local",
+    "component": "HashGenerator",
+    "route": "/[locale]/tools/hash-generator",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "hash",
       "md5",
@@ -318,7 +635,28 @@
       "بصمة",
       "تشفير"
     ],
-    "component": "HashGenerator"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/HashGenerator.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: HashGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "ssl-checker",
@@ -333,7 +671,12 @@
     },
     "category": "security-tools",
     "icon": "Shield",
+    "component": "SslChecker",
+    "route": "/[locale]/tools/ssl-checker",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "ssl",
       "certificate",
@@ -345,7 +688,28 @@
       "محلل",
       "أمان"
     ],
-    "component": "SslChecker"
+    "inputs": [
+      "text / value"
+    ],
+    "outputs": [
+      "generated / analyzed security output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SslChecker.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SslChecker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "basic-calculator",
@@ -360,7 +724,12 @@
     },
     "category": "calculators",
     "icon": "Calculator",
+    "component": "BasicCalculator",
+    "route": "/[locale]/tools/basic-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "calculator",
       "arithmetic",
@@ -370,7 +739,28 @@
       "حساب",
       "رياضيات"
     ],
-    "component": "BasicCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/BasicCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: BasicCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "random-password-generator",
@@ -385,7 +775,12 @@
     },
     "category": "security-tools",
     "icon": "Key",
+    "component": "RandomPasswordGenerator",
+    "route": "/[locale]/tools/random-password-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "medium",
     "keywords": [
       "password",
       "random",
@@ -396,7 +791,28 @@
       "آمن",
       "مولد"
     ],
-    "component": "RandomPasswordGenerator"
+    "inputs": [
+      "text / value"
+    ],
+    "outputs": [
+      "generated / analyzed security output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/RandomPasswordGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: RandomPasswordGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "flashcard-maker",
@@ -411,7 +827,12 @@
     },
     "category": "student-tools",
     "icon": "Layers",
-    "privacy": "local",
+    "component": "FlashcardMaker",
+    "route": "/[locale]/tools/flashcard-maker",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "flashcard",
       "study",
@@ -422,7 +843,30 @@
       "حفظ",
       "مراجعة"
     ],
-    "component": "FlashcardMaker"
+    "inputs": [
+      "text",
+      "file"
+    ],
+    "outputs": [
+      "flashcards",
+      "downloadable file"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/FlashcardMaker.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: FlashcardMaker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "number-base-converter",
@@ -437,7 +881,12 @@
     },
     "category": "converters",
     "icon": "Binary",
+    "component": "NumberBaseConverter",
+    "route": "/[locale]/tools/number-base-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "binary",
       "hexadecimal",
@@ -447,7 +896,28 @@
       "سداسي عشري",
       "نظام عد"
     ],
-    "component": "NumberBaseConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/NumberBaseConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: NumberBaseConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "random-number-generator",
@@ -462,7 +932,12 @@
     },
     "category": "utility-tools",
     "icon": "Dice5",
+    "component": "RandomNumberGenerator",
+    "route": "/[locale]/tools/random-number-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "random",
       "number",
@@ -471,7 +946,28 @@
       "رقم",
       "نرد"
     ],
-    "component": "RandomNumberGenerator"
+    "inputs": [
+      "numeric values"
+    ],
+    "outputs": [
+      "generated numbers"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/RandomNumberGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: RandomNumberGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "morse-code-translator",
@@ -486,7 +982,12 @@
     },
     "category": "utility-tools",
     "icon": "Radio",
+    "component": "MorseCodeTranslator",
+    "route": "/[locale]/tools/morse-code-translator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "morse",
       "code",
@@ -495,7 +996,28 @@
       "شفرة",
       "ترجمة"
     ],
-    "component": "MorseCodeTranslator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/MorseCodeTranslator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: MorseCodeTranslator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "markdown-to-html",
@@ -510,7 +1032,12 @@
     },
     "category": "text-tools",
     "icon": "FileCode",
+    "component": "MarkdownToHtml",
+    "route": "/[locale]/tools/markdown-to-html",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "markdown",
       "html",
@@ -519,7 +1046,28 @@
       "تحويل",
       "أتش تي إم إل"
     ],
-    "component": "MarkdownToHtml"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/MarkdownToHtml.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: MarkdownToHtml)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "unix-timestamp-converter",
@@ -534,7 +1082,12 @@
     },
     "category": "time-tools",
     "icon": "Hash",
+    "component": "UnixTimestampConverter",
+    "route": "/[locale]/tools/unix-timestamp-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "unix",
       "timestamp",
@@ -543,7 +1096,28 @@
       "توقيت",
       "إيبوك"
     ],
-    "component": "UnixTimestampConverter"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UnixTimestampConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: UnixTimestampConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "robots-txt-generator",
@@ -558,7 +1132,12 @@
     },
     "category": "seo-tools",
     "icon": "Bot",
+    "component": "RobotsTxtGenerator",
+    "route": "/[locale]/tools/robots-txt-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "robots.txt",
       "crawlers",
@@ -568,7 +1147,28 @@
       "عناكب",
       "سيو"
     ],
-    "component": "RobotsTxtGenerator"
+    "inputs": [
+      "text / content / metadata"
+    ],
+    "outputs": [
+      "generated markup / simulated / analyzed output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/RobotsTxtGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: RobotsTxtGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "stopwatch",
@@ -583,7 +1183,12 @@
     },
     "category": "time-tools",
     "icon": "Timer",
+    "component": "Stopwatch",
+    "route": "/[locale]/tools/stopwatch",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "stopwatch",
       "lap",
@@ -592,7 +1197,28 @@
       "لفات",
       "توقيت"
     ],
-    "component": "Stopwatch"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/Stopwatch.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: Stopwatch)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pdf-page-remover",
@@ -607,7 +1233,12 @@
     },
     "category": "pdf-tools",
     "icon": "Scissors",
-    "privacy": "local",
+    "component": "PdfPageRemover",
+    "route": "/[locale]/tools/pdf-page-remover",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pdf",
       "remove pages",
@@ -616,7 +1247,28 @@
       "بي دي إف",
       "إزالة"
     ],
-    "component": "PdfPageRemover"
+    "inputs": [
+      "user-selected PDF file(s)"
+    ],
+    "outputs": [
+      "processed PDF / extracted text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PdfPageRemover.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: PdfPageRemover)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "meta-tag-generator",
@@ -631,7 +1283,12 @@
     },
     "category": "seo-tools",
     "icon": "Code2",
+    "component": "MetaTagGenerator",
+    "route": "/[locale]/tools/meta-tag-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "meta tags",
       "seo",
@@ -641,7 +1298,28 @@
       "سيو",
       "كلمات مفتاحية"
     ],
-    "component": "MetaTagGenerator"
+    "inputs": [
+      "text / content / metadata"
+    ],
+    "outputs": [
+      "generated markup / simulated / analyzed output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/MetaTagGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: MetaTagGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "serp-simulator",
@@ -656,7 +1334,12 @@
     },
     "category": "seo-tools",
     "icon": "Search",
+    "component": "SerpSimulator",
+    "route": "/[locale]/tools/serp-simulator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "serp",
       "search results",
@@ -666,7 +1349,28 @@
       "محركات البحث",
       "معاينة"
     ],
-    "component": "SerpSimulator"
+    "inputs": [
+      "text / content / metadata"
+    ],
+    "outputs": [
+      "generated markup / simulated / analyzed output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SerpSimulator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SerpSimulator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "loan-calculator",
@@ -681,7 +1385,12 @@
     },
     "category": "calculators",
     "icon": "Banknote",
+    "component": "LoanCalculator",
+    "route": "/[locale]/tools/loan-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "loan",
       "mortgage",
@@ -692,7 +1401,28 @@
       "فائدة",
       "قسط"
     ],
-    "component": "LoanCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/LoanCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: LoanCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "work-hours-calculator",
@@ -707,7 +1437,12 @@
     },
     "category": "time-tools",
     "icon": "Briefcase",
+    "component": "WorkHoursCalculator",
+    "route": "/[locale]/tools/work-hours-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "work hours",
       "timesheet",
@@ -716,7 +1451,28 @@
       "جدول دوام",
       "حضور"
     ],
-    "component": "WorkHoursCalculator"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/WorkHoursCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: WorkHoursCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "case-converter",
@@ -731,7 +1487,12 @@
     },
     "category": "text-tools",
     "icon": "CaseSensitive",
+    "component": "CaseConverter",
+    "route": "/[locale]/tools/case-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "case",
       "uppercase",
@@ -741,7 +1502,28 @@
       "أحرف كبيرة",
       "أحرف صغيرة"
     ],
-    "component": "CaseConverter"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CaseConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CaseConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pomodoro-timer",
@@ -756,7 +1538,12 @@
     },
     "category": "utility-tools",
     "icon": "Tomato",
+    "component": "PomodoroTimer",
+    "route": "/[locale]/tools/pomodoro-timer",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pomodoro",
       "timer",
@@ -767,7 +1554,28 @@
       "تركيز",
       "إنتاجية"
     ],
-    "component": "PomodoroTimer"
+    "inputs": [
+      "numeric values"
+    ],
+    "outputs": [
+      "timed session"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PomodoroTimer.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PomodoroTimer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "sql-formatter",
@@ -782,7 +1590,12 @@
     },
     "category": "developer-tools",
     "icon": "Database",
+    "component": "SqlFormatter",
+    "route": "/[locale]/tools/sql-formatter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "sql",
       "format",
@@ -792,7 +1605,28 @@
       "استعلام",
       "قاعدة بيانات"
     ],
-    "component": "SqlFormatter"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SqlFormatter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SqlFormatter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "fuel-cost-calculator",
@@ -807,7 +1641,12 @@
     },
     "category": "calculators",
     "icon": "Fuel",
+    "component": "FuelCostCalculator",
+    "route": "/[locale]/tools/fuel-cost-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "fuel",
       "gas",
@@ -818,7 +1657,28 @@
       "تكلفة الرحلة",
       "استهلاك"
     ],
-    "component": "FuelCostCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/FuelCostCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: FuelCostCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "essay-word-counter",
@@ -833,7 +1693,12 @@
     },
     "category": "student-tools",
     "icon": "FileText",
+    "component": "EssayWordCounter",
+    "route": "/[locale]/tools/essay-word-counter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "essay",
       "word count",
@@ -842,7 +1707,28 @@
       "عدد كلمات",
       "كتابة أكاديمية"
     ],
-    "component": "EssayWordCounter"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "word and character counts"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/EssayWordCounter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: EssayWordCounter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "remove-duplicates",
@@ -857,7 +1743,12 @@
     },
     "category": "text-tools",
     "icon": "ListMinus",
+    "component": "RemoveDuplicates",
+    "route": "/[locale]/tools/remove-duplicates",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "duplicates",
       "unique",
@@ -866,7 +1757,28 @@
       "فريد",
       "إزالة التكرار"
     ],
-    "component": "RemoveDuplicates"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/RemoveDuplicates.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: RemoveDuplicates)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "word-counter",
@@ -881,7 +1793,12 @@
     },
     "category": "text-tools",
     "icon": "Type",
+    "component": "WordCounter",
+    "route": "/[locale]/tools/word-counter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "word count",
       "character count",
@@ -890,7 +1807,28 @@
       "عدد الحروف",
       "تحليل النص"
     ],
-    "component": "WordCounter"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/WordCounter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: WordCounter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "gpa-calculator",
@@ -905,7 +1843,12 @@
     },
     "category": "calculators",
     "icon": "GraduationCap",
+    "component": "GpaCalculator",
+    "route": "/[locale]/tools/gpa-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "gpa",
       "grade point average",
@@ -914,7 +1857,28 @@
       "درجات",
       "معدل"
     ],
-    "component": "GpaCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/GpaCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: GpaCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "temperature-converter",
@@ -929,7 +1893,12 @@
     },
     "category": "converters",
     "icon": "Thermometer",
+    "component": "TemperatureConverter",
+    "route": "/[locale]/tools/temperature-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "temperature",
       "celsius",
@@ -938,7 +1907,28 @@
       "مئوية",
       "فهرنهايت"
     ],
-    "component": "TemperatureConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TemperatureConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TemperatureConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "url-encoder-decoder",
@@ -953,7 +1943,12 @@
     },
     "category": "security-tools",
     "icon": "LinkIcon",
+    "component": "UrlEncoderDecoder",
+    "route": "/[locale]/tools/url-encoder-decoder",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "url",
       "encode",
@@ -963,7 +1958,28 @@
       "فك ترميز",
       "رابط"
     ],
-    "component": "UrlEncoderDecoder"
+    "inputs": [
+      "text / value"
+    ],
+    "outputs": [
+      "generated / analyzed security output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UrlEncoderDecoder.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: UrlEncoderDecoder)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "bmi-calculator",
@@ -978,7 +1994,12 @@
     },
     "category": "calculators",
     "icon": "Activity",
+    "component": "BmiCalculator",
+    "route": "/[locale]/tools/bmi-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "bmi",
       "body mass index",
@@ -988,7 +2009,28 @@
       "وزن",
       "صحة"
     ],
-    "component": "BmiCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/BmiCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: BmiCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "text-reverser",
@@ -1003,7 +2045,12 @@
     },
     "category": "text-tools",
     "icon": "ArrowRightLeft",
+    "component": "TextReverser",
+    "route": "/[locale]/tools/text-reverser",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "reverse",
       "flip",
@@ -1012,7 +2059,28 @@
       "قلب",
       "ترتيب عكسي"
     ],
-    "component": "TextReverser"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TextReverser.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TextReverser)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "note-organizer",
@@ -1027,7 +2095,12 @@
     },
     "category": "student-tools",
     "icon": "StickyNote",
-    "privacy": "local",
+    "component": "NoteOrganizer",
+    "route": "/[locale]/tools/note-organizer",
+    "privacy": "storage",
+    "offline": "full",
+    "retention": "browser-storage",
+    "riskLevel": "low",
     "keywords": [
       "notes",
       "organize",
@@ -1038,7 +2111,28 @@
       "مذاكرة",
       "وسوم"
     ],
-    "component": "NoteOrganizer"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "saved notes"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/NoteOrganizer.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-notes\"",
+        "src/components/tools/index.ts (registry entry: NoteOrganizer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "localStorage (key: quickshed-notes)",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pdf-merger",
@@ -1053,7 +2147,12 @@
     },
     "category": "pdf-tools",
     "icon": "Merge",
-    "privacy": "local",
+    "component": "PdfMerger",
+    "route": "/[locale]/tools/pdf-merger",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pdf",
       "merge",
@@ -1062,7 +2161,28 @@
       "تجميع",
       "بي دي إف"
     ],
-    "component": "PdfMerger"
+    "inputs": [
+      "user-selected PDF file(s)"
+    ],
+    "outputs": [
+      "processed PDF / extracted text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PdfMerger.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: PdfMerger)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "reading-time-calculator",
@@ -1077,7 +2197,12 @@
     },
     "category": "student-tools",
     "icon": "BookOpenCheck",
+    "component": "ReadingTimeCalculator",
+    "route": "/[locale]/tools/reading-time-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "reading time",
       "reading speed",
@@ -1086,7 +2211,28 @@
       "سرعة القراءة",
       "تقدير"
     ],
-    "component": "ReadingTimeCalculator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "computed reading time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ReadingTimeCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: ReadingTimeCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "jwt-decoder",
@@ -1101,7 +2247,12 @@
     },
     "category": "developer-tools",
     "icon": "Key",
+    "component": "JwtDecoder",
+    "route": "/[locale]/tools/jwt-decoder",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "medium",
     "keywords": [
       "jwt",
       "token",
@@ -1111,7 +2262,28 @@
       "فك تشفير",
       "توكن"
     ],
-    "component": "JwtDecoder"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/JwtDecoder.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: JwtDecoder)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "currency-converter-calculator",
@@ -1126,7 +2298,12 @@
     },
     "category": "calculators",
     "icon": "ArrowLeftRight",
+    "component": "CurrencyConverterCalculator",
+    "route": "/[locale]/tools/currency-converter-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "currency",
       "exchange",
@@ -1137,7 +2314,28 @@
       "تحويل",
       "نقود"
     ],
-    "component": "CurrencyConverterCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CurrencyConverterCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CurrencyConverterCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "text-diff",
@@ -1152,7 +2350,12 @@
     },
     "category": "text-tools",
     "icon": "GitCompare",
+    "component": "TextDiff",
+    "route": "/[locale]/tools/text-diff",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "diff",
       "compare",
@@ -1161,7 +2364,28 @@
       "فروق",
       "اختلافات"
     ],
-    "component": "TextDiff"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TextDiff.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TextDiff)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "discount-calculator",
@@ -1176,7 +2400,12 @@
     },
     "category": "calculators",
     "icon": "Tag",
+    "component": "DiscountCalculator",
+    "route": "/[locale]/tools/discount-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "discount",
       "sale",
@@ -1187,7 +2416,28 @@
       "توفير",
       "سعر"
     ],
-    "component": "DiscountCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/DiscountCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: DiscountCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "image-resizer",
@@ -1202,7 +2452,12 @@
     },
     "category": "image-tools",
     "icon": "Move",
-    "privacy": "local",
+    "component": "ImageResizer",
+    "route": "/[locale]/tools/image-resizer",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "resize",
       "image",
@@ -1211,7 +2466,28 @@
       "صورة",
       "أبعاد"
     ],
-    "component": "ImageResizer"
+    "inputs": [
+      "user-selected image file(s)"
+    ],
+    "outputs": [
+      "processed image / extracted data"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ImageResizer.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: ImageResizer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "base64-encoder",
@@ -1226,7 +2502,12 @@
     },
     "category": "developer-tools",
     "icon": "FileCode",
-    "privacy": "local",
+    "component": "Base64Encoder",
+    "route": "/[locale]/tools/base64-encoder",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "base64",
       "encode",
@@ -1236,7 +2517,28 @@
       "فك تشفير",
       "بيس 64"
     ],
-    "component": "Base64Encoder"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/Base64Encoder.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: Base64Encoder)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "time-zone-converter",
@@ -1251,7 +2553,12 @@
     },
     "category": "time-tools",
     "icon": "Globe",
+    "component": "TimeZoneConverter",
+    "route": "/[locale]/tools/time-zone-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "time zone",
       "convert",
@@ -1260,7 +2567,28 @@
       "تحويل",
       "توقيت"
     ],
-    "component": "TimeZoneConverter"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TimeZoneConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TimeZoneConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "countdown-timer",
@@ -1275,7 +2603,12 @@
     },
     "category": "time-tools",
     "icon": "Hourglass",
+    "component": "CountdownTimer",
+    "route": "/[locale]/tools/countdown-timer",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "countdown",
       "timer",
@@ -1284,7 +2617,28 @@
       "منبه",
       "عد تنازلي"
     ],
-    "component": "CountdownTimer"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CountdownTimer.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CountdownTimer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "emoji-picker",
@@ -1299,7 +2653,12 @@
     },
     "category": "utility-tools",
     "icon": "Smile",
-    "privacy": "local",
+    "component": "EmojiPicker",
+    "route": "/[locale]/tools/emoji-picker",
+    "privacy": "storage",
+    "offline": "full",
+    "retention": "browser-storage",
+    "riskLevel": "low",
     "keywords": [
       "emoji",
       "picker",
@@ -1308,7 +2667,28 @@
       "إيموجي",
       "وجوه"
     ],
-    "component": "EmojiPicker"
+    "inputs": [
+      "search query"
+    ],
+    "outputs": [
+      "selected emoji"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/EmojiPicker.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-emoji-recent\"",
+        "src/components/tools/index.ts (registry entry: EmojiPicker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "localStorage (key: quickshed-emoji-recent)",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "percentage-calculator",
@@ -1323,7 +2703,12 @@
     },
     "category": "calculators",
     "icon": "Percent",
+    "component": "PercentageCalculator",
+    "route": "/[locale]/tools/percentage-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "percentage",
       "percent",
@@ -1332,7 +2717,28 @@
       "نسبة",
       "مئة"
     ],
-    "component": "PercentageCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PercentageCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PercentageCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "html-beautifier",
@@ -1347,7 +2753,12 @@
     },
     "category": "developer-tools",
     "icon": "FileCode2",
+    "component": "HtmlBeautifier",
+    "route": "/[locale]/tools/html-beautifier",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "html",
       "beautify",
@@ -1356,7 +2767,28 @@
       "تحسين",
       "أتش تي إم إل"
     ],
-    "component": "HtmlBeautifier"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/HtmlBeautifier.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: HtmlBeautifier)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "uuid-generator-dev",
@@ -1371,7 +2803,12 @@
     },
     "category": "developer-tools",
     "icon": "Hash",
+    "component": "UuidGeneratorDev",
+    "route": "/[locale]/tools/uuid-generator-dev",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "uuid",
       "developer",
@@ -1381,7 +2818,28 @@
       "مطور",
       "جي آي دي"
     ],
-    "component": "UuidGeneratorDev"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UuidGeneratorDev.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: UuidGeneratorDev)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "salary-calculator",
@@ -1396,7 +2854,12 @@
     },
     "category": "calculators",
     "icon": "Wallet",
+    "component": "SalaryCalculator",
+    "route": "/[locale]/tools/salary-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "salary",
       "income",
@@ -1407,7 +2870,28 @@
       "ضريبة",
       "صافي"
     ],
-    "component": "SalaryCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/SalaryCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: SalaryCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "password-strength-analyzer",
@@ -1422,7 +2906,12 @@
     },
     "category": "security-tools",
     "icon": "ShieldAlert",
+    "component": "PasswordStrengthAnalyzer",
+    "route": "/[locale]/tools/password-strength-analyzer",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "medium",
     "keywords": [
       "password",
       "strength",
@@ -1432,7 +2921,28 @@
       "أمان",
       "تحليل"
     ],
-    "component": "PasswordStrengthAnalyzer"
+    "inputs": [
+      "text / value"
+    ],
+    "outputs": [
+      "generated / analyzed security output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PasswordStrengthAnalyzer.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PasswordStrengthAnalyzer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pdf-to-text",
@@ -1447,7 +2957,12 @@
     },
     "category": "pdf-tools",
     "icon": "FileSearch",
-    "privacy": "local",
+    "component": "PdfToText",
+    "route": "/[locale]/tools/pdf-to-text",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pdf",
       "text extraction",
@@ -1456,7 +2971,28 @@
       "بي دي إف",
       "نص"
     ],
-    "component": "PdfToText"
+    "inputs": [
+      "user-selected PDF file(s)"
+    ],
+    "outputs": [
+      "processed PDF / extracted text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PdfToText.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: PdfToText)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "study-timer",
@@ -1471,7 +3007,12 @@
     },
     "category": "student-tools",
     "icon": "Clock4",
+    "component": "StudyTimer",
+    "route": "/[locale]/tools/study-timer",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "study timer",
       "pomodoro",
@@ -1480,7 +3021,28 @@
       "بومودورو",
       "تركيز"
     ],
-    "component": "StudyTimer"
+    "inputs": [
+      "numeric values"
+    ],
+    "outputs": [
+      "timed session"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/StudyTimer.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: StudyTimer)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "math-equation-solver",
@@ -1495,7 +3057,12 @@
     },
     "category": "student-tools",
     "icon": "Variable",
+    "component": "MathEquationSolver",
+    "route": "/[locale]/tools/math-equation-solver",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "equation",
       "solver",
@@ -1506,7 +3073,28 @@
       "جبر",
       "رياضيات"
     ],
-    "component": "MathEquationSolver"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/MathEquationSolver.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: MathEquationSolver)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "grade-calculator",
@@ -1521,7 +3109,12 @@
     },
     "category": "student-tools",
     "icon": "Award",
+    "component": "GradeCalculator",
+    "route": "/[locale]/tools/grade-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "grade",
       "score",
@@ -1530,7 +3123,29 @@
       "علامة",
       "درجة نهائية"
     ],
-    "component": "GradeCalculator"
+    "inputs": [
+      "text",
+      "numeric values"
+    ],
+    "outputs": [
+      "computed grade"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/GradeCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: GradeCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "age-calculator",
@@ -1545,7 +3160,12 @@
     },
     "category": "calculators",
     "icon": "CalendarDays",
+    "component": "AgeCalculator",
+    "route": "/[locale]/tools/age-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "age",
       "birthday",
@@ -1554,7 +3174,28 @@
       "تاريخ الميلاد",
       "عيد ميلاد"
     ],
-    "component": "AgeCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/AgeCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: AgeCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "habit-tracker",
@@ -1569,7 +3210,12 @@
     },
     "category": "utility-tools",
     "icon": "CheckCircle",
-    "privacy": "local",
+    "component": "HabitTracker",
+    "route": "/[locale]/tools/habit-tracker",
+    "privacy": "storage",
+    "offline": "full",
+    "retention": "browser-storage",
+    "riskLevel": "low",
     "keywords": [
       "habit",
       "tracker",
@@ -1580,7 +3226,28 @@
       "سلسلة",
       "يومي"
     ],
-    "component": "HabitTracker"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "habit history"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/HabitTracker.tsx — localStorage read/write, STORAGE_KEY=\"quickshed-habits\"",
+        "src/components/tools/index.ts (registry entry: HabitTracker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "localStorage (key: quickshed-habits)",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "json-formatter",
@@ -1595,7 +3262,12 @@
     },
     "category": "developer-tools",
     "icon": "Braces",
+    "component": "JsonFormatter",
+    "route": "/[locale]/tools/json-formatter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "json",
       "format",
@@ -1605,7 +3277,28 @@
       "تحقق",
       "جسون"
     ],
-    "component": "JsonFormatter"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/JsonFormatter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: JsonFormatter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "open-graph-debugger",
@@ -1620,7 +3313,12 @@
     },
     "category": "seo-tools",
     "icon": "Share2",
+    "component": "OpenGraphDebugger",
+    "route": "/[locale]/tools/open-graph-debugger",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "open graph",
       "og tags",
@@ -1630,7 +3328,28 @@
       "مشاركة اجتماعية",
       "تصحيح"
     ],
-    "component": "OpenGraphDebugger"
+    "inputs": [
+      "text / content / metadata"
+    ],
+    "outputs": [
+      "generated markup / simulated / analyzed output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/OpenGraphDebugger.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: OpenGraphDebugger)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "text-to-binary",
@@ -1645,7 +3364,12 @@
     },
     "category": "utility-tools",
     "icon": "Binary",
+    "component": "TextToBinary",
+    "route": "/[locale]/tools/text-to-binary",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "binary",
       "text",
@@ -1654,7 +3378,28 @@
       "نص",
       "تحويل"
     ],
-    "component": "TextToBinary"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TextToBinary.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TextToBinary)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "color-picker",
@@ -1669,7 +3414,12 @@
     },
     "category": "utility-tools",
     "icon": "Pipette",
+    "component": "ColorPicker",
+    "route": "/[locale]/tools/color-picker",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "color",
       "picker",
@@ -1678,7 +3428,28 @@
       "منتقي",
       "لوحة ألوان"
     ],
-    "component": "ColorPicker"
+    "inputs": [
+      "color selection"
+    ],
+    "outputs": [
+      "color values"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ColorPicker.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: ColorPicker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "world-clock",
@@ -1693,7 +3464,12 @@
     },
     "category": "time-tools",
     "icon": "Clock",
+    "component": "WorldClock",
+    "route": "/[locale]/tools/world-clock",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "world clock",
       "time zones",
@@ -1702,7 +3478,28 @@
       "مناطق زمنية",
       "مدن"
     ],
-    "component": "WorldClock"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/WorldClock.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: WorldClock)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "color-converter",
@@ -1717,7 +3514,12 @@
     },
     "category": "converters",
     "icon": "Palette",
+    "component": "ColorConverter",
+    "route": "/[locale]/tools/color-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "color",
       "hex",
@@ -1727,7 +3529,28 @@
       "ألوان",
       "تحويل ألوان"
     ],
-    "component": "ColorConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ColorConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: ColorConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "priority-matrix",
@@ -1742,7 +3565,12 @@
     },
     "category": "utility-tools",
     "icon": "LayoutGrid",
+    "component": "PriorityMatrix",
+    "route": "/[locale]/tools/priority-matrix",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "priority",
       "matrix",
@@ -1753,7 +3581,29 @@
       "آيزنهاور",
       "مهام"
     ],
-    "component": "PriorityMatrix"
+    "inputs": [
+      "text",
+      "numeric values"
+    ],
+    "outputs": [
+      "prioritized task list"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PriorityMatrix.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: PriorityMatrix)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "barcode-generator",
@@ -1768,7 +3618,12 @@
     },
     "category": "utility-tools",
     "icon": "Barcode",
+    "component": "BarcodeGenerator",
+    "route": "/[locale]/tools/barcode-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "barcode",
       "ean",
@@ -1777,7 +3632,28 @@
       "باركود",
       "رمز شريطي"
     ],
-    "component": "BarcodeGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "downloadable image"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/BarcodeGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: BarcodeGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "uuid-generator",
@@ -1792,7 +3668,12 @@
     },
     "category": "utility-tools",
     "icon": "Fingerprint",
+    "component": "UuidGenerator",
+    "route": "/[locale]/tools/uuid-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "uuid",
       "unique id",
@@ -1801,7 +3682,28 @@
       "مولد",
       "يو آي دي"
     ],
-    "component": "UuidGenerator"
+    "inputs": [
+      "numeric values"
+    ],
+    "outputs": [
+      "generated identifiers"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UuidGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: UuidGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "tip-calculator",
@@ -1816,7 +3718,12 @@
     },
     "category": "calculators",
     "icon": "Receipt",
+    "component": "TipCalculator",
+    "route": "/[locale]/tools/tip-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "tip",
       "bill",
@@ -1827,7 +3734,28 @@
       "مطعم",
       "تقسيم"
     ],
-    "component": "TipCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TipCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TipCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "image-cropper",
@@ -1842,7 +3770,12 @@
     },
     "category": "image-tools",
     "icon": "Crop",
-    "privacy": "local",
+    "component": "ImageCropper",
+    "route": "/[locale]/tools/image-cropper",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "crop",
       "image",
@@ -1851,7 +3784,28 @@
       "صورة",
       "تقليم"
     ],
-    "component": "ImageCropper"
+    "inputs": [
+      "user-selected image file(s)"
+    ],
+    "outputs": [
+      "processed image / extracted data"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ImageCropper.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: ImageCropper)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "text-encoder-decoder",
@@ -1866,7 +3820,12 @@
     },
     "category": "text-tools",
     "icon": "Lock",
+    "component": "TextEncoderDecoder",
+    "route": "/[locale]/tools/text-encoder-decoder",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "encode",
       "decode",
@@ -1876,7 +3835,28 @@
       "فك تشفير",
       "ترميز"
     ],
-    "component": "TextEncoderDecoder"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/TextEncoderDecoder.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: TextEncoderDecoder)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "citation-generator",
@@ -1891,7 +3871,12 @@
     },
     "category": "student-tools",
     "icon": "BookOpen",
+    "component": "CitationGenerator",
+    "route": "/[locale]/tools/citation-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "citation",
       "reference",
@@ -1901,7 +3886,28 @@
       "مراجع",
       "ببليوغرافيا"
     ],
-    "component": "CitationGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "formatted citation"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CitationGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CitationGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "keyword-density-checker",
@@ -1916,7 +3922,12 @@
     },
     "category": "seo-tools",
     "icon": "BarChart3",
+    "component": "KeywordDensityChecker",
+    "route": "/[locale]/tools/keyword-density-checker",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "keyword",
       "density",
@@ -1927,7 +3938,28 @@
       "سيو",
       "محتوى"
     ],
-    "component": "KeywordDensityChecker"
+    "inputs": [
+      "text / content / metadata"
+    ],
+    "outputs": [
+      "generated markup / simulated / analyzed output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/KeywordDensityChecker.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: KeywordDensityChecker)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "data-size-converter",
@@ -1942,7 +3974,12 @@
     },
     "category": "converters",
     "icon": "HardDrive",
+    "component": "DataSizeConverter",
+    "route": "/[locale]/tools/data-size-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "data size",
       "bytes",
@@ -1951,7 +3988,28 @@
       "بايت",
       "تخزين"
     ],
-    "component": "DataSizeConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/DataSizeConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: DataSizeConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "url-shortener",
@@ -1966,7 +4024,12 @@
     },
     "category": "utility-tools",
     "icon": "Link2",
-    "privacy": "local",
+    "component": "UrlShortener",
+    "route": "/[locale]/tools/url-shortener",
+    "privacy": "storage",
+    "offline": "full",
+    "retention": "browser-storage",
+    "riskLevel": "low",
     "keywords": [
       "url",
       "shortener",
@@ -1975,7 +4038,28 @@
       "اختصار",
       "مختصر"
     ],
-    "component": "UrlShortener"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "shortened link"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UrlShortener.tsx — client-side localStorage (STORAGE_KEY=\"quickshed-url-shortener\"), localized hash resolution, explicit user-triggered http/https navigation",
+        "src/components/tools/index.ts (registry entry: UrlShortener)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no programmatic network API calls or automatic data transmission; the external target is only rendered as a validated, explicit user-action link and no tool input is sent to a service",
+      "storagePersistenceTargets": "localStorage (key: quickshed-url-shortener)",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "unit-converter",
@@ -1990,7 +4074,12 @@
     },
     "category": "converters",
     "icon": "Ruler",
+    "component": "UnitConverter",
+    "route": "/[locale]/tools/unit-converter",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "unit",
       "measurement",
@@ -1999,7 +4088,28 @@
       "قياس",
       "تحويل"
     ],
-    "component": "UnitConverter"
+    "inputs": [
+      "one or more values to convert"
+    ],
+    "outputs": [
+      "converted value(s)"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/UnitConverter.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: UnitConverter)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "scientific-calculator",
@@ -2014,7 +4124,12 @@
     },
     "category": "calculators",
     "icon": "FlaskConical",
+    "component": "ScientificCalculator",
+    "route": "/[locale]/tools/scientific-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "scientific",
       "trigonometry",
@@ -2024,7 +4139,28 @@
       "مثلثات",
       "لوغاريتمات"
     ],
-    "component": "ScientificCalculator"
+    "inputs": [
+      "numeric inputs / values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ScientificCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: ScientificCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "cron-expression-parser",
@@ -2039,7 +4175,12 @@
     },
     "category": "developer-tools",
     "icon": "Clock",
+    "component": "CronExpressionParser",
+    "route": "/[locale]/tools/cron-expression-parser",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "cron",
       "schedule",
@@ -2049,7 +4190,28 @@
       "جدولة",
       "تعبير"
     ],
-    "component": "CronExpressionParser"
+    "inputs": [
+      "code / text / data"
+    ],
+    "outputs": [
+      "formatted / encoded / decoded / parsed result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/CronExpressionParser.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: CronExpressionParser)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "student-gpa-calculator",
@@ -2064,7 +4226,12 @@
     },
     "category": "student-tools",
     "icon": "ClipboardList",
+    "component": "StudentGpaCalculator",
+    "route": "/[locale]/tools/student-gpa-calculator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "gpa",
       "student",
@@ -2075,7 +4242,29 @@
       "فصل دراسي",
       "مواد"
     ],
-    "component": "StudentGpaCalculator"
+    "inputs": [
+      "text",
+      "numeric values"
+    ],
+    "outputs": [
+      "computed numeric result"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/StudentGpaCalculator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: StudentGpaCalculator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "qr-code-generator",
@@ -2090,7 +4279,12 @@
     },
     "category": "utility-tools",
     "icon": "QrCode",
+    "component": "QrCodeGenerator",
+    "route": "/[locale]/tools/qr-code-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "qr code",
       "qr",
@@ -2099,7 +4293,28 @@
       "مسح",
       "باركود"
     ],
-    "component": "QrCodeGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "downloadable image"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/QrCodeGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: QrCodeGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pdf-watermark",
@@ -2114,7 +4329,12 @@
     },
     "category": "pdf-tools",
     "icon": "Droplets",
-    "privacy": "local",
+    "component": "PdfWatermark",
+    "route": "/[locale]/tools/pdf-watermark",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pdf",
       "watermark",
@@ -2123,7 +4343,28 @@
       "بي دي إف",
       "ختم"
     ],
-    "component": "PdfWatermark"
+    "inputs": [
+      "user-selected PDF file(s)"
+    ],
+    "outputs": [
+      "processed PDF / extracted text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PdfWatermark.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: PdfWatermark)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "date-difference",
@@ -2138,7 +4379,12 @@
     },
     "category": "time-tools",
     "icon": "CalendarRange",
+    "component": "DateDifference",
+    "route": "/[locale]/tools/date-difference",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "date difference",
       "days between",
@@ -2147,7 +4393,28 @@
       "أيام بين",
       "نطاق تاريخ"
     ],
-    "component": "DateDifference"
+    "inputs": [
+      "date / time values"
+    ],
+    "outputs": [
+      "computed time / duration / converted time"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/DateDifference.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: DateDifference)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "color-palette-extractor",
@@ -2162,7 +4429,12 @@
     },
     "category": "image-tools",
     "icon": "Palette",
-    "privacy": "local",
+    "component": "ColorPaletteExtractor",
+    "route": "/[locale]/tools/color-palette-extractor",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "color palette",
       "extract",
@@ -2171,7 +4443,28 @@
       "استخراج",
       "ألوان سائدة"
     ],
-    "component": "ColorPaletteExtractor"
+    "inputs": [
+      "user-selected image file(s)"
+    ],
+    "outputs": [
+      "processed image / extracted data"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/ColorPaletteExtractor.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: ColorPaletteExtractor)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "pdf-rotate",
@@ -2186,7 +4479,12 @@
     },
     "category": "pdf-tools",
     "icon": "RotateCw",
-    "privacy": "local",
+    "component": "PdfRotate",
+    "route": "/[locale]/tools/pdf-rotate",
+    "privacy": "file-only",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "pdf",
       "rotate",
@@ -2195,7 +4493,28 @@
       "بي دي إف",
       "اتجاه"
     ],
-    "component": "PdfRotate"
+    "inputs": [
+      "user-selected PDF file(s)"
+    ],
+    "outputs": [
+      "processed PDF / extracted text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/PdfRotate.tsx — FileReader / <input type=\"file\">, on-device processing",
+        "src/components/tools/index.ts (registry entry: PdfRotate)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   },
   {
     "id": "lorem-ipsum-generator",
@@ -2210,7 +4529,12 @@
     },
     "category": "text-tools",
     "icon": "AlignLeft",
+    "component": "LoremIpsumGenerator",
+    "route": "/[locale]/tools/lorem-ipsum-generator",
     "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
     "keywords": [
       "lorem ipsum",
       "placeholder",
@@ -2219,6 +4543,27 @@
       "نص نائب",
       "نص تجريبي"
     ],
-    "component": "LoremIpsumGenerator"
+    "inputs": [
+      "text"
+    ],
+    "outputs": [
+      "transformed / analyzed text"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "src/components/tools/LoremIpsumGenerator.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/index.ts (registry entry: LoremIpsumGenerator)",
+        "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+        "src/app/[locale]/tools/[slug]/page.tsx (route)"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "source code audit",
+      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+    },
+    "createdAt": "2026-06-01",
+    "updatedAt": "2026-06-01"
   }
 ]

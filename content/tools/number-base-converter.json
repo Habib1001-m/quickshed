@@ -1,12 +1,51 @@
 {
   "id": "number-base-converter",
-  "name": { "ar": "محول أنظمة العد", "en": "Number Base Converter" },
-  "description": { "ar": "حوّل الأرقام بين أنظمة العد المختلفة: ثنائي، ثماني، عشري، وسداسي عشري.", "en": "Convert numbers between different bases: binary, octal, decimal, and hexadecimal." },
+  "slug": "number-base-converter",
+  "name": {
+    "ar": "محول أنظمة العد",
+    "en": "Number Base Converter"
+  },
+  "description": {
+    "ar": "حوّل الأرقام بين أنظمة العد المختلفة: ثنائي، ثماني، عشري، وسداسي عشري.",
+    "en": "Convert numbers between different bases: binary, octal, decimal, and hexadecimal."
+  },
   "category": "converters",
   "icon": "Binary",
-  "privacy": "local",
-  "keywords": ["binary", "hexadecimal", "octal", "base", "ثنائي", "سداسي عشري", "نظام عد"],
   "component": "NumberBaseConverter",
+  "route": "/[locale]/tools/number-base-converter",
+  "privacy": "local",
+  "offline": "full",
+  "retention": "none",
+  "riskLevel": "low",
+  "keywords": [
+    "binary",
+    "hexadecimal",
+    "octal",
+    "base",
+    "ثنائي",
+    "سداسي عشري",
+    "نظام عد"
+  ],
+  "inputs": [
+    "one or more values to convert"
+  ],
+  "outputs": [
+    "converted value(s)"
+  ],
+  "evidence": {
+    "inspectedCodePaths": [
+      "src/components/tools/NumberBaseConverter.tsx — no network or persistent-storage calls detected",
+      "src/components/tools/index.ts (registry entry: NumberBaseConverter)",
+      "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
+      "src/app/[locale]/tools/[slug]/page.tsx (route)"
+    ],
+    "networkEgress": "none",
+    "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+    "storagePersistenceTargets": "none",
+    "consentGateReference": "not-applicable",
+    "auditBasis": "source code audit",
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+  },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-06-01"
 }

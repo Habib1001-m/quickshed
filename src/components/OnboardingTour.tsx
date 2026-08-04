@@ -7,6 +7,10 @@ import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import {
   ONBOARDING_STEPS,
+  ONBOARDING_START_EVENT,
+  WELCOME_COMPLETED_EVENT,
+  consumePendingOnboardingStart,
+  isWelcomeComplete,
   isOnboardingComplete,
   markOnboardingComplete,
   resetOnboarding,
@@ -33,65 +37,73 @@ function getSpotlightRect(selector: string): SpotlightRect | null {
   };
 }
 
+function scrollTargetIntoView(step: OnboardingStep) {
+  if (step.position === 'center') return;
+
+  const target = document.querySelector(step.targetSelector);
+  target?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+}
+
 function getTooltipPosition(
   spotlight: SpotlightRect | null,
   position: OnboardingStep['position'],
   isRtl: boolean
 ): { top: number; left: number; transform: string } {
+  const viewportW = window.innerWidth;
+  const viewportH = window.innerHeight;
+  const tooltipWidth = Math.min(340, Math.max(0, viewportW - 32));
+  const tooltipHeight = 232;
+  const tooltipGap = 16;
+  const viewportInset = 16;
+
   if (!spotlight || position === 'center') {
     return {
-      top: window.innerHeight / 2,
-      left: window.innerWidth / 2,
-      transform: 'translate(-50%, -50%)',
+      top: Math.max(viewportInset, (viewportH - tooltipHeight) / 2),
+      left: Math.max(viewportInset, (viewportW - tooltipWidth) / 2),
+      transform: 'none',
     };
   }
 
-  const tooltipWidth = 340;
-  const tooltipGap = 16;
-  const viewportW = window.innerWidth;
-
-  let top = 0;
-  let left = 0;
-  let transform = '';
+  let top: number;
+  let left: number;
 
   switch (position) {
     case 'bottom':
       top = spotlight.y + spotlight.height + tooltipGap;
-      left = spotlight.x + spotlight.width / 2;
-      transform = 'translate(-50%, 0)';
+      left = spotlight.x + spotlight.width / 2 - tooltipWidth / 2;
       break;
     case 'top':
-      top = spotlight.y - tooltipGap;
-      left = spotlight.x + spotlight.width / 2;
-      transform = 'translate(-50%, -100%)';
+      top = spotlight.y - tooltipGap - tooltipHeight;
+      left = spotlight.x + spotlight.width / 2 - tooltipWidth / 2;
       break;
     case 'left':
-      top = spotlight.y + spotlight.height / 2;
-      left = spotlight.x - tooltipGap;
-      transform = isRtl ? 'translate(0, -50%)' : 'translate(-100%, -50%)';
+      top = spotlight.y + spotlight.height / 2 - tooltipHeight / 2;
+      left = isRtl ? spotlight.x - tooltipGap : spotlight.x - tooltipGap - tooltipWidth;
       break;
     case 'right':
-      top = spotlight.y + spotlight.height / 2;
-      left = spotlight.x + spotlight.width + tooltipGap;
-      transform = isRtl ? 'translate(-100%, -50%)' : 'translate(0, -50%)';
+      top = spotlight.y + spotlight.height / 2 - tooltipHeight / 2;
+      left = isRtl
+        ? spotlight.x + spotlight.width + tooltipGap - tooltipWidth
+        : spotlight.x + spotlight.width + tooltipGap;
       break;
     default:
-      top = window.innerHeight / 2;
-      left = window.innerWidth / 2;
-      transform = 'translate(-50%, -50%)';
+      top = Math.max(viewportInset, (viewportH - tooltipHeight) / 2);
+      left = Math.max(viewportInset, (viewportW - tooltipWidth) / 2);
   }
 
-  // Clamp tooltip to viewport
-  {
-    const estimatedLeft = left - tooltipWidth / 2;
-    if (estimatedLeft < 16) {
-      left = 16 + tooltipWidth / 2;
-    } else if (estimatedLeft + tooltipWidth > viewportW - 16) {
-      left = viewportW - 16 - tooltipWidth / 2;
-    }
+  const maxLeft = Math.max(viewportInset, viewportW - tooltipWidth - viewportInset);
+  left = Math.min(Math.max(left, viewportInset), maxLeft);
+
+  const maxTop = Math.max(viewportInset, viewportH - tooltipHeight - viewportInset);
+  if (top < viewportInset || top > maxTop) {
+    const alternateTop =
+      position === 'top'
+        ? spotlight.y + spotlight.height + tooltipGap
+        : spotlight.y - tooltipGap - tooltipHeight;
+    top = Math.min(Math.max(alternateTop, viewportInset), maxTop);
   }
 
-  return { top, left, transform };
+  return { top, left, transform: 'none' };
 }
 
 export function OnboardingTour() {
@@ -108,6 +120,8 @@ export function OnboardingTour() {
   }>({ top: 0, left: 0, transform: 'translate(-50%, -50%)' });
   const rafRef = useRef<number>(0);
   const prevTargetRef = useRef<HTMLElement | null>(null);
+  const startTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startAttemptsRef = useRef(0);
 
   const step = ONBOARDING_STEPS[currentStep];
   const totalSteps = ONBOARDING_STEPS.length;
@@ -144,35 +158,96 @@ export function OnboardingTour() {
       setTooltipPos(pos);
     } else {
       // Fallback to center if element not found
-      setTooltipPos({
-        top: window.innerHeight / 2,
-        left: window.innerWidth / 2,
-        transform: 'translate(-50%, -50%)',
-      });
+      setTooltipPos(getTooltipPosition(null, 'center', isRtl));
     }
   }, [currentStep, isRtl]);
 
-  // Start the tour automatically on first visit
-  useEffect(() => {
-    if (!isOnboardingComplete()) {
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 2500); // Wait for page to load after WelcomeOverlay
-      return () => clearTimeout(timer);
+  const cancelPendingStart = useCallback(() => {
+    if (startTimerRef.current !== null) {
+      clearTimeout(startTimerRef.current);
+      startTimerRef.current = null;
     }
+    startAttemptsRef.current = 0;
   }, []);
 
-  // Listen for restart event
+  const startWhenReady = useCallback(() => {
+    cancelPendingStart();
+
+    const attemptStart = () => {
+      startTimerRef.current = null;
+      if (!isWelcomeComplete() || isOnboardingComplete()) {
+        setIsVisible(false);
+        startAttemptsRef.current = 0;
+        return;
+      }
+
+      const firstTarget = document.querySelector(ONBOARDING_STEPS[0].targetSelector);
+      const firstTargetRect = firstTarget?.getBoundingClientRect();
+      if (firstTargetRect && firstTargetRect.width > 0 && firstTargetRect.height > 0) {
+        startAttemptsRef.current = 0;
+        startTimerRef.current = null;
+        setIsVisible(true);
+        return;
+      }
+
+      if (startAttemptsRef.current >= 100) return;
+      startAttemptsRef.current += 1;
+      startTimerRef.current = setTimeout(attemptStart, 100);
+    };
+
+    attemptStart();
+  }, [cancelPendingStart]);
+
+  // Start only after the welcome screen is closed and the first target is mounted.
   useEffect(() => {
-    function handleRestart() {
-      resetOnboarding();
-      setCurrentStep(0);
-      setIsVisible(true);
+    const handleWelcomeCompleted = () => {
+      startAttemptsRef.current = 0;
+      startWhenReady();
+    };
+
+    window.addEventListener(WELCOME_COMPLETED_EVENT, handleWelcomeCompleted);
+
+    if (isWelcomeComplete() && !isOnboardingComplete()) {
+      startTimerRef.current = setTimeout(startWhenReady, 300);
     }
-    window.addEventListener('quickshed-start-onboarding', handleRestart);
-    return () =>
-      window.removeEventListener('quickshed-start-onboarding', handleRestart);
-  }, []);
+
+    return () => {
+      window.removeEventListener(WELCOME_COMPLETED_EVENT, handleWelcomeCompleted);
+      cancelPendingStart();
+    };
+  }, [cancelPendingStart, startWhenReady]);
+
+  const restartTour = useCallback(() => {
+    resetOnboarding();
+    setCurrentStep(0);
+    setIsVisible(false);
+    cancelPendingStart();
+
+    if (!isWelcomeComplete()) return;
+    startAttemptsRef.current = 0;
+    startWhenReady();
+  }, [cancelPendingStart, startWhenReady]);
+
+  // Listen for restart events and consume requests issued before this lazy
+  // component mounted. Raw event dispatch remains a supported restart path.
+  useEffect(() => {
+    let isMounted = true;
+
+    const handleRestart = () => {
+      consumePendingOnboardingStart();
+      restartTour();
+    };
+
+    window.addEventListener(ONBOARDING_START_EVENT, handleRestart);
+    queueMicrotask(() => {
+      if (isMounted && consumePendingOnboardingStart()) restartTour();
+    });
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener(ONBOARDING_START_EVENT, handleRestart);
+    };
+  }, [restartTour]);
 
   // Update positions when step changes or visibility changes
   useEffect(() => {
@@ -187,9 +262,17 @@ export function OnboardingTour() {
       return;
     }
 
-    // Initial position with a small delay for DOM to settle
+    let settleTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // Scroll the target into view before measuring the tooltip position.
     const timer = setTimeout(() => {
-      updatePositions();
+      const stepData = ONBOARDING_STEPS[currentStep];
+      if (stepData && stepData.position !== 'center') {
+        scrollTargetIntoView(stepData);
+        settleTimer = setTimeout(updatePositions, 450);
+      } else {
+        updatePositions();
+      }
     }, 100);
 
     // Update on resize/scroll
@@ -203,11 +286,12 @@ export function OnboardingTour() {
 
     return () => {
       clearTimeout(timer);
+      if (settleTimer) clearTimeout(settleTimer);
       window.removeEventListener('resize', handleUpdate);
       window.removeEventListener('scroll', handleUpdate, true);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [isVisible, updatePositions]);
+  }, [currentStep, isVisible, updatePositions]);
 
   // Cleanup on unmount
   useEffect(() => {
