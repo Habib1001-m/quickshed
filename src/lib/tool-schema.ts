@@ -11,6 +11,7 @@
  * runtime dependency is introduced (zod is already a project dependency).
  */
 import { z } from 'zod';
+import { TOOL_CATEGORY_SLUGS } from './tool-taxonomy';
 
 // ─── Closed enumerations (spec.md "Terminology and Contract") ─────────
 
@@ -31,10 +32,15 @@ export type Risk = z.infer<typeof RiskSchema>;
 
 // ─── Bilingual + identity primitives ─────────────────────────────────
 
-export const LocalizedStringSchema = z.object({
-  en: z.string().min(1),
-  ar: z.string().min(1),
-});
+const NonBlankStringSchema = z.string().trim().min(1);
+const KEBAB_CASE_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+export const LocalizedStringSchema = z
+  .object({
+    en: NonBlankStringSchema,
+    ar: NonBlankStringSchema,
+  })
+  .strict();
 
 /**
  * Deep-link route convention. The literal token `[locale]` resolves to BOTH
@@ -45,6 +51,7 @@ export const LocalizedStringSchema = z.object({
 export const TOOL_ROUTE_PATTERN = /^\/\[locale\]\/tools\/[a-z0-9-]+$/;
 export const RouteSchema = z
   .string()
+  .trim()
   .min(1)
   .regex(TOOL_ROUTE_PATTERN, "route must be '/[locale]/tools/<slug>'");
 
@@ -52,34 +59,38 @@ export const RouteSchema = z
 
 export const NetworkEgressSchema = z.union([
   z.literal('none'),
-  z.object({
-    endpoint: z.string().url(),
-    data: z.string().trim().min(1),
-    purpose: z.string().trim().min(1),
-  }),
+  z
+    .object({
+      endpoint: z.string().trim().url(),
+      data: NonBlankStringSchema,
+      purpose: NonBlankStringSchema,
+    })
+    .strict(),
 ]);
 
-export const DataFlowEvidenceSchema = z.object({
-  inspectedCodePaths: z.array(z.string().min(1)).min(1),
-  networkEgress: NetworkEgressSchema,
-  networkEgressBasis: z.string().min(1).optional(),
-  storagePersistenceTargets: z.string().min(1),
-  consentGateReference: z.string().trim().min(1),
-  auditBasis: z.string().min(1),
-  sourceRevision: z.string().min(1),
-});
+export const DataFlowEvidenceSchema = z
+  .object({
+    inspectedCodePaths: z.array(NonBlankStringSchema).min(1),
+    networkEgress: NetworkEgressSchema,
+    networkEgressBasis: NonBlankStringSchema.optional(),
+    storagePersistenceTargets: NonBlankStringSchema,
+    consentGateReference: NonBlankStringSchema,
+    auditBasis: NonBlankStringSchema,
+    sourceRevision: NonBlankStringSchema,
+  })
+  .strict();
 
 // ─── Full tool contract ──────────────────────────────────────────────
 
 export const ToolSchema = z
   .object({
-    id: z.string().min(1),
-    slug: z.string().min(1),
+    id: z.string().trim().min(1).regex(KEBAB_CASE_PATTERN, 'id must use kebab-case'),
+    slug: z.string().trim().min(1).regex(KEBAB_CASE_PATTERN, 'slug must use kebab-case'),
     name: LocalizedStringSchema,
     description: LocalizedStringSchema,
-    category: z.string().min(1),
-    icon: z.string().min(1),
-    component: z.string().min(1),
+    category: z.enum(TOOL_CATEGORY_SLUGS),
+    icon: NonBlankStringSchema,
+    component: NonBlankStringSchema,
     route: RouteSchema,
     privacy: PrivacySchema,
     offline: OfflineSchema,
@@ -91,21 +102,30 @@ export const ToolSchema = z
      * least churn; both locales are represented in every tool's array.
      */
     keywords: z
-      .array(z.string().trim().min(1))
+      .array(NonBlankStringSchema)
       .refine(
         (arr) =>
           arr.some((t) => /[A-Za-z]/.test(t)) &&
           arr.some((t) => /[\u0600-\u06FF]/.test(t)),
         'keywords must include at least one Latin-script term and one Arabic-script term',
       ),
-    inputs: z.array(z.string().min(1)).min(1),
-    outputs: z.array(z.string().min(1)).min(1),
+    inputs: z.array(NonBlankStringSchema).min(1),
+    outputs: z.array(NonBlankStringSchema).min(1),
     evidence: DataFlowEvidenceSchema,
-    createdAt: z.string().min(1).optional(),
-    updatedAt: z.string().min(1).optional(),
+    createdAt: NonBlankStringSchema.optional(),
+    updatedAt: NonBlankStringSchema.optional(),
   })
+  .strict()
   .superRefine((val, ctx) => {
     const { privacy, retention, evidence } = val;
+
+    if (val.route !== `/[locale]/tools/${val.slug}`) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `route must resolve to /[locale]/tools/${val.slug}`,
+        path: ['route'],
+      });
+    }
 
     // Privacy/retention consistency matrix (spec.md "Privacy/Retention Consistency").
     const matrixOk =

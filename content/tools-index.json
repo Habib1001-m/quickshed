@@ -1054,20 +1054,20 @@
     ],
     "evidence": {
       "inspectedCodePaths": [
-        "src/components/tools/MarkdownToHtml.tsx — no network or persistent-storage calls detected",
+        "src/components/tools/MarkdownToHtml.tsx — local blob:/base64 raster data: images only; remote, unsafe, and malformed images become localized non-loading placeholders; no storage calls",
         "src/components/tools/index.ts (registry entry: MarkdownToHtml)",
         "src/lib/tool-utils.ts (ToolDescriptor / getAllTools)",
         "src/app/[locale]/tools/[slug]/page.tsx (route)"
       ],
       "networkEgress": "none",
-      "networkEgressBasis": "no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource or external URL found in component; verified by source scan at 850dd27cfc27",
+      "networkEgressBasis": "image preview rejects http(s), javascript:, and other non-local image URLs before rendering; only blob: and base64 raster data: URLs are allowed. Explicit links remain inert until user activation; no fetch/axios/XMLHttpRequest/WebSocket/sendBeacon/EventSource calls",
       "storagePersistenceTargets": "none",
       "consentGateReference": "not-applicable",
       "auditBasis": "source code audit",
-      "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
+      "sourceRevision": "F5 uncommitted worktree 2026-08-03"
     },
     "createdAt": "2026-06-01",
-    "updatedAt": "2026-06-01"
+    "updatedAt": "2026-08-03"
   },
   {
     "id": "unix-timestamp-converter",

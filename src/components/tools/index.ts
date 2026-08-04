@@ -3,6 +3,7 @@
 import React from 'react';
 import nextDynamic from 'next/dynamic';
 import type { ComponentType } from 'react';
+import type { ToolComponentName } from '@/lib/tool-component-registry';
 
 // Tool component props type
 interface ToolProps {
@@ -31,7 +32,7 @@ function dynamic(loader: ToolLoader) {
 
 // Lazy-loaded tool components map
 // Using dynamic imports to avoid loading all tools at once
-const toolComponentMap: Record<string, ComponentType<ToolProps>> = {
+const toolComponentMap: Record<ToolComponentName, ComponentType<ToolProps>> = {
   // Calculators
   BasicCalculator: dynamic(() => import('./BasicCalculator')),
   ScientificCalculator: dynamic(() => import('./ScientificCalculator')),
@@ -136,14 +137,15 @@ const toolComponentMap: Record<string, ComponentType<ToolProps>> = {
 };
 
 export function getToolComponent(componentName: string): ComponentType<ToolProps> | null {
-  return toolComponentMap[componentName] || null;
+  if (!Object.prototype.hasOwnProperty.call(toolComponentMap, componentName)) return null;
+  return toolComponentMap[componentName as ToolComponentName] || null;
 }
 
 // ToolRenderer: renders a tool component by name using React.createElement
 // This avoids the ESLint "static-components" rule that fires when using JSX
 // with a dynamically-resolved component type
 export function ToolRenderer({ componentName, locale }: { componentName: string; locale: 'ar' | 'en' }) {
-  const Component = toolComponentMap[componentName];
+  const Component = getToolComponent(componentName);
   if (!Component) return null;
   return React.createElement(Component, { locale });
 }

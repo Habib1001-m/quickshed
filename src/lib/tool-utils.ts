@@ -3,6 +3,11 @@ import type { Privacy, Tool } from './tool-schema';
 import en from '../../messages/en.json';
 import ar from '../../messages/ar.json';
 import toolsIndex from '../../content/tools-index.json';
+import {
+  parseToolDefinitions,
+  QUICKSHED_TOOL_VALIDATION_REFERENCES,
+} from './tool-validation';
+import type { ToolCategorySlug } from './tool-taxonomy';
 
 // Re-export the shared four-level privacy union so UI consumers import the
 // contract from one place alongside the helpers below.
@@ -26,7 +31,7 @@ export interface LocalizedString {
 export type ToolDescriptor = Tool;
 
 export interface Category {
-  slug: string;
+  slug: ToolCategorySlug;
   name: LocalizedString;
   icon: string;
   toolCount: number;
@@ -35,7 +40,7 @@ export interface Category {
 // ─── Category Metadata ───────────────────────────────────────────────
 
 const CATEGORY_METADATA: Array<{
-  slug: string;
+  slug: ToolCategorySlug;
   name: LocalizedString;
   icon: string;
 }> = [
@@ -73,15 +78,16 @@ export function getCategoryName(slug: string, locale: Locale): string {
 // ─── Tool Query Functions ────────────────────────────────────────────
 
 /**
- * Get all tools from the tools index.
+ * Get all tools from the static index.
  *
- * T006 boundary: content/tools-index.json is not yet populated with the full
- * ToolDescriptor contract, so this deliberately keeps the `as unknown as`
- * cast instead of calling ToolSchema.parse(...) — no runtime parser is
- * introduced that would fail before T006 migrates the JSON.
+ * QS-SPEC-001 T008: parse the imported metadata once at module load so the
+ * client never consumes an unchecked descriptor cast. The same pure validator
+ * is used by the build-time source-file pass.
  */
+const validatedToolsIndex = parseToolDefinitions(toolsIndex, QUICKSHED_TOOL_VALIDATION_REFERENCES);
+
 export function getAllTools(): ToolDescriptor[] {
-  return toolsIndex as unknown as ToolDescriptor[];
+  return validatedToolsIndex;
 }
 
 /**
