@@ -4,12 +4,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { getScrollBehavior } from '@/lib/utils';
+import { useI18n } from '@/lib/i18n';
 
 /**
  * A floating button that appears when user scrolls down 300px.
  * Smooth scrolls to top on click with emerald gradient and bounce animation.
  */
 export function BackToTop() {
+  const { t } = useI18n();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export function BackToTop() {
           exit={{ opacity: 0, scale: 0.6, y: 20 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           onClick={scrollToTop}
-          aria-label="Back to top"
+          aria-label={t('common.backToTop')}
           className={`
             flex size-12 items-center justify-center rounded-full
             scroll-top-btn

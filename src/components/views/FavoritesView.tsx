@@ -214,6 +214,7 @@ export function FavoritesView() {
               <Input
                 type="text"
                 placeholder={t('favorites.searchPlaceholder')}
+                aria-label={t('favorites.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="ps-9 pe-4 h-9 glass-input bg-muted/50 border-border/50"
@@ -222,6 +223,7 @@ export function FavoritesView() {
                 <button
                   onClick={() => setSearchQuery('')}
                   className="absolute top-1/2 -translate-y-1/2 end-3 text-muted-foreground hover:text-foreground"
+                  aria-label={t('favorites.clearSearch')}
                 >
                   <X className="size-3.5" />
                 </button>
@@ -256,7 +258,10 @@ export function FavoritesView() {
             </div>
 
             {/* Sort + View mode */}
-            <div className="flex items-center gap-1.5 ms-auto shrink-0">
+            <div
+              className="flex w-full flex-wrap items-center gap-1.5 shrink-0 sm:w-auto sm:ms-auto"
+              data-testid="favorites-sort-view-controls"
+            >
               {/* Sort dropdown */}
               {sortModes.map((mode) => (
                 <button
@@ -280,7 +285,7 @@ export function FavoritesView() {
                 className={`p-1.5 rounded-md transition-colors ${
                   viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
-                aria-label="Grid view"
+                aria-label={t('favorites.viewGrid')}
               >
                 <LayoutGrid className="size-4" />
               </button>
@@ -289,7 +294,7 @@ export function FavoritesView() {
                 className={`p-1.5 rounded-md transition-colors ${
                   viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
-                aria-label="List view"
+                aria-label={t('favorites.viewList')}
               >
                 <List className="size-4" />
               </button>
@@ -386,6 +391,7 @@ export function FavoritesView() {
 // ─── List Item Component ─────────────────────────────────────
 
 function FavoriteListItem({ tool, locale }: { tool: ToolDescriptor; locale: Locale }) {
+  const { t } = useI18n();
   const navigateToTool = useAppStore((s) => s.navigateToTool);
   const toolUsageCount = useAppStore((s) => s.toolUsageCount);
   const toggleFavorite = useAppStore((s) => s.toggleFavorite);
@@ -429,7 +435,7 @@ function FavoriteListItem({ tool, locale }: { tool: ToolDescriptor; locale: Loca
           toggleFavorite(tool.id);
         }}
         className="shrink-0 p-1.5 rounded-full hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-        aria-label="Remove from favorites"
+        aria-label={t('home.removeFromFavorites')}
       >
         <Heart className="size-4 fill-red-500 text-red-500" />
       </button>

@@ -199,6 +199,7 @@ export function HomeHeroSection() {
               ref={heroInputRef}
               type="text"
               placeholder={t('home.heroSearchPlaceholder')}
+              aria-label={t('home.heroSearchPlaceholder')}
               value={heroQuery}
               onChange={(event) => handleHeroSearch(event.target.value)}
               onKeyDown={(event) => {

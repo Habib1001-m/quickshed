@@ -318,6 +318,7 @@ export function AllToolsView() {
             <Input
               type="text"
               placeholder={t('allTools.searchPlaceholder')}
+              aria-label={t('allTools.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               onFocus={() => setSearchFocused(true)}

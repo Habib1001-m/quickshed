@@ -126,7 +126,7 @@ export function FloatingActionButton() {
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
             transition={{ duration: 0.2 }}
             onClick={() => setExpanded((prev) => !prev)}
-            aria-label="Quick actions"
+            aria-label={t('common.quickAccess')}
             aria-expanded={expanded}
             data-testid="floating-quick-actions"
             className={`
