@@ -14,7 +14,13 @@
     "test:e2e:chromium": "playwright test --project=chromium",
     "audit:release": "npm audit --omit=dev --audit-level=critical",
     "guard:public-assets": "node scripts/check-public-assets.mjs",
-    "release:check": "npm run guard:public-assets && npm run lint && npm run typecheck && npm run build && npm run audit:release && npm run test:e2e"
+    "validate:tools": "node scripts/validate-tools.mjs",
+    "check:tool-client-boundary": "node scripts/check-tool-client-boundary.mjs",
+    "test:tool-parity": "node scripts/test-tool-parity.mjs",
+    "test:tool-fixtures": "node scripts/validate-tool-fixtures.mjs",
+    "check:tool-count": "node scripts/check-tool-count.mjs",
+    "test:tool-count": "node scripts/test-tool-count.mjs",
+    "release:check": "npm run guard:public-assets && npm run validate:tools && npm run lint && npm run typecheck && npm run build && npm run check:tool-client-boundary && npm run audit:release && npm run test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -62,6 +68,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.1.1",
+    "jiti": "^2.6.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"

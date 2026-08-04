@@ -2,6 +2,7 @@ import { createJiti } from 'jiti';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { areJsonValuesEqual } from './tool-parity.mjs';
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, '..');
@@ -111,7 +112,7 @@ if (!parseIssues.length && Array.isArray(indexEntries)) {
 
   for (const [id, sourceDefinition] of sourceById) {
     const indexed = indexById.get(id);
-    if (!indexed || JSON.stringify(sourceDefinition.raw) !== JSON.stringify(indexed.definition)) {
+    if (!indexed || !areJsonValuesEqual(sourceDefinition.raw, indexed.definition)) {
       parityIssues.push({
         code: indexed ? 'index-source-mismatch' : 'index-entry-missing',
         message: indexed

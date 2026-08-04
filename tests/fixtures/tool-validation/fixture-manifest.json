@@ -1,0 +1,411 @@
+{
+  "schema": "qs-spec-001/tool-validation-fixtures/v1",
+  "base": {
+    "id": "fixture-tool",
+    "slug": "fixture-tool",
+    "name": {
+      "en": "Fixture Tool",
+      "ar": "أداة الاختبار"
+    },
+    "description": {
+      "en": "A local fixture used to exercise the tool metadata contract.",
+      "ar": "أداة محلية لاختبار عقد بيانات الأدوات."
+    },
+    "category": "utility-tools",
+    "icon": "Wrench",
+    "component": "BasicCalculator",
+    "route": "/[locale]/tools/fixture-tool",
+    "privacy": "local",
+    "offline": "full",
+    "retention": "none",
+    "riskLevel": "low",
+    "keywords": [
+      "fixture",
+      "validation",
+      "اختبار",
+      "تحقق"
+    ],
+    "inputs": [
+      "fixture input"
+    ],
+    "outputs": [
+      "fixture output"
+    ],
+    "evidence": {
+      "inspectedCodePaths": [
+        "fixture-only validation path"
+      ],
+      "networkEgress": "none",
+      "networkEgressBasis": "fixture-only evidence; no request is made",
+      "storagePersistenceTargets": "none",
+      "consentGateReference": "not-applicable",
+      "auditBasis": "fixture contract validation",
+      "sourceRevision": "fixture-t010"
+    }
+  },
+  "positive": [
+    {
+      "id": "privacy-local-full-none-low",
+      "set": {
+        "privacy": "local",
+        "offline": "full",
+        "retention": "none",
+        "riskLevel": "low"
+      }
+    },
+    {
+      "id": "privacy-file-only-partial-session-medium",
+      "set": {
+        "privacy": "file-only",
+        "offline": "partial",
+        "retention": "session",
+        "riskLevel": "medium",
+        "evidence.storagePersistenceTargets": "session memory only"
+      }
+    },
+    {
+      "id": "privacy-storage-unavailable-browser-storage-high",
+      "set": {
+        "privacy": "storage",
+        "offline": "unavailable",
+        "retention": "browser-storage",
+        "riskLevel": "high",
+        "evidence.storagePersistenceTargets": "fixture browser storage"
+      }
+    },
+    {
+      "id": "privacy-api-full-none-low",
+      "set": {
+        "privacy": "api",
+        "offline": "full",
+        "retention": "none",
+        "riskLevel": "low",
+        "evidence.networkEgress": {
+          "endpoint": "https://api.example.invalid/fixture",
+          "data": "fixture input",
+          "purpose": "fixture validation"
+        },
+        "evidence.networkEgressBasis": "fixture-only endpoint declaration; no request is made",
+        "evidence.consentGateReference": "fixture consent gate"
+      }
+    },
+    {
+      "id": "privacy-api-partial-session-medium",
+      "set": {
+        "privacy": "api",
+        "offline": "partial",
+        "retention": "session",
+        "riskLevel": "medium",
+        "evidence.networkEgress": {
+          "endpoint": "https://api.example.invalid/fixture",
+          "data": "fixture input",
+          "purpose": "fixture validation"
+        },
+        "evidence.networkEgressBasis": "fixture-only endpoint declaration; no request is made",
+        "evidence.consentGateReference": "fixture consent gate"
+      }
+    },
+    {
+      "id": "privacy-api-unavailable-external-high",
+      "set": {
+        "privacy": "api",
+        "offline": "unavailable",
+        "retention": "external",
+        "riskLevel": "high",
+        "evidence.networkEgress": {
+          "endpoint": "https://api.example.invalid/fixture",
+          "data": "fixture input",
+          "purpose": "fixture validation"
+        },
+        "evidence.networkEgressBasis": "fixture-only endpoint declaration; no request is made",
+        "evidence.storagePersistenceTargets": "fixture external retention",
+        "evidence.consentGateReference": "fixture consent gate"
+      }
+    },
+    {
+      "id": "privacy-api-partial-browser-storage-high",
+      "set": {
+        "privacy": "api",
+        "offline": "partial",
+        "retention": "browser-storage",
+        "riskLevel": "high",
+        "evidence.networkEgress": {
+          "endpoint": "https://api.example.invalid/fixture",
+          "data": "fixture input",
+          "purpose": "fixture validation"
+        },
+        "evidence.networkEgressBasis": "fixture-only endpoint declaration; no request is made",
+        "evidence.storagePersistenceTargets": "fixture browser storage",
+        "evidence.consentGateReference": "fixture consent gate"
+      }
+    }
+  ],
+  "negative": [
+    {
+      "id": "missing-required-field",
+      "remove": [
+        "name"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "invalid-privacy-enum",
+      "set": {
+        "privacy": "remote"
+      },
+      "expectedCodes": [
+        "schema-invalid_value"
+      ]
+    },
+    {
+      "id": "invalid-offline-enum",
+      "set": {
+        "offline": "sometimes"
+      },
+      "expectedCodes": [
+        "schema-invalid_value"
+      ]
+    },
+    {
+      "id": "invalid-retention-enum",
+      "set": {
+        "retention": "forever"
+      },
+      "expectedCodes": [
+        "schema-invalid_value"
+      ]
+    },
+    {
+      "id": "invalid-risk-level",
+      "set": {
+        "riskLevel": "critical"
+      },
+      "expectedCodes": [
+        "schema-invalid_value"
+      ]
+    },
+    {
+      "id": "unresolved-route",
+      "set": {
+        "route": "/[locale]/tools/not-the-fixture"
+      },
+      "expectedCodes": [
+        "unresolved-route"
+      ]
+    },
+    {
+      "id": "unresolved-component",
+      "set": {
+        "component": "MissingFixtureComponent"
+      },
+      "expectedCodes": [
+        "unresolved-component"
+      ]
+    },
+    {
+      "id": "slug-collision",
+      "variants": [
+        {
+          "set": {
+            "id": "fixture-slug-one",
+            "slug": "fixture-slug-collision",
+            "route": "/[locale]/tools/fixture-slug-collision"
+          }
+        },
+        {
+          "set": {
+            "id": "fixture-slug-two",
+            "slug": "fixture-slug-collision",
+            "route": "/[locale]/tools/fixture-slug-collision"
+          }
+        }
+      ],
+      "expectedCodes": [
+        "duplicate-slug",
+        "duplicate-route"
+      ]
+    },
+    {
+      "id": "missing-locale",
+      "references": {
+        "supportedLocales": [
+          "en"
+        ]
+      },
+      "expectedCodes": [
+        "locale-missing"
+      ]
+    },
+    {
+      "id": "missing-route-page",
+      "references": {
+        "routePageExists": false
+      },
+      "expectedCodes": [
+        "route-page-missing"
+      ]
+    },
+    {
+      "id": "external-without-api",
+      "set": {
+        "retention": "external"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "api-without-consent",
+      "set": {
+        "privacy": "api",
+        "evidence.networkEgress": {
+          "endpoint": "https://api.example.invalid/fixture",
+          "data": "fixture input",
+          "purpose": "fixture validation"
+        },
+        "evidence.networkEgressBasis": "fixture-only endpoint declaration; no request is made"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "evidence-missing-inspected-paths",
+      "remove": [
+        "evidence.inspectedCodePaths"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "evidence-missing-network-egress",
+      "remove": [
+        "evidence.networkEgress"
+      ],
+      "expectedCodes": [
+        "schema-invalid_union"
+      ]
+    },
+    {
+      "id": "evidence-missing-storage-targets",
+      "remove": [
+        "evidence.storagePersistenceTargets"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "evidence-missing-consent-reference",
+      "remove": [
+        "evidence.consentGateReference"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "evidence-missing-audit-basis",
+      "remove": [
+        "evidence.auditBasis"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "evidence-missing-source-revision",
+      "remove": [
+        "evidence.sourceRevision"
+      ],
+      "expectedCodes": [
+        "schema-invalid_type"
+      ]
+    },
+    {
+      "id": "local-with-browser-storage",
+      "set": {
+        "retention": "browser-storage"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "local-with-external",
+      "set": {
+        "retention": "external"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "file-only-with-browser-storage",
+      "set": {
+        "privacy": "file-only",
+        "retention": "browser-storage"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "file-only-with-external",
+      "set": {
+        "privacy": "file-only",
+        "retention": "external"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "storage-with-none",
+      "set": {
+        "privacy": "storage",
+        "retention": "none"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    },
+    {
+      "id": "storage-with-session",
+      "set": {
+        "privacy": "storage",
+        "retention": "session"
+      },
+      "expectedCodes": [
+        "schema-custom"
+      ]
+    }
+  ],
+  "coverage": {
+    "privacy": [
+      "local",
+      "file-only",
+      "storage",
+      "api"
+    ],
+    "offline": [
+      "full",
+      "partial",
+      "unavailable"
+    ],
+    "retention": [
+      "none",
+      "session",
+      "browser-storage",
+      "external"
+    ],
+    "riskLevel": [
+      "low",
+      "medium",
+      "high"
+    ]
+  }
+}

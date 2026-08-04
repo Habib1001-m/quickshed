@@ -2,11 +2,7 @@ import type { Locale } from './store';
 import type { Privacy, Tool } from './tool-schema';
 import en from '../../messages/en.json';
 import ar from '../../messages/ar.json';
-import toolsIndex from '../../content/tools-index.json';
-import {
-  parseToolDefinitions,
-  QUICKSHED_TOOL_VALIDATION_REFERENCES,
-} from './tool-validation';
+import { TOOL_DESCRIPTORS } from './tool-descriptors';
 import type { ToolCategorySlug } from './tool-taxonomy';
 
 // Re-export the shared four-level privacy union so UI consumers import the
@@ -77,17 +73,8 @@ export function getCategoryName(slug: string, locale: Locale): string {
 
 // ─── Tool Query Functions ────────────────────────────────────────────
 
-/**
- * Get all tools from the static index.
- *
- * QS-SPEC-001 T008: parse the imported metadata once at module load so the
- * client never consumes an unchecked descriptor cast. The same pure validator
- * is used by the build-time source-file pass.
- */
-const validatedToolsIndex = parseToolDefinitions(toolsIndex, QUICKSHED_TOOL_VALIDATION_REFERENCES);
-
 export function getAllTools(): ToolDescriptor[] {
-  return validatedToolsIndex;
+  return TOOL_DESCRIPTORS;
 }
 
 /**
