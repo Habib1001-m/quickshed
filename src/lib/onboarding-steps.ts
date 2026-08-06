@@ -28,8 +28,8 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
       ar: 'مرحباً بك في كويك شيد!',
     },
     description: {
-      en: 'Your privacy-first toolbox with 90+ free tools that run entirely in your browser.',
-      ar: 'مجموعة أدواتك الخاصة بالخصوصية مع أكثر من 90 أداة مجانية تعمل بالكامل في متصفحك.',
+      en: 'Your privacy-first toolbox with 90 free tools that run entirely in your browser.',
+      ar: 'مجموعة أدواتك الخاصة بالخصوصية مع ٩٠ أداة مجانية تعمل بالكامل في متصفحك.',
     },
     position: 'center',
   },

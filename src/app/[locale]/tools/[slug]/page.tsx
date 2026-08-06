@@ -19,8 +19,8 @@ function seoPrivacyText(privacy: Privacy, isArabic: boolean): string {
   switch (privacy) {
     case 'local':
       return isArabic
-        ? 'محلي — بياناتك تبقى على جهازك'
-        : 'Local — your data stays on your device';
+        ? 'محلي — تتم معالجة مدخلات الأدوات في متصفحك ولا ينقلها التطبيق'
+        : 'Local — tool inputs are processed in your browser and are not sent by the application';
     case 'file-only':
       return isArabic
         ? 'ملف فقط — تتم المعالجة داخل الملف الذي تحمّله'
@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
   const loc = (locale === 'ar' || locale === 'en' ? locale : 'en') as AppLocale;
   const title = `${localize(tool.name, loc)} - QuickShed`;
   const description = localize(tool.description, loc);
+  const socialImage = { url: '/og-image.png', width: 1200, height: 630 };
 
   return {
     title,
@@ -54,11 +55,13 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
       siteName: 'QuickShed',
       type: 'website',
       url: `${SITE_URL}/${locale}/tools/${tool.slug}`,
+      images: [socialImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: ['/og-image.png'],
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}/tools/${tool.slug}`,

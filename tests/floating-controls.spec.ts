@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { continuePastToolDisclosure } from './helpers/tool-disclosure';
 
 const VIEWPORT = { width: 375, height: 812 };
 
@@ -44,6 +45,52 @@ async function readRect(page: Page, testId: string): Promise<Rect> {
   });
 }
 
+async function expectSettledGeometry(page: Page, testIds: string[]) {
+  await expect.poll(async () => page.evaluate((ids) => {
+    const readRects = () => {
+      const elements = ids.flatMap((id) => Array.from(
+        document.querySelectorAll<HTMLElement>(`[data-testid="${id}"]`),
+      ));
+      if (elements.length === 0) return null;
+
+      return elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          x: rect.x,
+          y: rect.y,
+          right: rect.right,
+          bottom: rect.bottom,
+          width: rect.width,
+          height: rect.height,
+        };
+      });
+    };
+
+    const first = readRects();
+    if (!first) return false;
+
+    return new Promise<boolean>((resolve) => {
+      requestAnimationFrame(() => {
+        const second = readRects();
+        if (!second || first.length !== second.length) {
+          resolve(false);
+          return;
+        }
+
+        resolve(second.every((rect, index) => {
+          const previous = first[index];
+          return Math.abs(rect.x - previous.x) < 0.1
+            && Math.abs(rect.y - previous.y) < 0.1
+            && Math.abs(rect.right - previous.right) < 0.1
+            && Math.abs(rect.bottom - previous.bottom) < 0.1
+            && Math.abs(rect.width - previous.width) < 0.1
+            && Math.abs(rect.height - previous.height) < 0.1;
+        }));
+      });
+    });
+  }, testIds)).toBe(true);
+}
+
 async function expectDockGeometry(page: Page) {
   await expect.poll(async () => page.evaluate(() => {
     const dock = document.querySelector<HTMLElement>('[data-testid="floating-control-dock"]');
@@ -85,6 +132,7 @@ test.describe('QuickShed F4 floating controls', () => {
   test('keeps the 375px end-side controls separated above Quick Access', async ({ page }) => {
     await page.goto('/en/tools/json-formatter');
     await expect(page.getByRole('heading', { name: /JSON Formatter/i }).first()).toBeVisible();
+    await continuePastToolDisclosure(page);
     await scrollPastFloatingThreshold(page);
     await expect(page.getByTestId('quick-access-bar')).toBeVisible();
 
@@ -100,6 +148,7 @@ test.describe('QuickShed F4 floating controls', () => {
   test('keeps minimized Quick Access separate from the end-side dock', async ({ page }) => {
     await page.goto('/en/tools/json-formatter');
     await expect(page.getByRole('heading', { name: /JSON Formatter/i }).first()).toBeVisible();
+    await continuePastToolDisclosure(page);
     await scrollPastFloatingThreshold(page);
     await expect(page.getByTestId('quick-access-bar')).toBeVisible();
 
@@ -119,13 +168,30 @@ test.describe('QuickShed F4 floating controls', () => {
   test('keeps expanded quick actions inside the viewport and away from dock controls', async ({ page }) => {
     await page.goto('/en/tools/json-formatter');
     await expect(page.getByRole('heading', { name: /JSON Formatter/i }).first()).toBeVisible();
+    await continuePastToolDisclosure(page);
     await scrollPastFloatingThreshold(page);
 
     const quickActions = page.getByTestId('floating-quick-actions');
-    await quickActions.click();
+    await expect(quickActions).toBeVisible();
+    await expect(quickActions).toHaveAttribute('aria-expanded', 'false');
+    await expectSettledGeometry(page, [
+      'shortcut-help-fab',
+      'back-to-top',
+      'floating-quick-actions',
+    ]);
+    await quickActions.focus();
+    await expect(quickActions).toBeFocused();
+    await quickActions.press('Enter');
+    await expect(quickActions).toBeFocused();
     await expect(quickActions).toHaveAttribute('aria-expanded', 'true');
     await expect(page.getByTestId('floating-action-item')).toHaveCount(3);
     await expect(page.getByTestId('floating-action-item').first()).toBeVisible();
+    await expectSettledGeometry(page, [
+      'shortcut-help-fab',
+      'back-to-top',
+      'floating-quick-actions',
+      'floating-action-item',
+    ]);
 
     await expect.poll(async () => page.evaluate(() => {
       const ids = [
@@ -154,6 +220,7 @@ test.describe('QuickShed F4 floating controls', () => {
     await page.goto('/ar/tools/json-formatter');
     await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
     await expect(page.getByRole('heading', { name: /منسق JSON|JSON Formatter/i }).first()).toBeVisible();
+    await continuePastToolDisclosure(page);
     await scrollPastFloatingThreshold(page);
     await expectDockGeometry(page);
 

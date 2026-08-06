@@ -20,7 +20,7 @@ type Variant = {
 };
 
 const VARIANTS: Record<Privacy, Variant> = {
-  // Emerald — data never leaves the device.
+  // Emerald — local tool inputs and files stay in the browser.
   local: {
     labelKey: 'tool.privacyLocalShort',
     tooltipKey: 'tool.privacyLocal',

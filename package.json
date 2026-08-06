@@ -20,7 +20,8 @@
     "test:tool-fixtures": "node scripts/validate-tool-fixtures.mjs",
     "check:tool-count": "node scripts/check-tool-count.mjs",
     "test:tool-count": "node scripts/test-tool-count.mjs",
-    "release:check": "npm run guard:public-assets && npm run validate:tools && npm run lint && npm run typecheck && npm run build && npm run check:tool-client-boundary && npm run audit:release && npm run test:e2e"
+    "check:build-provenance": "node scripts/check-build-provenance.mjs",
+    "release:check": "npm run guard:public-assets && npm run validate:tools && npm run test:tool-parity && npm run test:tool-fixtures && npm run check:tool-count && npm run test:tool-count && npm run lint && npm run typecheck && npm run build && npm run check:build-provenance && npm run check:tool-client-boundary && npm run audit:release && CI=1 npm run test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.14",

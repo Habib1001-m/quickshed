@@ -24,6 +24,10 @@ export async function generateMetadata({ params }: FavoritesPageProps): Promise<
       type: 'website',
       url: `${SITE_URL}/${locale}/favorites`,
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
     alternates: {
       canonical: `${SITE_URL}/${locale}/favorites`,
       languages: {

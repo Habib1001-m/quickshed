@@ -1,6 +1,16 @@
 import type { MetadataRoute } from 'next';
 import { getAllTools, getCategories } from '@/lib/tool-utils';
+import { getAllPosts } from '@/lib/blog';
 import { SITE_URL, LOCALES } from '@/lib/site-config';
+
+function localizedAlternates(path: string) {
+  return {
+    languages: {
+      en: `${SITE_URL}/en${path}`,
+      ar: `${SITE_URL}/ar${path}`,
+    },
+  };
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const tools = getAllTools();
@@ -8,49 +18,78 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const homePages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}`,
-    lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: locale === 'en' ? 1.0 : 0.9,
-    alternates: { languages: { en: `${SITE_URL}/en`, ar: `${SITE_URL}/ar` } },
+    alternates: localizedAlternates(''),
   }));
 
   const allToolsPages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}/all-tools`,
-    lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: 0.9,
-    alternates: { languages: { en: `${SITE_URL}/en/all-tools`, ar: `${SITE_URL}/ar/all-tools` } },
+    alternates: localizedAlternates('/all-tools'),
   }));
 
   const staticPages: MetadataRoute.Sitemap = ['privacy', 'terms'].flatMap((page) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/${page}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.5,
-      alternates: { languages: { en: `${SITE_URL}/en/${page}`, ar: `${SITE_URL}/ar/${page}` } },
+      alternates: localizedAlternates(`/${page}`),
     }))
   );
+
+  const categoryIndexPages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
+    url: `${SITE_URL}/${locale}/category`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+    alternates: localizedAlternates('/category'),
+  }));
 
   const categoryPages: MetadataRoute.Sitemap = categories.flatMap((cat) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/category/${cat.slug}`,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
-      alternates: { languages: { en: `${SITE_URL}/en/category/${cat.slug}`, ar: `${SITE_URL}/ar/category/${cat.slug}` } },
+      alternates: localizedAlternates(`/category/${cat.slug}`),
     }))
   );
 
   const toolPages: MetadataRoute.Sitemap = tools.flatMap((tool) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/tools/${tool.slug}`,
-      lastModified: new Date(),
+      ...(tool.updatedAt ? { lastModified: tool.updatedAt } : {}),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
-      alternates: { languages: { en: `${SITE_URL}/en/tools/${tool.slug}`, ar: `${SITE_URL}/ar/tools/${tool.slug}` } },
+      alternates: localizedAlternates(`/tools/${tool.slug}`),
     }))
   );
 
-  return [...homePages, ...allToolsPages, ...staticPages, ...categoryPages, ...toolPages];
+  const blogIndexPages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
+    url: `${SITE_URL}/${locale}/blog`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+    alternates: localizedAlternates('/blog'),
+  }));
+
+  const blogPostPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    getAllPosts(locale).map((post) => ({
+      url: `${SITE_URL}/${locale}/blog/${post.slug}`,
+      ...(post.date ? { lastModified: post.date } : {}),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      alternates: localizedAlternates(`/blog/${post.slug}`),
+    }))
+  );
+
+  return [
+    ...homePages,
+    ...allToolsPages,
+    ...staticPages,
+    ...categoryIndexPages,
+    ...categoryPages,
+    ...toolPages,
+    ...blogIndexPages,
+    ...blogPostPages,
+  ];
 }

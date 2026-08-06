@@ -57,8 +57,8 @@ export async function generateMetadata({
     ? 'صندوق أدواتك الفوري الذي يحترم الخصوصية'
     : 'Your Instant Privacy-First Toolbox';
   const description = isArabic
-    ? 'صندوق أدوات ويب مجاني يحترم الخصوصية مع أكثر من 90 أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
-    : 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.';
+    ? 'صندوق أدوات ويب مجاني يحترم الخصوصية مع ٩٠ أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. تبقى مدخلات الأدوات وملفاتك في متصفحك ولا ينقلها التطبيق خارج جهازك.'
+    : 'Free, privacy-respecting web toolbox with 90 tools that run entirely in your browser. No accounts. No ads. Tool inputs and files stay in your browser; the application does not transmit them off-device.';
   const localeUrl = `${SITE_URL}/${locale}`;
 
   return {

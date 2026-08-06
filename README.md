@@ -4,7 +4,7 @@
 
 ### Your Instant Privacy-First Toolbox
 
-**90+ free tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.**
+**90 free tools that run entirely in your browser. No accounts. No ads. Tool inputs stay on your device.**
 
 Current release target: **v0.6.0**.
 
@@ -27,9 +27,9 @@ Current release target: **v0.6.0**.
 | 🌍 Languages | Arabic + English | English only |
 | 📱 PWA | Installable web app | Browser only |
 | 🎨 Themes | Dark/Light + accent colors | Limited |
-| 📦 Tools | 90+ in one place | Scattered across sites |
+| 📦 Tools | 90 in one place | Scattered across sites |
 | 🚫 Ads | Zero | Banner / Popup ads |
-| 🔄 Offline | Service Worker cache | No offline support |
+| 🔄 Offline | Static-asset Service Worker cache | No offline support |
 
 ---
 
@@ -37,30 +37,30 @@ Current release target: **v0.6.0**.
 
 | # | Category | Tools | Examples |
 |---|----------|-------|---------|
-| 1 | 🧮 **Calculators** | 13 | BMI, Compound Interest, Loan, Age, GPA |
-| 2 | ⏰ **Time Tools** | 9 | Date Adder, Alarm Creator, Countdown, Stopwatch |
-| 3 | 📝 **Text Tools** | 10 | Case Converter, Slug Generator, Line Sorter, Word Counter |
-| 4 | 🔄 **Converters** | 7 | Color Converter, Unit Converter, Number Base, Temperature |
-| 5 | 🎓 **Student Tools** | 10 | GPA Calculator, Citation Generator, Plagiarism Checker |
-| 6 | 📄 **PDF Tools** | 5 | PDF Merger, Page Remover, Rotate, Watermark |
-| 7 | 🔧 **Utility Tools** | 15 | Password Generator, QR Code, UUID Generator, JSON Formatter |
-| 8 | 🔍 **SEO Tools** | 5 | Meta Tag Generator, Robots.txt Creator, Sitemap Generator |
-| 9 | 💻 **Developer Tools** | 8 | JSON Formatter, Base64 Encoder, Regex Tester, Hash Generator |
-| 10 | 🖼️ **Image Tools** | 4 | Image Format Converter, Resizer, Compressor |
-| 11 | 🔐 **Security Tools** | 4 | Password Generator, Password Strength, Encryption/Decryption |
+| 1 | 🧮 **Calculators** | 13 | Compound Interest, Basic, Loan, Fuel Cost, GPA |
+| 2 | ⏰ **Time Tools** | 9 | Date Adder, Alarm Creator, Unix Timestamp, Stopwatch, Work Hours |
+| 3 | 📝 **Text Tools** | 10 | Cursive Text, Slug, Markdown to HTML, Case Converter, Remove Duplicates |
+| 4 | 🔄 **Converters** | 7 | Speed, Length, Number Base, Temperature, Color |
+| 5 | 🎓 **Student Tools** | 10 | Plagiarism, Flashcard Maker, Essay Word Counter, Note Organizer, Reading Time |
+| 6 | 📄 **PDF Tools** | 5 | Page Remover, Merger, PDF to Text, Watermark, Rotate |
+| 7 | 🔧 **Utility Tools** | 15 | Password, Line Sorter, Whitespace Remover, Random Number, Morse Code |
+| 8 | 🔍 **SEO Tools** | 5 | Robots.txt, Meta Tag, SERP, Open Graph Debugger, Keyword Density |
+| 9 | 💻 **Developer Tools** | 8 | Hash, SQL Formatter, JWT Decoder, Base64, HTML Beautifier |
+| 10 | 🖼️ **Image Tools** | 4 | Image Format, Resizer, Cropper, Color Palette Extractor |
+| 11 | 🔐 **Security Tools** | 4 | SSL Certificate Parser, Random Password, URL Encoder, Password Strength |
 
 ---
 
 ## ✨ Key Features
 
 ### 🔒 Privacy First
-Every tool runs 100% in your browser using Web APIs. No data is ever sent to a server. Your files, texts, and calculations never leave your device.
+Tool inputs and files are processed in your browser and are not sent by the application. The hosting provider still receives the page request needed to serve the site; host-level access-log handling is outside this repository.
 
 ### 🌐 Bilingual (Arabic + English)
-Full RTL support with complete Arabic translations. Switch languages instantly with a single click. All 90+ tools are fully translated.
+Full RTL support with complete Arabic translations. Switch languages instantly with a single click. All 90 tools are fully translated.
 
 ### 📱 PWA Support
-Install QuickShed on your device like a native app. Works offline with Service Worker caching. Get the app-like experience without the app store.
+Install QuickShed on your device like a native app. The Service Worker caches selected static assets after they load; a cold offline visit is not guaranteed.
 
 ### 🎨 Beautiful UX
 - **Dark/Light Mode** with system preference detection
@@ -102,9 +102,23 @@ Install QuickShed on your device like a native app. Works offline with Service W
 
 **Key Architectural Decisions:**
 - **SSG (Static Site Generation)** — All pages pre-rendered at build time for maximum performance
-- **No Server Required** — Zero API routes, zero database, zero server costs
-- **Client-Side Only Tools** — All 90+ tools use Web APIs (Canvas, Crypto, File, etc.)
+- **No App Backend** — Zero API routes and zero database
+- **Client-Side Only Tools** — All 90 tools use Web APIs (Canvas, Crypto, File, etc.)
 - **On-Demand Tool Loading** — Tools loaded lazily via dynamic imports for fast initial page load
+- **Localized 404 fallback** — `src/app/[locale]/[...path]/page.tsx` is an intentional error-only dynamic route for unknown locale-prefixed paths; known pages remain statically generated.
+
+## 🛡️ Tool Metadata and Privacy Contract
+
+QuickShed currently has **90 tool definitions** across 11 categories and 90
+matching runtime index entries. The index is not an additional tool. Each tool
+declares its bilingual identity, route, component, inputs and outputs, privacy
+class, offline availability, retention, risk level, and data-flow evidence.
+
+The contributor-facing contract, enum meanings, validation workflow, disclosure
+UX, and count-reconciliation policy are documented in
+[Tool Metadata and Privacy Contract](docs/tool-metadata-contract.md).
+Run `npm run check:tool-count` to reconcile the source count and reject stale
+product or communication claims that count the runtime index as a tool.
 
 ---
 
@@ -112,8 +126,7 @@ Install QuickShed on your device like a native app. Works offline with Service W
 
 ### Prerequisites
 - Node.js 22 for CI parity
-- npm 10 for installs and release checks
-- [Bun](https://bun.sh/) optional for local development
+- npm 10.9.8 for installs and release checks
 - Git
 
 ### Installation
@@ -177,11 +190,10 @@ quickshed/
 │   │   │   └── terms/           # Terms of service
 │   │   ├── icon.png             # Next.js favicon
 │   │   ├── robots.ts            # Dynamic robots.txt
-│   │   ├── sitemap.ts           # Dynamic sitemap.xml
-│   │   └── opengraph-image.tsx  # Dynamic OG image
+│   │   └── sitemap.ts           # Dynamic sitemap.xml generation
 │   ├── components/
 │   │   ├── ui/                  # shadcn/ui component library
-│   │   ├── tools/               # 90+ tool components
+│   │   ├── tools/               # 90 tool components
 │   │   │   ├── PasswordGenerator.tsx
 │   │   │   ├── JsonFormatter.tsx
 │   │   │   ├── ColorConverter.tsx
@@ -191,8 +203,8 @@ quickshed/
 │   │   │   ├── ToolView.tsx
 │   │   │   ├── CategoryView.tsx
 │   │   │   └── ...
-│   │   ├── Footer.tsx           # Site footer
-│   │   ├── Header.tsx           # Navigation header
+│   │   ├── layout/Footer.tsx    # Site footer
+│   │   ├── layout/Header.tsx    # Navigation header
 │   │   ├── CommandPalette.tsx   # Ctrl+K search
 │   │   ├── OnboardingTour.tsx   # Interactive tour
 │   │   ├── ThemeCustomizer.tsx  # Color themes
@@ -205,8 +217,8 @@ quickshed/
 │       ├── ssr-locale.tsx       # SSR locale context
 │       └── onboarding-steps.ts  # Onboarding configuration
 ├── messages/
-│   ├── en.json                  # English translations (400+ keys)
-│   └── ar.json                  # Arabic translations (400+ keys)
+│   ├── en.json                  # English translations (320 keys)
+│   └── ar.json                  # Arabic translations (320 keys)
 ├── content/
 │   └── tools-index.json         # Tool metadata index
 ├── next.config.ts               # Next.js configuration
@@ -217,60 +229,18 @@ quickshed/
 
 ---
 
-## 🧩 Adding a New Tool
+## 🧩 Working with Tool Metadata
 
-1. **Create the tool component** in `src/components/tools/`:
+Tool metadata changes are governed by the [Tool Metadata and Privacy
+Contract](docs/tool-metadata-contract.md). Update the source definition under
+`content/tools/`, keep `content/tools-index.json` in parity, and resolve the
+declared component through `src/components/tools/index.ts`. The full contract
+also requires bilingual identity and descriptions, declared inputs and outputs,
+privacy/offline/retention/risk values, and checkable data-flow evidence.
 
-```tsx
-'use client';
-import { useI18n } from '@/lib/i18n';
-
-export default function MyNewTool() {
-  const { t, locale } = useI18n();
-  
-  return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold">{t('myNewTool.title')}</h2>
-      {/* Tool UI here */}
-    </div>
-  );
-}
-```
-
-2. **Register the tool** in `content/tools-index.json`:
-
-```json
-{
-  "id": "my-new-tool",
-  "name": "My New Tool",
-  "nameAr": "أداتي الجديدة",
-  "category": "utility-tools",
-  "icon": "Wrench",
-  "description": "Does something useful",
-  "descriptionAr": "يقوم بشيء مفيد"
-}
-```
-
-3. **Add translations** in `messages/en.json` and `messages/ar.json`:
-
-```json
-{
-  "myNewTool": {
-    "title": "My New Tool",
-    "description": "Does something useful"
-  }
-}
-```
-
-4. **Add lazy loader** in `src/components/tools/index.ts`:
-
-```ts
-case 'my-new-tool':
-  mod = import('./MyNewTool');
-  break;
-```
-
-That's it! The tool will automatically appear in the correct category.
+Tool inventory changes are separately scoped and require owner approval. For an
+approved metadata or disclosure change, run the focused validation commands in
+the contract document before running `npm run release:check`.
 
 ---
 
@@ -278,15 +248,15 @@ That's it! The tool will automatically appear in the correct category.
 
 | Header | Value |
 |--------|-------|
-| `Content-Security-Policy` | Restrictive same-origin policy with inline styles/scripts only where currently required by Next.js |
+| `Content-Security-Policy` | Restrictive same-origin policy with explicit object, base, form, and frame restrictions |
 | `X-Content-Type-Options` | `nosniff` |
 | `X-Frame-Options` | `DENY` |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` |
 
-- **No cookies** — All preferences stored in `localStorage`
+- **No tracking cookies** — Preferences and tool data use `localStorage`; the Service Worker may use `Cache Storage` for selected static assets after they load
 - **No tracking** — Zero analytics, zero third-party scripts
-- **No server** — All processing happens in the browser
+- **No app backend** — Tool processing happens in the browser; the static host still serves page requests
 - **Browser security headers** — CSP, frame protection, content-type protection, referrer policy, and reduced permissions are configured in `next.config.ts`
 
 ---
@@ -298,7 +268,7 @@ That's it! The tool will automatically appear in the correct category.
 | `sitemap.xml` | Dynamic generation via `src/app/sitemap.ts` |
 | `robots.txt` | Dynamic generation via `src/app/robots.ts` |
 | Schema Markup | JSON-LD (WebSite + SearchAction) |
-| Open Graph | Dynamic OG image via `src/app/opengraph-image.tsx` |
+| Open Graph | Locale/page metadata with `public/og-image.png` |
 | Twitter Cards | Large image summary with meta tags |
 | Canonical URLs | Locale-aware canonical URLs |
 | SSR Content | Server-rendered content for crawlers |

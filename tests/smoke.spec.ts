@@ -30,7 +30,7 @@ test.describe('QuickShed smoke', () => {
 
     await expect(page).toHaveTitle(/QuickShed/);
     await expect(page.getByRole('heading', { name: /privacy-first toolbox/i })).toBeVisible();
-    await expect(page.getByRole('main').getByText(/90\+ free tools/i)).toBeVisible();
+    await expect(page.getByRole('main').getByText(/90 free tools/i)).toBeVisible();
     await expect(page.getByText(/Unhandled Runtime Error|Build Error|Next\.js/i)).toHaveCount(0);
     expect(consoleErrors).toEqual([]);
   });
@@ -149,7 +149,7 @@ test.describe('QuickShed smoke', () => {
 
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.getByRole('heading', { name: /privacy-first toolbox/i })).toBeVisible();
-    await expect(page.getByRole('main').getByText(/90\+ free tools/i)).toBeVisible();
+    await expect(page.getByRole('main').getByText(/90 free tools/i)).toBeVisible();
   });
 
   test('keeps navigation safe when service workers are unavailable', async ({ page, context }) => {

@@ -6,7 +6,8 @@ const TOOL_RATINGS_KEY = 'quickshed-tool-ratings';
 export type { ToolRatingData };
 
 /**
- * Save a rating for a tool (1-5 stars). Overwrites any previous rating by the same user.
+ * Save a local rating for a tool (1-5 stars). Overwrites any previous rating
+ * on this device.
  */
 export function saveRating(toolId: string, rating: number): void {
   if (typeof window === 'undefined') return;
@@ -15,6 +16,26 @@ export function saveRating(toolId: string, rating: number): void {
     const all = getAllRatingsRaw();
     all[toolId] = { rating, timestamp: Date.now() };
     localStorage.setItem(TOOL_RATINGS_KEY, JSON.stringify(all));
+  } catch {
+    // localStorage not available
+  }
+}
+
+/**
+ * Remove a tool's local rating from this device.
+ */
+export function removeRating(toolId: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const all = getAllRatingsRaw();
+    if (!Object.prototype.hasOwnProperty.call(all, toolId)) return;
+
+    delete all[toolId];
+    if (Object.keys(all).length === 0) {
+      localStorage.removeItem(TOOL_RATINGS_KEY);
+    } else {
+      localStorage.setItem(TOOL_RATINGS_KEY, JSON.stringify(all));
+    }
   } catch {
     // localStorage not available
   }
@@ -46,7 +67,7 @@ export function getAllRatings(): Record<string, ToolRatingData> {
 }
 
 /**
- * Get a map of toolId -> rating for sorting purposes.
+ * Get the local toolId -> rating map for this-device sorting purposes.
  */
 export function getRatingsMap(): Record<string, number> {
   const all = getAllRatings();
@@ -55,14 +76,6 @@ export function getRatingsMap(): Record<string, number> {
     map[toolId] = data.rating;
   }
   return map;
-}
-
-/**
- * Get the total number of ratings (count of rated tools).
- */
-export function getRatingCount(toolId: string): number {
-  const all = getAllRatings();
-  return all[toolId] ? 1 : 0;
 }
 
 // ─── Internal helpers ────────────────────────────────────────────────

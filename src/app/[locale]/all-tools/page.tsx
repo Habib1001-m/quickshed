@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: AllToolsPageProps): Promise<M
   const isArabic = locale === 'ar';
   const title = isArabic ? 'جميع الأدوات - QuickShed' : 'All Tools - QuickShed';
   const description = isArabic
-    ? 'تصفح أكثر من 90 أداة مجانية تحترم الخصوصية تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات.'
-    : 'Browse all 90+ free, privacy-first tools that run entirely in your browser. No accounts. No ads.';
+    ? 'تصفح ٩٠ أداة مجانية تحترم الخصوصية تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات.'
+    : 'Browse all 90 free, privacy-first tools that run entirely in your browser. No accounts. No ads.';
 
   return {
     title,
@@ -52,8 +52,8 @@ export default async function AllToolsPage({ params }: AllToolsPageProps) {
     '@type': 'CollectionPage',
     name: isArabic ? 'جميع الأدوات - QuickShed' : 'All Tools - QuickShed',
     description: isArabic
-      ? 'تصفح أكثر من 90 أداة مجانية تحترم الخصوصية تعمل بالكامل في متصفحك.'
-      : 'Browse all 90+ free, privacy-first tools that run entirely in your browser.',
+      ? 'تصفح ٩٠ أداة مجانية تحترم الخصوصية تعمل بالكامل في متصفحك.'
+      : 'Browse all 90 free, privacy-first tools that run entirely in your browser.',
     url: `${SITE_URL}/${loc}/all-tools`,
   };
 

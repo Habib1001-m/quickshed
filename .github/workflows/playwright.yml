@@ -16,20 +16,10 @@ jobs:
         cache: npm
     - name: Install dependencies
       run: npm ci
-    - name: Check public assets
-      run: npm run guard:public-assets
-    - name: Lint
-      run: npm run lint
-    - name: Typecheck
-      run: npm run typecheck
-    - name: Build
-      run: npm run build
-    - name: Dependency audit
-      run: npm run audit:release
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium
-    - name: Run Playwright tests
-      run: npm run test:e2e
+    - name: Run release gate
+      run: npm run release:check
     - uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
       with:

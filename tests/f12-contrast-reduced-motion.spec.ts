@@ -9,13 +9,13 @@ const COPY = {
   en: {
     tryNow: 'Try Now',
     searchCta: 'Search for a tool',
-    footerPrivacy: 'Your data never leaves your device. All tools run locally in your browser.',
+    footerPrivacy: 'Tool inputs and files stay in your browser. The application does not transmit them off-device.',
     backToTop: 'Back to top',
   },
   ar: {
     tryNow: 'جرب الآن',
     searchCta: 'ابحث عن أداة',
-    footerPrivacy: 'بياناتك لا تغادر جهازك أبداً. جميع الأدوات تعمل محلياً في متصفحك.',
+    footerPrivacy: 'تبقى مدخلات الأدوات وملفاتك في متصفحك ولا ينقلها التطبيق خارج جهازك.',
     backToTop: 'العودة للأعلى',
   },
 } as const;

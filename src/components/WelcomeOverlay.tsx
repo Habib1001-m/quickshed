@@ -20,8 +20,8 @@ const STEPS = [
     icon: Shield,
     titleEn: 'Privacy First, Always',
     titleAr: 'الخصوصية أولاً، دائماً',
-    descEn: 'Your data never leaves your browser. All tools run locally — no servers, no tracking, no accounts needed.',
-    descAr: 'بياناتك لا تغادر متصفحك. جميع الأدوات تعمل محلياً — لا خوادم، لا تتبع، لا حسابات.',
+    descEn: 'Tool inputs and files stay in your browser; the application does not transmit them off-device. No tracking or account is required.',
+    descAr: 'تبقى مدخلات الأدوات وملفاتك في متصفحك ولا ينقلها التطبيق خارج جهازك. لا تتبع ولا حاجة إلى حساب.',
     color: 'emerald',
   },
   {
@@ -34,8 +34,8 @@ const STEPS = [
   },
   {
     icon: Search,
-    titleEn: '90+ Tools at Your Fingertips',
-    titleAr: '+90 أداة في متناول يدك',
+    titleEn: '90 Tools at Your Fingertips',
+    titleAr: '٩٠ أداة في متناول يدك',
     descEn: 'Search instantly with ⌘K, save favorites, and explore tools across 11 categories.',
     descAr: 'ابحث فوراً بـ ⌘K، احفظ المفضلات، واستكشف الأدوات عبر 11 فئة.',
     color: 'violet',

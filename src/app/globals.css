@@ -2371,6 +2371,24 @@
   100% { transform: scale(1); }
 }
 
+/* Keep the localized 404 boundary server-rendered without making the known
+   locale pages request-dynamic. The locale layout supplies the direction. */
+.localized-not-found-ar,
+.localized-not-found-link-ar {
+  display: none;
+}
+html[dir='rtl'] .localized-not-found-en,
+html[dir='rtl'] .localized-not-found-link-en {
+  display: none;
+}
+html[dir='rtl'] .localized-not-found-ar,
+html[dir='rtl'] .localized-not-found-link-ar {
+  display: inline-flex;
+}
+html[dir='rtl'] .localized-not-found-ar {
+  display: block;
+}
+
 /* F12: complete the reduced-motion contract for shared CSS interactions. */
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -54,7 +54,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
         </h1>
       </div>
       <p className="text-muted-foreground text-sm mb-8">
-        {isArabic ? 'آخر تحديث: ١٩ مايو ٢٠٢٦' : 'Last updated: May 19, 2026'}
+        {isArabic ? 'آخر تحديث: ٥ أغسطس ٢٠٢٦' : 'Last updated: August 5, 2026'}
       </p>
 
       {/* Content */}
@@ -66,15 +66,15 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-muted-foreground">
               {isArabic ? (
                 <>
-                  QuickShed مبني على مبدأ بسيط:{' '}
-                  <strong className="text-foreground">بياناتك لا تغادر جهازك أبدًا.</strong>{' '}
-                  جميع الأدوات تعمل بالكامل في متصفحك باستخدام واجهات برمجة الويب القياسية. لا نقوم بجمع أو تخزين أو نقل أي بيانات شخصية أو ملفات أو مدخلات تقدمها لأدواتنا.
+                  QuickShed مبني على مبدأ محلي واضح:{' '}
+                  <strong className="text-foreground">مدخلات الأدوات وملفاتك لا يرسلها التطبيق خارج جهازك.</strong>{' '}
+                  تعمل الأدوات بالكامل في متصفحك باستخدام واجهات برمجة الويب القياسية، ولا نرسل تحليلات استخدام المنتج. يحتاج مزود الاستضافة إلى استقبال طلب الصفحة حتى يقدم الموقع؛ ولا يحدد هذا المستودع سجلات الاستضافة أو مدة الاحتفاظ بها.
                 </>
               ) : (
                 <>
-                  QuickShed is built on a simple principle:{' '}
-                  <strong className="text-foreground">your data never leaves your device.</strong>{' '}
-                  All tools run entirely in your browser using standard Web APIs. We do not collect, store, or transmit any personal data, files, or inputs you provide to our tools.
+                  QuickShed follows a local-first promise:{' '}
+                  <strong className="text-foreground">the application does not transmit your tool inputs or files off your device.</strong>{' '}
+                  Tools run entirely in your browser using standard Web APIs, and we do not send product-usage analytics. The hosting provider still receives the page request needed to serve the site; this repository does not define host access logs or their retention.
                 </>
               )}
             </p>
@@ -88,10 +88,10 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {[
                 {
                   num: '1',
-                  title: isArabic ? 'لا شيء عن استخدامك للأدوات.' : 'Nothing about your tool usage.',
+                  title: isArabic ? 'مدخلات الأدوات.' : 'Tool inputs.',
                   desc: isArabic
-                    ? 'الملفات التي تعالجها (الصور، ملفات PDF، النصوص) تتم معالجتها بالكامل من جانب العميل ولا يتم رفعها أبدًا.'
-                    : 'Files you process (images, PDFs, text) are handled entirely client-side and never uploaded.',
+                    ? 'الصور وملفات PDF والنصوص التي تعالجها تبقى داخل متصفحك ولا يرفعها التطبيق.'
+                    : 'Images, PDFs, and text you process stay in your browser and are not uploaded by the application.',
                 },
                 {
                   num: '2',
@@ -104,8 +104,8 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
                   num: '3',
                   title: isArabic ? 'بيانات التخزين المحلي.' : 'LocalStorage data.',
                   desc: isArabic
-                    ? 'نستخدم localStorage لتفضيلاتك (السمة، اللغة، المفضلة) ولحفظ بيانات الأدوات على جهازك لبعض الأدوات، مثل روابط مُقصِّر الروابط الخاصة بك. تبقى هذه البيانات في متصفحك؛ ولا يتم نقل أي بيانات أدوات عبر الشبكة. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.'
-                    : 'We use localStorage for your preferences (theme, language, favorites) and to save on-device tool data for some tools, such as your URL-shortener links. This data stays in your browser; no tool data is transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.',
+                    ? 'نستخدم localStorage لتفضيلاتك والتقييمات المحلية وسجل الأدوات والمفضلة، ولبيانات بعض الأدوات مثل العادات والملاحظات وروابط مُقصِّر الروابط. تبقى هذه البيانات في متصفحك ولا ينقلها التطبيق عبر الشبكة. يمكنك إزالة بيانات QuickShed المخزّنة عبر الإعدادات ← مسح جميع البيانات.'
+                    : 'We use localStorage for preferences, local ratings, tool history, favorites, and on-device data from some tools such as habits, notes, and URL-shortener links. This data stays in your browser and is not transmitted by the application. Remove QuickShed’s stored data via Settings &rarr; Clear All Data.',
                 },
               ].map((item) => (
                 <li key={item.num} className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 dark:bg-muted/20">
@@ -123,20 +123,31 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
 
           <div>
             <h2 className="text-xl font-semibold mb-3 text-foreground">
+              {isArabic ? 'طلبات الاستضافة' : 'Hosting Requests'}
+            </h2>
+            <p className="text-muted-foreground">
+              {isArabic
+                ? 'عند فتح أي صفحة، يعالج مزود الاستضافة طلبًا قياسيًا لتقديمها. لا يرسل التطبيق مدخلات الأدوات أو تحليلات الاستخدام ضمن هذا الطلب؛ أما سجلات الوصول ومدة الاحتفاظ بها فتخضع لمزود الاستضافة وليست مضبوطة في هذا المستودع.'
+                : 'When you open a page, the hosting provider processes a standard request to deliver it. The application does not include tool inputs or product analytics in that request; access logs and retention are controlled by the hosting provider and are not configured in this repository.'}
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-semibold mb-3 text-foreground">
               {isArabic ? 'ملفات تعريف الارتباط' : 'Cookies'}
             </h2>
             <p className="text-muted-foreground">
               {isArabic ? (
                 <>
-                  لا يستخدم QuickShed أي <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. التخزين الوحيد المستخدم في المتصفح هو{' '}
+                  لا يستخدم QuickShed أي <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. تُحفظ تفضيلات المستخدم وبيانات الأدوات في{' '}
                   <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>،
-                  الذي يحتفظ بتفضيلاتك (السمة، اللغة، المفضلة) و، لبعض الأدوات، ببيانات الأدوات على جهازك مثل روابط مُقصِّر الروابط المحفوظة. تبقى هذه البيانات في متصفحك ولا يتم نقلها عبر الشبكة أبدًا. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.
+                  وقد يستخدم Service Worker تخزين <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">Cache Storage</code> لبعض الأصول الثابتة المحددة بعد تحميلها؛ ولا ينقل أي من مساري التخزين مدخلات الأدوات عبر التطبيق. يمكنك إزالة بيانات QuickShed المخزّنة عبر الإعدادات ← مسح جميع البيانات.
                 </>
               ) : (
                 <>
-                  QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. The only browser storage used is{' '}
+                  QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. User preferences and tool data are stored in{' '}
                   <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>,
-                  which holds your preferences (theme, language, favorites) and, for some tools, on-device tool data such as saved URL-shortener links. This data stays in your browser and is never transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.
+                  and the Service Worker may use <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">Cache Storage</code> for selected static assets after they load; neither storage path transmits tool inputs through the application. Remove QuickShed’s stored data via Settings &rarr; Clear All Data.
                 </>
               )}
             </p>
@@ -148,8 +159,8 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             </h2>
             <p className="text-muted-foreground">
               {isArabic
-                ? 'عدد صغير من الأدوات قد يكون موسومًا بشارة برتقالية تشير إلى أنها تستخدم واجهة برمجة تطبيقات خارجية آمنة. يتم الإفصاح عن ذلك دائمًا بشكل بارز قبل نقل أي بيانات. لا يتم تضمين مفاتيح API في الكود من جانب العميل.'
-                : 'A small number of tools may be marked with an orange badge indicating they use a secure external API. This is always disclosed prominently before any data is transmitted. No API keys are embedded in client-side code.'}
+                ? 'لا تعلن أي أداة إنتاجية حالياً عن نقل بيانات إلى API خارجي. إذا تغير ذلك، فستظهر وجهة البيانات والغرض منها بوضوح قبل أي نقل، ولن تُضمّن مفاتيح API في كود المتصفح.'
+                : 'No production tool currently declares external API egress. If that changes, the destination and purpose will be disclosed before any transfer, and API keys will not be embedded in browser code.'}
             </p>
           </div>
 
