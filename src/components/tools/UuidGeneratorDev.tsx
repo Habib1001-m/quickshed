@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Copy, Check, Fingerprint, RefreshCw, ShieldCheck, XCircle } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -181,16 +182,24 @@ export default function UuidGeneratorDev({ locale }: { locale: 'ar' | 'en' }) {
     setGenerating(false);
   }, [version, bulkCount, formatOptions, namespaceType, v5Name]);
 
-  const handleCopyOne = useCallback((idx: number) => {
-    navigator.clipboard.writeText(uuids[idx]);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const handleCopyOne = useCallback(async (idx: number) => {
+    setCopiedIdx(null);
+    if (await copyTextToClipboard(uuids[idx])) {
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } else {
+      setCopiedIdx(null);
+    }
   }, [uuids]);
 
-  const handleCopyAll = useCallback(() => {
-    navigator.clipboard.writeText(uuids.join('\n'));
-    setCopiedAll(true);
-    setTimeout(() => setCopiedAll(false), 2000);
+  const handleCopyAll = useCallback(async () => {
+    setCopiedAll(false);
+    if (await copyTextToClipboard(uuids.join('\n'))) {
+      setCopiedAll(true);
+      setTimeout(() => setCopiedAll(false), 2000);
+    } else {
+      setCopiedAll(false);
+    }
   }, [uuids]);
 
   const validationResult = useMemo(() => {

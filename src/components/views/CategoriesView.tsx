@@ -76,7 +76,7 @@ export function CategoriesView() {
                         <DynamicIcon name={category.icon} className="size-6" />
                       </div>
                       <div>
-                        <h3 className="text-sm font-semibold text-card-foreground">{categoryName}</h3>
+                        <h2 className="text-sm font-semibold text-card-foreground">{categoryName}</h2>
                         <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold mt-0.5 ${colors.badge}`}>{toolCountLabel}</span>
                       </div>
                     </div>

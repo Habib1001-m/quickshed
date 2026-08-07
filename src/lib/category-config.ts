@@ -29,7 +29,7 @@ export interface CategoryColorConfig {
 export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   calculators: {
     icon: 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400',
-    badge: 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300',
+    badge: 'bg-violet-100 text-violet-800 dark:bg-violet-900/50 dark:text-violet-200',
     pill: 'bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
     pillHover: 'group-hover:bg-violet-200/60 group-hover:text-violet-800 dark:group-hover:bg-violet-900/30 dark:group-hover:text-violet-300',
     borderHover: 'hover:border-violet-400 dark:hover:border-violet-600',
@@ -41,7 +41,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'time-tools': {
     icon: 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400',
-    badge: 'bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300',
+    badge: 'bg-sky-100 text-sky-800 dark:bg-sky-900/50 dark:text-sky-200',
     pill: 'bg-sky-50 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400',
     pillHover: 'group-hover:bg-sky-200/60 group-hover:text-sky-800 dark:group-hover:bg-sky-900/30 dark:group-hover:text-sky-300',
     borderHover: 'hover:border-sky-400 dark:hover:border-sky-600',
@@ -53,7 +53,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'text-tools': {
     icon: 'bg-rose-100 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400',
-    badge: 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300',
+    badge: 'bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-200',
     pill: 'bg-rose-50 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400',
     pillHover: 'group-hover:bg-rose-200/60 group-hover:text-rose-800 dark:group-hover:bg-rose-900/30 dark:group-hover:text-rose-300',
     borderHover: 'hover:border-rose-400 dark:hover:border-rose-600',
@@ -65,7 +65,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   converters: {
     icon: 'bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400',
-    badge: 'bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300',
+    badge: 'bg-teal-100 text-teal-800 dark:bg-teal-900/50 dark:text-teal-200',
     pill: 'bg-teal-50 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400',
     pillHover: 'group-hover:bg-teal-200/60 group-hover:text-teal-800 dark:group-hover:bg-teal-900/30 dark:group-hover:text-teal-300',
     borderHover: 'hover:border-teal-400 dark:hover:border-teal-600',
@@ -77,7 +77,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'student-tools': {
     icon: 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400',
-    badge: 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
+    badge: 'bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200',
     pill: 'bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400',
     pillHover: 'group-hover:bg-amber-200/60 group-hover:text-amber-800 dark:group-hover:bg-amber-900/30 dark:group-hover:text-amber-300',
     borderHover: 'hover:border-amber-400 dark:hover:border-amber-600',
@@ -89,7 +89,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'pdf-tools': {
     icon: 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400',
-    badge: 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300',
+    badge: 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200',
     pill: 'bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400',
     pillHover: 'group-hover:bg-red-200/60 group-hover:text-red-800 dark:group-hover:bg-red-900/30 dark:group-hover:text-red-300',
     borderHover: 'hover:border-red-400 dark:hover:border-red-600',
@@ -101,7 +101,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'utility-tools': {
     icon: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-    badge: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+    badge: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200',
     pill: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400',
     pillHover: 'group-hover:bg-emerald-200/60 group-hover:text-emerald-800 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-300',
     borderHover: 'hover:border-emerald-400 dark:hover:border-emerald-600',
@@ -113,7 +113,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'seo-tools': {
     icon: 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400',
-    badge: 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300',
+    badge: 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-200',
     pill: 'bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400',
     pillHover: 'group-hover:bg-orange-200/60 group-hover:text-orange-800 dark:group-hover:bg-orange-900/30 dark:group-hover:text-orange-300',
     borderHover: 'hover:border-orange-400 dark:hover:border-orange-600',
@@ -125,7 +125,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'developer-tools': {
     icon: 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/40 dark:text-cyan-400',
-    badge: 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/50 dark:text-cyan-300',
+    badge: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/50 dark:text-cyan-200',
     pill: 'bg-cyan-50 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400',
     pillHover: 'group-hover:bg-cyan-200/60 group-hover:text-cyan-800 dark:group-hover:bg-cyan-900/30 dark:group-hover:text-cyan-300',
     borderHover: 'hover:border-cyan-400 dark:hover:border-cyan-600',
@@ -137,7 +137,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'image-tools': {
     icon: 'bg-pink-100 text-pink-600 dark:bg-pink-900/40 dark:text-pink-400',
-    badge: 'bg-pink-100 text-pink-700 dark:bg-pink-900/50 dark:text-pink-300',
+    badge: 'bg-pink-100 text-pink-800 dark:bg-pink-900/50 dark:text-pink-200',
     pill: 'bg-pink-50 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400',
     pillHover: 'group-hover:bg-pink-200/60 group-hover:text-pink-800 dark:group-hover:bg-pink-900/30 dark:group-hover:text-pink-300',
     borderHover: 'hover:border-pink-400 dark:hover:border-pink-600',
@@ -149,7 +149,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
   },
   'security-tools': {
     icon: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400',
-    badge: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+    badge: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200',
     pill: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400',
     pillHover: 'group-hover:bg-emerald-200/60 group-hover:text-emerald-800 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-300',
     borderHover: 'hover:border-emerald-400 dark:hover:border-emerald-600',
@@ -164,7 +164,7 @@ export const CATEGORY_COLORS: Record<string, CategoryColorConfig> = {
 /** Default color config for unknown categories */
 export const DEFAULT_CATEGORY_COLOR: CategoryColorConfig = {
   icon: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
-  badge: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+  badge: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
   pill: 'bg-muted/70 text-muted-foreground',
   pillHover: 'group-hover:bg-gray-200/60 group-hover:text-gray-800 dark:group-hover:bg-gray-800/30 dark:group-hover:text-gray-300',
   borderHover: 'hover:border-gray-400 dark:hover:border-gray-600',

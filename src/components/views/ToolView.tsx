@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Home, ChevronRight, Wrench, Construction, ArrowRight, Sparkles, Heart, Copy, Check, FolderPlus, Plus } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { useI18n } from '@/lib/i18n';
 import {
   getToolById,
@@ -164,22 +165,15 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
   const removeToolFromCollection = useAppStore((s) => s.removeToolFromCollection);
   const createCollection = useAppStore((s) => s.createCollection);
 
-  const handleCopyLink = () => {
+  const handleCopyLink = async () => {
     const url = `${window.location.origin}/${locale}/tools/${encodeURIComponent(tool.id)}`;
-    navigator.clipboard.writeText(url).then(() => {
+    setLinkCopied(false);
+    if (await copyTextToClipboard(url)) {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
-    }).catch(() => {
-      // Fallback
-      const textArea = document.createElement('textarea');
-      textArea.value = url;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    });
+    } else {
+      setLinkCopied(false);
+    }
   };
 
   const handleCreateCollection = () => {

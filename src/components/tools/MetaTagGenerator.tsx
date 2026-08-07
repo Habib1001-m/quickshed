@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Code, Eye, Globe, Twitter, Facebook } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -98,10 +99,14 @@ export default function MetaTagGenerator({ locale }: { locale: 'ar' | 'en' }) {
   const titleColor = title.length > 60 ? 'text-red-500' : title.length > 50 ? 'text-amber-500' : 'text-emerald-500';
   const descColor = description.length > 160 ? 'text-red-500' : description.length > 140 ? 'text-amber-500' : 'text-emerald-500';
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(generatedCode)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

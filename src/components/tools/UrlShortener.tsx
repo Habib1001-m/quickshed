@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Copy, Check, Link, Trash2, ExternalLink, AlertCircle } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { normalizeUrlShortener, safeJsonParse, type ShortenedUrl } from '@/lib/storage-shapes';
 
 const STORAGE_KEY = 'quickshed-url-shortener';
@@ -215,11 +216,13 @@ export default function UrlShortener({ locale }: { locale: 'ar' | 'en' }) {
   };
 
   const handleCopy = async (text: string, idx: number) => {
-    try {
-      await navigator.clipboard.writeText(text);
+    setCopiedIdx(null);
+    if (await copyTextToClipboard(text)) {
+      setError('');
       setCopiedIdx(idx);
       setTimeout(() => setCopiedIdx(null), 2000);
-    } catch {
+    } else {
+      setCopiedIdx(null);
       setError(t.copyFailed);
     }
   };

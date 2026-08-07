@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Volume2, Radio } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -131,10 +132,14 @@ export default function MorseCodeTranslator({ locale }: { locale: 'ar' | 'en' })
     }
   }, [input, mode]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(output)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   }, [output]);
 
   const handlePlay = useCallback(() => {

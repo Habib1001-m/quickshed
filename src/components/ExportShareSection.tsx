@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Link2, Twitter, Code, ChevronDown, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 
@@ -25,19 +26,12 @@ export function ExportShareSection({ toolId, toolName }: ExportShareSectionProps
   const embedCode = `<iframe src="${toolUrl}" width="100%" height="600" frameborder="0" title="${toolName} - QuickShed"></iframe>`;
 
   const handleCopyLink = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(toolUrl);
+    setLinkCopied(false);
+    if (await copyTextToClipboard(toolUrl)) {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
-    } catch {
-      const input = document.createElement('input');
-      input.value = toolUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
+    } else {
+      setLinkCopied(false);
     }
   }, [toolUrl]);
 
@@ -53,19 +47,12 @@ export function ExportShareSection({ toolId, toolName }: ExportShareSectionProps
   }, [toolName, toolUrl, locale]);
 
   const handleCopyEmbed = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(embedCode);
+    setEmbedCopied(false);
+    if (await copyTextToClipboard(embedCode)) {
       setEmbedCopied(true);
       setTimeout(() => setEmbedCopied(false), 2000);
-    } catch {
-      const input = document.createElement('input');
-      input.value = embedCode;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setEmbedCopied(true);
-      setTimeout(() => setEmbedCopied(false), 2000);
+    } else {
+      setEmbedCopied(false);
     }
   }, [embedCode]);
 

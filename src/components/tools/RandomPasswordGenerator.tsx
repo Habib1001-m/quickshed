@@ -7,6 +7,7 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { KeyRound, RefreshCw, Copy, Check, Download } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -128,16 +129,24 @@ export default function RandomPasswordGenerator({ locale }: { locale: 'ar' | 'en
     setPasswords(results);
   }, [length, useUpper, useLower, useNumbers, useSymbols, pronounceable, pinMode, count]);
 
-  const copyAll = () => {
-    navigator.clipboard.writeText(passwords.join('\n'));
-    setCopiedAll(true);
-    setTimeout(() => setCopiedAll(false), 2000);
+  const copyAll = async () => {
+    setCopiedAll(false);
+    if (await copyTextToClipboard(passwords.join('\n'))) {
+      setCopiedAll(true);
+      setTimeout(() => setCopiedAll(false), 2000);
+    } else {
+      setCopiedAll(false);
+    }
   };
 
-  const copyOne = (idx: number) => {
-    navigator.clipboard.writeText(passwords[idx]);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const copyOne = async (idx: number) => {
+    setCopiedIdx(null);
+    if (await copyTextToClipboard(passwords[idx])) {
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } else {
+      setCopiedIdx(null);
+    }
   };
 
   const handleDownload = () => {

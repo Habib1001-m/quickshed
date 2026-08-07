@@ -140,14 +140,14 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {isArabic ? (
                 <>
                   لا يستخدم QuickShed أي <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. تُحفظ تفضيلات المستخدم وبيانات الأدوات في{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>،
-                  وقد يستخدم Service Worker تخزين <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">Cache Storage</code> لبعض الأصول الثابتة المحددة بعد تحميلها؛ ولا ينقل أي من مساري التخزين مدخلات الأدوات عبر التطبيق. يمكنك إزالة بيانات QuickShed المخزّنة عبر الإعدادات ← مسح جميع البيانات.
+                  <code className="text-sm bg-muted dark:bg-muted/50 text-foreground px-2 py-0.5 rounded font-mono">localStorage</code>،
+                  وقد يستخدم Service Worker تخزين <code className="text-sm bg-muted dark:bg-muted/50 text-foreground px-2 py-0.5 rounded font-mono">Cache Storage</code> لبعض الأصول الثابتة المحددة بعد تحميلها؛ ولا ينقل أي من مساري التخزين مدخلات الأدوات عبر التطبيق. يمكنك إزالة بيانات QuickShed المخزّنة عبر الإعدادات ← مسح جميع البيانات.
                 </>
               ) : (
                 <>
                   QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. User preferences and tool data are stored in{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>,
-                  and the Service Worker may use <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">Cache Storage</code> for selected static assets after they load; neither storage path transmits tool inputs through the application. Remove QuickShed’s stored data via Settings &rarr; Clear All Data.
+                  <code className="text-sm bg-muted dark:bg-muted/50 text-foreground px-2 py-0.5 rounded font-mono">localStorage</code>,
+                  and the Service Worker may use <code className="text-sm bg-muted dark:bg-muted/50 text-foreground px-2 py-0.5 rounded font-mono">Cache Storage</code> for selected static assets after they load; neither storage path transmits tool inputs through the application. Remove QuickShed’s stored data via Settings &rarr; Clear All Data.
                 </>
               )}
             </p>
@@ -183,14 +183,14 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {isArabic ? (
                 <>
                   أسئلة حول هذه السياسة؟ تواصل معنا عبر صفحتنا على{' '}
-                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-800 dark:text-emerald-300 hover:underline font-medium">
                     GitHub
                   </a>.
                 </>
               ) : (
                 <>
                   Questions about this policy? Reach us via our{' '}
-                  <a href={REPOSITORY_URL} className="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">
+                  <a href={REPOSITORY_URL} className="text-emerald-800 dark:text-emerald-300 hover:underline font-medium">
                     GitHub
                   </a>{' '}
                   page.

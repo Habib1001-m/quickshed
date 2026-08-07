@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Database, Sparkles, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -136,10 +137,14 @@ export default function SqlFormatter({ locale }: { locale: 'ar' | 'en' }) {
     setOutput(formatSQL(input));
   }, [input]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(output)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   }, [output]);
 
   return (

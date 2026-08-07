@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Copy, Check, Lock } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -114,10 +115,14 @@ export default function TextEncoderDecoder({ locale }: { locale: 'ar' | 'en' }) 
     return result || t.invalidInput;
   }, [input, direction, encodingType, t.invalidInput]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(output)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

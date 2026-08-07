@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Copy, Check, Palette } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -129,10 +130,14 @@ export default function ColorConverter({ locale }: { locale: 'ar' | 'en' }) {
   const hsl = useMemo(() => rgb ? rgbToHsl(rgb) : null, [rgb]);
   const hex = useMemo(() => rgb ? rgbToHex(rgb) : null, [rgb]);
 
-  const handleCopy = useCallback((field: string, value: string) => {
-    navigator.clipboard.writeText(value);
-    setCopiedField(field);
-    setTimeout(() => setCopiedField(null), 2000);
+  const handleCopy = useCallback(async (field: string, value: string) => {
+    setCopiedField(null);
+    if (await copyTextToClipboard(value)) {
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } else {
+      setCopiedField(null);
+    }
   }, []);
 
   return (

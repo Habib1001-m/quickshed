@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Share2, Link2, Twitter, Check, Copy } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { useI18n } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,20 +25,12 @@ export function ShareTool({ toolId, toolName }: ShareToolProps) {
     : '';
 
   const copyLink = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(toolUrl);
+    setCopied(false);
+    if (await copyTextToClipboard(toolUrl)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Fallback
-      const input = document.createElement('input');
-      input.value = toolUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
     }
   }, [toolUrl]);
 

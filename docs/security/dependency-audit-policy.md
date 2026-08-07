@@ -35,5 +35,9 @@ The current local production audit after remediation is **0 vulnerabilities**: 0
 - Next's optional `sharp` resolves to the root `sharp@0.35.3` through the global npm override.
 - Production `picomatch` resolves to `4.0.5`; the unrelated `micromatch` 2.x API edge remains on `picomatch@2.3.2`.
 - `gray-matter` resolves its 3.x `js-yaml` API to `3.15.1`.
+- The direct `pdfjs-dist` dependency resolves to `6.2.108`, closing
+  `GHSA-hq66-cqwq-w95j` (arbitrary JavaScript execution when opening a
+  malicious PDF); the semver-major upgrade is covered by the bilingual PDF
+  text-extraction browser regression test.
 
 Future paid features, database/cloud capability, and Android/native app work remain deferred to a separate approved spec. This remediation introduces no such capability and does not restore Prisma.

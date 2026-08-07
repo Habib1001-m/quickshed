@@ -7,6 +7,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Copy, Check, Fingerprint, Trash2 } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -52,10 +53,14 @@ function generateUUID(): string {
 
 function CopyBtn({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(value)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
   return (
     <Button variant="ghost" size="icon" className="size-7 shrink-0" onClick={handleCopy}>
@@ -91,11 +96,15 @@ export default function UuidGenerator({ locale }: { locale: 'ar' | 'en' }) {
     setUuids((prev) => [...newUuids, ...prev]);
   };
 
-  const handleCopyAll = () => {
+  const handleCopyAll = async () => {
     const text = uuids.map((u) => formatUuid(u)).join('\n');
-    navigator.clipboard.writeText(text);
-    setAllCopied(true);
-    setTimeout(() => setAllCopied(false), 2000);
+    setAllCopied(false);
+    if (await copyTextToClipboard(text)) {
+      setAllCopied(true);
+      setTimeout(() => setAllCopied(false), 2000);
+    } else {
+      setAllCopied(false);
+    }
   };
 
   return (

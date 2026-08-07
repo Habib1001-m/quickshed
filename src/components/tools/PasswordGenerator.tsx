@@ -8,6 +8,7 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Copy, Check, RefreshCw, KeyRound, Plus, Trash2 } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -126,10 +127,14 @@ export default function PasswordGenerator({ locale }: { locale: 'ar' | 'en' }) {
     setPasswords((prev) => [pw, ...prev]);
   }, [length, upper, lower, numbers, symbols, hasAnySet]);
 
-  const handleCopy = useCallback((text: string, idx: number) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const handleCopy = useCallback(async (text: string, idx: number) => {
+    setCopiedIdx(null);
+    if (await copyTextToClipboard(text)) {
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } else {
+      setCopiedIdx(null);
+    }
   }, []);
 
   const handleAddMultiple = useCallback(() => {

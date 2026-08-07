@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowRightLeft, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 export default function UnixTimestampConverter({ locale }: { locale: 'ar' | 'en' }) {
   const isAr = locale === 'ar';
@@ -54,11 +55,14 @@ export default function UnixTimestampConverter({ locale }: { locale: 'ar' | 'en'
     });
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
+  const copyToClipboard = async (text: string) => {
+    setCopied(false);
+    if (await copyTextToClipboard(text)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
+    } else {
+      setCopied(false);
+    }
   };
 
   const convertedDate = tsToDate();

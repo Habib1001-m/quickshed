@@ -17,6 +17,8 @@ const labels = {
     noFiles: 'Add 2 or more PDF files to merge',
     merging: 'Merging...',
     error: 'Error merging PDFs',
+    invalidFile: 'Please choose PDF files.',
+    fileTooLarge: 'A file is too large. Maximum size is 25 MB.',
   },
   ar: {
     title: 'دمج ملفات PDF',
@@ -29,6 +31,8 @@ const labels = {
     noFiles: 'أضف ملفين أو أكثر من PDF للدمج',
     merging: 'جارٍ الدمج...',
     error: 'خطأ في دمج ملفات PDF',
+    invalidFile: 'يرجى اختيار ملفات PDF.',
+    fileTooLarge: 'أحد الملفات كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
   },
 };
 
@@ -39,6 +43,8 @@ interface PdfFileEntry {
   pages: number;
 }
 
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
+
 export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
   const t = labels[locale];
@@ -46,15 +52,25 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
   const [mergedUrl, setMergedUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const addFiles = useCallback(async (fileList: FileList) => {
     const PDFLib = await import('pdf-lib');
     const newEntries: PdfFileEntry[] = [];
+    let skippedTooLarge = false;
+    let skippedInvalid = false;
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
-      if (file.type !== 'application/pdf') continue;
-      const data = await file.arrayBuffer();
+      if (file.type !== 'application/pdf') {
+        skippedInvalid = true;
+        continue;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        skippedTooLarge = true;
+        continue;
+      }
       try {
+        const data = await file.arrayBuffer();
         const pdf = await PDFLib.PDFDocument.load(data);
         newEntries.push({
           id: `${Date.now()}-${i}`,
@@ -63,12 +79,27 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
           pages: pdf.getPageCount(),
         });
       } catch {
-        // skip invalid PDFs
+        skippedInvalid = true;
       }
     }
     setFiles((prev) => [...prev, ...newEntries]);
     setMergedUrl(null);
-  }, []);
+    if (skippedTooLarge) setError(t.fileTooLarge);
+    else if (skippedInvalid) setError(t.invalidFile);
+    else setError('');
+  }, [t.fileTooLarge, t.invalidFile]);
+
+  const openFilePicker = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,application/pdf';
+    input.multiple = true;
+    input.onchange = (e) => {
+      const fileList = (e.target as HTMLInputElement).files;
+      if (fileList) addFiles(fileList);
+    };
+    input.click();
+  }, [addFiles]);
 
   const removeFile = (id: string) => {
     setFiles((prev) => prev.filter((f) => f.id !== id));
@@ -117,23 +148,29 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => {
-              const input = document.createElement('input');
-              input.type = 'file';
-              input.accept = '.pdf';
-              input.multiple = true;
-              input.onchange = (e) => {
-                const fileList = (e.target as HTMLInputElement).files;
-                if (fileList) addFiles(fileList);
-              };
-              input.click();
+            className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
+            onClick={openFilePicker}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openFilePicker();
+              }
             }}
+            role="button"
+            tabIndex={0}
+            aria-label={t.addFiles}
             onDrop={(e) => {
               e.preventDefault();
+              setIsDragOver(false);
               if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
             }}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
+            }}
+            onDragLeave={() => setIsDragOver(false)}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.addFiles}</p>
@@ -147,7 +184,7 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
                   <FileIcon className="size-4 text-red-500 shrink-0" />
                   <span className="flex-1 text-sm truncate">{file.name}</span>
                   <span className="text-xs text-muted-foreground">{file.pages} {t.pages}</span>
-                  <Button variant="ghost" size="sm" onClick={() => removeFile(file.id)} className="text-red-500 shrink-0">
+                  <Button variant="ghost" size="sm" onClick={() => removeFile(file.id)} aria-label={`${t.remove} ${file.name}`} className="text-red-500 shrink-0">
                     <Trash2 className="size-4" />
                   </Button>
                 </div>
@@ -167,7 +204,7 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
             )}
           </div>
 
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-sm text-red-500" role="alert">{error}</p>}
         </CardContent>
       </Card>
     </div>
@@ -176,7 +213,7 @@ export default function PdfMerger({ locale }: { locale: 'ar' | 'en' }) {
 
 function FileIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
       <polyline points="14 2 14 8 20 8" />
     </svg>

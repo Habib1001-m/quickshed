@@ -46,13 +46,6 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
     navigateToTool(tool.id);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      navigateToTool(tool.id);
-    }
-  };
-
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -63,25 +56,28 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-label={toolName}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
+      data-tool-card
       className={`
         group relative flex flex-col rounded-xl border border-border bg-card p-5
         shadow-sm transition-all duration-300
         hover:scale-[1.02] hover:shadow-xl ${shadowClass} ${borderClass}
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
         cursor-pointer select-none overflow-hidden
         gradient-border card-hover-lift card-elevated glow-focus glow-ring-hover tool-card-gradient-border
         hover:border-emerald-500/20 dark:hover:border-emerald-500/10
       `}
       dir={isRtl ? 'rtl' : 'ltr'}
     >
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label={toolName}
+        data-tool-card-action
+        className="absolute inset-0 z-0 rounded-xl border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      />
+
       {/* Shimmer border effect on hover */}
       {showCategoryAccent && (
-        <div className={`absolute top-0 inset-x-0 h-0.5 ${accentClass} transition-all duration-300 group-hover:h-1 group-hover:opacity-80`} />
+        <div className={`pointer-events-none absolute top-0 inset-x-0 h-0.5 ${accentClass} transition-all duration-300 group-hover:h-1 group-hover:opacity-80`} />
       )}
 
       {/* Gradient overlay on hover */}
@@ -116,7 +112,7 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
 
       {/* "New" badge — appears for tools with usage < 5, more prominent */}
       {isNew && (
-        <div className="absolute top-3 start-3 z-10">
+        <div className="pointer-events-none absolute top-3 start-3 z-10">
           <Badge className="badge-bounce bg-gradient-to-r from-emerald-700 to-emerald-800 text-white text-[11px] px-2 py-0 h-5 font-bold shadow-md shadow-emerald-500/30 border-0">
             {locale === 'ar' ? 'جديد' : 'New'}
           </Badge>
@@ -148,11 +144,11 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
 
       {/* Recently Used indicator dot */}
       {usageCount > 0 && (
-        <div className="recently-used-dot" />
+        <div className="recently-used-dot pointer-events-none" />
       )}
 
       {/* Icon + name row */}
-      <div className="flex items-start gap-3 mb-2 mt-1">
+      <div className="pointer-events-none relative z-[1] flex items-start gap-3 mb-2 mt-1">
         <div
           className={`
             flex size-12 shrink-0 items-center justify-center rounded-xl
@@ -164,19 +160,19 @@ export function ToolCard({ tool, showCategoryAccent = false }: ToolCardProps) {
           <DynamicIcon name={tool.icon} className="size-5" />
         </div>
         <div className="min-w-0 flex-1 pe-16">
-          <h3 className="text-sm font-semibold text-card-foreground leading-snug truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-200">
+          <h2 className="text-sm font-semibold text-card-foreground leading-snug truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-200">
             {toolName}
-          </h3>
+          </h2>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3 flex-1">
+      <p className="pointer-events-none relative z-[1] text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3 flex-1">
         {toolDescription}
       </p>
 
       {/* Bottom bar with gradient separator */}
-      <div className="flex flex-col gap-2 mt-auto pt-2">
+      <div className="pointer-events-none relative z-[1] flex flex-col gap-2 mt-auto pt-2">
         <div className="gradient-separator" />
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1 text-[11px] text-foreground/70 font-semibold">

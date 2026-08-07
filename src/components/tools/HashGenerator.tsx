@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Copy, Check, Hash, FileUp } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -25,6 +26,8 @@ const labels = {
     sha1: 'SHA-1',
     sha256: 'SHA-256',
     sha512: 'SHA-512',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
+    fileReadError: 'Unable to read the file.',
   },
   ar: {
     title: 'مولد التجزئة',
@@ -43,8 +46,12 @@ const labels = {
     sha1: 'SHA-1',
     sha256: 'SHA-256',
     sha512: 'SHA-512',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
+    fileReadError: 'تعذر قراءة الملف.',
   },
 };
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 /* ========== MD5 Implementation (no external dependency) ========== */
 function md5(string: string): string {
@@ -200,10 +207,18 @@ async function shaHashBuffer(algorithm: string, buffer: ArrayBuffer): Promise<st
 /* ========== Hash Result Row ========== */
 function HashRow({ label, value, t }: { label: string; value: string; t: typeof labels.en }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    try {
+      if (!await copyTextToClipboard(value)) {
+        setCopied(false);
+        return;
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
@@ -230,9 +245,11 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [fileInfo, setFileInfo] = useState<{ name: string; size: string } | null>(null);
   const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const generateTextHashes = useCallback(async (text: string) => {
+    setError('');
     if (!text) { setHashes(null); return; }
     setGenerating(true);
     try {
@@ -250,6 +267,14 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
   }, []);
 
   const generateFileHashes = useCallback(async (file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      setFileInfo(null);
+      setHashes(null);
+      setError(t.fileTooLarge);
+      return;
+    }
+
+    setError('');
     setGenerating(true);
     setFileInfo({
       name: file.name,
@@ -272,9 +297,11 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
       setHashes({ md5: md5Hash, sha1, sha256, sha512 });
     } catch {
       setHashes(null);
+      setError(t.fileReadError);
+    } finally {
+      setGenerating(false);
     }
-    setGenerating(false);
-  }, []);
+  }, [t.fileReadError, t.fileTooLarge]);
 
   const handleGenerate = useCallback(() => {
     if (mode === 'text') {
@@ -348,6 +375,15 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onClick={() => fileInputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  fileInputRef.current?.click();
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={t.dragDrop}
               className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
                 isDragOver ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-muted-foreground/50'
               }`}
@@ -358,6 +394,7 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
                 ref={fileInputRef}
                 type="file"
                 className="hidden"
+                aria-label={t.fileMode}
                 onChange={handleFileInput}
               />
             </div>
@@ -369,6 +406,8 @@ export default function HashGenerator({ locale }: { locale: 'ar' | 'en' }) {
               <Badge variant="secondary">{t.fileSize}: {fileInfo.size}</Badge>
             </div>
           )}
+
+          {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
         </CardContent>
       </Card>
 

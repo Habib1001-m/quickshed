@@ -269,7 +269,7 @@ export function CategoryView() {
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                     ${isActive
                       ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 hover:bg-emerald-800 pill-active-glow'
-                      : 'bg-muted/80 text-muted-foreground hover:bg-muted hover:text-foreground'
+                        : 'bg-muted/80 text-foreground hover:bg-muted'
                     }
                   `}
                 >
@@ -280,7 +280,7 @@ export function CategoryView() {
                       inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none
                       ${isActive
                         ? 'bg-white/20 text-white'
-                        : 'bg-muted text-muted-foreground'
+                        : 'bg-muted text-foreground'
                       }
                     `}
                   >

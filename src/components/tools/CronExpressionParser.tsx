@@ -49,6 +49,7 @@ const labels = {
     through: 'through',
     past: 'past',
     inMonth: 'in',
+    secondsUnit: 'seconds',
   },
   ar: {
     title: 'محلل تعبيرات Cron',
@@ -90,6 +91,7 @@ const labels = {
     through: 'إلى',
     past: 'بعد',
     inMonth: 'في',
+    secondsUnit: 'ثوانٍ',
   },
 };
 
@@ -145,12 +147,60 @@ function parseCronField(field: string, min: number, max: number): number[] {
   return [val];
 }
 
-/* ---------- human-readable description ---------- */
-function describeCron(fields: string[], t: typeof labels.en): string {
-  if (fields.length < 5) return t.invalid;
+type CronSchedule = {
+  seconds: string | null;
+  minute: string;
+  hour: string;
+  dom: string;
+  month: string;
+  dow: string;
+};
 
-  const [minute, hour, dom, month, dow] = fields;
+/* Five fields: minute hour day-of-month month day-of-week.
+ * Six fields: seconds minute hour day-of-month month day-of-week. */
+function normalizeCronFields(fields: string[]): CronSchedule | null {
+  if (fields.length === 6) {
+    return {
+      seconds: fields[0],
+      minute: fields[1],
+      hour: fields[2],
+      dom: fields[3],
+      month: fields[4],
+      dow: fields[5],
+    };
+  }
+
+  if (fields.length === 5) {
+    return {
+      seconds: null,
+      minute: fields[0],
+      hour: fields[1],
+      dom: fields[2],
+      month: fields[3],
+      dow: fields[4],
+    };
+  }
+
+  return null;
+}
+
+/* ---------- human-readable description ---------- */
+function describeCron(schedule: CronSchedule, t: typeof labels.en): string {
+  const { seconds, minute, hour, dom, month, dow } = schedule;
   const parts: string[] = [];
+  const fixedMinute = /^\d+$/.test(minute);
+  const fixedHour = /^\d+$/.test(hour);
+  const fixedSecond = seconds !== null && /^\d+$/.test(seconds);
+  const includeSecondInTime = fixedHour && fixedMinute && fixedSecond;
+
+  // Seconds are only present in the six-field form.
+  if (seconds !== null && seconds !== '*') {
+    if (seconds.startsWith('*/')) {
+      parts.push(`${t.every} ${seconds.slice(2)} ${t.secondsUnit}`);
+    } else if (!includeSecondInTime) {
+      parts.push(`${t.at} ${t.secondsUnit} ${seconds}`);
+    }
+  }
 
   // Minute
   if (minute === '*') {
@@ -166,7 +216,9 @@ function describeCron(fields: string[], t: typeof labels.en): string {
     if (hour.startsWith('*/')) {
       parts.push(`${t.every} ${hour.slice(2)} ${t.hours.toLowerCase()}`);
     } else {
-      parts.push(`${t.at} ${hour}:${minute === '*' ? '00' : minute.padStart(2, '0')}`);
+      const minuteForTime = fixedMinute ? minute.padStart(2, '0') : minute === '*' ? '00' : minute;
+      const secondForTime = includeSecondInTime ? seconds!.padStart(2, '0') : '';
+      parts.push(`${t.at} ${hour}:${minuteForTime}${secondForTime ? `:${secondForTime}` : ''}`);
     }
   }
 
@@ -201,38 +253,63 @@ function describeCron(fields: string[], t: typeof labels.en): string {
 }
 
 /* ---------- next N execution times ---------- */
-function getNextExecutions(fields: string[], count: number): Date[] {
-  if (fields.length < 5) return [];
+function getNextExecutions(schedule: CronSchedule, count: number): Date[] {
+  if (count <= 0) return [];
 
-  const minutes = parseCronField(fields[0], 0, 59);
-  const hours = parseCronField(fields[1], 0, 23);
-  const doms = parseCronField(fields[2], 1, 31);
-  const months = parseCronField(fields[3], 1, 12);
-  const dows = parseCronField(fields[4], 0, 6);
+  const seconds = (schedule.seconds === null ? [0] : parseCronField(schedule.seconds, 0, 59))
+    .filter((value) => value >= 0 && value <= 59);
+  const minutes = parseCronField(schedule.minute, 0, 59);
+  const hours = parseCronField(schedule.hour, 0, 23);
+  const doms = parseCronField(schedule.dom, 1, 31);
+  const months = parseCronField(schedule.month, 1, 12);
+  const dows = parseCronField(schedule.dow, 0, 6);
 
-  if (minutes.length === 0 || hours.length === 0 || doms.length === 0 || months.length === 0 || dows.length === 0) {
+  if (
+    seconds.length === 0 ||
+    minutes.length === 0 ||
+    hours.length === 0 ||
+    doms.length === 0 ||
+    months.length === 0 ||
+    dows.length === 0
+  ) {
     return [];
   }
 
   const results: Date[] = [];
-  const now = new Date();
-  now.setSeconds(0, 0);
-  now.setMinutes(now.getMinutes() + 1);
+  const start = new Date();
+  const cursor = new Date(start);
 
-  const maxIterations = 525600; // 1 year of minutes
+  if (schedule.seconds === null) {
+    cursor.setSeconds(0, 0);
+    cursor.setMinutes(cursor.getMinutes() + 1);
+  } else {
+    cursor.setMilliseconds(0);
+  }
+
+  const maxIterations = 366 * 24 * 60; // one leap-year of minute candidates
   let iter = 0;
 
   while (results.length < count && iter < maxIterations) {
     if (
-      months.includes(now.getMonth() + 1) &&
-      doms.includes(now.getDate()) &&
-      dows.includes(now.getDay()) &&
-      hours.includes(now.getHours()) &&
-      minutes.includes(now.getMinutes())
+      months.includes(cursor.getMonth() + 1) &&
+      doms.includes(cursor.getDate()) &&
+      dows.includes(cursor.getDay()) &&
+      hours.includes(cursor.getHours()) &&
+      minutes.includes(cursor.getMinutes())
     ) {
-      results.push(new Date(now));
+      if (schedule.seconds === null) {
+        results.push(new Date(cursor));
+      } else {
+        for (const second of seconds) {
+          const candidate = new Date(cursor);
+          candidate.setSeconds(second, 0);
+          if (candidate <= start) continue;
+          results.push(candidate);
+          if (results.length >= count) break;
+        }
+      }
     }
-    now.setMinutes(now.getMinutes() + 1);
+    cursor.setMinutes(cursor.getMinutes() + 1);
     iter++;
   }
 
@@ -244,7 +321,8 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
   const isRTL = locale === 'ar';
   const t = labels[locale];
   const [expression, setExpression] = useState('*/5 * * * *');
-  const [builderFields, setBuilderFields] = useState({
+  const [builderFields, setBuilderFields] = useState<CronSchedule>({
+    seconds: null,
     minute: '*/5',
     hour: '*',
     dom: '*',
@@ -257,37 +335,63 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
     return parts;
   }, [expression]);
 
-  const isValid = fields.length === 5 || fields.length === 6;
+  const schedule = useMemo(() => normalizeCronFields(fields), [fields]);
+  const isValid = schedule !== null;
+  const hasSecondsField = schedule !== null && schedule.seconds !== null;
 
   const parsedDescription = useMemo(() => {
-    if (!isValid) return t.invalid;
-    return describeCron(fields, t);
-  }, [fields, isValid, t]);
+    if (schedule === null) return t.invalid;
+    return describeCron(schedule, t);
+  }, [schedule, t]);
 
   const nextTimes = useMemo(() => {
-    if (!isValid) return [];
-    return getNextExecutions(fields, 5);
-  }, [fields, isValid]);
+    if (schedule === null) return [];
+    return getNextExecutions(schedule, 5);
+  }, [schedule]);
 
   const handlePreset = useCallback((expr: string) => {
     setExpression(expr);
-    const parts = expr.split(/\s+/);
-    if (parts.length >= 5) {
-      setBuilderFields({
-        minute: parts[0],
-        hour: parts[1],
-        dom: parts[2],
-        month: parts[3],
-        dow: parts[4],
-      });
+    const presetSchedule = normalizeCronFields(expr.split(/\s+/));
+    if (presetSchedule !== null) {
+      setBuilderFields(presetSchedule);
     }
   }, []);
 
-  const handleBuilderChange = useCallback((field: keyof typeof builderFields, value: string) => {
-    const updated = { ...builderFields, [field]: value };
+  const handleExpressionChange = useCallback((value: string) => {
+    setExpression(value);
+    const parsedSchedule = normalizeCronFields(value.trim().split(/\s+/));
+    if (parsedSchedule !== null) {
+      setBuilderFields(parsedSchedule);
+    }
+  }, []);
+
+  const handleBuilderChange = useCallback((field: keyof CronSchedule, value: string) => {
+    const updated = { ...builderFields };
+    if (field === 'seconds') {
+      updated.seconds = value.trim() === '' ? null : value;
+    } else {
+      updated[field] = value;
+    }
+
     setBuilderFields(updated);
-    setExpression(`${updated.minute} ${updated.hour} ${updated.dom} ${updated.month} ${updated.dow}`);
+    const expressionFields = updated.seconds === null
+      ? [updated.minute, updated.hour, updated.dom, updated.month, updated.dow]
+      : [updated.seconds, updated.minute, updated.hour, updated.dom, updated.month, updated.dow];
+    setExpression(expressionFields.join(' '));
   }, [builderFields]);
+
+  const fieldBreakdown = schedule === null
+    ? []
+    : [
+        ...(schedule.seconds === null
+          ? []
+          : [{ key: 'seconds', label: t.seconds, value: schedule.seconds }]),
+        { key: 'minute', label: t.minutes, value: schedule.minute },
+        { key: 'hour', label: t.hours, value: schedule.hour },
+        { key: 'dom', label: t.dayOfMonth, value: schedule.dom },
+        { key: 'month', label: t.month, value: schedule.month },
+        { key: 'dow', label: t.dayOfWeek, value: schedule.dow },
+      ];
 
   return (
     <div className="space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -303,7 +407,7 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
             <Label className="mb-2 block">Cron</Label>
             <Input
               value={expression}
-              onChange={(e) => setExpression(e.target.value)}
+              onChange={(e) => handleExpressionChange(e.target.value)}
               placeholder={t.inputPlaceholder}
               className="tool-input font-mono text-base"
             />
@@ -315,17 +419,11 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
 
           {/* Field breakdown */}
           {isValid && (
-            <div className="grid grid-cols-5 gap-2 text-center">
-              {[
-                { key: 'minute', label: t.minutes },
-                { key: 'hour', label: t.hours },
-                { key: 'dom', label: t.dayOfMonth },
-                { key: 'month', label: t.month },
-                { key: 'dow', label: t.dayOfWeek },
-              ].map((f, i) => (
+            <div className={`grid ${hasSecondsField ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-5'} gap-2 text-center`}>
+              {fieldBreakdown.map((f) => (
                 <div key={f.key} className="space-y-1">
                   <div className="text-xs text-muted-foreground">{f.label}</div>
-                  <code className="block bg-muted rounded px-2 py-1 font-mono text-sm">{fields[i]}</code>
+                  <code className="block bg-muted rounded px-2 py-1 font-mono text-sm">{f.value}</code>
                 </div>
               ))}
             </div>
@@ -365,6 +463,7 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {([
+              { key: 'seconds' as const, label: t.fieldDesc.second, placeholder: '*' },
               { key: 'minute' as const, label: t.fieldDesc.minute, placeholder: '*/5' },
               { key: 'hour' as const, label: t.fieldDesc.hour, placeholder: '*' },
               { key: 'dom' as const, label: t.fieldDesc.dom, placeholder: '*' },
@@ -374,7 +473,7 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
               <div key={f.key} className="space-y-1">
                 <Label className="text-xs">{f.label}</Label>
                 <Input
-                  value={builderFields[f.key]}
+                  value={builderFields[f.key] ?? ''}
                   onChange={(e) => handleBuilderChange(f.key, e.target.value)}
                   placeholder={f.placeholder}
                   className="tool-input font-mono text-sm"
@@ -418,6 +517,7 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
                     day: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit',
+                    second: hasSecondsField ? '2-digit' : undefined,
                   })}</span>
                 </div>
               ))}

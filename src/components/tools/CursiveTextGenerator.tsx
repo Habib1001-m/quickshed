@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Copy, Check, Sparkles } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -181,10 +182,14 @@ export default function CursiveTextGenerator({ locale }: { locale: 'ar' | 'en' }
     }));
   }, [text]);
 
-  const handleCopy = (key: string, output: string) => {
-    navigator.clipboard.writeText(output);
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 2000);
+  const handleCopy = async (key: string, output: string) => {
+    setCopiedKey(null);
+    if (await copyTextToClipboard(output)) {
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(null), 2000);
+    } else {
+      setCopiedKey(null);
+    }
   };
 
   return (

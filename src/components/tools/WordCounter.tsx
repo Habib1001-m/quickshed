@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Copy, Check, Type } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -87,10 +88,14 @@ export default function WordCounter({ locale }: { locale: 'ar' | 'en' }) {
       .slice(0, 10);
   }, [text]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(text)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   const statItems = [

@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Copy, Check, ArrowDownAZ, ArrowUpZA, SortAsc, Shuffle, Trash2, ListOrdered } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -82,10 +83,14 @@ export default function LineSorter({ locale }: { locale: 'ar' | 'en' }) {
     }).join('\n'));
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(input);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(input)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   const nonEmptyCount = lines.filter((l) => l.trim() !== '').length;

@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Copy, Check, Dices, ArrowUpDown } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -101,10 +102,14 @@ export default function RandomNumberGenerator({ locale }: { locale: 'ar' | 'en' 
     setResults(nums);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(results.join(', '));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(results.join(', '))) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

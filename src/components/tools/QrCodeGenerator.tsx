@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { QrCode, Download, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import QRCode from 'qrcode';
 
 const labels = {
@@ -83,17 +84,21 @@ export default function QrCodeGenerator({ locale }: { locale: 'ar' | 'en' }) {
 
   const handleCopySvg = useCallback(async () => {
     if (!hasText) return;
+    setCopied(false);
     try {
       const svgStr = await QRCode.toString(text, {
         type: 'svg',
         margin: 2,
         color: { dark: fgColor, light: bgColor },
       });
-      await navigator.clipboard.writeText(svgStr);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (await copyTextToClipboard(svgStr)) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        setCopied(false);
+      }
     } catch {
-      // fallback
+      setCopied(false);
     }
   }, [text, fgColor, bgColor, hasText]);
 

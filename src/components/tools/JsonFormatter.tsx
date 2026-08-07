@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Copy, Check, Braces, Minus, ShieldCheck, ChevronRight, ChevronDown, Eye, Code } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -282,10 +283,14 @@ export default function JsonFormatter({ locale }: { locale: 'ar' | 'en' }) {
     }
   }, [input]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(output)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   }, [output]);
 
   return (

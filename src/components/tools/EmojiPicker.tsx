@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SmilePlus, Search, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { normalizeEmojiRecent, safeJsonParse, EMOJI_RECENT_CAP } from '@/lib/storage-shapes';
 
 const labels = {
@@ -395,8 +396,13 @@ export default function EmojiPicker({ locale }: { locale: 'ar' | 'en' }) {
     return cat.emojis.filter((e) => e.name.toLowerCase().includes(q) || e.emoji.includes(q));
   }, [activeCategory, search]);
 
-  const handleCopy = (emoji: string) => {
-    navigator.clipboard.writeText(emoji);
+  const handleCopy = async (emoji: string) => {
+    setCopiedEmoji('');
+    if (!(await copyTextToClipboard(emoji))) {
+      setCopiedEmoji('');
+      return;
+    }
+
     setCopiedEmoji(emoji);
     setRecent((prev) => [emoji, ...prev.filter((e) => e !== emoji)].slice(0, EMOJI_RECENT_CAP));
     setTimeout(() => setCopiedEmoji(''), 2000);

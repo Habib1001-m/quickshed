@@ -20,6 +20,9 @@ const labels = {
     error: 'Error processing PDF',
     selectAll: 'Select All',
     deselectAll: 'Deselect All',
+    cannotRemoveAll: 'Cannot remove all pages',
+    invalidFile: 'Please choose a PDF file.',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
   },
   ar: {
     title: 'حاذف صفحات PDF',
@@ -34,8 +37,13 @@ const labels = {
     error: 'خطأ في معالجة PDF',
     selectAll: 'تحديد الكل',
     deselectAll: 'إلغاء تحديد الكل',
+    cannotRemoveAll: 'لا يمكن حذف جميع الصفحات',
+    invalidFile: 'يرجى اختيار ملف PDF.',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
   },
 };
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
@@ -46,9 +54,18 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
   const [resultUrl, setResultUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleFile = useCallback(async (file: File) => {
-    if (file.type !== 'application/pdf') return;
+    if (file.type !== 'application/pdf') {
+      setError(t.invalidFile);
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setError(t.fileTooLarge);
+      return;
+    }
+    setError('');
     try {
       const PDFLib = await import('pdf-lib');
       const data = await file.arrayBuffer();
@@ -61,7 +78,18 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
       setError(t.error);
       console.error(e);
     }
-  }, [t.error]);
+  }, [t.error, t.fileTooLarge, t.invalidFile]);
+
+  const openFilePicker = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,application/pdf';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) handleFile(file);
+    };
+    input.click();
+  }, [handleFile]);
 
   const togglePage = (page: number) => {
     setSelectedPages((prev) => {
@@ -83,7 +111,7 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
   const handleRemove = async () => {
     if (!pdfData || selectedPages.size === 0) return;
     if (selectedPages.size >= totalPages) {
-      setError('Cannot remove all pages');
+      setError(t.cannotRemoveAll);
       return;
     }
     setLoading(true);
@@ -128,19 +156,30 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
-            onClick={() => {
-              const input = document.createElement('input');
-              input.type = 'file';
-              input.accept = '.pdf';
-              input.onchange = (e) => {
-                const file = (e.target as HTMLInputElement).files?.[0];
-                if (file) handleFile(file);
-              };
-              input.click();
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
+            onClick={openFilePicker}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openFilePicker();
+              }
             }}
-            onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleFile(f); }}
-            onDragOver={(e) => e.preventDefault()}
+            role="button"
+            tabIndex={0}
+            aria-label={t.dropzone}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDragOver(false);
+              const f = e.dataTransfer.files[0];
+              if (f) handleFile(f);
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
+            }}
+            onDragLeave={() => setIsDragOver(false)}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.dropzone}</p>
@@ -183,7 +222,7 @@ export default function PdfPageRemover({ locale }: { locale: 'ar' | 'en' }) {
             </>
           )}
 
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-sm text-red-500" role="alert">{error}</p>}
         </CardContent>
       </Card>
     </div>

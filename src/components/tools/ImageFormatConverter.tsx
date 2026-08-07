@@ -18,6 +18,9 @@ const labels = {
     original: 'Original',
     converted: 'Converted',
     noImage: 'Upload an image to get started',
+    invalidFile: 'Please choose an image file.',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
+    fileReadError: 'Unable to read the image.',
   },
   ar: {
     title: 'محول صيغة الصور',
@@ -29,11 +32,15 @@ const labels = {
     original: 'الأصلية',
     converted: 'المحوّلة',
     noImage: 'ارفع صورة للبدء',
+    invalidFile: 'يرجى اختيار ملف صورة.',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
+    fileReadError: 'تعذر قراءة الصورة.',
   },
 };
 
 const FORMATS = ['PNG', 'JPEG', 'WebP'] as const;
 type Format = (typeof FORMATS)[number];
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
@@ -43,6 +50,8 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
   const [targetFormat, setTargetFormat] = useState<Format>('PNG');
   const [quality, setQuality] = useState(92);
   const [converted, setConverted] = useState<string | null>(null);
+  const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -53,7 +62,15 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
   };
 
   const handleFile = useCallback((file: File) => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/')) {
+      setError(t.invalidFile);
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setError(t.fileTooLarge);
+      return;
+    }
+    setError('');
     const ext = file.name.split('.').pop()?.toUpperCase() || file.type.split('/')[1]?.toUpperCase() || '';
     setOriginalFormat(ext);
     const reader = new FileReader();
@@ -61,11 +78,13 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
       setImage(e.target?.result as string);
       setConverted(null);
     };
+    reader.onerror = () => setError(t.fileReadError);
     reader.readAsDataURL(file);
-  }, []);
+  }, [t.fileReadError, t.fileTooLarge, t.invalidFile]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   };
@@ -109,15 +128,32 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
             onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
+            }}
+            onDragLeave={() => setIsDragOver(false)}
             onClick={() => fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={t.dropzone}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.dropzone}</p>
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
           </div>
+
+          {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
 
           {image && (
             <>
@@ -160,12 +196,12 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-sm">{t.original}</CardTitle></CardHeader>
-            <CardContent><img src={image} alt="Original" className="max-w-full h-auto rounded" /></CardContent>
+            <CardContent><img src={image} alt={t.original} className="max-w-full h-auto rounded" /></CardContent>
           </Card>
           {converted && (
             <Card>
               <CardHeader className="pb-2"><CardTitle className="text-sm">{t.converted} ({targetFormat})</CardTitle></CardHeader>
-              <CardContent><img src={converted} alt="Converted" className="max-w-full h-auto rounded" /></CardContent>
+              <CardContent><img src={converted} alt={t.converted} className="max-w-full h-auto rounded" /></CardContent>
             </Card>
           )}
         </div>

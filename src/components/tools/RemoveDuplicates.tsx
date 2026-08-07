@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Copy, Check, ListFilter } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -76,10 +77,14 @@ export default function RemoveDuplicates({ locale }: { locale: 'ar' | 'en' }) {
     };
   }, [text, caseSensitive, trimWhitespace]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(result.output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(result.output)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

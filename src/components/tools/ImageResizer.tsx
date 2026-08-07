@@ -24,6 +24,9 @@ const labels = {
     resized: 'Resized',
     pixels: 'px',
     noImage: 'Upload an image to get started',
+    invalidFile: 'Please choose an image file.',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
+    fileReadError: 'Unable to read the image.',
   },
   ar: {
     title: 'تغيير حجم الصورة',
@@ -39,6 +42,9 @@ const labels = {
     resized: 'المعدلة',
     pixels: 'بكسل',
     noImage: 'ارفع صورة للبدء',
+    invalidFile: 'يرجى اختيار ملف صورة.',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
+    fileReadError: 'تعذر قراءة الصورة.',
   },
 };
 
@@ -49,6 +55,7 @@ const PRESETS = [
   { label: '512×512', w: 512, h: 512 },
   { label: '256×256', w: 256, h: 256 },
 ];
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
@@ -61,11 +68,21 @@ export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
   const [maintainAspect, setMaintainAspect] = useState(true);
   const [resizedImage, setResizedImage] = useState<string | null>(null);
   const [resizedFileSize, setResizedFileSize] = useState(0);
+  const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleFile = useCallback((file: File) => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/')) {
+      setError(t.invalidFile);
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setError(t.fileTooLarge);
+      return;
+    }
+    setError('');
     setOriginalFileSize(file.size);
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -79,11 +96,13 @@ export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
       };
       img.src = e.target?.result as string;
     };
+    reader.onerror = () => setError(t.fileReadError);
     reader.readAsDataURL(file);
-  }, []);
+  }, [t.fileReadError, t.fileTooLarge, t.invalidFile]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   };
@@ -157,15 +176,32 @@ export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
             onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
+            }}
+            onDragLeave={() => setIsDragOver(false)}
             onClick={() => fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={t.dropzone}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.dropzone}</p>
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
           </div>
+
+          {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
 
           {image && (
             <>
@@ -217,12 +253,12 @@ export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-sm">{t.original}</CardTitle></CardHeader>
-            <CardContent><img src={image} alt="Original" className="max-w-full h-auto rounded" /></CardContent>
+            <CardContent><img src={image} alt={t.original} className="max-w-full h-auto rounded" /></CardContent>
           </Card>
           {resizedImage && (
             <Card>
               <CardHeader className="pb-2"><CardTitle className="text-sm">{t.resized} ({newWidth}×{newHeight})</CardTitle></CardHeader>
-              <CardContent><img src={resizedImage} alt="Resized" className="max-w-full h-auto rounded" /></CardContent>
+              <CardContent><img src={resizedImage} alt={t.resized} className="max-w-full h-auto rounded" /></CardContent>
             </Card>
           )}
         </div>

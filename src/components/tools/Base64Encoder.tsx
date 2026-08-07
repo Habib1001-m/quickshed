@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Copy, Check, FileUp, Binary } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -23,6 +24,8 @@ const labels = {
     fileName: 'File name',
     fileType: 'File type',
     invalidBase64: 'Invalid Base64 input',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
+    fileReadError: 'Unable to read the file.',
     textMode: 'Text',
     fileMode: 'File',
   },
@@ -40,6 +43,8 @@ const labels = {
     fileName: 'اسم الملف',
     fileType: 'نوع الملف',
     invalidBase64: 'إدخال Base64 غير صالح',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
+    fileReadError: 'تعذر قراءة الملف.',
     textMode: 'نص',
     fileMode: 'ملف',
   },
@@ -47,6 +52,7 @@ const labels = {
 
 type Direction = 'encode' | 'decode';
 type Mode = 'text' | 'file';
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 function encodeToBase64(text: string): string {
   try {
@@ -116,6 +122,14 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
   }, [direction, processText]);
 
   const handleFile = useCallback((file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      setFileInfo(null);
+      setOutput('');
+      setError(t.fileTooLarge);
+      return;
+    }
+
+    setError('');
     setFileInfo({
       name: file.name,
       size: file.size < 1024 ? `${file.size} B` : file.size < 1048576 ? `${(file.size / 1024).toFixed(1)} KB` : `${(file.size / 1048576).toFixed(1)} MB`,
@@ -130,11 +144,11 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
       setError('');
     };
     reader.onerror = () => {
-      setError(t.invalidBase64);
+      setError(t.fileReadError);
       setOutput('');
     };
     reader.readAsDataURL(file);
-  }, [t.invalidBase64]);
+  }, [t.fileReadError, t.fileTooLarge]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -157,10 +171,18 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
     if (file) handleFile(file);
   }, [handleFile]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    setCopied(false);
+    try {
+      if (!await copyTextToClipboard(output)) {
+        setCopied(false);
+        return;
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
   }, [output]);
 
   return (
@@ -209,6 +231,15 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onClick={() => fileInputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInputRef.current?.click();
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={t.dragDrop}
                 className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
                   isDragOver ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-muted-foreground/50'
                 }`}
@@ -219,6 +250,7 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
                   ref={fileInputRef}
                   type="file"
                   className="hidden"
+                  aria-label={t.fileMode}
                   onChange={handleFileInput}
                 />
               </div>
@@ -243,7 +275,7 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
       )}
 
       {error && (
-        <Card className="border-destructive">
+        <Card className="border-destructive" role="alert">
           <CardContent className="pt-6">
             <p className="text-destructive text-sm">{error}</p>
           </CardContent>

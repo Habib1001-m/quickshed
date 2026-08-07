@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Copy, Check, KeyRound, ClipboardPaste } from 'lucide-react';
+import { copyTextToClipboard, readTextFromClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -173,18 +174,20 @@ export default function JwtDecoder({ locale }: { locale: 'ar' | 'en' }) {
   }, [input, t.invalidJwt]);
 
   const handlePaste = useCallback(async () => {
-    try {
-      const text = await navigator.clipboard.readText();
+    const text = await readTextFromClipboard();
+    if (text !== null) {
       setInput(text);
-    } catch {
-      // clipboard access denied
     }
   }, []);
 
-  const handleCopySection = useCallback((section: string) => {
-    navigator.clipboard.writeText(section);
-    setCopiedSection(section);
-    setTimeout(() => setCopiedSection(null), 2000);
+  const handleCopySection = useCallback(async (section: string) => {
+    setCopiedSection(null);
+    if (await copyTextToClipboard(section)) {
+      setCopiedSection(section);
+      setTimeout(() => setCopiedSection(null), 2000);
+    } else {
+      setCopiedSection(null);
+    }
   }, []);
 
   const expStatus = useMemo(() => {

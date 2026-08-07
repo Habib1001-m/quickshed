@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileText, Upload, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -17,6 +18,8 @@ const labels = {
     allPages: 'All Pages',
     noPdf: 'Upload a PDF to extract text',
     error: 'Error extracting text from PDF',
+    invalidFile: 'Please choose a PDF file.',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
   },
   ar: {
     title: 'تحويل PDF إلى نص',
@@ -28,8 +31,12 @@ const labels = {
     allPages: 'جميع الصفحات',
     noPdf: 'ارفع ملف PDF لاستخراج النص',
     error: 'خطأ في استخراج النص من PDF',
+    invalidFile: 'يرجى اختيار ملف PDF.',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
   },
 };
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
   const isRTL = locale === 'ar';
@@ -39,14 +46,26 @@ export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handleFile = useCallback(async (file: File) => {
-    if (file.type !== 'application/pdf') return;
+    if (file.type !== 'application/pdf') {
+      setError(t.invalidFile);
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setError(t.fileTooLarge);
+      return;
+    }
+    setError('');
     setLoading(true);
     setError('');
     try {
       const pdfjsLib = await import('pdfjs-dist');
-      pdfjsLib.GlobalWorkerOptions.workerSrc = '';
+      pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/build/pdf.worker.min.mjs',
+        import.meta.url,
+      ).toString();
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer, useSystemFonts: true }).promise;
       const textPages: string[] = [];
@@ -66,18 +85,38 @@ export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
     } finally {
       setLoading(false);
     }
-  }, [t.error]);
+  }, [t.error, t.fileTooLarge, t.invalidFile]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   };
 
-  const copyAll = () => {
-    navigator.clipboard.writeText(pages.join('\n\n'));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const openFilePicker = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,application/pdf';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) handleFile(file);
+    };
+    input.click();
+  }, [handleFile]);
+
+  const copyAll = async () => {
+    setCopied(false);
+    try {
+      if (!await copyTextToClipboard(pages.join('\n\n'))) {
+        setCopied(false);
+        return;
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
   };
 
   const allText = pages.join('\n\n');
@@ -93,19 +132,25 @@ export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
             onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
-            onClick={() => {
-              const input = document.createElement('input');
-              input.type = 'file';
-              input.accept = '.pdf';
-              input.onchange = (e) => {
-                const file = (e.target as HTMLInputElement).files?.[0];
-                if (file) handleFile(file);
-              };
-              input.click();
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
             }}
+            onDragLeave={() => setIsDragOver(false)}
+            onClick={openFilePicker}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openFilePicker();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={t.dropzone}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.dropzone}</p>
@@ -115,7 +160,7 @@ export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
             <div className="text-center text-sm text-muted-foreground">{t.extracting}</div>
           )}
           {error && (
-            <div className="text-center text-sm text-red-500">{error}</div>
+            <div className="text-center text-sm text-red-500" role="alert">{error}</div>
           )}
         </CardContent>
       </Card>

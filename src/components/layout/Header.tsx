@@ -373,7 +373,7 @@ export default function Header({ announcementVisible = false }: HeaderProps) {
               className="ps-9 pe-14 h-10 w-full glass-input bg-muted/50 border-border/50 focus:border-emerald-500 focus:ring-emerald-500/20 placeholder:text-muted-foreground/70"
             />
             {/* Keyboard shortcut badge */}
-            <kbd className="absolute end-3 top-1/2 -translate-y-1/2 pointer-events-none inline-flex items-center gap-0.5 rounded border border-border bg-muted/80 px-1.5 py-0.5 text-[10px] font-semibold text-foreground/50 dark:text-foreground/40">
+            <kbd className="absolute end-3 top-1/2 -translate-y-1/2 pointer-events-none inline-flex items-center gap-0.5 rounded border border-border bg-muted/80 px-1.5 py-0.5 text-[10px] font-semibold text-foreground/80 dark:text-foreground/70">
               {isMac ? '⌘' : 'Ctrl'}K
             </kbd>
 

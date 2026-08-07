@@ -18,7 +18,6 @@ const CLAIM_SCAN_ROOTS = [
   'CONTRIBUTING.md',
   'SECURITY.md',
   'AGENTS.md',
-  'agent.md',
   'messages',
   'content',
   'docs',

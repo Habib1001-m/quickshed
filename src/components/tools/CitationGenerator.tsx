@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { BookOpen, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 type Style = 'apa' | 'mla' | 'chicago';
 
@@ -109,11 +110,14 @@ export default function CitationGenerator({ locale }: { locale: 'ar' | 'en' }) {
     { key: 'pages', label: 'Pages', labelAr: 'الصفحات' },
   ];
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(citation).then(() => {
+  const copyToClipboard = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(citation)) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    });
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

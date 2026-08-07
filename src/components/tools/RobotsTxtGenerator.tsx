@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Copy, Check, Download, Plus, Trash2, FileText } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 interface Rule {
   id: string;
@@ -132,10 +133,14 @@ export default function RobotsTxtGenerator({ locale }: { locale: 'ar' | 'en' }) 
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(generatedCode)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   const handleDownload = () => {

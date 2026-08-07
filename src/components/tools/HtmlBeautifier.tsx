@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, FileCode, Sparkles, Minimize2 } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -177,10 +178,14 @@ export default function HtmlBeautifier({ locale }: { locale: 'ar' | 'en' }) {
     setOutputs(prev => ({ ...prev, [tab]: result }));
   }, [inputs, tab]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(outputs[tab]);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(outputs[tab])) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   }, [outputs, tab]);
 
   return (

@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Palette, Upload, Copy, Check } from 'lucide-react';
+import { copyTextToClipboard } from '@/lib/clipboard';
 
 const labels = {
   en: {
@@ -16,7 +17,11 @@ const labels = {
     hsl: 'HSL',
     copied: 'Copied!',
     copy: 'Copy',
+    uploaded: 'Uploaded image',
     noImage: 'Upload an image to extract colors',
+    invalidFile: 'Please choose an image file.',
+    fileTooLarge: 'File is too large. Maximum size is 25 MB.',
+    fileReadError: 'Unable to read the image.',
   },
   ar: {
     title: 'مستخرج لوحة الألوان',
@@ -28,7 +33,11 @@ const labels = {
     hsl: 'HSL',
     copied: 'تم النسخ!',
     copy: 'نسخ',
+    uploaded: 'الصورة المرفوعة',
     noImage: 'ارفع صورة لاستخراج الألوان',
+    invalidFile: 'يرجى اختيار ملف صورة.',
+    fileTooLarge: 'الملف كبير جدًا. الحد الأقصى للحجم هو 25 ميجابايت.',
+    fileReadError: 'تعذر قراءة الصورة.',
   },
 };
 
@@ -42,6 +51,8 @@ interface ColorInfo {
   l: number;
   count: number;
 }
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
   r /= 255; g /= 255; b /= 255;
@@ -68,21 +79,33 @@ export default function ColorPaletteExtractor({ locale }: { locale: 'ar' | 'en' 
   const [image, setImage] = useState<string | null>(null);
   const [colors, setColors] = useState<ColorInfo[]>([]);
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+  const [error, setError] = useState('');
+  const [isDragOver, setIsDragOver] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File) => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/')) {
+      setError(t.invalidFile);
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setError(t.fileTooLarge);
+      return;
+    }
+    setError('');
     const reader = new FileReader();
     reader.onload = (e) => {
       setImage(e.target?.result as string);
       setColors([]);
     };
+    reader.onerror = () => setError(t.fileReadError);
     reader.readAsDataURL(file);
-  }, []);
+  }, [t.fileReadError, t.fileTooLarge, t.invalidFile]);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    setIsDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
   };
@@ -132,10 +155,18 @@ export default function ColorPaletteExtractor({ locale }: { locale: 'ar' | 'en' 
     img.src = image;
   };
 
-  const copyColor = (text: string, idx: number) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const copyColor = async (text: string, idx: number) => {
+    setCopiedIdx(null);
+    try {
+      if (!await copyTextToClipboard(text)) {
+        setCopiedIdx(null);
+        return;
+      }
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      setCopiedIdx(null);
+    }
   };
 
   const totalCount = colors.reduce((sum, c) => sum + c.count, 0);
@@ -151,19 +182,36 @@ export default function ColorPaletteExtractor({ locale }: { locale: 'ar' | 'en' 
         </CardHeader>
         <CardContent className="space-y-4">
           <div
-            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
+            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+              isDragOver ? 'border-primary bg-primary/5' : 'hover:border-primary/50'
+            }`}
             onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragOver(true);
+            }}
+            onDragLeave={() => setIsDragOver(false)}
             onClick={() => fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={t.dropzone}
           >
             <Upload className="size-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">{t.dropzone}</p>
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])} />
           </div>
 
+          {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
+
           {image && (
             <>
-              <img src={image} alt="Uploaded" className="max-w-full h-auto rounded" />
+              <img src={image} alt={t.uploaded} className="max-w-full h-auto rounded" />
               <Button onClick={extractColors} className="tool-action-btn flex items-center gap-2">
                 <Palette className="size-4" />{t.extract}
               </Button>
@@ -187,7 +235,11 @@ export default function ColorPaletteExtractor({ locale }: { locale: 'ar' | 'en' 
                     <div className="flex-1 min-w-0">
                       <div className="font-mono text-sm font-bold flex items-center gap-2">
                         {color.hex}
-                        <button onClick={() => copyColor(color.hex, i)} className="text-muted-foreground hover:text-foreground">
+                        <button
+                          onClick={() => copyColor(color.hex, i)}
+                          aria-label={`${t.copy} ${color.hex}`}
+                          className="text-muted-foreground hover:text-foreground"
+                        >
                           {copiedIdx === i ? <Check className="size-3" /> : <Copy className="size-3" />}
                         </button>
                       </div>

@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useI18n } from '@/lib/i18n';
+import { copyTextToClipboard } from '@/lib/clipboard';
 import { Copy, Check, FileCode, Eye } from 'lucide-react';
 
 const labels = {
@@ -147,10 +148,14 @@ export default function MarkdownToHtml({ locale }: { locale: 'ar' | 'en' }) {
     [markdown, imageBlockedMessage],
   );
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(html);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopied(false);
+    if (await copyTextToClipboard(html)) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } else {
+      setCopied(false);
+    }
   };
 
   return (

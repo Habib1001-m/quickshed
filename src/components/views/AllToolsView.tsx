@@ -184,21 +184,24 @@ export function AllToolsView() {
 
       const cols = getGridColumns();
       const total = displayedTools.length;
+      const cards = gridRef.current.querySelectorAll<HTMLElement>('[data-tool-card-action]');
+      const activeIndex = Array.from(cards).indexOf(document.activeElement as HTMLElement);
+      const currentIndex = activeIndex >= 0 ? activeIndex : focusedIndex;
 
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         e.preventDefault();
         const dir = e.key === 'ArrowRight' ? 1 : -1;
-        const next = Math.min(Math.max(focusedIndex + dir, 0), total - 1);
+        const next = Math.min(Math.max(currentIndex + dir, 0), total - 1);
         setFocusedIndex(next);
         focusCard(next);
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const next = Math.min(focusedIndex + cols, total - 1);
+        const next = Math.min(currentIndex + cols, total - 1);
         setFocusedIndex(next);
         focusCard(next);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const next = Math.max(focusedIndex - cols, 0);
+        const next = Math.max(currentIndex - cols, 0);
         setFocusedIndex(next);
         focusCard(next);
       }
@@ -215,9 +218,9 @@ export function AllToolsView() {
 
     function focusCard(index: number) {
       if (!gridRef.current) return;
-      const cards = gridRef.current.querySelectorAll('[role="button"]');
+      const cards = gridRef.current.querySelectorAll<HTMLElement>('[data-tool-card-action]');
       if (cards[index]) {
-        (cards[index] as HTMLElement).focus();
+        cards[index].focus();
       }
     }
 
@@ -247,7 +250,7 @@ export function AllToolsView() {
             variant="outline"
             size="sm"
             onClick={() => setCompareOpen(true)}
-            className="gap-1.5 border-emerald-500/40 text-emerald-600 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950/30 micro-bounce"
+            className="gap-1.5 border-emerald-500/40 text-emerald-800 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-950/30 micro-bounce"
           >
             <GitCompareArrows className="size-4" />
             {t('common.compareTools')}
@@ -345,7 +348,7 @@ export function AllToolsView() {
                       transition-all duration-200 cursor-pointer micro-bounce
                       ${isActive
                         ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        : 'bg-muted text-foreground hover:bg-muted/80'
                       }
                     `}
                   >
@@ -370,7 +373,7 @@ export function AllToolsView() {
                       transition-all duration-200 cursor-pointer micro-bounce
                       ${isActive
                         ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-md shadow-emerald-500/25 pill-active-glow'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                        : 'bg-muted text-foreground hover:bg-muted/80'
                       }
                     `}
                   >
@@ -389,7 +392,7 @@ export function AllToolsView() {
                 shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 micro-bounce hover:scale-105
                 ${selectedCategory === 'all'
                   ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-sm pill-active-glow'
-                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  : 'bg-muted text-foreground hover:bg-muted/80'
                 }
               `}
             >
@@ -405,12 +408,12 @@ export function AllToolsView() {
                     shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 micro-bounce hover:scale-105
                     ${selectedCategory === cat.slug
                       ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 text-white shadow-sm pill-active-glow'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      : 'bg-muted text-foreground hover:bg-muted/80'
                     }
                   `}
                 >
                   {catName}
-                  <span className="ms-1 text-xs opacity-70">({cat.toolCount})</span>
+                    <span className="ms-1 text-xs">({cat.toolCount})</span>
                 </button>
               );
             })}
