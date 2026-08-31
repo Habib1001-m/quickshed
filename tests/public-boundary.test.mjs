@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -37,6 +37,7 @@ test('rejects generic private and operational path classes', () => {
     '.agents/workspace/notes.md',
     'skills/runtime/notes.md',
     'runtime-instructions/notes.md',
+    'unknown-public-dir/file.txt',
     'docs/evidence/receipt.md',
     'src/execution/run.json',
     'benchmark-suite/case.json',
@@ -58,9 +59,10 @@ test('allows only the intentional environment example', () => {
   assert.notEqual(findPathViolation('.env.production'), null);
 });
 
-test('rejects a blocked ignored path after git add -f', () => {
+test('rejects a blocked ignored path after git add -f', (t) => {
   const cwd = mkdtempSync(join(tmpdir(), 'quickshed-public-boundary-'));
   const blockedPath = '.agents/ignored/fixture.txt';
+  t.after(() => rmSync(cwd, { recursive: true, force: true }));
 
   mkdirSync(join(cwd, '.agents', 'ignored'), { recursive: true });
   writeFileSync(join(cwd, '.gitignore'), '.agents/\n');
