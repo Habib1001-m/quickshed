@@ -1,0 +1,70 @@
+---
+title: "What Does `*/5 * * * *` Mean? Cron Expressions Explained with Practical Examples"
+description: "Learn what */5 * * * * means, how five-field cron syntax works, and where time zones and scheduler-specific dialects change the result."
+date: 2026-08-31
+category: "Developer Tools"
+tags: ["Cron", "scheduling", "automation", "developer tools"]
+readingTime: "7 min"
+---
+
+# What Does `*/5 * * * *` Mean? Cron Expressions Explained with Practical Examples
+
+If you see `*/5 * * * *` in a crontab, it means **run the command every five minutes**: at minute 0, 5, 10, 15, and so on, during every hour, on every day and month. The first field controls minutes. `*/5` is a step expression: start with the full minute range and select every fifth value. The four `*` fields leave the hour, day of month, month, and day of week unrestricted.[1][2][6]
+
+That produces times such as 09:00, 09:05, 09:10, and 09:15. It does not mean five minutes after the last run; it describes wall-clock minute marks. A traditional cron daemon checks entries on a minute schedule, so this expression fits recurring tasks that need five-minute granularity.[2][6]
+
+## The classic five-field format
+
+For Unix/POSIX-style user crontabs, the five time fields appear in this order:[1][3]
+
+| Field | Position | Typical values | What it controls |
+| --- | ---: | --- | --- |
+| Minute | 1 | `0-59` | Minute within the hour |
+| Hour | 2 | `0-23` | Hour of the day |
+| Day of month | 3 | `1-31` | Calendar day |
+| Month | 4 | `1-12` | Month of the year |
+| Day of week | 5 | `0-6` | Weekday; `0` is Sunday in the POSIX description |
+
+An asterisk means all valid values for that field. A comma lists alternatives, a hyphen makes an inclusive range, and a slash introduces steps. Thus `1,15` means two selected values, `9-17` means every value from 9 through 17, and `*/5` means every fifth value in the field’s range.[1][2]
+
+The day-of-month and day-of-week fields deserve care. In the POSIX crontab description, when both are restricted, a matching day in either field can qualify, rather than requiring both restrictions to match. Implementations and hosted schedulers can differ, so check the target’s documentation before combining them.[1][2]
+
+## Eight useful examples
+
+1. `* * * * *` runs every minute boundary.
+2. `*/5 * * * *` runs at minutes divisible by five, all day.
+3. `0 * * * *` runs at the top of every hour.
+4. `30 6 * * *` runs every day at 06:30.
+5. `0 9 * * 1-5` runs on weekdays at 09:00 when the implementation uses `1-5` for Monday through Friday.
+6. `0 0 1 * *` runs at midnight on the first day of each month.
+7. `0 0 * * 0` runs at midnight on Sunday when zero represents Sunday.
+8. `*/15 9-17 * * 1-5` runs every 15 minutes during business hours when the implementation uses `1-5` for weekdays.[1][2]
+
+A common near-miss is `5 * * * *`. That runs once at minute 5 of every hour, such as 01:05 and 02:05, rather than every five minutes. The slash is what changes a single selected minute into a step pattern.[1][2]
+
+## Cron is a family of dialects, not one universal grammar
+
+The five-field form above is the classic Unix/POSIX/Vixie-style scope. It is not safe to paste every cron-looking expression into every scheduler. Kubernetes CronJobs document five fields and Vixie-style steps, along with conveniences such as `?` and `@monthly`. GitHub Actions documents POSIX cron syntax, limits scheduled workflows to a five-minute minimum interval, and supports a timezone setting in its workflow syntax. Its documentation also says that several non-standard macros, including `@daily` and `@reboot`, are not supported.[3][4]
+
+Amazon EventBridge is a clear counterexample: its cron expressions have **six required fields**, with year added after day of week, and use `?`, `L`, `W`, and `#` with service-specific rules. A five-field expression copied into EventBridge needs to be translated, not assumed equivalent. Some libraries also put seconds first, creating a six-field form with a different field order. Before deploying, identify the scheduler, read its field table, and check its weekday numbering, special operators, minimum interval, and day-field semantics.[5]
+
+## Time zones and daylight saving time
+
+A cron expression does not by itself tell you which civil-time zone a scheduler uses. A system crontab may use the host’s local zone or a configured `CRON_TZ`; a hosted service may default to UTC or accept an explicit timezone. State the intended zone in operational documentation, especially for jobs that run at a business-defined local time.[2][3]
+
+Daylight saving time can create a missing local time or a repeated local time. The cronie `crontab(5)` documentation notes that a job scheduled during a missing hour will not run, while a time that occurs twice can run twice. If exactly-once behavior matters, make the job idempotent and design a recovery path rather than assuming the clock always advances uniformly. For a five-minute polling task, UTC can simplify coordination, but the scheduler’s documented behavior still wins.[2]
+
+## Checking an expression with QuickShed
+
+QuickShed’s [Cron Expression Parser](/en/tools/cron-expression-parser) is a local, offline browser tool. It accepts either five fields (`minute hour day-of-month month day-of-week`) or six fields with seconds first. It shows a field breakdown, a human-readable description, common presets including `*/5 * * * *`, and up to five upcoming times calculated from the browser clock. The tool’s metadata marks it `privacy: local`, `offline: full`, and with no retention; its component has no network or persistent-storage calls in the inspected source. Treat its six-field option as the component’s documented behavior, not as proof that another scheduler uses the same dialect.
+
+Use a parser to catch a mistyped field, then verify the expression against the actual scheduler’s documentation. Before deploying, name the target system, write down the intended timezone, translate the expression into that dialect, test a few next-run times, and make the command safe to repeat.
+
+## Sources
+
+1. [The Open Group: `crontab`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html)
+2. [crontab(5), Linux man-pages / cronie](https://man7.org/linux/man-pages/man5/crontab.5.html)
+3. [GitHub Actions: Events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+4. [Kubernetes: CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
+5. [AWS EventBridge: Schedule pattern](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html)
+6. [Crontab Guru: Every 5 minutes](https://crontab.guru/every-5-minutes)
