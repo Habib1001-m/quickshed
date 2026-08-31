@@ -137,7 +137,49 @@ export function findPathViolation(path) {
 }
 
 export function readTrackedPaths(cwd = process.cwd()) {
-  return execFileSync('git', ['ls-files', '-z'], { cwd, encoding: 'utf8' })
+  return readGitOutput(cwd, ['ls-files', '-z'])
+    .split('\0')
+    .filter(Boolean);
+}
+
+function readGitOutput(cwd, args) {
+  return execFileSync('git', args, {
+    cwd,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+export function resolveHistoryBase(cwd = process.cwd()) {
+  const baseRef = `origin/${process.env.GITHUB_BASE_REF || 'main'}`;
+  try {
+    return readGitOutput(cwd, ['merge-base', 'HEAD', baseRef]).trim();
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`history base could not be resolved (${baseRef}): ${reason}`);
+  }
+}
+
+function readHistoryCommits(cwd, baseCommit) {
+  return readGitOutput(cwd, ['rev-list', '--reverse', '--topo-order', `${baseCommit}..HEAD`])
+    .trim()
+    .split('\n')
+    .filter(Boolean);
+}
+
+function readTouchedPaths(cwd, commit) {
+  return readGitOutput(cwd, [
+    'diff-tree',
+    '--root',
+    '--no-commit-id',
+    '--name-only',
+    '--no-renames',
+    '-r',
+    '-m',
+    '-z',
+    '--format=',
+    commit,
+  ])
     .split('\0')
     .filter(Boolean);
 }
@@ -150,17 +192,46 @@ export function findTrackedPathViolations(cwd = process.cwd()) {
     });
 }
 
+export function findHistoryPathViolations(cwd = process.cwd(), baseCommit = resolveHistoryBase(cwd)) {
+  return readHistoryCommits(cwd, baseCommit)
+    .flatMap((commit) => readTouchedPaths(cwd, commit)
+      .flatMap((path) => {
+        const violation = findPathViolation(path);
+        return violation ? [`${commit}: ${path}: ${violation}`] : [];
+      }));
+}
+
 export function main(cwd = process.cwd()) {
-  const findings = findTrackedPathViolations(cwd);
-  if (findings.length > 0) {
-    console.error('Public boundary guard failed:');
-    for (const finding of findings) {
+  const currentFindings = findTrackedPathViolations(cwd);
+  if (currentFindings.length > 0) {
+    console.error('Public boundary current tree guard failed:');
+    for (const finding of currentFindings) {
       console.error(`- ${finding}`);
     }
     return 1;
   }
 
-  console.log('Public boundary guard passed.');
+  let historyFindings;
+  try {
+    historyFindings = findHistoryPathViolations(cwd);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    console.error(`Public boundary history guard failed: ${reason}`);
+    console.error('HISTORY_BASE_UNRESOLVED=FAIL_CLOSED');
+    return 1;
+  }
+
+  if (historyFindings.length > 0) {
+    console.error('Public boundary history guard failed:');
+    for (const finding of historyFindings) {
+      console.error(`- ${finding}`);
+    }
+    console.error('CONTAMINATED_BRANCH=DO_NOT_FIX_BY_DELETE_ONLY');
+    console.error('REBUILD_FROM_CLEAN_BASE');
+    return 1;
+  }
+
+  console.log('Public boundary guard passed (current tree and history range).');
   return 0;
 }
 

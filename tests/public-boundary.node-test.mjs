@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -7,11 +7,13 @@ import { test } from 'node:test';
 
 import {
   PUBLIC_TOP_LEVEL_DIRECTORIES,
+  findHistoryPathViolations,
   findPathViolation,
   findTrackedPathViolations,
 } from '../scripts/check-public-boundary.mjs';
 
 const repositoryRoot = join(import.meta.dirname, '..');
+const guardScript = join(repositoryRoot, 'scripts/check-public-boundary.mjs');
 
 function git(cwd, args) {
   return execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
@@ -103,4 +105,73 @@ test('rejects a blocked ignored path after git add -f', (t) => {
 
 test('passes the current clean repository scan', () => {
   assert.deepEqual(findTrackedPathViolations(repositoryRoot), []);
+});
+
+test('fails history scan when a blocked path was added and later deleted', (t) => {
+  const cwd = mkdtempSync(join(tmpdir(), 'quickshed-public-history-'));
+  const blockedPath = '.agents/synthetic/fixture.txt';
+  t.after(() => rmSync(cwd, { recursive: true, force: true }));
+
+  git(cwd, ['init', '-q']);
+  git(cwd, ['config', 'user.name', 'Synthetic Fixture']);
+  git(cwd, ['config', 'user.email', 'synthetic@example.invalid']);
+  git(cwd, ['config', 'commit.gpgSign', 'false']);
+  writeFileSync(join(cwd, '.gitignore'), '.agents/\n');
+  writeFileSync(join(cwd, 'README.md'), 'synthetic fixture only\n');
+  git(cwd, ['add', '.gitignore', 'README.md']);
+  git(cwd, ['commit', '-qm', 'create clean base']);
+  const baseCommit = git(cwd, ['rev-parse', 'HEAD']);
+  git(cwd, ['checkout', '-qb', 'candidate']);
+
+  mkdirSync(join(cwd, '.agents', 'synthetic'), { recursive: true });
+  writeFileSync(join(cwd, blockedPath), 'synthetic fixture only\n');
+  git(cwd, ['add', '-f', blockedPath]);
+  git(cwd, ['commit', '-qm', 'add synthetic fixture']);
+  const addCommit = git(cwd, ['rev-parse', 'HEAD']);
+
+  git(cwd, ['rm', blockedPath]);
+  git(cwd, ['commit', '-qm', 'delete synthetic fixture']);
+  const deleteCommit = git(cwd, ['rev-parse', 'HEAD']);
+  git(cwd, ['update-ref', 'refs/remotes/origin/main', baseCommit]);
+
+  assert.deepEqual(findTrackedPathViolations(cwd), []);
+  assert.deepEqual(findHistoryPathViolations(cwd, baseCommit), [
+    `${addCommit}: ${blockedPath}: blocked agent or workspace path component ".agents"`,
+    `${deleteCommit}: ${blockedPath}: blocked agent or workspace path component ".agents"`,
+  ]);
+
+  const guardRun = spawnSync(process.execPath, [guardScript], {
+    cwd,
+    encoding: 'utf8',
+  });
+  assert.equal(guardRun.status, 1);
+  assert.match(guardRun.stderr, /CONTAMINATED_BRANCH=DO_NOT_FIX_BY_DELETE_ONLY/);
+  assert.match(guardRun.stderr, /REBUILD_FROM_CLEAN_BASE/);
+});
+
+test('passes the current PR history range from origin/main', () => {
+  const baseCommit = git(repositoryRoot, ['rev-parse', 'origin/main']);
+  assert.deepEqual(findHistoryPathViolations(repositoryRoot, baseCommit), []);
+});
+
+test('fails closed when the history base cannot be resolved', (t) => {
+  const cwd = mkdtempSync(join(tmpdir(), 'quickshed-public-base-'));
+  t.after(() => rmSync(cwd, { recursive: true, force: true }));
+
+  git(cwd, ['init', '-q']);
+  git(cwd, ['config', 'user.name', 'Synthetic Fixture']);
+  git(cwd, ['config', 'user.email', 'synthetic@example.invalid']);
+  git(cwd, ['config', 'commit.gpgSign', 'false']);
+  writeFileSync(join(cwd, 'README.md'), 'synthetic fixture only\n');
+  git(cwd, ['add', 'README.md']);
+  git(cwd, ['commit', '-qm', 'create isolated repository']);
+
+  assert.throws(() => findHistoryPathViolations(cwd), /history base/i);
+
+  const guardRun = spawnSync(process.execPath, [guardScript], {
+    cwd,
+    encoding: 'utf8',
+  });
+  assert.equal(guardRun.status, 1);
+  assert.match(guardRun.stderr, /HISTORY_BASE_UNRESOLVED=FAIL_CLOSED/);
 });
