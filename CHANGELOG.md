@@ -20,6 +20,8 @@ The format follows Keep a Changelog, and this project uses semantic versioning o
 
 - Removed public release archives from the static site source.
 - Added a public asset guard that blocks archives, `.env` files, large files, and internal folders under `public/`.
+- Added a tracked-path guard for private and internal operational material.
+- Extended the public boundary guard across the candidate branch's commit history.
 - Escaped Markdown and JSON formatter output before rendering highlighted HTML.
 - Replaced the math equation solver `new Function` evaluator with a parser.
 - Replaced non-cryptographic password and PIN randomness with Web Crypto.

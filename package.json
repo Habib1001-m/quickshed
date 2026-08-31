@@ -16,8 +16,10 @@
     "test:e2e:all": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium",
     "audit:release": "npm audit --omit=dev --audit-level=critical",
+    "test:public-boundary": "node --test tests/public-boundary.node-test.mjs",
+    "guard:public-boundary": "node scripts/check-public-boundary.mjs",
     "guard:public-assets": "node scripts/check-public-assets.mjs",
-    "release:check": "npm run guard:public-assets && npm run lint && npm run typecheck && npm run build && npm run audit:release && CI=1 npm run test:e2e"
+    "release:check": "npm run guard:public-boundary && npm run test:public-boundary && npm run guard:public-assets && npm run lint && npm run typecheck && npm run build && npm run audit:release && CI=1 npm run test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.14",

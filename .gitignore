@@ -53,6 +53,8 @@ server.log
 # AI / internal tools
 .claude
 .z-ai-config
+.agent/
+.agents/
 agent-ctx/
 .zscripts/
 /.codex/

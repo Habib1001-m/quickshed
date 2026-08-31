@@ -19,10 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
     - uses: actions/setup-node@v6
       with:
         node-version: 22
         cache: npm
+    - name: Check public boundary
+      run: npm run guard:public-boundary
+    - name: Test public boundary
+      run: npm run test:public-boundary
     - name: Install dependencies
       run: npm ci
     - name: Check public assets
