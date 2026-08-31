@@ -17,6 +17,7 @@ The format follows Keep a Changelog, and this project uses semantic versioning o
 - Release readiness audit and v0.6.0 launch plan.
 - GitHub governance templates for issues, pull requests, code ownership, security, and Dependabot.
 - Added a measured PNG/WebP comparison and a practical Cron expression guide to the blog, with scoped methodology, citations, and browser-test visuals.
+- Added native ar-EG editions of the PNG/WebP and Cron guides with localized terminology, examples, and internal tool links.
 
 ### Changed
 
