@@ -2,11 +2,14 @@
   "name": "quickshed",
   "version": "0.6.0",
   "packageManager": "npm@10.9.8",
-  "private": false,
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "dev": "next dev -p 7125 2>&1 | tee dev.log",
+    "dev": "next dev -p 7125",
     "build": "next build",
-    "start": "next start -p 7125 2>&1 | tee server.log",
+    "start": "next start -p 7125",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test --project=chromium --project=mobile-chromium",
@@ -14,7 +17,7 @@
     "test:e2e:chromium": "playwright test --project=chromium",
     "audit:release": "npm audit --omit=dev --audit-level=critical",
     "guard:public-assets": "node scripts/check-public-assets.mjs",
-    "release:check": "npm run guard:public-assets && npm run lint && npm run typecheck && npm run build && npm run audit:release && npm run test:e2e"
+    "release:check": "npm run guard:public-assets && npm run lint && npm run typecheck && npm run build && npm run audit:release && CI=1 npm run test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.14",
