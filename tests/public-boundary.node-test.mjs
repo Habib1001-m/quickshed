@@ -54,6 +54,13 @@ test('rejects generic private and operational path classes', () => {
   }
 });
 
+test('rejects golden evaluation trees inside public directories', () => {
+  assert.match(
+    findPathViolation('docs/golden-evaluation/case.json'),
+    /benchmark or evaluation/,
+  );
+});
+
 test('allows only the intentional environment example', () => {
   assert.equal(findPathViolation('.env.example'), null);
   assert.notEqual(findPathViolation('.env.production'), null);

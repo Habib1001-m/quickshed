@@ -47,6 +47,7 @@ const BLOCKED_MARKERS = [
   ['benchmark', 'benchmark or evaluation'],
   ['holdout', 'benchmark or evaluation'],
   ['gold', 'benchmark or evaluation'],
+  ['golden', 'benchmark or evaluation'],
   ['private', 'private or internal'],
   ['internal', 'private or internal'],
   ['confidential', 'private or internal'],
