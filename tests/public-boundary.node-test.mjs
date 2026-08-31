@@ -30,6 +30,23 @@ test('does not reject ordinary filenames containing similar English text', () =>
   assert.equal(findPathViolation('docs/skills-guide.md'), null);
   assert.equal(findPathViolation('src/components/goldfish.ts'), null);
   assert.equal(findPathViolation('docs/holdoutish.md'), null);
+  assert.equal(findPathViolation('src/lib/runtimeish.ts'), null);
+});
+
+test('rejects runtime path components in every position', () => {
+  assert.match(findPathViolation('docs/runtime.md'), /runtime instruction/);
+  assert.match(findPathViolation('docs/runtime-notes.md'), /runtime instruction/);
+});
+
+test('rejects environment-secret components wherever they occur', () => {
+  assert.match(
+    findPathViolation('docs/.env.production/secret.txt'),
+    /environment-secret/,
+  );
+  assert.match(
+    findPathViolation('docs/.env.example/notes.txt'),
+    /environment-secret/,
+  );
 });
 
 test('rejects generic private and operational path classes', () => {

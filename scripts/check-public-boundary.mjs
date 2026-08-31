@@ -88,10 +88,21 @@ function componentViolation(component, isLastComponent) {
     }
   }
 
-  if (!isLastComponent && hasMarker(lowerComponent, 'runtime')) {
+  if (hasMarker(lowerComponent, 'runtime')) {
     return `blocked skill or runtime instruction path marker "${component}"`;
   }
 
+  return null;
+}
+
+function environmentViolation(component, isLastComponent) {
+  const lowerComponent = component.toLowerCase();
+  if (lowerComponent === '.env.example') {
+    return isLastComponent ? null : `unsafe environment-secret path component "${component}"`;
+  }
+  if (lowerComponent === '.env' || lowerComponent.startsWith('.env.')) {
+    return `unsafe environment-secret path component "${component}"`;
+  }
   return null;
 }
 
@@ -104,15 +115,18 @@ export function findPathViolation(path) {
   }
 
   for (let index = 0; index < components.length; index += 1) {
+    const environmentPathViolation = environmentViolation(
+      components[index],
+      index === components.length - 1,
+    );
+    if (environmentPathViolation) {
+      return environmentPathViolation;
+    }
+
     const violation = componentViolation(components[index], index === components.length - 1);
     if (violation) {
       return violation;
     }
-  }
-
-  const fileName = components.at(-1).toLowerCase();
-  if ((fileName === '.env' || fileName.startsWith('.env.')) && fileName !== '.env.example') {
-    return `unsafe environment-secret file "${path}"`;
   }
 
   if (components.length > 1 && !PUBLIC_TOP_LEVEL_DIRECTORIES.has(components[0])) {
