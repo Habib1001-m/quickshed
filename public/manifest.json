@@ -1,7 +1,7 @@
 {
-  "name": "QuickShed - Your Instant Privacy-First Toolbox",
+  "name": "QuickShed - Privacy-first browser toolbox",
   "short_name": "QuickShed",
-  "description": "Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser.",
+  "description": "Free, privacy-respecting web toolbox with 90 browser-based tools. Each tool shows how it handles data.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0F172A",
