@@ -2,6 +2,7 @@ import 'server-only';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { isSafeBlogLocale, isSafeBlogSlug } from './blog-slug';
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
 
@@ -21,6 +22,8 @@ export interface BlogPost {
 
 // 1. Read single post by slug and locale
 export function getPostBySlug(slug: string, locale: string): BlogPost | null {
+  if (!isSafeBlogLocale(locale) || !isSafeBlogSlug(slug)) return null;
+
   try {
     const filePath = path.join(BLOG_DIR, locale, `${slug}.mdx`);
     if (!fs.existsSync(filePath)) return null;
@@ -49,6 +52,8 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
 
 // 2. Get all posts for a locale, sorted newest first
 export function getAllPosts(locale: string): BlogPost[] {
+  if (!isSafeBlogLocale(locale)) return [];
+
   const localeDir = path.join(BLOG_DIR, locale);
   if (!fs.existsSync(localeDir)) return [];
 

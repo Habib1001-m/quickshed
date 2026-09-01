@@ -18,6 +18,7 @@ The format follows Keep a Changelog, and this project uses semantic versioning o
 
 ### Security
 
+- Closed CodeQL XSS findings by rendering JSON tokens as React text nodes, decoding HTML entities without a DOM sink, and validating blog URL segments.
 - Removed public release archives from the static site source.
 - Added a public asset guard that blocks archives, `.env` files, large files, and internal folders under `public/`.
 - Added a tracked-path guard for private and internal operational material.
