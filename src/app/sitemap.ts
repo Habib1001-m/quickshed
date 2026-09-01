@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const homePages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}`,
-    lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: locale === 'en' ? 1.0 : 0.9,
     alternates: { languages: { en: `${SITE_URL}/en`, ar: `${SITE_URL}/ar` } },
@@ -17,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const allToolsPages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}/all-tools`,
-    lastModified: new Date(),
     changeFrequency: 'daily' as const,
     priority: 0.9,
     alternates: { languages: { en: `${SITE_URL}/en/all-tools`, ar: `${SITE_URL}/ar/all-tools` } },
@@ -25,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const categoryIndexPages: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}/category`,
-    lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
     alternates: { languages: { en: `${SITE_URL}/en/category`, ar: `${SITE_URL}/ar/category` } },
@@ -34,7 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = ['privacy', 'terms'].flatMap((page) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/${page}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.5,
       alternates: { languages: { en: `${SITE_URL}/en/${page}`, ar: `${SITE_URL}/ar/${page}` } },
@@ -44,7 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const categoryPages: MetadataRoute.Sitemap = categories.flatMap((cat) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/category/${cat.slug}`,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
       alternates: { languages: { en: `${SITE_URL}/en/category/${cat.slug}`, ar: `${SITE_URL}/ar/category/${cat.slug}` } },
@@ -54,7 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const toolPages: MetadataRoute.Sitemap = tools.flatMap((tool) =>
     LOCALES.map((locale) => ({
       url: `${SITE_URL}/${locale}/tools/${tool.slug}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
       alternates: { languages: { en: `${SITE_URL}/en/tools/${tool.slug}`, ar: `${SITE_URL}/ar/tools/${tool.slug}` } },
@@ -64,14 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) => [
     {
       url: `${SITE_URL}/${locale}/blog`,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
       alternates: { languages: { en: `${SITE_URL}/en/blog`, ar: `${SITE_URL}/ar/blog` } },
     },
     ...getAllPosts(locale).map((post) => ({
       url: `${SITE_URL}/${locale}/blog/${post.slug}`,
-      lastModified: post.date,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
       alternates: {

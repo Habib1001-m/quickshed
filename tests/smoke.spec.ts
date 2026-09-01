@@ -17,6 +17,51 @@ async function selectEncoding(page: Page, name: RegExp) {
   await page.getByRole('option', { name }).click();
 }
 
+const VALID_CERTIFICATE_DER_BASE64 = 'MIIDtTCCAp2gAwIBAgIESjssHTANBgkqhkiG9w0BAQsFADByMQswCQYDVQQGEwJVUzEXMBUGA1UECgwOUXVpY2tTaGVkIFRlc3QxCzAJBgNVBAsMAlFBMRgwFgYDVQQDDA9maXh0dXJlLmV4YW1wbGUxIzAhBgkqhkiG9w0BCQEWFGZpeHR1cmVAZXhhbXBsZS50ZXN0MB4XDTI2MDkwMTE4MzkxNFoXDTM2MDgyOTE4MzkxNFowcjELMAkGA1UEBhMCVVMxFzAVBgNVBAoMDlF1aWNrU2hlZCBUZXN0MQswCQYDVQQLDAJRQTEYMBYGA1UEAwwPZml4dHVyZS5leGFtcGxlMSMwIQYJKoZIhvcNAQkBFhRmaXh0dXJlQGV4YW1wbGUudGVzdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANlDCMHZOUMQEnwxbFPCM3uMMyZoQu8PzrwbN2dbnFNK81B89VIB39+VzxMLYfachiBGw8De9+Du77rNG/8TrblPXaETHRG5vC0YZOtFT4JnAACTkRnIjAaNivdXk4GMOVo2ubwE7bNMBXJwEbNAjaYLB7H3xVW7ZGTu7wei5d3fN+MgI8y4jrcg479navXl4Ma4rauC8gLcK1sRJ4y+hgEsJ14lLDL5Sdn4LiMfgeQhkVLn+ZcVZAFpHfIaMJDAq9gAscRN+8KXglB4XkbSyz5lzNSMspJpQKS8zx+FJ7IHEfpYHlEOnRhWr4VzdGK9oox42ITnTCBg/fkfQuUY//0CAwEAAaNTMFEwHQYDVR0OBBYEFLk+Hs3a0ZJJiZ5r+VO8lYpW8v9XMB8GA1UdIwQYMBaAFLk+Hs3a0ZJJiZ5r+VO8lYpW8v9XMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAJNzdEsO/9dI/G4I6mOl6Yr7mAlRzerK8saKZiAQTABwuxxwtWt6KzHMd30x8S3hnUJlTctJSupa4oJzBu/5VZmBpPNKtU+jK9aIWU6tel9DD9FW0c1iyuKGrTIukbofpT2Rb6itBFWz8ZziJkR6+mZ00K/OGYKff3XNJh0tftmpLJ04rBsk2l1IfXlvWFNivb4i9c4OT1DUIXhXQ02A81KDUC3AUiL/oek9mBBdCRgFBVEmWW1gQTdfsBv1tIJv/WypnHUEj5cQDP1kspBWWb7VPYg++uBJfPHwi5Riko6AO7TOVK05bgmq6UX/jU+FE1T3TdFjOq8SN9HbC7Dp1Yc=';
+const VALID_CERTIFICATE_EXPECTED = {
+  subject: 'C=US, O=QuickShed Test, OU=QA, CN=fixture.example, emailAddress=fixture@example.test',
+  issuer: 'C=US, O=QuickShed Test, OU=QA, CN=fixture.example, emailAddress=fixture@example.test',
+  serial: '4A3B2C1D',
+  algorithm: 'sha256WithRSAEncryption',
+  notBefore: '2026-09-01T18:39:14Z',
+  notAfter: '2036-08-29T18:39:14Z',
+};
+
+function makeFutureCertificate(base64: string): string {
+  const der = Buffer.from(base64, 'base64').toString('latin1');
+  const future = der.replace('260901183914Z', '490101000000Z').replace('360829183914Z', '490201000000Z');
+  if (future === der) throw new Error('certificate validity fixture was not changed');
+  return Buffer.from(future, 'latin1').toString('base64');
+}
+
+function mutateCertificate(base64: string, mutate: (der: Buffer) => void): string {
+  const der = Buffer.from(base64, 'base64');
+  mutate(der);
+  return der.toString('base64');
+}
+
+function makeNonCanonicalOidCertificate(base64: string): string {
+  return mutateCertificate(base64, (der) => {
+    const marker = Buffer.from([0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x0b]);
+    let offset = 0;
+    let replacements = 0;
+    while ((offset = der.indexOf(marker, offset)) !== -1) {
+      der[offset + 3] = 0x80;
+      replacements++;
+      offset += marker.length;
+    }
+    if (replacements !== 2) throw new Error('expected two signature algorithm OIDs');
+  });
+}
+
+function makePaddedSignatureCertificate(base64: string): string {
+  return mutateCertificate(base64, (der) => {
+    const signatureOffset = der.lastIndexOf(Buffer.from([0x03, 0x82]));
+    if (signatureOffset < 0) throw new Error('signature BIT STRING not found');
+    der[signatureOffset + 4] = 1;
+  });
+}
+
 test.describe('QuickShed smoke', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
@@ -244,12 +289,48 @@ test.describe('QuickShed smoke', () => {
     }
   });
 
+  test('rejects out-of-range Cron fields instead of treating them as valid', async ({ page }) => {
+    await page.goto('/en/tools/cron-expression-parser');
+    const invalidExpressions = [
+      '99 * * * *',
+      '* 24 * * *',
+      '* * 0 * *',
+      '* * * 13 *',
+      '* * * * 7',
+    ];
+
+    for (const expression of invalidExpressions) {
+      await page.getByPlaceholder('e.g. */5 * * * *').fill(expression);
+      await expect(page.getByText(/Invalid cron expression/i), expression).toBeVisible();
+      await expect(page.getByText(/Next 5 Executions/i), expression).toHaveCount(0);
+    }
+  });
+
+  test('parses X.509 fields from a genuine DER certificate', async ({ page }) => {
+    await page.goto('/en/tools/ssl-checker');
+    await page.getByPlaceholder(/Paste your SSL certificate in PEM format/i).fill([
+      '-----BEGIN CERTIFICATE-----',
+      VALID_CERTIFICATE_DER_BASE64,
+      '-----END CERTIFICATE-----',
+    ].join('\n'));
+    await page.getByRole('button', { name: /parse certificate/i }).click();
+
+    await expect(page.getByText(VALID_CERTIFICATE_EXPECTED.subject, { exact: true })).toHaveCount(2);
+    await expect(page.getByText(VALID_CERTIFICATE_EXPECTED.serial, { exact: true })).toBeVisible();
+    await expect(page.getByText(/^Signature Algorithm:/).locator('..')).toContainText(VALID_CERTIFICATE_EXPECTED.algorithm);
+    await expect(page.getByText(/^Valid From:/).locator('..')).toContainText(new Date(VALID_CERTIFICATE_EXPECTED.notBefore).toLocaleDateString('en-US'));
+    await expect(page.getByText(/^Valid To:/).locator('..')).toContainText(new Date(VALID_CERTIFICATE_EXPECTED.notAfter).toLocaleDateString('en-US'));
+    await expect(page.getByText(/^Valid$/)).toHaveCount(1);
+  });
+
   test('rejects malformed SSL certificate input instead of showing it as valid', async ({ page }) => {
     await page.goto('/en/tools/ssl-checker');
     const malformedPayloads = [
       'AA==',
       'ME4wTHN5bnRoZXRpYy1ub3QtYS1jZXJ0aWZpY2F0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
       'ME8wSAIBATAAMAYMBGZha2UwIBcNMjYwOTAxMDAwMDAwWhgPMjAyNjEwMDEwMDAwMDBaMAYMBGZha2UwD2Zha2UtcHVibGljLWtleTAAAwEA',
+      makeNonCanonicalOidCertificate(VALID_CERTIFICATE_DER_BASE64),
+      makePaddedSignatureCertificate(VALID_CERTIFICATE_DER_BASE64),
     ];
 
     for (const payload of malformedPayloads) {
@@ -264,7 +345,8 @@ test.describe('QuickShed smoke', () => {
       await expect(page.getByText(/^Valid$/)).toHaveCount(0);
     }
 
-    const notYetValidPayload = 'MFAwRQIBATADBgEqMAcxBTADDAFYMB4XDTQ5MDEwMTAwMDAwMFoXDTQ5MDEwMjAwMDAwMFowBzEFMAMMAVgwCTADBgEqAwIAADADBgEqAwIAAA==';
+    // Structurally valid DER with a future validity window; its signature is intentionally not verified by this parser.
+    const notYetValidPayload = makeFutureCertificate(VALID_CERTIFICATE_DER_BASE64);
     await page.getByPlaceholder(/Paste your SSL certificate in PEM format/i).fill([
       '-----BEGIN CERTIFICATE-----',
       notYetValidPayload,
@@ -274,12 +356,22 @@ test.describe('QuickShed smoke', () => {
 
     await expect(page.getByText(/Not Yet Valid/i)).toBeVisible();
     await expect(page.getByText(/^Valid$/)).toHaveCount(0);
+
+    const tooManyCertificates = Array.from({ length: 33 }, () => [
+      '-----BEGIN CERTIFICATE-----',
+      VALID_CERTIFICATE_DER_BASE64,
+      '-----END CERTIFICATE-----',
+    ].join('\n')).join('\n');
+    await page.getByPlaceholder(/Paste your SSL certificate in PEM format/i).fill(tooManyCertificates);
+    await page.getByRole('button', { name: /parse certificate/i }).click();
+    await expect(page.getByText(/Could not parse the certificate/i)).toBeVisible();
   });
 
   test('publishes indexable category and blog routes in the sitemap', async ({ request }) => {
     const response = await request.get('/sitemap.xml');
     expect(response.ok()).toBe(true);
     const sitemap = await response.text();
+    expect(sitemap).not.toContain('<lastmod>');
 
     for (const path of [
       '/en/category',
