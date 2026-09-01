@@ -14,7 +14,7 @@ interface OGTag {
 
 const labels = {
   en: {
-    title: 'Open Graph Debugger',
+    title: 'Open Graph Meta Tag Checker',
     placeholder: 'Paste HTML meta tags here, e.g.:\n<meta property="og:title" content="My Page">\n<meta property="og:description" content="My Description">\n<meta property="og:image" content="https://example.com/img.jpg">',
     parse: 'Parse Tags',
     parsedTags: 'Parsed Open Graph Tags',
@@ -29,25 +29,33 @@ const labels = {
     property: 'Property',
     content: 'Content',
     noTags: 'No OG tags found. Paste HTML containing og: meta tags.',
-    imagePrivacy: 'Image preview is disabled to keep processing local.',
+    imagePrivacy: 'Image preview is disabled; the tag text is shown instead.',
+    empty: 'empty',
+    noImage: 'No image',
+    noTitle: 'No title',
+    noDescription: 'No description',
   },
   ar: {
-    title: 'مصحح Open Graph',
-    placeholder: 'الصق وصفيات HTML هنا، مثلاً:\n<meta property="og:title" content="صفحتي">\n<meta property="og:description" content="وصف صفحتي">\n<meta property="og:image" content="https://example.com/img.jpg">',
-    parse: 'تحليل الوصفيات',
-    parsedTags: 'وصفيات Open Graph المحللة',
+    title: 'مدقق علامات Open Graph',
+    placeholder: 'الصق علامات meta من نوع HTML هنا، مثلاً:\n<meta property="og:title" content="صفحتي">\n<meta property="og:description" content="وصف صفحتي">\n<meta property="og:image" content="https://example.com/img.jpg">',
+    parse: 'تحليل العلامات',
+    parsedTags: 'علامات Open Graph المحللة',
     preview: 'بطاقة المعاينة',
     validation: 'التحقق',
-    missing: 'وصفيات مطلوبة مفقودة',
-    allGood: 'جميع وصفيات OG المطلوبة موجودة',
+    missing: 'علامات مطلوبة مفقودة',
+    allGood: 'جميع علامات OG المطلوبة موجودة',
     required: 'مطلوب',
     optional: 'اختياري',
-    tag: 'الوصف',
+    tag: 'العلامة',
     value: 'القيمة',
     property: 'الخاصية',
     content: 'المحتوى',
-    noTags: 'لم يتم العثور على وصفيات OG. الصق HTML يحتوي على og: meta tags.',
-    imagePrivacy: 'تم تعطيل معاينة الصورة للحفاظ على المعالجة محليًا.',
+    noTags: 'لم يتم العثور على علامات OG. الصق HTML يحتوي على علامات meta من نوع og:.',
+    imagePrivacy: 'تم تعطيل معاينة الصورة؛ يظهر نص العلامة بدلاً منها.',
+    empty: 'فارغ',
+    noImage: 'لا توجد صورة',
+    noTitle: 'لا يوجد عنوان',
+    noDescription: 'لا يوجد وصف',
   },
 };
 
@@ -133,7 +141,7 @@ export default function OpenGraphDebugger({ locale }: { locale: 'ar' | 'en' }) {
                               {isRequired ? t.required : t.optional}
                             </Badge>
                           </td>
-                          <td className="py-2 px-3 text-xs break-all">{tag.content || <span className="text-red-500 italic">empty</span>}</td>
+                          <td className="py-2 px-3 text-xs break-all">{tag.content || <span className="text-red-500 italic">{t.empty}</span>}</td>
                         </tr>
                       );
                     })}
@@ -183,12 +191,12 @@ export default function OpenGraphDebugger({ locale }: { locale: 'ar' | 'en' }) {
                     <span className="max-w-full break-all text-xs text-foreground/70">{image}</span>
                   </div>
                 ) : (
-                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">No Image</div>
+                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">{t.noImage}</div>
                 )}
                 <div className="p-3 border-t bg-gray-50 dark:bg-gray-900">
                   <div className="text-xs text-gray-500 uppercase truncate">{displayUrl}</div>
-                  <div className="font-semibold text-sm line-clamp-2">{title || 'No Title'}</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{description || 'No Description'}</div>
+                  <div className="font-semibold text-sm line-clamp-2">{title || t.noTitle}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{description || t.noDescription}</div>
                 </div>
               </div>
             </CardContent>

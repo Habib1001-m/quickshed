@@ -93,7 +93,7 @@ export default function PlagarismChecker({ locale }: { locale: 'ar' | 'en' }) {
       <div className="flex items-center gap-2">
         <Shield className="size-5 text-amber-500" />
         <h2 className="tool-section-title text-lg font-semibold">
-          {isAr ? 'مدقق الانتحال' : 'Plagiarism Checker'}
+          {isAr ? 'مدقق تشابه النصوص' : 'Text Similarity Checker'}
         </h2>
       </div>
 
@@ -102,8 +102,8 @@ export default function PlagarismChecker({ locale }: { locale: 'ar' | 'en' }) {
         <AlertTriangle className="size-4 text-amber-500 shrink-0 mt-0.5" />
         <span className="text-amber-700 dark:text-amber-400">
           {isAr
-            ? 'هذه أداة مقارنة محلية أساسية. للحصول على فحص شامل، استخدم خدمة متخصصة.'
-            : 'This is a basic local comparison tool. For comprehensive checking, use a dedicated service.'}
+            ? 'هذه أداة محلية لمقارنة نصين والعثور على الجمل والعبارات المتطابقة. لا تحدد مصدر النص أو تثبت الانتحال.'
+            : 'This local tool compares two supplied texts for matching sentences and phrases. It does not identify sources or prove plagiarism.'}
         </span>
       </div>
 

@@ -354,7 +354,7 @@ const STORAGE_KEY = 'quickshed-emoji-recent';
 
 // F2: validate and cap recents so a malformed value (an object, a primitive,
 // mixed element types, or an over-cap array) can never reach .slice / array
-// operations. Capped to EMOJI_RECENT_CAP to match the writer. The window
+// operations. Capped to EMOJI_RECENT_CAP to match the storage contract. The window
 // guard keeps the reader client-safe even though tools load with ssr:false.
 function loadRecent(): string[] {
   if (typeof window === 'undefined') return [];

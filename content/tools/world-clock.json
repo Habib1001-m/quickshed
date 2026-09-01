@@ -6,8 +6,8 @@
     "en": "World Clock"
   },
   "description": {
-    "ar": "اعرض الوقت الحالي في مدن ومناطق زمنية مختلفة حول العالم.",
-    "en": "Display the current time in different cities and time zones around the world."
+    "ar": "حوّل الوقت بين المدن والمناطق الزمنية باستخدام ساعة المتصفح وبياناته للمناطق الزمنية.",
+    "en": "Convert time across cities and time zones using your browser's clock and time-zone data."
   },
   "category": "time-tools",
   "icon": "Clock",

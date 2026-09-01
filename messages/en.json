@@ -99,7 +99,8 @@
     "filterStorage": "On-device",
     "filterApi": "Uses API",
     "backToCategories": "Back to Categories",
-    "noToolsForFilter": "Try changing the filter to see more tools."
+    "noToolsForFilter": "Try changing the filter to see more tools.",
+    "notFound": "Category not found"
   },
   "tool": {
     "backToHome": "Back to Home",

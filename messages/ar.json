@@ -99,7 +99,8 @@
     "filterStorage": "على الجهاز",
     "filterApi": "يستخدم API",
     "backToCategories": "العودة إلى التصنيفات",
-    "noToolsForFilter": "جرّب تغيير الفلتر لعرض المزيد من الأدوات."
+    "noToolsForFilter": "جرّب تغيير الفلتر لعرض المزيد من الأدوات.",
+    "notFound": "التصنيف غير موجود"
   },
   "tool": {
     "backToHome": "العودة إلى الرئيسية",

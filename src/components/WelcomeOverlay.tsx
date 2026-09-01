@@ -18,10 +18,10 @@ import {
 const STEPS = [
   {
     icon: Shield,
-    titleEn: 'Privacy First, Always',
-    titleAr: 'الخصوصية أولاً، دائماً',
-    descEn: 'Your data never leaves your browser. All tools run locally — no servers, no tracking, no accounts needed.',
-    descAr: 'بياناتك لا تغادر متصفحك. جميع الأدوات تعمل محلياً — لا خوادم، لا تتبع، لا حسابات.',
+    titleEn: 'Privacy details on every tool',
+    titleAr: 'تفاصيل الخصوصية في كل أداة',
+    descEn: 'Each tool shows its data-handling category. Local tools process data in your browser; other badges explain file, browser-storage, or external-service handling.',
+    descAr: 'توضح كل أداة فئة تعاملها مع البيانات. تعالج الأدوات المحلية البيانات في متصفحك، وتوضح الشارات الأخرى التعامل مع الملفات أو تخزين المتصفح أو الخدمات الخارجية.',
     color: 'emerald',
   },
   {
@@ -34,10 +34,10 @@ const STEPS = [
   },
   {
     icon: Search,
-    titleEn: '90+ Tools at Your Fingertips',
-    titleAr: '+90 أداة في متناول يدك',
-    descEn: 'Search instantly with ⌘K, save favorites, and explore tools across 11 categories.',
-    descAr: 'ابحث فوراً بـ ⌘K، احفظ المفضلات، واستكشف الأدوات عبر 11 فئة.',
+    titleEn: '90 Tools at Your Fingertips',
+    titleAr: '٩٠ أداة في متناول يدك',
+    descEn: 'Search with the search field or keyboard shortcut, save favorites, and explore tools across 11 categories.',
+    descAr: 'ابحث من خلال حقل البحث أو اختصار لوحة المفاتيح، واحفظ المفضلات، واستكشف الأدوات عبر ١١ تصنيفاً.',
     color: 'violet',
   },
 ];

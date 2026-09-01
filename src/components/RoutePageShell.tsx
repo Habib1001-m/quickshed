@@ -18,11 +18,13 @@ import { getCategoryBySlug, getToolById, localize } from '@/lib/tool-utils';
 
 // ViewSkeleton for lazy-loaded views
 function ViewSkeleton() {
+  const { t } = useI18n();
+
   return (
     <div className="flex items-center justify-center py-24">
       <div className="flex flex-col items-center gap-4">
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-        <p className="text-muted-foreground text-sm">Loading...</p>
+        <p className="text-muted-foreground text-sm">{t('common.loading')}</p>
       </div>
     </div>
   );
@@ -395,7 +397,7 @@ function RoutePageContent({ initialView = 'home', initialToolId, initialCategory
           <div className="flex items-center justify-center h-[60vh]">
             <div className="flex flex-col items-center gap-4">
               <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-              <p className="text-muted-foreground text-sm">Loading QuickShed...</p>
+              <p className="text-muted-foreground text-sm">{t('common.loading')}</p>
             </div>
           </div>
         ) : (

@@ -15,6 +15,7 @@ const labels = {
     crop: 'Crop',
     download: 'Download',
     instructions: 'Click and drag on the image to select crop area',
+    croppedResult: 'Cropped result',
   },
   ar: {
     title: 'قص الصور',
@@ -24,6 +25,7 @@ const labels = {
     crop: 'قص',
     download: 'تحميل',
     instructions: 'انقر واسحب على الصورة لتحديد منطقة القص',
+    croppedResult: 'نتيجة القص',
   },
 };
 
@@ -241,8 +243,8 @@ export default function ImageCropper({ locale }: { locale: 'ar' | 'en' }) {
 
       {croppedImage && (
         <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-sm">Cropped Result</CardTitle></CardHeader>
-          <CardContent><img src={croppedImage} alt="Cropped" className="max-w-full h-auto rounded" /></CardContent>
+          <CardHeader className="pb-2"><CardTitle className="text-sm">{t.croppedResult}</CardTitle></CardHeader>
+          <CardContent><img src={croppedImage} alt={t.croppedResult} className="max-w-full h-auto rounded" /></CardContent>
         </Card>
       )}
       <canvas ref={canvasRef} className="hidden" />

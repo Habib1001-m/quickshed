@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: PrivacyPageProps): Promise<Me
   const isArabic = locale === 'ar';
   const title = isArabic ? 'سياسة الخصوصية — QuickShed' : 'Privacy Policy — QuickShed';
   const description = isArabic
-    ? 'سياسة خصوصية QuickShed. لا نجمع أي بيانات شخصية. جميع الأدوات تعمل محلياً في متصفحك.'
-    : 'QuickShed Privacy Policy. We collect no personal data. All tools run locally in your browser.';
+    ? 'سياسة خصوصية QuickShed. توضّح شارات الأدوات ما إذا كانت المعالجة تتم في متصفحك أو داخل ملف أو باستخدام تخزين المتصفح أو عبر خدمة خارجية.'
+    : 'QuickShed privacy policy. Tool badges explain whether processing stays in your browser, uses a file, saves data in browser storage, or uses an external service.';
 
   return {
     title,
@@ -61,7 +61,7 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
         </h1>
       </div>
       <p className="text-muted-foreground text-sm mb-8">
-        {isArabic ? 'آخر تحديث: ١٩ مايو ٢٠٢٦' : 'Last updated: May 19, 2026'}
+        {isArabic ? 'آخر تحديث: ١ سبتمبر ٢٠٢٦' : 'Last updated: September 1, 2026'}
       </p>
 
       {/* Content */}
@@ -71,19 +71,9 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {isArabic ? 'وعدنا بالخصوصية' : 'Our Privacy Promise'}
             </h2>
             <p className="text-muted-foreground">
-              {isArabic ? (
-                <>
-                  QuickShed مبني على مبدأ بسيط:{' '}
-                  <strong className="text-foreground">بياناتك لا تغادر جهازك أبدًا.</strong>{' '}
-                  جميع الأدوات تعمل بالكامل في متصفحك باستخدام واجهات برمجة الويب القياسية. لا نقوم بجمع أو تخزين أو نقل أي بيانات شخصية أو ملفات أو مدخلات تقدمها لأدواتنا.
-                </>
-              ) : (
-                <>
-                  QuickShed is built on a simple principle:{' '}
-                  <strong className="text-foreground">your data never leaves your device.</strong>{' '}
-                  All tools run entirely in your browser using standard Web APIs. We do not collect, store, or transmit any personal data, files, or inputs you provide to our tools.
-                </>
-              )}
+              {isArabic
+                ? 'توضح QuickShed كيفية تعامل كل أداة مع البيانات. الأدوات المعلّمة «محلي» أو «داخل الملف» أو «على الجهاز» تعالج البيانات في متصفحك، وقد تحفظ أدوات «على الجهاز» بيانات محددة في تخزين المتصفح. إذا استخدمت أداة خدمة خارجية، فستحمل شارة API ويُفصح عن النقل قبل حدوثه.'
+                : 'QuickShed shows how each tool handles data. Tools marked Local, File-only, or On-device process data in your browser, and On-device tools may save selected data in browser storage. If a tool uses an external service, it is marked API and the transfer is disclosed before it occurs.'}
             </p>
           </div>
 
@@ -95,24 +85,24 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
               {[
                 {
                   num: '1',
-                  title: isArabic ? 'لا شيء عن استخدامك للأدوات.' : 'Nothing about your tool usage.',
+                  title: isArabic ? 'معالجة مدخلات الأدوات.' : 'Tool input processing.',
                   desc: isArabic
-                    ? 'الملفات التي تعالجها (الصور، ملفات PDF، النصوص) تتم معالجتها بالكامل من جانب العميل ولا يتم رفعها أبدًا.'
-                    : 'Files you process (images, PDFs, text) are handled entirely client-side and never uploaded.',
+                    ? 'الأدوات المعلّمة «محلي» أو «داخل الملف» تعالج الملفات والنصوص في متصفحك. لا يعلن كتالوج الأدوات الحالي عن نقل مدخلات الأدوات إلى واجهة برمجة خارجية.'
+                    : 'Tools marked Local or File-only process files and text in your browser. The current tool catalog declares no external API egress for tool inputs.',
                 },
                 {
                   num: '2',
-                  title: isArabic ? 'لا تحليلات حالياً.' : 'No analytics currently.',
+                  title: isArabic ? 'لا تحليلات للمنتج.' : 'No product analytics.',
                   desc: isArabic
-                    ? 'لا نستخدم حالياً أي سكربت تحليلات أو تتبع تابع لطرف ثالث. إذا أضفنا قياساً يحترم الخصوصية لاحقاً، فسيتم توثيقه هنا قبل الإطلاق.'
-                    : 'We currently use no analytics scripts and no third-party tracking. If privacy-friendly measurement is added later, it will be documented here before launch.',
+                    ? 'لا تستخدم QuickShed حالياً تحليلات للمنتج أو نصوص تتبع تابعة لطرف ثالث.'
+                    : 'QuickShed currently uses no product analytics or third-party tracking scripts.',
                 },
                 {
                   num: '3',
-                  title: isArabic ? 'بيانات التخزين المحلي.' : 'LocalStorage data.',
+                  title: isArabic ? 'تخزين المتصفح.' : 'Browser storage.',
                   desc: isArabic
-                    ? 'نستخدم localStorage لتفضيلاتك (السمة، اللغة، المفضلة) ولحفظ بيانات الأدوات على جهازك لبعض الأدوات، مثل روابط مُقصِّر الروابط الخاصة بك. تبقى هذه البيانات في متصفحك؛ ولا يتم نقل أي بيانات أدوات عبر الشبكة. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.'
-                    : 'We use localStorage for your preferences (theme, language, favorites) and to save on-device tool data for some tools, such as your URL-shortener links. This data stays in your browser; no tool data is transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.',
+                    ? 'يستخدم QuickShed localStorage لتفضيلاتك (السمة واللغة) ولبيانات مختارة تحفظها أدوات «على الجهاز»، مثل المفضلة والسجل والمجموعات والملاحظات والعادات وروابط مختصر الروابط. تبقى هذه البيانات في متصفحك ويمكنك إزالتها عبر الإعدادات ← مسح جميع البيانات.'
+                    : 'QuickShed uses localStorage for your preferences (theme and language) and selected data saved by On-device tools, such as favorites, history, collections, notes, habits, and URL-shortener links. This data stays in your browser and can be removed through Settings &rarr; Clear All Data.',
                 },
               ].map((item) => (
                 <li key={item.num} className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 dark:bg-muted/20">
@@ -135,15 +125,15 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             <p className="text-muted-foreground">
               {isArabic ? (
                 <>
-                  لا يستخدم QuickShed أي <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. التخزين الوحيد المستخدم في المتصفح هو{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>،
-                  الذي يحتفظ بتفضيلاتك (السمة، اللغة، المفضلة) و، لبعض الأدوات، ببيانات الأدوات على جهازك مثل روابط مُقصِّر الروابط المحفوظة. تبقى هذه البيانات في متصفحك ولا يتم نقلها عبر الشبكة أبدًا. يمكنك إزالة بيانات QuickShed المخزّنة في أي وقت عبر الإعدادات ← مسح جميع البيانات.
+                  لا يستخدم QuickShed <strong className="text-foreground">ملفات تعريف ارتباط للتتبع</strong>. يستخدم المتصفح{' '}
+                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>{' '}
+                  للاحتفاظ بالتفضيلات والبيانات المختارة للأدوات المعلّمة «على الجهاز». تصف هذه السياسة تدفق بيانات الأدوات، ولا تتعهد بما قد تحتفظ به خدمات الاستضافة من بيانات طلبات الموقع. يمكنك إزالة بيانات QuickShed المخزّنة عبر الإعدادات ← مسح جميع البيانات.
                 </>
               ) : (
                 <>
-                  QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. The only browser storage used is{' '}
-                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>,
-                  which holds your preferences (theme, language, favorites) and, for some tools, on-device tool data such as saved URL-shortener links. This data stays in your browser and is never transmitted over the network. Remove QuickShed’s stored data at any time via Settings &rarr; Clear All Data.
+                  QuickShed uses <strong className="text-foreground">no tracking cookies</strong>. The browser uses{' '}
+                  <code className="text-sm bg-muted dark:bg-muted/50 px-2 py-0.5 rounded font-mono">localStorage</code>{' '}
+                  for preferences and selected data from tools marked On-device. This policy describes tool data flow and does not make claims about data that hosting services may retain from site requests. Remove QuickShed’s stored data through Settings &rarr; Clear All Data.
                 </>
               )}
             </p>
@@ -155,8 +145,8 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             </h2>
             <p className="text-muted-foreground">
               {isArabic
-                ? 'عدد صغير من الأدوات قد يكون موسومًا بشارة برتقالية تشير إلى أنها تستخدم واجهة برمجة تطبيقات خارجية آمنة. يتم الإفصاح عن ذلك دائمًا بشكل بارز قبل نقل أي بيانات. لا يتم تضمين مفاتيح API في الكود من جانب العميل.'
-                : 'A small number of tools may be marked with an orange badge indicating they use a secure external API. This is always disclosed prominently before any data is transmitted. No API keys are embedded in client-side code.'}
+                ? 'إذا استخدمت أداة خدمة خارجية، فستحمل شارة API البرتقالية ويظهر الإفصاح قبل نقل البيانات. لا تُضمَّن مفاتيح API في كود العميل.'
+                : 'If a tool uses an external service, it carries the orange API badge and discloses the transfer before data is sent. API keys are not embedded in client-side code.'}
             </p>
           </div>
 
@@ -166,8 +156,8 @@ export default async function PrivacyPage({ params }: PrivacyPageProps) {
             </h2>
             <p className="text-muted-foreground">
               {isArabic
-                ? 'الموقع يُقدم عبر HTTPS ويستخدم رؤوس أمان للمتصفح، بما في ذلك سياسة أمان المحتوى (CSP)، وتقليل صلاحيات المتصفح، ومنع التضمين داخل الإطارات. نتابع تنبيهات الاعتماديات عبر GitHub Dependabot ونوثق قرارات المعالجة أو قبول المخاطر قبل الإطلاق.'
-                : 'The site is served over HTTPS and uses browser security headers, including Content Security Policy (CSP), reduced browser permissions, and frame protection. Dependency alerts are tracked through GitHub Dependabot, with remediation or risk decisions documented before launch.'}
+                ? 'يُقدَّم الموقع عبر HTTPS ويستخدم رؤوس أمان للمتصفح، بما في ذلك سياسة أمان المحتوى (CSP)، وتقليل صلاحيات المتصفح، ومنع التضمين داخل الإطارات. تُتابَع تنبيهات الاعتماديات عبر GitHub Dependabot، وتفشل بوابة الإصدار عند وجود ثغرات إنتاجية حرجة.'
+                : 'The site is served over HTTPS and uses browser security headers, including Content Security Policy (CSP), reduced browser permissions, and frame protection. Dependency alerts are tracked through GitHub Dependabot, and critical production advisories fail the release gate.'}
             </p>
           </div>
 

@@ -10,7 +10,7 @@ import { Shield, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 const labels = {
   en: {
     title: 'SSL Certificate Parser',
-    note: 'This tool parses certificate data locally. No data is sent to any server.',
+    note: 'This tool parses certificate data locally. It does not verify signatures, trust chains, hostnames, revocation, or certificate transparency.',
     placeholder: 'Paste your SSL certificate in PEM format here...\n\n-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIJAJC1HiIAZAiIMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV...\n-----END CERTIFICATE-----',
     parse: 'Parse Certificate',
     parsedInfo: 'Certificate Information',
@@ -32,7 +32,7 @@ const labels = {
   },
   ar: {
     title: 'محلل شهادة SSL',
-    note: 'هذه الأداة تحلل بيانات الشهادة محلياً. لا يتم إرسال أي بيانات لأي خادم.',
+    note: 'تحلل هذه الأداة بيانات الشهادة محلياً. لا تتحقق من التوقيعات أو سلاسل الثقة أو أسماء المضيفين أو الإلغاء أو شفافية الشهادات.',
     placeholder: 'الصق شهادة SSL بتنسيق PEM هنا...\n\n-----BEGIN CERTIFICATE-----\nMIIDXTCCAkWgAwIBAgIJAJC1HiIAZAiIMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV...\n-----END CERTIFICATE-----',
     parse: 'تحليل الشهادة',
     parsedInfo: 'معلومات الشهادة',
