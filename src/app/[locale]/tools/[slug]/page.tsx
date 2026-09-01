@@ -54,11 +54,13 @@ export async function generateMetadata({ params }: ToolPageProps): Promise<Metad
       siteName: 'QuickShed',
       type: 'website',
       url: `${SITE_URL}/${locale}/tools/${tool.slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: ['/og-image.png'],
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}/tools/${tool.slug}`,

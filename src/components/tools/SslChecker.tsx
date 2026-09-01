@@ -62,6 +62,119 @@ function decodeBase64(str: string): string {
   }
 }
 
+type DerElement = { tag: number; contentStart: number; end: number };
+
+function readDerElement(bytes: Uint8Array, offset: number, limit = bytes.length): DerElement | null {
+  if (offset < 0 || offset + 2 > limit || offset + 2 > bytes.length) return null;
+
+  const tag = bytes[offset];
+  const lengthByte = bytes[offset + 1];
+  let length = lengthByte;
+  let headerSize = 2;
+  if (lengthByte & 0x80) {
+    const lengthBytes = lengthByte & 0x7f;
+    if (lengthBytes === 0 || lengthBytes > 4 || offset + 2 + lengthBytes > limit) return null;
+    length = 0;
+    for (let i = 0; i < lengthBytes; i++) length = length * 256 + bytes[offset + 2 + i];
+    headerSize += lengthBytes;
+  }
+
+  const contentStart = offset + headerSize;
+  const end = contentStart + length;
+  return end <= limit ? { tag, contentStart, end } : null;
+}
+
+function readDerChildren(bytes: Uint8Array, sequence: DerElement): DerElement[] | null {
+  const children: DerElement[] = [];
+  for (let offset = sequence.contentStart; offset < sequence.end;) {
+    const child = readDerElement(bytes, offset, sequence.end);
+    if (!child) return null;
+    children.push(child);
+    offset = child.end;
+  }
+  return children;
+}
+
+function parseDerTime(bytes: Uint8Array, element: DerElement): Date | null {
+  const value = String.fromCharCode(...bytes.slice(element.contentStart, element.end));
+  const match = element.tag === 0x17
+    ? value.match(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})Z$/)
+    : element.tag === 0x18
+      ? value.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})Z$/)
+      : null;
+  if (!match) return null;
+
+  const yearValue = Number(match[1]);
+  const year = element.tag === 0x17
+    ? (yearValue >= 50 ? 1900 + yearValue : 2000 + yearValue)
+    : yearValue;
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31 || hour > 23 || minute > 59 || second > 59) {
+    return null;
+  }
+
+  const date = new Date(0);
+  date.setUTCFullYear(year, month - 1, day);
+  date.setUTCHours(hour, minute, second, 0);
+  return date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day &&
+    date.getUTCHours() === hour &&
+    date.getUTCMinutes() === minute &&
+    date.getUTCSeconds() === second
+    ? date
+    : null;
+}
+
+function readCertificateDates(decoded: string): Date[] | null {
+  const bytes = Uint8Array.from(decoded, (char) => char.charCodeAt(0));
+  if (bytes.length < 64) return null;
+
+  const certificate = readDerElement(bytes, 0);
+  if (!certificate || certificate.tag !== 0x30 || certificate.end !== bytes.length) return null;
+
+  const certificateChildren = readDerChildren(bytes, certificate);
+  if (!certificateChildren || certificateChildren.length !== 3) return null;
+  const [tbsCertificate, signatureAlgorithm, signatureValue] = certificateChildren;
+  if (tbsCertificate.tag !== 0x30 || signatureAlgorithm.tag !== 0x30 || signatureValue.tag !== 0x03) return null;
+  if (signatureValue.contentStart === signatureValue.end) return null;
+
+  const tbsChildren = readDerChildren(bytes, tbsCertificate);
+  if (!tbsChildren) return null;
+  const firstField = tbsChildren[0]?.tag === 0xa0 ? 1 : 0;
+  const requiredTags = [0x02, 0x30, 0x30, 0x30, 0x30, 0x30];
+  if (tbsChildren.length < firstField + requiredTags.length) return null;
+  if (!requiredTags.every((tag, index) => tbsChildren[firstField + index]?.tag === tag)) return null;
+
+  const tbsSignatureAlgorithm = tbsChildren[firstField + 1];
+  const issuer = tbsChildren[firstField + 2];
+  const validity = tbsChildren[firstField + 3];
+  const subject = tbsChildren[firstField + 4];
+  const subjectPublicKeyInfo = tbsChildren[firstField + 5];
+  const signatureAlgorithmChildren = readDerChildren(bytes, signatureAlgorithm);
+  const tbsAlgorithmChildren = readDerChildren(bytes, tbsSignatureAlgorithm);
+  const issuerChildren = readDerChildren(bytes, issuer);
+  const validityChildren = readDerChildren(bytes, validity);
+  const subjectChildren = readDerChildren(bytes, subject);
+  const publicKeyChildren = readDerChildren(bytes, subjectPublicKeyInfo);
+  const hasOid = (element: DerElement | undefined) =>
+    element?.tag === 0x06 && element.contentStart < element.end;
+  if (!signatureAlgorithmChildren || !hasOid(signatureAlgorithmChildren[0])) return null;
+  if (!tbsAlgorithmChildren || !hasOid(tbsAlgorithmChildren[0])) return null;
+  if (!issuerChildren?.some((element) => element.tag === 0x31)) return null;
+  if (!subjectChildren?.some((element) => element.tag === 0x31)) return null;
+  if (publicKeyChildren?.[0]?.tag !== 0x30 || publicKeyChildren[1]?.tag !== 0x03) return null;
+  if (publicKeyChildren[1].contentStart === publicKeyChildren[1].end) return null;
+  if (!validityChildren || validityChildren.length < 2) return null;
+  const notBefore = parseDerTime(bytes, validityChildren[0]);
+  const notAfter = parseDerTime(bytes, validityChildren[1]);
+  return notBefore && notAfter ? [notBefore, notAfter] : null;
+}
+
 function parseDN(asn1: string): string {
   const parts: string[] = [];
   const cnMatch = asn1.match(/CN=([^,\n]+)/);
@@ -83,7 +196,9 @@ interface CertInfo {
   subject: string;
   issuer: string;
   validFrom: string;
+  validFromTimestamp: number;
   validTo: string;
+  validToTimestamp: number;
   serialNumber: string;
   algorithm: string;
   raw: string;
@@ -93,7 +208,8 @@ function parseCertificate(pem: string): CertInfo | null {
   const b64 = pem.replace(/-----BEGIN CERTIFICATE-----/, '').replace(/-----END CERTIFICATE-----/, '').replace(/\s/g, '');
   if (!b64) return null;
   const decoded = decodeBase64(b64);
-  if (!decoded) return null;
+  const dates = decoded ? readCertificateDates(decoded) : null;
+  if (!decoded || !dates) return null;
 
   // Extract text-readable portions from the DER-encoded data
   const textParts: string[] = [];
@@ -116,24 +232,8 @@ function parseCertificate(pem: string): CertInfo | null {
     || fullText.match(/SHA(256|384|1)WithRSA/i)?.[0]
     || 'Unknown';
 
-  // Try to find dates (ASN.1 UTCTime format: YYMMDDHHMMSSZ)
-  const datePattern = /(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})Z/g;
-  const dates: Date[] = [];
-  let dateMatch;
-  while ((dateMatch = datePattern.exec(fullText)) !== null) {
-    const year = parseInt(dateMatch[1]) >= 50 ? 1900 + parseInt(dateMatch[1]) : 2000 + parseInt(dateMatch[1]);
-    const month = parseInt(dateMatch[2]) - 1;
-    const day = parseInt(dateMatch[3]);
-    const hour = parseInt(dateMatch[4]);
-    const min = parseInt(dateMatch[5]);
-    const sec = parseInt(dateMatch[6]);
-    if (month >= 0 && month <= 11 && day >= 1 && day <= 31) {
-      dates.push(new Date(year, month, day, hour, min, sec));
-    }
-  }
-
-  const validFrom = dates.length > 0 ? dates[0].toLocaleDateString() : 'Unknown';
-  const validTo = dates.length > 1 ? dates[1].toLocaleDateString() : 'Unknown';
+  const validFrom = dates[0].toLocaleDateString();
+  const validTo = dates[1].toLocaleDateString();
 
   // Extract serial number (look for hex-like sequences near the start)
   let serialNumber = 'Unknown';
@@ -155,7 +255,9 @@ function parseCertificate(pem: string): CertInfo | null {
     subject,
     issuer,
     validFrom,
+    validFromTimestamp: dates[0].getTime(),
     validTo,
+    validToTimestamp: dates[1].getTime(),
     serialNumber,
     algorithm,
     raw: fullText,
@@ -183,14 +285,12 @@ export default function SslChecker({ locale }: { locale: 'ar' | 'en' }) {
     setCerts(parsed);
   };
 
-  const getStatus = (validTo: string): 'valid' | 'expired' | 'notYetValid' => {
-    try {
-      const d = new Date(validTo);
-      if (isNaN(d.getTime())) return 'valid';
-      return d < new Date() ? 'expired' : 'valid';
-    } catch {
-      return 'valid';
+  const getStatus = (validFromTimestamp: number, validToTimestamp: number): 'valid' | 'expired' | 'notYetValid' => {
+    const now = Date.now();
+    if (!Number.isFinite(validFromTimestamp) || !Number.isFinite(validToTimestamp) || now < validFromTimestamp) {
+      return 'notYetValid';
     }
+    return now > validToTimestamp ? 'expired' : 'valid';
   };
 
   return (
@@ -222,15 +322,17 @@ export default function SslChecker({ locale }: { locale: 'ar' | 'en' }) {
             </CardHeader>
             <CardContent className="space-y-4">
               {certs.map((cert, i) => {
-                const status = getStatus(cert.validTo);
+                const status = getStatus(cert.validFromTimestamp, cert.validToTimestamp);
                 return (
                   <div key={i} className="rounded-lg border p-4 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">#{i + 1}</span>
                       {status === 'valid' ? (
                         <Badge className="bg-emerald-500"><CheckCircle className="size-3 me-1" />{t.valid}</Badge>
-                      ) : (
+                      ) : status === 'expired' ? (
                         <Badge variant="destructive"><XCircle className="size-3 me-1" />{t.expired}</Badge>
+                      ) : (
+                        <Badge variant="secondary"><AlertTriangle className="size-3 me-1" />{t.notYetValid}</Badge>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">

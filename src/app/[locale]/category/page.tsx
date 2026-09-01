@@ -16,7 +16,20 @@ export async function generateMetadata({ params }: CategoryListPageProps): Promi
   return {
     title,
     description,
-    openGraph: { title, description, siteName: 'QuickShed', type: 'website', url: `${SITE_URL}/${locale}/category` },
+    openGraph: {
+      title,
+      description,
+      siteName: 'QuickShed',
+      type: 'website',
+      url: `${SITE_URL}/${locale}/category`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-image.png'],
+    },
     alternates: {
       canonical: `${SITE_URL}/${locale}/category`,
       languages: { en: `${SITE_URL}/en/category`, ar: `${SITE_URL}/ar/category` },

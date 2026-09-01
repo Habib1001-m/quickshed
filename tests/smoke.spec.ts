@@ -244,6 +244,91 @@ test.describe('QuickShed smoke', () => {
     }
   });
 
+  test('rejects malformed SSL certificate input instead of showing it as valid', async ({ page }) => {
+    await page.goto('/en/tools/ssl-checker');
+    const malformedPayloads = [
+      'AA==',
+      'ME4wTHN5bnRoZXRpYy1ub3QtYS1jZXJ0aWZpY2F0ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+      'ME8wSAIBATAAMAYMBGZha2UwIBcNMjYwOTAxMDAwMDAwWhgPMjAyNjEwMDEwMDAwMDBaMAYMBGZha2UwD2Zha2UtcHVibGljLWtleTAAAwEA',
+    ];
+
+    for (const payload of malformedPayloads) {
+      await page.getByPlaceholder(/Paste your SSL certificate in PEM format/i).fill([
+        '-----BEGIN CERTIFICATE-----',
+        payload,
+        '-----END CERTIFICATE-----',
+      ].join('\n'));
+      await page.getByRole('button', { name: /parse certificate/i }).click();
+
+      await expect(page.getByText(/Could not parse the certificate/i)).toBeVisible();
+      await expect(page.getByText(/^Valid$/)).toHaveCount(0);
+    }
+
+    const notYetValidPayload = 'MFAwRQIBATADBgEqMAcxBTADDAFYMB4XDTQ5MDEwMTAwMDAwMFoXDTQ5MDEwMjAwMDAwMFowBzEFMAMMAVgwCTADBgEqAwIAADADBgEqAwIAAA==';
+    await page.getByPlaceholder(/Paste your SSL certificate in PEM format/i).fill([
+      '-----BEGIN CERTIFICATE-----',
+      notYetValidPayload,
+      '-----END CERTIFICATE-----',
+    ].join('\n'));
+    await page.getByRole('button', { name: /parse certificate/i }).click();
+
+    await expect(page.getByText(/Not Yet Valid/i)).toBeVisible();
+    await expect(page.getByText(/^Valid$/)).toHaveCount(0);
+  });
+
+  test('publishes indexable category and blog routes in the sitemap', async ({ request }) => {
+    const response = await request.get('/sitemap.xml');
+    expect(response.ok()).toBe(true);
+    const sitemap = await response.text();
+
+    for (const path of [
+      '/en/category',
+      '/ar/category',
+      '/en/blog',
+      '/ar/blog',
+      '/en/blog/custom-pdf-tools-guide',
+      '/ar/blog/custom-pdf-tools-guide',
+      '/en/blog/welcome-to-quickshed',
+      '/ar/blog/welcome-to-quickshed',
+    ]) {
+      expect(sitemap).toContain(`<loc>https://quickshed.vercel.app${path}</loc>`);
+    }
+  });
+
+  test('publishes reciprocal hreflang and social images for localized blog posts', async ({ page }) => {
+    for (const locale of ['en', 'ar']) {
+      for (const slug of ['custom-pdf-tools-guide', 'welcome-to-quickshed']) {
+        await page.goto(`/${locale}/blog/${slug}`);
+        const alternates = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((links) =>
+          Object.fromEntries(links.map((link) => [link.getAttribute('hreflang'), link.getAttribute('href')]))
+        );
+        expect(alternates).toEqual({
+          en: `https://quickshed.vercel.app/en/blog/${slug}`,
+          ar: `https://quickshed.vercel.app/ar/blog/${slug}`,
+        });
+        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /og-image\.png$/);
+        await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', /og-image\.png$/);
+      }
+    }
+  });
+
+  test('keeps the default social image on every public page family', async ({ page }) => {
+    for (const path of [
+      '/en',
+      '/en/all-tools',
+      '/en/category',
+      '/en/category/developer-tools',
+      '/en/tools/json-formatter',
+      '/en/blog',
+      '/en/privacy',
+      '/en/terms',
+    ]) {
+      await page.goto(path);
+      await expect(page.locator('meta[property="og:image"]'), path).toHaveAttribute('content', /og-image\.png$/);
+      await expect(page.locator('meta[name="twitter:image"]'), path).toHaveAttribute('content', /og-image\.png$/);
+    }
+  });
+
   test('opens command palette with Ctrl+K', async ({ page }) => {
     await page.goto('/en');
     await dismissOnboarding(page);
