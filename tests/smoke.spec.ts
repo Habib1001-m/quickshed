@@ -3,6 +3,7 @@ import { expect, test, type Page } from '@playwright/test';
 type TestWindow = Window & {
   __copiedText?: string;
   __innerHTMLSinkUsed?: boolean;
+  __qsXss?: number;
   __xss?: boolean;
 };
 
@@ -112,6 +113,7 @@ test.describe('QuickShed smoke', () => {
   test('does not render adversarial JSON strings as executable HTML in raw view', async ({ page }) => {
     await page.addInitScript(() => {
       (window as TestWindow).__xss = false;
+      (globalThis as typeof globalThis & { __qsXss?: number }).__qsXss = undefined;
     });
 
     await page.goto('/en/tools/json-formatter');
@@ -145,6 +147,9 @@ test.describe('QuickShed smoke', () => {
     await expect.poll(
       () => page.evaluate(() => (window as TestWindow).__xss)
     ).toBe(false);
+    await expect.poll(
+      () => page.evaluate(() => (globalThis as typeof globalThis & { __qsXss?: number }).__qsXss)
+    ).toBeUndefined();
     await expect.poll(
       () => page.evaluate(() => (window as TestWindow).__innerHTMLSinkUsed)
     ).toBe(false);
