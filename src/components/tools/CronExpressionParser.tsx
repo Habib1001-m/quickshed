@@ -115,34 +115,40 @@ function parseCronField(field: string, min: number, max: number): number[] {
   }
 
   if (field.includes(',')) {
-    const values: number[] = [];
-    for (const part of field.split(',')) {
-      values.push(...parseCronField(part, min, max));
-    }
-    return [...new Set(values)].sort((a, b) => a - b);
+    const parsedParts = field.split(',').map((part) => parseCronField(part, min, max));
+    if (parsedParts.some((values) => values.length === 0)) return [];
+    return [...new Set(parsedParts.flat())].sort((a, b) => a - b);
   }
 
   if (field.includes('/')) {
-    const [range, stepStr] = field.split('/');
-    const step = parseInt(stepStr, 10);
-    if (isNaN(step) || step <= 0) return [];
-    const rangeValues = parseCronField(range || '*', min, max);
+    const parts = field.split('/');
+    if (parts.length !== 2 || !/^\d+$/.test(parts[1])) return [];
+    const step = Number(parts[1]);
+    if (step <= 0) return [];
+    const rangeValues = parseCronField(parts[0] || '*', min, max);
     return rangeValues.filter((_, i) => i % step === 0);
   }
 
   if (field.includes('-')) {
-    const [startStr, endStr] = field.split('-');
-    const start = parseInt(startStr, 10);
-    const end = parseInt(endStr, 10);
-    if (isNaN(start) || isNaN(end)) return [];
+    const parts = field.split('-');
+    if (parts.length !== 2 || !/^\d+$/.test(parts[0]) || !/^\d+$/.test(parts[1])) return [];
+    const start = Number(parts[0]);
+    const end = Number(parts[1]);
+    if (start < min || end > max || start > end) return [];
     const result: number[] = [];
     for (let i = start; i <= end; i++) result.push(i);
     return result;
   }
 
-  const val = parseInt(field, 10);
-  if (isNaN(val)) return [];
-  return [val];
+  if (!/^\d+$/.test(field)) return [];
+  const value = Number(field);
+  return value >= min && value <= max ? [value] : [];
+}
+
+function isSupportedCronExpression(fields: string[]): boolean {
+  if (fields.length !== 5 && fields.length !== 6) return false;
+  const ranges = [[0, 59], [0, 23], [1, 31], [1, 12], [0, 6]] as const;
+  return ranges.every(([min, max], index) => parseCronField(fields[index], min, max).length > 0);
 }
 
 /* ---------- human-readable description ---------- */
@@ -257,7 +263,7 @@ export default function CronExpressionParser({ locale }: { locale: 'ar' | 'en' }
     return parts;
   }, [expression]);
 
-  const isValid = fields.length === 5 || fields.length === 6;
+  const isValid = isSupportedCronExpression(fields);
 
   const parsedDescription = useMemo(() => {
     if (!isValid) return t.invalid;

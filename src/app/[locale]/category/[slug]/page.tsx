@@ -30,11 +30,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       siteName: 'QuickShed',
       type: 'website',
       url: `${SITE_URL}/${locale}/category/${category.slug}`,
+      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: ['/og-image.png'],
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}/category/${category.slug}`,
