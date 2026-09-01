@@ -19,7 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { getCategoryColor } from '@/lib/category-config';
 
 /**
- * QS-SPEC-001 T005c: privacy filter covers all four levels plus `all`.
+ * Privacy filter covers all four levels plus `all`.
  * Derived from the shared {@link Privacy} union, so adding a value to the
  * contract flows through here automatically.
  */
@@ -81,7 +81,7 @@ export function CategoryView() {
   const [filter, setFilter] = useState<FilterType>('all');
   const isRtl = locale === 'ar';
 
-  // QS-SPEC-001 T005c: reset the privacy filter whenever the selected
+  // Reset the privacy filter whenever the selected
   // category changes, so a filter that has no tools in the next category
   // can never carry over and produce a stale empty state. This is the
   // React "adjusting state during render" idiom (a synchronous setState
@@ -129,7 +129,7 @@ export function CategoryView() {
   const colors = getCategoryColor(category.slug);
   const gradient = colors.gradient;
 
-  // QS-SPEC-001 T005c: exhaustive four-class counts; no local/API-only tally.
+  // Exhaustive four-class counts; no local/API-only tally.
   const privacyCounts = countByPrivacy(allCategoryTools);
   const totalInCategory = allCategoryTools.length;
   const onDeviceCount = privacyCounts.local + privacyCounts['file-only'] + privacyCounts.storage;

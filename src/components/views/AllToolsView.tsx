@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 
 type SortMode = 'name' | 'category' | 'privacy' | 'usage' | 'rating';
 /**
- * QS-SPEC-001 T005c: privacy filter spans all four levels plus `all`, derived
+ * Privacy filter spans all four levels plus `all`, derived
  * from the shared {@link Privacy} union. No binary local-vs-api set remains.
  */
 type PrivacyFilter = 'all' | Privacy;

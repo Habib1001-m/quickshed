@@ -148,7 +148,7 @@ const CATEGORY_EXAMPLES: Record<string, { en: string; ar: string }[]> = {
 // ─── Animation variants ─────────────────────────────────────────────
 
 /**
- * QS-SPEC-001 T005c: exhaustive four-way spotlight disclosure. Every Privacy
+ * Exhaustive four-way spotlight disclosure. Every Privacy
  * value resolves to its own label key — on-device classes (`local`,
  * `file-only`, `storage`) never say `requiresConnection`. The switch is
  * exhaustive over the shared {@link Privacy} union; a future value fails
@@ -168,7 +168,7 @@ function spotlightPrivacyLabelKey(privacy: Privacy): string {
 }
 
 /**
- * QS-SPEC-001 T005c: exhaustive four-way spotlight icon + hue. Every Privacy
+ * Exhaustive four-way spotlight icon + hue. Every Privacy
  * value resolves to its own icon and color; on-device classes (`local`,
  * `file-only`, `storage`) never fall through to the API amber. Typed
  * `Record<Privacy, ...>` so a future enum value fails typecheck until added.
@@ -254,7 +254,7 @@ export function HomeView() {
   const categories = useMemo(() => getCategories(), []);
   const featuredTools = useMemo(() => getDiverseFeaturedTools(8), []);
   const spotlightTool = useMemo(() => getDiverseFeaturedTools(1)[0], []);
-  // QS-SPEC-001 T005c: exhaustive four-way spotlight icon + hue; guarded so
+  // Exhaustive four-way spotlight icon + hue; guarded so
   // SSR and a missing spotlight tool stay safe.
   const SpotlightPrivacy = spotlightTool
     ? SPOTLIGHT_PRIVACY_ICON[spotlightTool.privacy]

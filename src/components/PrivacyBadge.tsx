@@ -6,7 +6,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import type { Privacy } from '@/lib/tool-schema';
 
 interface PrivacyBadgeProps {
-  /** Shared QS-SPEC-001 Privacy union: 'local' | 'file-only' | 'storage' | 'api'. */
+  /** Shared Privacy union: 'local' | 'file-only' | 'storage' | 'api'. */
   level: Privacy;
   className?: string;
 }
