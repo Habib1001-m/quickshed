@@ -16,7 +16,7 @@ export interface LocalizedString {
 }
 
 /**
- * QS-SPEC-001 T005a: ToolDescriptor is the shared/inferred contract from
+ * ToolDescriptor is the shared/inferred contract from
  * tool-schema.ts — id, slug, name, description, category, icon, component,
  * route, privacy, offline, retention, riskLevel, keywords, inputs, outputs,
  * evidence, createdAt?, updatedAt?. The local LocalizedString below is kept
@@ -72,14 +72,7 @@ export function getCategoryName(slug: string, locale: Locale): string {
 
 // ─── Tool Query Functions ────────────────────────────────────────────
 
-/**
- * Get all tools from the tools index.
- *
- * T006 boundary: content/tools-index.json is not yet populated with the full
- * ToolDescriptor contract, so this deliberately keeps the `as unknown as`
- * cast instead of calling ToolSchema.parse(...) — no runtime parser is
- * introduced that would fail before T006 migrates the JSON.
- */
+/** Get all tools from the runtime index. */
 export function getAllTools(): ToolDescriptor[] {
   return toolsIndex as unknown as ToolDescriptor[];
 }
@@ -137,7 +130,7 @@ export function getRelatedTools(toolId: string, limit = 4): ToolDescriptor[] {
     .slice(0, limit);
 }
 
-// ─── Four-level privacy presentation helpers (QS-SPEC-001 T005c) ─────
+// ─── Four-level privacy presentation helpers ─────────────────────────
 
 /**
  * True for the on-device classes: `local`, `file-only`, `storage`. The

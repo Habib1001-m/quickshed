@@ -43,7 +43,7 @@
     "storagePersistenceTargets": "none",
     "consentGateReference": "not-applicable",
     "auditBasis": "source code audit",
-    "sourceRevision": "F5 uncommitted worktree 2026-08-03"
+    "sourceRevision": "850dd27cfc2722fdb04586901b37ef2457ebf4ca"
   },
   "createdAt": "2026-06-01",
   "updatedAt": "2026-08-03"

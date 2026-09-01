@@ -1,18 +1,15 @@
 /**
- * QS-SPEC-001 — Tool Quality & Privacy Contract (T004)
- *
  * Single source of truth for the QuickShed tool metadata contract.
  * The TypeScript {@link Tool} type is derived from {@link ToolSchema} via
  * `z.infer`, so the JSON shape (content/tools/*.json, content/tools-index.json)
  * and the TypeScript `ToolDescriptor` cannot silently drift.
  *
- * Enumerations and the privacy/retention matrix mirror spec.md verbatim.
- * The schema is reusable by the later static validation guard (T008); no new
- * runtime dependency is introduced (zod is already a project dependency).
+ * Enumerations and the privacy/retention matrix are defined below. The schema
+ * is reusable by static validation checks; zod is already a project dependency.
  */
 import { z } from 'zod';
 
-// ─── Closed enumerations (spec.md "Terminology and Contract") ─────────
+// ─── Closed enumerations ─────────────────────────────────────────────
 
 export const PRIVACY_VALUES = ['local', 'file-only', 'storage', 'api'] as const;
 export const OFFLINE_VALUES = ['full', 'partial', 'unavailable'] as const;
@@ -48,7 +45,7 @@ export const RouteSchema = z
   .min(1)
   .regex(TOOL_ROUTE_PATTERN, "route must be '/[locale]/tools/<slug>'");
 
-// ─── Data-flow evidence (spec.md "Data-Flow Evidence") ───────────────
+// ─── Data-flow evidence ──────────────────────────────────────────────
 
 export const NetworkEgressSchema = z.union([
   z.literal('none'),
@@ -107,7 +104,7 @@ export const ToolSchema = z
   .superRefine((val, ctx) => {
     const { privacy, retention, evidence } = val;
 
-    // Privacy/retention consistency matrix (spec.md "Privacy/Retention Consistency").
+    // Privacy/retention consistency matrix.
     const matrixOk =
       (privacy === 'storage' && retention === 'browser-storage') ||
       ((privacy === 'local' || privacy === 'file-only') &&

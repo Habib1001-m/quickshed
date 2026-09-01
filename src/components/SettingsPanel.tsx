@@ -32,7 +32,7 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
   const isRtl = locale === 'ar';
 
   const allTools = getAllTools();
-  // QS-SPEC-001 T005c: on-device = local + file-only + storage. Counting only
+  // On-device = local + file-only + storage. Counting only
   // `local` and labelling it "Local" understates the on-device baseline; use
   // the shared classifier so the metric matches Footer and the contract.
   const onDeviceCount = allTools.filter((t) => isOnDevice(t.privacy)).length;

@@ -23,7 +23,7 @@ export default function Footer() {
   const isRTL = locale === 'ar';
   const categories = useMemo(() => getCategories(), []);
   const allTools = useMemo(() => getAllTools(), []);
-  // QS-SPEC-001 T005c: on-device share = local + file-only + storage.
+  // On-device share = local + file-only + storage.
   // A raw `local`-only count is NOT an on-device percentage, so we compute
   // the real share over all tools and label it accurately.
   const onDeviceCount = allTools.filter((tool) => isOnDevice(tool.privacy)).length;

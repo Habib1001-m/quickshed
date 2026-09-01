@@ -10,7 +10,7 @@ interface ToolPageProps {
 }
 
 /**
- * QS-SPEC-001 T005c: exhaustive four-level SEO/privacy disclosure. Every
+ * Exhaustive four-level SEO/privacy disclosure. Every
  * Privacy value gets its own accurate copy; `file-only` and `storage` are
  * NOT described as an external API. The switch is exhaustive over the
  * shared {@link Privacy} union, so a future value fails typecheck.
