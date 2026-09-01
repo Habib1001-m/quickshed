@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -53,46 +53,44 @@ const labels = {
   },
 };
 
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
 /* ---------- syntax-highlighted JSON ---------- */
-function highlightJson(json: string): string {
-  const tokenPattern = /("(?:\\.|[^"\\])*")(\s*:)?|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null/g;
-  let highlighted = '';
+const tokenPattern = /("(?:\\.|[^"\\])*")(\s*:)?|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null/g;
+
+function highlightJson(json: string): ReactNode[] {
+  const highlighted: ReactNode[] = [];
   let lastIndex = 0;
+  let tokenIndex = 0;
 
   for (const match of json.matchAll(tokenPattern)) {
     const token = match[0];
     const index = match.index ?? 0;
     const isKey = Boolean(match[2]);
     const value = isKey ? token.slice(0, -match[2]!.length) : token;
-    const suffix = isKey ? match[2] : '';
+    const suffix = isKey ? match[2]! : '';
+    const tokenKey = `token-${tokenIndex}`;
 
-    highlighted += escapeHtml(json.slice(lastIndex, index));
+    if (index > lastIndex) highlighted.push(json.slice(lastIndex, index));
 
     if (isKey) {
-      highlighted += `<span style="color:#e06c75">${escapeHtml(value)}</span>${escapeHtml(suffix)}`;
+      highlighted.push(
+        <span key={`${tokenKey}-key`} style={{ color: '#e06c75' }}>{value}</span>,
+        suffix,
+      );
     } else if (value.startsWith('"')) {
-      highlighted += `<span style="color:#98c379">${escapeHtml(value)}</span>`;
+      highlighted.push(<span key={tokenKey} style={{ color: '#98c379' }}>{value}</span>);
     } else if (/^-?\d/.test(value)) {
-      highlighted += `<span style="color:#d19a66">${escapeHtml(value)}</span>`;
+      highlighted.push(<span key={tokenKey} style={{ color: '#d19a66' }}>{value}</span>);
     } else if (value === 'true' || value === 'false') {
-      highlighted += `<span style="color:#56b6c2">${value}</span>`;
+      highlighted.push(<span key={tokenKey} style={{ color: '#56b6c2' }}>{value}</span>);
     } else {
-      highlighted += `<span style="color:#c678dd">${value}</span>`;
+      highlighted.push(<span key={tokenKey} style={{ color: '#c678dd' }}>{value}</span>);
     }
 
     lastIndex = index + token.length;
+    tokenIndex += 1;
   }
 
-  highlighted += escapeHtml(json.slice(lastIndex));
+  if (lastIndex < json.length) highlighted.push(json.slice(lastIndex));
   return highlighted;
 }
 
@@ -372,10 +370,9 @@ export default function JsonFormatter({ locale }: { locale: 'ar' | 'en' }) {
           <CardContent className="p-4 sm:p-6">
             {viewMode === 'raw' ? (
               output ? (
-                <pre
-                  className="tool-output text-sm font-mono whitespace-pre-wrap break-all max-h-[500px] overflow-auto"
-                  dangerouslySetInnerHTML={{ __html: highlightJson(output) }}
-                />
+                <pre className="tool-output text-sm font-mono whitespace-pre-wrap break-all max-h-[500px] overflow-auto">
+                  {highlightJson(output)}
+                </pre>
               ) : (
                 <p className="text-muted-foreground text-sm">{t.inputPlaceholder}</p>
               )

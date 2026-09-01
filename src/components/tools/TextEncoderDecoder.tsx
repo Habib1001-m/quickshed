@@ -8,6 +8,11 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Copy, Check, Lock } from 'lucide-react';
+import {
+  decodeBase64Unicode,
+  decodeHtmlEntities,
+  encodeBase64Unicode,
+} from '@/lib/text-codecs';
 
 const labels = {
   en: {
@@ -61,11 +66,7 @@ function encodeText(text: string, type: EncodingType): string {
         return map[c];
       });
     case 'base64':
-      try {
-        return btoa(unescape(encodeURIComponent(text)));
-      } catch {
-        return '';
-      }
+      return encodeBase64Unicode(text);
   }
 }
 
@@ -78,23 +79,9 @@ function decodeText(text: string, type: EncodingType): string {
         return '';
       }
     case 'html':
-      const el = typeof document !== 'undefined' ? document.createElement('textarea') : null;
-      if (el) {
-        el.innerHTML = text;
-        return el.value;
-      }
-      return text
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'");
+      return decodeHtmlEntities(text);
     case 'base64':
-      try {
-        return decodeURIComponent(escape(atob(text)));
-      } catch {
-        return '';
-      }
+      return decodeBase64Unicode(text) ?? '';
   }
 }
 

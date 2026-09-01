@@ -2,12 +2,19 @@ import { expect, test, type Page } from '@playwright/test';
 
 type TestWindow = Window & {
   __copiedText?: string;
+  __innerHTMLSinkUsed?: boolean;
+  __qsXss?: number;
   __xss?: boolean;
 };
 
 async function dismissOnboarding(page: Page) {
   await page.getByRole('button', { name: /dismiss/i }).click({ timeout: 1000 }).catch(() => undefined);
   await page.getByRole('button', { name: /skip/i }).click({ timeout: 5000 }).catch(() => undefined);
+}
+
+async function selectEncoding(page: Page, name: RegExp) {
+  await page.getByRole('combobox').click();
+  await page.getByRole('option', { name }).click();
 }
 
 test.describe('QuickShed smoke', () => {
@@ -103,30 +110,138 @@ test.describe('QuickShed smoke', () => {
     ).toBe(false);
   });
 
-  test('does not render JSON strings as executable HTML in raw view', async ({ page }) => {
+  test('does not render adversarial JSON strings as executable HTML in raw view', async ({ page }) => {
     await page.addInitScript(() => {
       (window as TestWindow).__xss = false;
+      (globalThis as typeof globalThis & { __qsXss?: number }).__qsXss = undefined;
     });
 
     await page.goto('/en/tools/json-formatter');
     await dismissOnboarding(page);
-    await page.getByPlaceholder(/paste your json here/i).fill(
-      JSON.stringify({
-        payload: '<img data-xss="json" src=x onerror="window.__xss=true">',
-      })
-    );
+    await page.evaluate(() => {
+      const descriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+      if (!descriptor?.set) throw new Error('innerHTML setter unavailable');
+      (window as TestWindow).__innerHTMLSinkUsed = false;
+      Object.defineProperty(Element.prototype, 'innerHTML', {
+        configurable: descriptor.configurable,
+        enumerable: descriptor.enumerable,
+        get: descriptor.get,
+        set(value) {
+          (window as TestWindow).__innerHTMLSinkUsed = true;
+          descriptor.set?.call(this, value);
+        },
+      });
+    });
+
+    const payload = {
+      '</span><script>globalThis.__qsXss=1</script>': '<img src=x onerror="globalThis.__qsXss=1">',
+      svg: '<svg onload="globalThis.__qsXss=1"></svg>',
+      punctuation: '&<>' + "'\"",
+    };
+    await page.getByPlaceholder(/paste your json here/i).fill(JSON.stringify(payload));
     await page.getByRole('button', { name: /format \/ prettify/i }).click();
 
     const output = page.locator('pre.tool-output');
-    await expect(page.locator('img[data-xss="json"]')).toHaveCount(0);
-    await expect(output).toContainText('data-xss=\\"json\\"');
-    await expect(output).toContainText('<img');
-    await expect.poll(
-      () => output.evaluate((node) => node.innerHTML.includes('<img'))
-    ).toBe(false);
+    await expect(output.locator('img, svg, script')).toHaveCount(0);
+    await expect(output).toContainText(JSON.stringify(payload, null, 2));
     await expect.poll(
       () => page.evaluate(() => (window as TestWindow).__xss)
     ).toBe(false);
+    await expect.poll(
+      () => page.evaluate(() => (globalThis as typeof globalThis & { __qsXss?: number }).__qsXss)
+    ).toBeUndefined();
+    await expect.poll(
+      () => page.evaluate(() => (window as TestWindow).__innerHTMLSinkUsed)
+    ).toBe(false);
+  });
+
+  test('decodes HTML entities in one non-DOM pass', async ({ page }) => {
+    await page.addInitScript(() => {
+      (window as TestWindow).__xss = false;
+      (window as TestWindow).__innerHTMLSinkUsed = false;
+      const descriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+      if (!descriptor?.set) throw new Error('innerHTML setter unavailable');
+      Object.defineProperty(HTMLTextAreaElement.prototype, 'innerHTML', {
+        configurable: descriptor.configurable,
+        enumerable: descriptor.enumerable,
+        get: descriptor.get,
+        set(value) {
+          (window as TestWindow).__innerHTMLSinkUsed = true;
+          descriptor.set?.call(this, value);
+        },
+      });
+    });
+
+    await page.goto('/en/tools/text-encoder-decoder');
+    await dismissOnboarding(page);
+    await selectEncoding(page, /HTML Entities/i);
+    await page.getByRole('tab', { name: /^decode$/i }).click();
+
+    const input = page.getByPlaceholder(/enter text to encode\/decode/i);
+    const output = page.locator('textarea[readonly]').first();
+    const cases = [
+      ['&lt;script&gt;alert(1)&lt;/script&gt;', '<script>alert(1)</script>'],
+      ['&amp;lt;script&amp;gt;', '&lt;script&gt;'],
+      ['&amp;quot;', '&quot;'],
+      ['&#60;img src=x onerror=alert(1)&#62;', '<img src=x onerror=alert(1)>'],
+      ['&#x3C;svg onload=alert(1)&#x3E;', '<svg onload=alert(1)>'],
+      ['مرحبا بالعالم', 'مرحبا بالعالم'],
+    ] as const;
+
+    for (const [encoded, expected] of cases) {
+      await input.fill(encoded);
+      await expect(output).toHaveValue(expected);
+    }
+    await expect.poll(
+      () => page.evaluate(() => (window as TestWindow).__xss)
+    ).toBe(false);
+    await expect.poll(
+      () => page.evaluate(() => (window as TestWindow).__innerHTMLSinkUsed)
+    ).toBe(false);
+  });
+
+  test('preserves URL and Unicode Base64 codec behavior', async ({ page }) => {
+    await page.goto('/en/tools/text-encoder-decoder');
+    await dismissOnboarding(page);
+    const input = page.getByPlaceholder(/enter text to encode\/decode/i);
+    const output = page.locator('textarea[readonly]').first();
+
+    await selectEncoding(page, /URL Encoding/i);
+    await page.getByRole('tab', { name: /^encode$/i }).click();
+    const url = 'https://example.com/a path?x=1&y=2';
+    await input.fill(url);
+    const encodedUrl = encodeURIComponent(url);
+    await expect(output).toHaveValue(encodedUrl);
+    await page.getByRole('tab', { name: /^decode$/i }).click();
+    await input.fill(encodedUrl);
+    await expect(output).toHaveValue(url);
+
+    await selectEncoding(page, /Base64/i);
+    await page.getByRole('tab', { name: /^encode$/i }).click();
+    const unicodeText = 'مرحبا 🌍';
+    await input.fill(unicodeText);
+    const encodedBase64 = await output.inputValue();
+    expect(encodedBase64).not.toBe('');
+    await page.getByRole('tab', { name: /^decode$/i }).click();
+    await input.fill(encodedBase64);
+    await expect(output).toHaveValue(unicodeText);
+    await input.fill('%%%not-base64%%%');
+    await expect(output).toHaveValue('Invalid input for decoding');
+  });
+
+  test('blog links use localized canonical same-origin paths', async ({ page }) => {
+    await page.goto('/en/blog');
+    await expect(page.getByRole('heading', { name: /QuickShed Tech Blog/i })).toBeVisible();
+
+    const hrefs = await page.locator('article a').evaluateAll((links) =>
+      links.map((link) => link.getAttribute('href'))
+    );
+    expect(hrefs).toContain('/en/blog/custom-pdf-tools-guide');
+    expect(hrefs).toContain('/en/blog/welcome-to-quickshed');
+    for (const href of hrefs) {
+      expect(href).toMatch(/^\/en\/blog\/[a-z0-9]+(?:-[a-z0-9]+)*$/);
+      expect(new URL(href!, page.url()).origin).toBe(new URL(page.url()).origin);
+    }
   });
 
   test('opens command palette with Ctrl+K', async ({ page }) => {

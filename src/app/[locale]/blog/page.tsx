@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/blog';
 import { LOCALES, SITE_URL } from '@/lib/site-config';
+import { getBlogPostHref } from '@/lib/blog-slug';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
@@ -79,46 +80,51 @@ export default async function BlogListPage({ params }: Props) {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <article
-              key={post.slug}
-              className="group border border-border/60 rounded-xl p-6 bg-card hover:border-emerald-500/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500 uppercase tracking-wider bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                  <Tag className="h-3 w-3" />
-                  {post.category}
-                </span>
-                <Link href={`/${locale}/blog/${post.slug}`}>
-                  <h2 className="text-xl font-bold mt-4 mb-2 group-hover:text-emerald-500 transition-colors line-clamp-2">
-                    {post.title}
-                  </h2>
-                </Link>
-                <p className="text-muted-foreground text-sm line-clamp-3 mb-4 leading-relaxed">
-                  {post.description}
-                </p>
-              </div>
+          {posts.map((post) => {
+            const href = getBlogPostHref(locale, post.slug);
+            if (!href) return null;
 
-              <div className="flex items-center justify-between pt-4 border-t border-border/40 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
-                  {post.date}
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {post.readingTime}
-                </span>
-              </div>
-
-              <Link
-                href={`/${locale}/blog/${post.slug}`}
-                className={`inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-emerald-500 hover:text-emerald-400 transition-colors ${isRtl ? 'flex-row-reverse' : ''}`}
+            return (
+              <article
+                key={post.slug}
+                className="group border border-border/60 rounded-xl p-6 bg-card hover:border-emerald-500/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
               >
-                {t.readMore}
-                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />
-              </Link>
-            </article>
-          ))}
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500 uppercase tracking-wider bg-emerald-500/10 px-2.5 py-1 rounded-full">
+                    <Tag className="h-3 w-3" />
+                    {post.category}
+                  </span>
+                  <Link href={href}>
+                    <h2 className="text-xl font-bold mt-4 mb-2 group-hover:text-emerald-500 transition-colors line-clamp-2">
+                      {post.title}
+                    </h2>
+                  </Link>
+                  <p className="text-muted-foreground text-sm line-clamp-3 mb-4 leading-relaxed">
+                    {post.description}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-border/40 text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {post.date}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {post.readingTime}
+                  </span>
+                </div>
+
+                <Link
+                  href={href}
+                  className={`inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-emerald-500 hover:text-emerald-400 transition-colors ${isRtl ? 'flex-row-reverse' : ''}`}
+                >
+                  {t.readMore}
+                  <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} />
+                </Link>
+              </article>
+            );
+          })}
         </div>
       )}
     </div>
