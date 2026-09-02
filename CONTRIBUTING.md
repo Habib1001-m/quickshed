@@ -11,10 +11,11 @@ npm run dev
 
 The development server runs on port 7125. Use the English and Arabic routes when a change affects public copy or layout.
 
-## Source of truth
+## Repository metadata surfaces
 
-- `content/tools/*.json` is the authored inventory.
-- `content/tools-index.json` is the runtime index. Keep it in parity with the authored descriptors.
+- `content/tools-index.json` is the current runtime-consumed tool descriptor index.
+- `content/tools/*.json` contains per-tool metadata records also maintained in the repository.
+- The producer/generator relationship between these surfaces is not currently established. Keep overlapping metadata consistent and verify changes against current consumers.
 - `src/lib/tool-schema.ts` defines required tool metadata.
 - `src/components/tools/` contains client-side tools. Keep browser APIs, hooks, and browser storage out of server render paths.
 - `messages/en.json` and `messages/ar.json` must receive matching shared copy updates with placeholders preserved.
@@ -66,7 +67,7 @@ Do not include credentials, private URLs, real user data, or sensitive tool inpu
 
 ## Adding a tool
 
-Follow the complete metadata contract in `src/lib/tool-schema.ts`. Add the authored descriptor, synchronized runtime index entry, client component, registry entry, and both locale descriptions. Document every external destination and data purpose before adding an API-class tool.
+Follow the complete metadata contract in `src/lib/tool-schema.ts`. Add or update the per-tool metadata records, keep overlapping entries consistent, then add the client component, registry entry, and both locale descriptions. Do not assume that either metadata surface generates the other. Document every external destination and data purpose before adding an API-class tool.
 
 ## License
 

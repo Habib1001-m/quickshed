@@ -15,7 +15,7 @@ QuickShed uses four data-handling classes:
 
 The current catalog contains no tool descriptor that declares external API egress. The badge on the tool page is the source for that tool's handling details. Browser-local processing is separate from website availability: the service worker caches selected static assets, but it does not guarantee offline navigation.
 
-QuickShed does not require an account and does not show ads. Browser storage is used for preferences and selected on-device tool data, such as favorites. You can clear saved data from Settings. For the full policy, see [Privacy Policy](https://quickshed.app/en/privacy).
+QuickShed does not require an account and does not show ads. Browser storage is used for preferences and selected on-device tool data, such as favorites. You can clear saved data from Settings. For the full policy, see [Privacy Policy](https://quickshed.vercel.app/en/privacy).
 
 ## Tool catalog
 
@@ -34,7 +34,7 @@ QuickShed does not require an account and does not show ads. Browser storage is 
 | Security Tools | 4 |
 | **Total** | **90** |
 
-Use the [All Tools](https://quickshed.app/en/all-tools) page to search the current catalog. The interface is available in English and Arabic, with left-to-right and right-to-left layouts respectively.
+Use the [All Tools](https://quickshed.vercel.app/en/all-tools) page to search the current catalog. The interface is available in English and Arabic, with left-to-right and right-to-left layouts respectively.
 
 ## Run locally
 
@@ -79,8 +79,9 @@ A build or test result is not a deployment. Deployment is a separate release act
 
 ## Project structure
 
-- `content/tools/*.json` is the authored tool inventory.
-- `content/tools-index.json` is the runtime index and must stay in parity with the authored descriptors.
+- `content/tools-index.json` is the current runtime-consumed tool descriptor index.
+- `content/tools/*.json` contains per-tool metadata records also maintained in the repository.
+- The producer/generator relationship between these metadata surfaces is not currently established; keep overlapping records consistent.
 - `src/components/tools/` contains client-side tool components loaded through the dynamic registry.
 - `src/app/[locale]/` contains localized routes for the home page, categories, tools, blog, and legal pages.
 - `messages/en.json` and `messages/ar.json` contain shared interface copy.
@@ -92,8 +93,8 @@ Known locale routes are generated from `generateStaticParams`. Unknown locale-pr
 ## Add or update a tool
 
 1. Read the schema in `src/lib/tool-schema.ts`.
-2. Add or update the complete descriptor in `content/tools/` with English and Arabic names, descriptions, keywords, inputs, outputs, privacy class, offline scope, retention, risk, and data-flow evidence.
-3. Keep `content/tools-index.json` synchronized with the authored descriptor.
+2. Add or update the complete per-tool metadata record in `content/tools/` with English and Arabic names, descriptions, keywords, inputs, outputs, privacy class, offline scope, retention, risk, and data-flow evidence.
+3. Keep overlapping metadata in `content/tools/` and `content/tools-index.json` consistent; do not assume that one surface generates the other.
 4. Add the client component under `src/components/tools/` and register it in `src/components/tools/index.ts`.
 5. Keep browser APIs and storage access inside the client boundary. Do not add network egress to a Local, File-only, or On-device tool.
 6. Check English and Arabic routes, including text direction, accessible names, and mobile layout.
@@ -106,8 +107,8 @@ Do not add a tool as part of an unrelated refactor. New external-service behavio
 - [Documentation index](docs/README.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
-- [Privacy Policy](https://quickshed.app/en/privacy)
-- [Terms of Service](https://quickshed.app/en/terms)
+- [Privacy Policy](https://quickshed.vercel.app/en/privacy)
+- [Terms of Service](https://quickshed.vercel.app/en/terms)
 - [Dependency audit policy](docs/security/dependency-audit-policy.md)
 
 ## License
