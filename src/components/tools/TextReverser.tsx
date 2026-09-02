@@ -55,10 +55,14 @@ export default function TextReverser({ locale }: { locale: 'ar' | 'en' }) {
     }
   }, [text, mode]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(result);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(result);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const modeButtons: { key: ReverseMode; label: string; icon: typeof ArrowRightLeft }[] = [

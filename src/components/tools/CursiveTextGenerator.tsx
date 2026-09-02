@@ -181,10 +181,14 @@ export default function CursiveTextGenerator({ locale }: { locale: 'ar' | 'en' }
     }));
   }, [text]);
 
-  const handleCopy = (key: string, output: string) => {
-    navigator.clipboard.writeText(output);
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 2000);
+  const handleCopy = async (key: string, output: string) => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

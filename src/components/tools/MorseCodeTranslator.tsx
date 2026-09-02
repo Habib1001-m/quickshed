@@ -131,10 +131,14 @@ export default function MorseCodeTranslator({ locale }: { locale: 'ar' | 'en' })
     }
   }, [input, mode]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [output]);
 
   const handlePlay = useCallback(() => {

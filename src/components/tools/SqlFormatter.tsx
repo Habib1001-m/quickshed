@@ -136,10 +136,14 @@ export default function SqlFormatter({ locale }: { locale: 'ar' | 'en' }) {
     setOutput(formatSQL(input));
   }, [input]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [output]);
 
   return (

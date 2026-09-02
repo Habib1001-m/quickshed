@@ -83,10 +83,14 @@ export default function WhitespaceRemover({ locale }: { locale: 'ar' | 'en' }) {
     return result;
   }, [input, trimLeading, removeExtra, removeAll, removeLineBreaks, removeTabs]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const beforeCount = input.length;

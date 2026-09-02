@@ -76,10 +76,14 @@ export default function RemoveDuplicates({ locale }: { locale: 'ar' | 'en' }) {
     };
   }, [text, caseSensitive, trimWhitespace]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(result.output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(result.output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

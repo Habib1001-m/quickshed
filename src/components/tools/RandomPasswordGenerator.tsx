@@ -128,16 +128,24 @@ export default function RandomPasswordGenerator({ locale }: { locale: 'ar' | 'en
     setPasswords(results);
   }, [length, useUpper, useLower, useNumbers, useSymbols, pronounceable, pinMode, count]);
 
-  const copyAll = () => {
-    navigator.clipboard.writeText(passwords.join('\n'));
-    setCopiedAll(true);
-    setTimeout(() => setCopiedAll(false), 2000);
+  const copyAll = async () => {
+    try {
+      await navigator.clipboard.writeText(passwords.join('\n'));
+      setCopiedAll(true);
+      setTimeout(() => setCopiedAll(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
-  const copyOne = (idx: number) => {
-    navigator.clipboard.writeText(passwords[idx]);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const copyOne = async (idx: number) => {
+    try {
+      await navigator.clipboard.writeText(passwords[idx]);
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const handleDownload = () => {

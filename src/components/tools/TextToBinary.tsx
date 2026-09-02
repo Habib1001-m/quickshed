@@ -76,10 +76,14 @@ export default function TextToBinary({ locale }: { locale: 'ar' | 'en' }) {
 
   const isValid = mode === 'toBinary' || !input.trim() || binaryToText(input) !== null;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

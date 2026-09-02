@@ -101,10 +101,14 @@ export default function TextEncoderDecoder({ locale }: { locale: 'ar' | 'en' }) 
     return result || t.invalidInput;
   }, [input, direction, encodingType, t.invalidInput]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

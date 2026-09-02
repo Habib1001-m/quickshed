@@ -87,10 +87,14 @@ export default function WordCounter({ locale }: { locale: 'ar' | 'en' }) {
       .slice(0, 10);
   }, [text]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const statItems = [

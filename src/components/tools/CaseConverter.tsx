@@ -104,10 +104,14 @@ export default function CaseConverter({ locale }: { locale: 'ar' | 'en' }) {
     return converters[caseType](text);
   }, [text, caseType]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(result);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(result);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const buttons: { key: CaseType; label: string }[] = [

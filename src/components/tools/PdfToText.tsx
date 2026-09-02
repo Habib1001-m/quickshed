@@ -74,10 +74,14 @@ export default function PdfToText({ locale }: { locale: 'ar' | 'en' }) {
     if (file) handleFile(file);
   };
 
-  const copyAll = () => {
-    navigator.clipboard.writeText(pages.join('\n\n'));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyAll = async () => {
+    try {
+      await navigator.clipboard.writeText(pages.join('\n\n'));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const allText = pages.join('\n\n');

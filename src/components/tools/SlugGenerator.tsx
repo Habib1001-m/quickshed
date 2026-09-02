@@ -83,10 +83,14 @@ export default function SlugGenerator({ locale }: { locale: 'ar' | 'en' }) {
     return generateSlug(text, separator, lowercase);
   }, [text, separator, lowercase]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(slug);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(slug);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

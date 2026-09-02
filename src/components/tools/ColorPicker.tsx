@@ -112,10 +112,14 @@ function generatePalette(hex: string): { complementary: string[]; analogous: str
 
 function CopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
   return (
     <Button variant="ghost" size="icon" className="size-7 shrink-0" onClick={handleCopy}>

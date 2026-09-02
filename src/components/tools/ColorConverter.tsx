@@ -129,10 +129,14 @@ export default function ColorConverter({ locale }: { locale: 'ar' | 'en' }) {
   const hsl = useMemo(() => rgb ? rgbToHsl(rgb) : null, [rgb]);
   const hex = useMemo(() => rgb ? rgbToHex(rgb) : null, [rgb]);
 
-  const handleCopy = useCallback((field: string, value: string) => {
-    navigator.clipboard.writeText(value);
-    setCopiedField(field);
-    setTimeout(() => setCopiedField(null), 2000);
+  const handleCopy = useCallback(async (field: string, value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, []);
 
   return (

@@ -177,10 +177,14 @@ export default function HtmlBeautifier({ locale }: { locale: 'ar' | 'en' }) {
     setOutputs(prev => ({ ...prev, [tab]: result }));
   }, [inputs, tab]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(outputs[tab]);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(outputs[tab]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [outputs, tab]);
 
   return (
