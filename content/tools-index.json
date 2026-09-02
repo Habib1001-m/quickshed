@@ -312,8 +312,8 @@
       "en": "Line Sorter"
     },
     "description": {
-      "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات متقدمة.",
-      "en": "Sort text lines alphabetically or in reverse with advanced options."
+      "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات إضافية.",
+      "en": "Sort text lines alphabetically or in reverse with additional options."
     },
     "category": "utility-tools",
     "icon": "ArrowDownUp",
@@ -770,8 +770,8 @@
       "en": "Random Password Generator"
     },
     "description": {
-      "ar": "أنشئ كلمات مرور عشوائية قوية بمعايير أمان متقدمة.",
-      "en": "Generate strong random passwords with advanced security criteria."
+      "ar": "أنشئ كلمات مرور عشوائية قوية بمعايير أمان قابلة للتخصيص.",
+      "en": "Generate strong random passwords with configurable security criteria."
     },
     "category": "security-tools",
     "icon": "Key",
@@ -927,8 +927,8 @@
       "en": "Random Number Generator"
     },
     "description": {
-      "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.",
-      "en": "Generate random numbers within a specified range with advanced options."
+      "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات إضافية.",
+      "en": "Generate random numbers within a specified range with optional settings."
     },
     "category": "utility-tools",
     "icon": "Dice5",
@@ -4119,8 +4119,8 @@
       "en": "Scientific Calculator"
     },
     "description": {
-      "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
-      "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
+      "ar": "آلة حاسبة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
+      "en": "A calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
     },
     "category": "calculators",
     "icon": "FlaskConical",
@@ -4134,7 +4134,7 @@
       "scientific",
       "trigonometry",
       "logarithm",
-      "advanced math",
+      "scientific math",
       "علمية",
       "مثلثات",
       "لوغاريتمات"

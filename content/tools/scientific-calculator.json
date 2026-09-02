@@ -6,8 +6,8 @@
     "en": "Scientific Calculator"
   },
   "description": {
-    "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
-    "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
+    "ar": "آلة حاسبة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
+    "en": "A calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
   },
   "category": "calculators",
   "icon": "FlaskConical",
@@ -21,7 +21,7 @@
     "scientific",
     "trigonometry",
     "logarithm",
-    "advanced math",
+    "scientific math",
     "علمية",
     "مثلثات",
     "لوغاريتمات"

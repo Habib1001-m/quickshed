@@ -6,8 +6,8 @@
     "en": "Line Sorter"
   },
   "description": {
-    "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات متقدمة.",
-    "en": "Sort text lines alphabetically or in reverse with advanced options."
+    "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات إضافية.",
+    "en": "Sort text lines alphabetically or in reverse with additional options."
   },
   "category": "utility-tools",
   "icon": "ArrowDownUp",
