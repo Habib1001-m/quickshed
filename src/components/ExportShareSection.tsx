@@ -34,10 +34,18 @@ export function ExportShareSection({ toolId, toolName }: ExportShareSectionProps
       input.value = toolUrl;
       document.body.appendChild(input);
       input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
+      let fallbackCopied = false;
+      try {
+        fallbackCopied = document.execCommand('copy');
+      } catch {
+        return;
+      } finally {
+        document.body.removeChild(input);
+      }
+      if (fallbackCopied) {
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 2000);
+      }
     }
   }, [toolUrl]);
 
@@ -62,10 +70,18 @@ export function ExportShareSection({ toolId, toolName }: ExportShareSectionProps
       input.value = embedCode;
       document.body.appendChild(input);
       input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setEmbedCopied(true);
-      setTimeout(() => setEmbedCopied(false), 2000);
+      let fallbackCopied = false;
+      try {
+        fallbackCopied = document.execCommand('copy');
+      } catch {
+        return;
+      } finally {
+        document.body.removeChild(input);
+      }
+      if (fallbackCopied) {
+        setEmbedCopied(true);
+        setTimeout(() => setEmbedCopied(false), 2000);
+      }
     }
   }, [embedCode]);
 

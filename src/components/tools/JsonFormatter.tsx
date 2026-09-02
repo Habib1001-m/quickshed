@@ -280,10 +280,14 @@ export default function JsonFormatter({ locale }: { locale: 'ar' | 'en' }) {
     }
   }, [input]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [output]);
 
   return (

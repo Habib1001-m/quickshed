@@ -34,10 +34,18 @@ export function ShareTool({ toolId, toolName }: ShareToolProps) {
       input.value = toolUrl;
       document.body.appendChild(input);
       input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      let fallbackCopied = false;
+      try {
+        fallbackCopied = document.execCommand('copy');
+      } catch {
+        return;
+      } finally {
+        document.body.removeChild(input);
+      }
+      if (fallbackCopied) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     }
   }, [toolUrl]);
 

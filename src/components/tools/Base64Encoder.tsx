@@ -157,10 +157,14 @@ export default function Base64Encoder({ locale }: { locale: 'ar' | 'en' }) {
     if (file) handleFile(file);
   }, [handleFile]);
 
-  const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [output]);
 
   return (

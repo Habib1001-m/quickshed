@@ -395,11 +395,16 @@ export default function EmojiPicker({ locale }: { locale: 'ar' | 'en' }) {
     return cat.emojis.filter((e) => e.name.toLowerCase().includes(q) || e.emoji.includes(q));
   }, [activeCategory, search]);
 
-  const handleCopy = (emoji: string) => {
-    navigator.clipboard.writeText(emoji);
-    setCopiedEmoji(emoji);
+  const handleCopy = async (emoji: string) => {
+    const copyPromise = navigator.clipboard.writeText(emoji);
     setRecent((prev) => [emoji, ...prev.filter((e) => e !== emoji)].slice(0, EMOJI_RECENT_CAP));
-    setTimeout(() => setCopiedEmoji(''), 2000);
+    try {
+      await copyPromise;
+      setCopiedEmoji(emoji);
+      setTimeout(() => setCopiedEmoji(''), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

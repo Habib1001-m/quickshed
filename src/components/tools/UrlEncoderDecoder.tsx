@@ -76,10 +76,14 @@ export default function UrlEncoderDecoder({ locale }: { locale: 'ar' | 'en' }) {
         { value: 'uri', label: t.decodeURI },
       ];
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const handleSwap = () => {

@@ -181,10 +181,14 @@ export default function JwtDecoder({ locale }: { locale: 'ar' | 'en' }) {
     }
   }, []);
 
-  const handleCopySection = useCallback((section: string) => {
-    navigator.clipboard.writeText(section);
-    setCopiedSection(section);
-    setTimeout(() => setCopiedSection(null), 2000);
+  const handleCopySection = useCallback(async (section: string) => {
+    try {
+      await navigator.clipboard.writeText(section);
+      setCopiedSection(section);
+      setTimeout(() => setCopiedSection(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, []);
 
   const expStatus = useMemo(() => {

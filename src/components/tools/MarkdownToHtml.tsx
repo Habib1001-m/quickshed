@@ -147,10 +147,14 @@ export default function MarkdownToHtml({ locale }: { locale: 'ar' | 'en' }) {
     [markdown, imageBlockedMessage],
   );
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(html);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(html);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

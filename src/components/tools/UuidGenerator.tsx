@@ -52,10 +52,14 @@ function generateUUID(): string {
 
 function CopyBtn({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
   return (
     <Button variant="ghost" size="icon" className="size-7 shrink-0" onClick={handleCopy}>
@@ -91,11 +95,15 @@ export default function UuidGenerator({ locale }: { locale: 'ar' | 'en' }) {
     setUuids((prev) => [...newUuids, ...prev]);
   };
 
-  const handleCopyAll = () => {
+  const handleCopyAll = async () => {
     const text = uuids.map((u) => formatUuid(u)).join('\n');
-    navigator.clipboard.writeText(text);
-    setAllCopied(true);
-    setTimeout(() => setAllCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setAllCopied(true);
+      setTimeout(() => setAllCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

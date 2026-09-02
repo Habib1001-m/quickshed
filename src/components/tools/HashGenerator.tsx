@@ -200,10 +200,14 @@ async function shaHashBuffer(algorithm: string, buffer: ArrayBuffer): Promise<st
 /* ========== Hash Result Row ========== */
 function HashRow({ label, value, t }: { label: string; value: string; t: typeof labels.en }) {
   const [copied, setCopied] = useState(false);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

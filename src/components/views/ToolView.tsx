@@ -154,10 +154,18 @@ function QuickActionsBar({ tool }: { tool: ToolDescriptor }) {
       textArea.value = url;
       document.body.appendChild(textArea);
       textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
+      let fallbackCopied = false;
+      try {
+        fallbackCopied = document.execCommand('copy');
+      } catch {
+        return;
+      } finally {
+        document.body.removeChild(textArea);
+      }
+      if (fallbackCopied) {
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 2000);
+      }
     });
   };
 

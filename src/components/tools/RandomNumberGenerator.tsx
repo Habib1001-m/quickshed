@@ -101,10 +101,14 @@ export default function RandomNumberGenerator({ locale }: { locale: 'ar' | 'en' 
     setResults(nums);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(results.join(', '));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(results.join(', '));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   return (

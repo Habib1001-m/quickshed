@@ -181,16 +181,24 @@ export default function UuidGeneratorDev({ locale }: { locale: 'ar' | 'en' }) {
     setGenerating(false);
   }, [version, bulkCount, formatOptions, namespaceType, v5Name]);
 
-  const handleCopyOne = useCallback((idx: number) => {
-    navigator.clipboard.writeText(uuids[idx]);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const handleCopyOne = useCallback(async (idx: number) => {
+    try {
+      await navigator.clipboard.writeText(uuids[idx]);
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [uuids]);
 
-  const handleCopyAll = useCallback(() => {
-    navigator.clipboard.writeText(uuids.join('\n'));
-    setCopiedAll(true);
-    setTimeout(() => setCopiedAll(false), 2000);
+  const handleCopyAll = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(uuids.join('\n'));
+      setCopiedAll(true);
+      setTimeout(() => setCopiedAll(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, [uuids]);
 
   const validationResult = useMemo(() => {

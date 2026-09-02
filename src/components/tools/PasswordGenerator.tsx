@@ -126,10 +126,14 @@ export default function PasswordGenerator({ locale }: { locale: 'ar' | 'en' }) {
     setPasswords((prev) => [pw, ...prev]);
   }, [length, upper, lower, numbers, symbols, hasAnySet]);
 
-  const handleCopy = useCallback((text: string, idx: number) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
+  const handleCopy = useCallback(async (text: string, idx: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      // No false positive success.
+    }
   }, []);
 
   const handleAddMultiple = useCallback(() => {

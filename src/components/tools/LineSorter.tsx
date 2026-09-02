@@ -82,10 +82,14 @@ export default function LineSorter({ locale }: { locale: 'ar' | 'en' }) {
     }).join('\n'));
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(input);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // No false positive success.
+    }
   };
 
   const nonEmptyCount = lines.filter((l) => l.trim() !== '').length;
