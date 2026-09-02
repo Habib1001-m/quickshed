@@ -17,7 +17,7 @@ test.describe('F6 onboarding Welcome gate', () => {
     await seedOnboarding(page);
     await page.goto('/en');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'Privacy First, Always', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'Privacy details on every tool', exact: true });
     const tourStep = page.getByText('Step 1 of 5', { exact: true });
 
     await expect(welcomeHeading).toBeVisible();
@@ -35,7 +35,7 @@ test.describe('F6 onboarding Welcome gate', () => {
     }, TOUR_KEY);
     await page.goto('/en');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'Privacy First, Always', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'Privacy details on every tool', exact: true });
     const tourStep = page.getByText('Step 1 of 5', { exact: true });
 
     await expect(welcomeHeading).toBeVisible();
@@ -59,7 +59,7 @@ test.describe('F6 onboarding Welcome gate', () => {
     });
     await page.goto('/en');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'Privacy First, Always', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'Privacy details on every tool', exact: true });
     const tourStep = page.getByText('Step 1 of 5', { exact: true });
 
     await expect.poll(() => welcomeHeading.isVisible()).toBe(false);
@@ -86,14 +86,14 @@ test.describe('F6 onboarding Welcome gate', () => {
     await page.locator('header').getByRole('button', { name: 'Home', exact: true }).click();
 
     await expect(page.getByText('Step 1 of 5', { exact: true })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Privacy First, Always', exact: true })).toBeHidden();
+    await expect(page.getByRole('heading', { name: 'Privacy details on every tool', exact: true })).toBeHidden();
   });
 
   test('Welcome stays visible and the tour stays gated when persistence fails', async ({ page }) => {
     await seedOnboarding(page);
     await page.goto('/en');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'Privacy First, Always', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'Privacy details on every tool', exact: true });
     const tourStep = page.getByText('Step 1 of 5', { exact: true });
 
     await expect(welcomeHeading).toBeVisible();
@@ -116,7 +116,7 @@ test.describe('F6 onboarding Welcome gate', () => {
     await seedOnboarding(page);
     await page.goto('/ar');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'الخصوصية أولاً، دائماً', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'تفاصيل الخصوصية في كل أداة', exact: true });
     const tourStep = page.getByText('الخطوة 1 من 5', { exact: true });
 
     await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');

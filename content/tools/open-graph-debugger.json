@@ -2,12 +2,12 @@
   "id": "open-graph-debugger",
   "slug": "open-graph-debugger",
   "name": {
-    "ar": "مدقق Open Graph",
-    "en": "Open Graph Debugger"
+    "ar": "مدقق علامات Open Graph",
+    "en": "Open Graph Meta Tag Checker"
   },
   "description": {
-    "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.",
-    "en": "Check Open Graph tags and diagnose link sharing issues."
+    "ar": "حلّل علامات Open Graph الملصقة محلياً واعرض معاينة نصية. لا تجلب هذه الأداة عناوين URL.",
+    "en": "Parse pasted Open Graph meta tags locally and show a text preview. This tool does not fetch URLs."
   },
   "category": "seo-tools",
   "icon": "Share2",

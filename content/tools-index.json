@@ -3,12 +3,12 @@
     "id": "plagiarism-checker",
     "slug": "plagiarism-checker",
     "name": {
-      "ar": "مدقق الانتحال",
-      "en": "Plagiarism Checker"
+      "ar": "مدقق تشابه النصوص",
+      "en": "Text Similarity Checker"
     },
     "description": {
-      "ar": "تحقق من أصالة النص واكشف النسخ غير المناسب والمحتوى المكرر.",
-      "en": "Check text authenticity and detect improper copying and duplicated content."
+      "ar": "قارن نصين للعثور على الجمل والعبارات المتطابقة. النتيجة مقارنة نسبية ولا تثبت الانتحال أو تحدد مصدر النص.",
+      "en": "Compare two supplied texts for matching sentences and phrases. The result is relative to those texts and does not prove plagiarism or identify its source."
     },
     "category": "student-tools",
     "icon": "SearchCheck",
@@ -312,8 +312,8 @@
       "en": "Line Sorter"
     },
     "description": {
-      "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات متقدمة.",
-      "en": "Sort text lines alphabetically or in reverse with advanced options."
+      "ar": "فرز أسطر النص أبجدياً أو عكسياً مع خيارات إضافية.",
+      "en": "Sort text lines alphabetically or in reverse with additional options."
     },
     "category": "utility-tools",
     "icon": "ArrowDownUp",
@@ -666,8 +666,8 @@
       "en": "SSL Certificate Parser"
     },
     "description": {
-      "ar": "حلّل شهادات SSL/TLS بتنسيق PEM محلياً واعرض تفاصيل الإصدار والصلاحية والجهة المُصدِرة.",
-      "en": "Parse and analyze SSL/TLS certificates in PEM format locally — view issuer, validity, and chain details."
+      "ar": "حلّل بيانات شهادات SSL/TLS بتنسيق PEM محلياً، بما في ذلك المُصدر والموضوع والصلاحية وخوارزمية التوقيع. لا تتحقق الأداة من الثقة أو التوقيعات.",
+      "en": "Parse selected PEM-formatted SSL/TLS certificate data locally, including issuer, subject, validity, and signature algorithm. It does not verify trust or signatures."
     },
     "category": "security-tools",
     "icon": "Shield",
@@ -770,8 +770,8 @@
       "en": "Random Password Generator"
     },
     "description": {
-      "ar": "أنشئ كلمات مرور عشوائية قوية بمعايير أمان متقدمة.",
-      "en": "Generate strong random passwords with advanced security criteria."
+      "ar": "أنشئ كلمات مرور عشوائية قوية بمعايير أمان قابلة للتخصيص.",
+      "en": "Generate strong random passwords with configurable security criteria."
     },
     "category": "security-tools",
     "icon": "Key",
@@ -927,8 +927,8 @@
       "en": "Random Number Generator"
     },
     "description": {
-      "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.",
-      "en": "Generate random numbers within a specified range with advanced options."
+      "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات إضافية.",
+      "en": "Generate random numbers within a specified range with optional settings."
     },
     "category": "utility-tools",
     "icon": "Dice5",
@@ -2293,8 +2293,8 @@
       "en": "Currency Converter Calculator"
     },
     "description": {
-      "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.",
-      "en": "Convert between different currencies with current exchange rates."
+      "ar": "حوّل بين العملات باستخدام جدول أسعار صرف ثابتة وتقريبية.",
+      "en": "Convert between currencies using a static, approximate rate table."
     },
     "category": "calculators",
     "icon": "ArrowLeftRight",
@@ -3304,12 +3304,12 @@
     "id": "open-graph-debugger",
     "slug": "open-graph-debugger",
     "name": {
-      "ar": "مدقق Open Graph",
-      "en": "Open Graph Debugger"
+      "ar": "مدقق علامات Open Graph",
+      "en": "Open Graph Meta Tag Checker"
     },
     "description": {
-      "ar": "تحقق من علامات Open Graph وتشخيص مشاكل مشاركة الروابط.",
-      "en": "Check Open Graph tags and diagnose link sharing issues."
+      "ar": "حلّل علامات Open Graph الملصقة محلياً واعرض معاينة نصية. لا تجلب هذه الأداة عناوين URL.",
+      "en": "Parse pasted Open Graph meta tags locally and show a text preview. This tool does not fetch URLs."
     },
     "category": "seo-tools",
     "icon": "Share2",
@@ -3459,8 +3459,8 @@
       "en": "World Clock"
     },
     "description": {
-      "ar": "اعرض الوقت الحالي في مدن ومناطق زمنية مختلفة حول العالم.",
-      "en": "Display the current time in different cities and time zones around the world."
+      "ar": "حوّل الوقت بين المدن والمناطق الزمنية باستخدام ساعة المتصفح وبياناته للمناطق الزمنية.",
+      "en": "Convert time across cities and time zones using your browser's clock and time-zone data."
     },
     "category": "time-tools",
     "icon": "Clock",
@@ -4019,8 +4019,8 @@
       "en": "URL Shortener"
     },
     "description": {
-      "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.",
-      "en": "Shorten long URLs to make them easier to share."
+      "ar": "أنشئ أسماء مختصرة محلية للروابط في هذا المتصفح. تُحفظ الروابط وتعمل في المتصفح نفسه فقط.",
+      "en": "Create local short aliases for URLs in this browser. Links are stored locally and work only in the same browser."
     },
     "category": "utility-tools",
     "icon": "Link2",
@@ -4119,8 +4119,8 @@
       "en": "Scientific Calculator"
     },
     "description": {
-      "ar": "آلة حاسبة متقدمة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
-      "en": "An advanced calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
+      "ar": "آلة حاسبة تدعم الدوال المثلثية واللوغاريتمية والأسية والعمليات العلمية الأخرى.",
+      "en": "A calculator supporting trigonometric, logarithmic, exponential functions and other scientific operations."
     },
     "category": "calculators",
     "icon": "FlaskConical",
@@ -4134,7 +4134,7 @@
       "scientific",
       "trigonometry",
       "logarithm",
-      "advanced math",
+      "scientific math",
       "علمية",
       "مثلثات",
       "لوغاريتمات"

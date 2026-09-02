@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: FavoritesPageProps): Promise<
   const isArabic = locale === 'ar';
   const title = isArabic ? 'المفضلة - QuickShed' : 'My Favorites - QuickShed';
   const description = isArabic
-    ? 'وصول سريع لأدواتك المفضلة. مجانية، تحترم الخصوصية، تعمل بالكامل في متصفحك.'
-    : 'Quick access to your favorite QuickShed tools. Free, privacy-first, runs entirely in your browser.';
+    ? 'احفظ أدوات QuickShed المفضلة في هذا المتصفح. توضّح صفحة كل أداة كيفية تعاملها مع البيانات.'
+    : 'Save your favorite QuickShed tools in this browser. Each tool page shows how it handles data.';
 
   return {
     title,

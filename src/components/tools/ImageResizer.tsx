@@ -217,12 +217,12 @@ export default function ImageResizer({ locale }: { locale: 'ar' | 'en' }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-sm">{t.original}</CardTitle></CardHeader>
-            <CardContent><img src={image} alt="Original" className="max-w-full h-auto rounded" /></CardContent>
+            <CardContent><img src={image} alt={t.original} className="max-w-full h-auto rounded" /></CardContent>
           </Card>
           {resizedImage && (
             <Card>
               <CardHeader className="pb-2"><CardTitle className="text-sm">{t.resized} ({newWidth}×{newHeight})</CardTitle></CardHeader>
-              <CardContent><img src={resizedImage} alt="Resized" className="max-w-full h-auto rounded" /></CardContent>
+              <CardContent><img src={resizedImage} alt={t.resized} className="max-w-full h-auto rounded" /></CardContent>
             </Card>
           )}
         </div>

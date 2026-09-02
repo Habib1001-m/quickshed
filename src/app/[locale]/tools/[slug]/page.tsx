@@ -31,8 +31,8 @@ function seoPrivacyText(privacy: Privacy, isArabic: boolean): string {
         : 'On-device — saved in your browser';
     case 'api':
       return isArabic
-        ? 'يستخدم خدمة خارجية آمنة'
-        : 'Uses a secure external service';
+        ? 'يستخدم خدمة خارجية'
+        : 'Uses an external service';
   }
 }
 

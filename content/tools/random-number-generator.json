@@ -6,8 +6,8 @@
     "en": "Random Number Generator"
   },
   "description": {
-    "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات متقدمة.",
-    "en": "Generate random numbers within a specified range with advanced options."
+    "ar": "أنشئ أرقاماً عشوائية ضمن نطاق محدد مع خيارات إضافية.",
+    "en": "Generate random numbers within a specified range with optional settings."
   },
   "category": "utility-tools",
   "icon": "Dice5",

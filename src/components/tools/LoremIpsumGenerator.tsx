@@ -24,6 +24,7 @@ const labels = {
     arabic: 'Arabic',
     language: 'Language',
     placeholder: 'Click Generate to create lorem ipsum text...',
+    output: 'Output',
   },
   ar: {
     title: 'مولّد لوريم إيبسوم',
@@ -39,6 +40,7 @@ const labels = {
     arabic: 'عربي',
     language: 'اللغة',
     placeholder: 'اضغط توليد لإنشاء نص لوريم إيبسوم...',
+    output: 'المخرجات',
   },
 };
 
@@ -177,7 +179,7 @@ export default function LoremIpsumGenerator({ locale }: { locale: 'ar' | 'en' })
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <CardTitle className="text-base">Output</CardTitle>
+          <CardTitle className="text-base">{t.output}</CardTitle>
           <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!output}>
             {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
             {copied ? <span className="copy-feedback">{t.copied}</span> : t.copy}

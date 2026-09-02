@@ -31,16 +31,17 @@ const labels = {
     noPreview: 'Enter title and description to see preview',
     imagePrivacy: 'Remote image preview is disabled to keep this tool local.',
     yourUrl: 'example.com',
+    image: 'Image',
   },
   ar: {
-    title: 'مولّد وصفيات التعريف',
+    title: 'مولّد الوسوم الوصفية',
     titleInput: 'عنوان الصفحة',
     descInput: 'وصف الصفحة',
     keywordsInput: 'الكلمات المفتاحية (مفصولة بفاصلة)',
     authorInput: 'المؤلف',
     urlInput: 'رابط الصفحة',
     imageInput: 'رابط الصورة (لـ OG/Twitter)',
-    generate: 'إنشاء وصفيات التعريف',
+    generate: 'إنشاء الوسوم الوصفية',
     generatedCode: 'كود HTML المُنشأ',
     preview: 'معاينة',
     googlePreview: 'معاينة بحث جوجل',
@@ -54,6 +55,7 @@ const labels = {
     noPreview: 'أدخل العنوان والوصف لرؤية المعاينة',
     imagePrivacy: 'تم تعطيل معاينة الصور الخارجية للحفاظ على عمل الأداة محليًا.',
     yourUrl: 'example.com',
+    image: 'الصورة',
   },
 };
 
@@ -197,7 +199,7 @@ export default function MetaTagGenerator({ locale }: { locale: 'ar' | 'en' }) {
                     <span className="max-w-full break-all text-xs text-foreground/70">{imageUrl}</span>
                   </div>
                 ) : (
-                  <div className="aspect-[2/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">Image</div>
+                  <div className="aspect-[2/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">{t.image}</div>
                 )}
                 <div className="p-3">
                   <div className="text-xs text-gray-500 dark:text-gray-400 truncate">{displayUrl}</div>
@@ -220,7 +222,7 @@ export default function MetaTagGenerator({ locale }: { locale: 'ar' | 'en' }) {
                     <span className="max-w-full break-all text-xs text-foreground/70">{imageUrl}</span>
                   </div>
                 ) : (
-                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">Image</div>
+                  <div className="aspect-[1.91/1] bg-muted flex items-center justify-center text-muted-foreground text-sm">{t.image}</div>
                 )}
                 <div className="p-3 border-t bg-gray-50 dark:bg-gray-900">
                   <div className="text-xs text-gray-500 uppercase truncate">{displayUrl}</div>

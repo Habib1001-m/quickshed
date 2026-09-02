@@ -1,57 +1,74 @@
 # Contributing to QuickShed
 
-QuickShed is a privacy-first browser toolbox. Contributions should preserve local-first behavior, bilingual support, and static deployment compatibility.
+Thanks for helping improve QuickShed. Keep changes small, factual, and easy to review.
 
-## Development Setup
-
-Use Node.js 22 for CI parity. npm is the official package manager and release gate. Do not update or introduce a second lockfile for release work.
+## Before you start
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Local development runs on `http://127.0.0.1:7125`.
+The development server runs on port 7125. Use the English and Arabic routes when a change affects public copy or layout.
 
-## Required Checks
+## Repository metadata surfaces
 
-Before opening a pull request, run:
+- `content/tools-index.json` is the current runtime-consumed tool descriptor index.
+- `content/tools/*.json` contains per-tool metadata records also maintained in the repository.
+- The producer/generator relationship between these surfaces is not currently established. Keep overlapping metadata consistent and verify changes against current consumers.
+- `src/lib/tool-schema.ts` defines required tool metadata.
+- `src/components/tools/` contains client-side tools. Keep browser APIs, hooks, and browser storage out of server render paths.
+- `messages/en.json` and `messages/ar.json` must receive matching shared copy updates with placeholders preserved.
+
+## Public copy and privacy
+
+Describe the behavior shown by the tool's badge. Do not turn a Local or File-only tool into a claim about the entire site, and do not promise unlimited file sizes, permanent availability, or guaranteed offline navigation. If a tool uses an external service, its metadata, page copy, and disclosure path must agree before implementation.
+
+Avoid unsupported superlatives and absolute claims. Keep technical truth and user-facing explanation aligned across English and Arabic.
+
+## Development workflow
+
+1. Branch from the current main branch.
+2. Keep the change focused; do not add dependencies or refactor unrelated code.
+3. Update both locales for shared user-facing copy.
+4. Update `CHANGELOG.md` for user-visible, privacy, security, release-gate, or CI behavior changes.
+5. Run the narrowest relevant checks before opening a pull request.
+
+Useful checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run guard:public-assets
+npm run test:public-boundary
+npm run test:codeql-security
+npm run test:e2e
+```
+
+For a release candidate, run the complete gate:
 
 ```bash
 npm run release:check
 ```
 
-This runs:
+A push, build, or test run is not a deployment. Do not run a local deployment command as a substitute for the project release process.
 
-- public asset leak guard
-- ESLint
-- TypeScript
-- production build
-- critical production dependency audit gate
-- Playwright smoke tests on Chromium desktop and mobile, matching GitHub Actions
+## Pull requests
 
-For a broader local browser pass, install all Playwright browsers and run:
+A pull request should include:
 
-```bash
-npx playwright install
-npm run test:e2e:all
-```
+- what changed and why;
+- the user-visible or security impact;
+- checks that passed and any remaining warnings;
+- screenshots or rendered checks when presentation changed;
+- confirmation that English and Arabic behavior were checked when relevant.
 
-## Security and Privacy Rules
+Do not include credentials, private URLs, real user data, or sensitive tool inputs in commits, issues, pull requests, screenshots, or examples.
 
-- Do not place archives, `.env` files, generated workspace dumps, or internal folders in `public/`.
-- Do not add telemetry, analytics, ads, or remote processing without a documented product decision.
-- User input rendered as HTML must be escaped or sanitized.
-- Security tools must use Web Crypto where randomness matters.
-- Keep Arabic RTL and English LTR flows working.
+## Adding a tool
 
-## Pull Request Expectations
+Follow the complete metadata contract in `src/lib/tool-schema.ts`. Add or update the per-tool metadata records, keep overlapping entries consistent, then add the client component, registry entry, and both locale descriptions. Do not assume that either metadata surface generates the other. Document every external destination and data purpose before adding an API-class tool.
 
-- Keep changes focused.
-- Include tests for user-visible behavior or security fixes.
-- Update docs when commands, URLs, release process, or public claims change.
-- Mention any accepted risk explicitly in the PR description.
+## License
 
-## Release Notes
-
-User-facing changes should be recorded in `CHANGELOG.md` under the next unreleased version.
+By contributing, you agree that your contribution is provided under the [MIT License](LICENSE).

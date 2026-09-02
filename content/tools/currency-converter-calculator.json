@@ -6,8 +6,8 @@
     "en": "Currency Converter Calculator"
   },
   "description": {
-    "ar": "حوّل بين العملات المختلفة بأسعار الصرف الحالية.",
-    "en": "Convert between different currencies with current exchange rates."
+    "ar": "حوّل بين العملات باستخدام جدول أسعار صرف ثابتة وتقريبية.",
+    "en": "Convert between currencies using a static, approximate rate table."
   },
   "category": "calculators",
   "icon": "ArrowLeftRight",

@@ -163,7 +163,7 @@ export default function ColorPaletteExtractor({ locale }: { locale: 'ar' | 'en' 
 
           {image && (
             <>
-              <img src={image} alt="Uploaded" className="max-w-full h-auto rounded" />
+              <img src={image} alt={isRTL ? 'الصورة المرفوعة' : 'Uploaded image'} className="max-w-full h-auto rounded" />
               <Button onClick={extractColors} className="tool-action-btn flex items-center gap-2">
                 <Palette className="size-4" />{t.extract}
               </Button>

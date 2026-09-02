@@ -21,7 +21,7 @@ type IconComponent = React.ComponentType<React.ComponentProps<typeof Circle>>;
 
 /**
  * Map of icon name strings to Lucide React icon components.
- * Covers all icons used across the 90+ tools and 11 categories.
+ * Covers all icons used across the 90 tools and 11 categories.
  */
 const iconMap: Record<string, IconComponent> = {
   Calculator,

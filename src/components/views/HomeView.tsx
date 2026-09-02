@@ -115,7 +115,7 @@ const CATEGORY_EXAMPLES: Record<string, { en: string; ar: string }[]> = {
   'student-tools': [
     { en: 'GPA Calculator', ar: 'حاسبة المعدل التراكمي' },
     { en: 'Flashcard Maker', ar: 'صانع البطاقات التعليمية' },
-    { en: 'Citation Generator', ar: 'مولد الاستشهادات' },
+    { en: 'Citation Generator', ar: 'مولد التوثيق' },
   ],
   'pdf-tools': [
     { en: 'PDF Merger', ar: 'دمج ملفات PDF' },
@@ -140,7 +140,7 @@ const CATEGORY_EXAMPLES: Record<string, { en: string; ar: string }[]> = {
     { en: 'Image Cropper', ar: 'قص الصور' },
   ],
   'security-tools': [
-    { en: 'SSL Checker', ar: 'مدقق SSL' },
+    { en: 'SSL Certificate Parser', ar: 'محلل شهادة SSL' },
     { en: 'Password Strength', ar: 'قوة كلمة المرور' },
   ],
 };

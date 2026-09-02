@@ -6,8 +6,8 @@
     "en": "URL Shortener"
   },
   "description": {
-    "ar": "اخصر الروابط الطويلة لجعلها أسهل في المشاركة.",
-    "en": "Shorten long URLs to make them easier to share."
+    "ar": "أنشئ أسماء مختصرة محلية للروابط في هذا المتصفح. تُحفظ الروابط وتعمل في المتصفح نفسه فقط.",
+    "en": "Create local short aliases for URLs in this browser. Links are stored locally and work only in the same browser."
   },
   "category": "utility-tools",
   "icon": "Link2",

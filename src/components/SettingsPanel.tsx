@@ -305,8 +305,8 @@ export function SettingsPanel({ isOpen, onClose }: SettingsPanelProps) {
                     </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {locale === 'ar' 
-                        ? 'صندوق أدوات مجاني يحترم خصوصيتك. جميع الأدوات تعمل محلياً في متصفحك.'
-                        : 'Your free privacy-first toolbox. All tools run locally in your browser.'
+                        ? 'صندوق أدوات مجاني يحترم خصوصيتك. توضّح كل أداة كيفية تعاملها مع البيانات.'
+                        : 'A free privacy-first toolbox. Each tool shows how it handles data.'
                       }
                     </p>
                   </div>

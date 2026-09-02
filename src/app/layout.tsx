@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | QuickShed',
   },
   description:
-    'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.',
+    'Free, privacy-respecting web toolbox with 90 tools. Each tool shows how it handles data. No accounts. No ads.',
   manifest: '/manifest.json',
   keywords: [
     'QuickShed', 'online tools', 'privacy', 'free tools', 'calculator',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'QuickShed' }],
   openGraph: {
     title: 'QuickShed - Your Instant Privacy-First Toolbox',
-    description: 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser.',
+    description: 'Free, privacy-respecting web toolbox with 90 browser-based tools. Each tool shows how it handles data.',
     siteName: 'QuickShed',
     type: 'website',
     url: SITE_URL,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'QuickShed - Your Instant Privacy-First Toolbox',
-    description: 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser.',
+    description: 'Free, privacy-respecting web toolbox with 90 browser-based tools. Each tool shows how it handles data.',
     images: ['/og-image.png'],
   },
   other: {

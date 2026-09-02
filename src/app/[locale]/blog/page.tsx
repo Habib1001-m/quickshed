@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isArabic = locale === 'ar';
   const title = isArabic ? 'مدونة QuickShed التقنية' : 'QuickShed Tech Blog';
   const description = isArabic
-    ? 'مقالات حصرية وأدلة تقنية لحل المشاكل اليومية بسرعة ومعالجة محلية 100%.'
-    : 'Exclusive insights and technical guides to solve everyday tasks locally.';
+    ? 'أدلة تقنية لاستخدام أدوات QuickShed التي تعمل في المتصفح.'
+    : "Technical guides for using QuickShed's browser-based tools.";
 
   return {
     title,
@@ -56,13 +56,13 @@ export default async function BlogListPage({ params }: Props) {
   const translations = {
     ar: {
       title: 'مدونة QuickShed التقنية',
-      subtitle: 'مقالات حصرية وأدلة تقنية لحل المشاكل اليومية بسرعة ومعالجة محلية 100%.',
+      subtitle: 'أدلة تقنية لاستخدام أدوات QuickShed التي تعمل في المتصفح.',
       noPosts: 'لا توجد مقالات منشورة حالياً.',
       readMore: 'اقرأ المزيد',
     },
     en: {
       title: 'QuickShed Tech Blog',
-      subtitle: 'Exclusive insights and technical guides to solve everyday tasks locally.',
+      subtitle: "Technical guides for using QuickShed's browser-based tools.",
       noPosts: 'No articles published yet.',
       readMore: 'Read More',
     },

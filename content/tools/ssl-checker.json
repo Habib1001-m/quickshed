@@ -6,8 +6,8 @@
     "en": "SSL Certificate Parser"
   },
   "description": {
-    "ar": "حلّل شهادات SSL/TLS بتنسيق PEM محلياً واعرض تفاصيل الإصدار والصلاحية والجهة المُصدِرة.",
-    "en": "Parse and analyze SSL/TLS certificates in PEM format locally — view issuer, validity, and chain details."
+    "ar": "حلّل بيانات شهادات SSL/TLS بتنسيق PEM محلياً، بما في ذلك المُصدر والموضوع والصلاحية وخوارزمية التوقيع. لا تتحقق الأداة من الثقة أو التوقيعات.",
+    "en": "Parse selected PEM-formatted SSL/TLS certificate data locally, including issuer, subject, validity, and signature algorithm. It does not verify trust or signatures."
   },
   "category": "security-tools",
   "icon": "Shield",

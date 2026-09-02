@@ -280,7 +280,7 @@ export function FavoritesView() {
                 className={`p-1.5 rounded-md transition-colors ${
                   viewMode === 'grid' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
-                aria-label="Grid view"
+                aria-label={locale === 'ar' ? 'عرض شبكي' : 'Grid view'}
               >
                 <LayoutGrid className="size-4" />
               </button>
@@ -289,7 +289,7 @@ export function FavoritesView() {
                 className={`p-1.5 rounded-md transition-colors ${
                   viewMode === 'list' ? 'bg-muted text-foreground' : 'text-muted-foreground hover:text-foreground'
                 }`}
-                aria-label="List view"
+                aria-label={locale === 'ar' ? 'عرض قائمة' : 'List view'}
               >
                 <List className="size-4" />
               </button>
@@ -429,7 +429,7 @@ function FavoriteListItem({ tool, locale }: { tool: ToolDescriptor; locale: Loca
           toggleFavorite(tool.id);
         }}
         className="shrink-0 p-1.5 rounded-full hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-        aria-label="Remove from favorites"
+        aria-label={locale === 'ar' ? 'إزالة من المفضلة' : 'Remove from favorites'}
       >
         <Heart className="size-4 fill-red-500 text-red-500" />
       </button>

@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const title = `${catName} - QuickShed`;
   const description =
     loc === 'ar'
-      ? `تصفح أكثر من ${category.toolCount} أداة ${catName}. مجانية، تحترم الخصوصية، تعمل بالكامل في متصفحك.`
-      : `Browse ${category.toolCount}+ ${catName.toLowerCase()} tools. Free, privacy-first, runs entirely in your browser.`;
+      ? `تصفح ${category.toolCount} أداة من فئة ${catName} للمهام اليومية. توضّح كل أداة فئة تعاملها مع البيانات.`
+      : `Browse ${category.toolCount} ${catName.toLowerCase()} tools for everyday tasks. Each tool shows its data-handling category.`;
 
   return {
     title,
@@ -73,8 +73,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     name: catName,
     description:
       loc === 'ar'
-        ? `تصفح أكثر من ${category.toolCount} أداة ${catName}. مجانية، تحترم الخصوصية، تعمل بالكامل في متصفحك.`
-        : `Browse ${category.toolCount}+ ${catName.toLowerCase()} tools. Free, privacy-first, runs entirely in your browser.`,
+        ? `تصفح ${category.toolCount} أداة من فئة ${catName} للمهام اليومية. توضّح كل أداة فئة تعاملها مع البيانات.`
+        : `Browse ${category.toolCount} ${catName.toLowerCase()} tools for everyday tasks. Each tool shows its data-handling category.`,
     url: `${SITE_URL}/${locale}/category/${category.slug}`,
     isPartOf: { '@type': 'WebSite', name: 'QuickShed', url: SITE_URL },
   };

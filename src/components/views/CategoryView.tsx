@@ -117,7 +117,7 @@ export function CategoryView() {
         className="flex flex-col items-center justify-center py-24 gap-4"
         dir={isRtl ? 'rtl' : 'ltr'}
       >
-        <p className="text-lg text-muted-foreground">Category not found</p>
+        <p className="text-lg text-muted-foreground">{t('category.notFound')}</p>
         <Button variant="outline" onClick={navigateHome}>
           {t('category.backToCategories')}
         </Button>

@@ -1,44 +1,41 @@
 # Security Policy
 
-## Supported Versions
+QuickShed is a browser toolbox. Security reports should describe the affected route or tool, the observable impact, reproduction steps, and any relevant browser or operating-system context.
 
-Security fixes are prepared for the active release branch and the current production deployment.
+## Reporting a vulnerability
 
-| Version | Supported |
-| --- | --- |
-| v0.6.x | Yes |
-| older prerelease snapshots | No |
+Please use GitHub's private vulnerability-reporting channel rather than posting sensitive details in a public issue. Do not include real credentials, tokens, personal data, or sensitive tool inputs in a report. If a report needs a sample, use a synthetic value.
 
-## Reporting a Vulnerability
+## Data-handling boundary
 
-Do not open a public issue for exploitable security details, secrets, or private user data.
+Every tool page displays a data-handling badge:
 
-Preferred reporting path:
+- **Local** and **File-only** tools process input in the browser without tool persistence.
+- **On-device** tools may save selected data in browser storage.
+- **API** tools use an external service and must disclose the transfer before it occurs.
 
-1. Use GitHub private vulnerability reporting if it is enabled for this repository.
-2. If private reporting is not available, open a minimal public issue that says a private security report is needed, without exploit payloads or sensitive data.
+The current catalog does not declare external API egress. These statements describe tool behavior; they are not a claim about routine request logs held by a hosting provider.
 
-Please include:
+## Security controls
 
-- Affected URL, tool, or file.
-- Reproduction steps.
-- Browser and operating system.
-- Impact assessment.
-- Whether any secret, token, archive, or private file was exposed.
+The application uses a restrictive content security policy and related security headers. User-provided text is rendered as text or sanitized output rather than as executable markup. Public asset checks prevent archives, environment files, oversized files, and internal folders from entering the static site.
 
-## Response Targets
+The repository also runs regression checks for unsafe rendering, public-boundary violations, and public assets. Dependency advisories are tracked through Dependabot and the production audit gate.
 
-- Critical exposure or active exploit: triage within 24 hours.
-- High severity vulnerability: triage within 3 business days.
-- Moderate or low severity vulnerability: triage within 7 business days.
+## Release verification
 
-These targets are operational goals, not a guarantee.
+Before a release candidate is published, run:
 
-## Current Release Gate
+```bash
+npm run release:check
+```
 
-Before an official v0.6.0 launch, the project must verify:
+This command runs the public-boundary guards, security regressions, public-asset guard, lint, type checking, production build, critical production dependency audit, and desktop/mobile Chromium tests. A passing local check does not by itself authorize publication or deployment.
 
-- No archives or internal workspace material are served from `public/`.
-- Potentially exposed secrets have a recorded rotation decision.
-- `npm run release:check` passes.
-- Dependency audit findings have an explicit remediation or risk decision.
+## Supported versions
+
+The repository currently identifies the v0.6.0 release line. Security fixes are evaluated against the current branch and the latest published release according to project capacity.
+
+## Scope
+
+This policy covers the QuickShed repository and its public web application. Third-party browsers, operating systems, hosting infrastructure, and dependencies remain subject to their own security processes.

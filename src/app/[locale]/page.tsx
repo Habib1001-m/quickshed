@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     ? 'صندوق أدواتك الفوري الذي يحترم الخصوصية'
     : 'Your Instant Privacy-First Toolbox';
   const description = isArabic
-    ? 'صندوق أدوات ويب مجاني يحترم الخصوصية مع أكثر من 90 أداة تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
-    : 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.';
+    ? 'صندوق أدوات ويب مجاني يحترم الخصوصية يضم ٩٠ أداة. توضّح كل أداة كيفية تعاملها مع البيانات. بدون حسابات. بدون إعلانات.'
+    : 'Free, privacy-respecting web toolbox with 90 tools. Each tool shows how it handles data. No accounts. No ads.';
   const localeUrl = `${SITE_URL}/${locale}`;
 
   return {
@@ -62,11 +62,11 @@ export default async function LocalePage({ params }: LocalePageProps) {
 
   const isArabic = loc === 'ar';
   const heroTitle = isArabic
-    ? 'صندوق أدواتك الفوري والآمن'
+    ? 'صندوق أدواتك الفوري الذي يحترم الخصوصية'
     : 'Your Instant Privacy-First Toolbox';
   const heroSubtitle = isArabic
-    ? 'أكثر من ٩٠ أداة مجانية تعمل بالكامل في متصفحك. بدون حسابات. بدون إعلانات. بياناتك تبقى على جهازك.'
-    : '90+ free tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.';
+    ? '٩٠ أداة مجانية للمهام اليومية. توضّح كل أداة فئة تعاملها مع البيانات. بدون حسابات. بدون إعلانات.'
+    : '90 free tools for everyday tasks. Each tool shows its data-handling category. No accounts. No ads.';
   const featuredLabel = isArabic ? 'الأدوات المميزة' : 'Featured Tools';
   const categoriesLabel = isArabic ? 'جميع التصنيفات' : 'All Categories';
   const toolsLabel = isArabic ? 'أداة' : 'tools';
@@ -78,8 +78,8 @@ export default async function LocalePage({ params }: LocalePageProps) {
     alternateName: isArabic ? 'كويك شيد' : 'QuickShed',
     url: `${SITE_URL}/${loc}`,
     description: isArabic
-      ? 'صندوق أدوات ويب مجاني يحترم خصوصيتك مع أكثر من ٩٠ أداة تعمل بالكامل في متصفحك.'
-      : 'Free, privacy-respecting web toolbox with 90+ tools that run entirely in your browser.',
+      ? 'صندوق أدوات ويب مجاني يحترم خصوصيتك يضم ٩٠ أداة، وتوضح كل أداة كيفية تعاملها مع البيانات.'
+      : 'Free, privacy-respecting web toolbox with 90 browser-based tools. Each tool shows how it handles data.',
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_URL}/${loc}?q={search_term_string}`,

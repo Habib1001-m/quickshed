@@ -38,7 +38,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   turbopack: {
-    // Explicitly set the project root to resolve multiple lockfiles
+    // Explicitly set the project root for deterministic local tooling.
     root: __dirname,
   },
   typescript: {

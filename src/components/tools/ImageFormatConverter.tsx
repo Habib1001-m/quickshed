@@ -160,12 +160,12 @@ export default function ImageFormatConverter({ locale }: { locale: 'ar' | 'en' }
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-2"><CardTitle className="text-sm">{t.original}</CardTitle></CardHeader>
-            <CardContent><img src={image} alt="Original" className="max-w-full h-auto rounded" /></CardContent>
+            <CardContent><img src={image} alt={t.original} className="max-w-full h-auto rounded" /></CardContent>
           </Card>
           {converted && (
             <Card>
               <CardHeader className="pb-2"><CardTitle className="text-sm">{t.converted} ({targetFormat})</CardTitle></CardHeader>
-              <CardContent><img src={converted} alt="Converted" className="max-w-full h-auto rounded" /></CardContent>
+              <CardContent><img src={converted} alt={t.converted} className="max-w-full h-auto rounded" /></CardContent>
             </Card>
           )}
         </div>
