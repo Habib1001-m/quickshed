@@ -66,7 +66,7 @@ test.describe('malformed collections', () => {
     ]);
 
     await page.goto('/ar');
-    await expect(page.getByRole('heading', { name: 'صندوق أدواتك الفوري والآمن' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'صندوق أدواتك الفوري الذي يضع الخصوصية أولاً' })).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
 
     await expect(page.getByText(ERROR_OVERLAY)).toHaveCount(0);
@@ -194,7 +194,7 @@ test('home (EN) shows welcome overlay for a non-canonical welcomed flag', async 
   // The overlay mounts after a short delay; expect.poll waits deterministically
   // (no fixed sleeps) for the welcome step heading to appear.
   await expect.poll(
-    () => page.getByRole('heading', { name: 'Privacy First, Always' }).count(),
+    () => page.getByRole('heading', { name: 'Privacy details on every tool' }).count(),
     { message: 'welcome overlay mounts for a non-canonical welcomed flag', timeout: 6_000 },
   ).toBeGreaterThan(0);
 
