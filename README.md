@@ -1,354 +1,115 @@
-<div align="center">
+# QuickShed
 
-# ⚡ QuickShed
+QuickShed is a free, privacy-first browser toolbox with 90 tools across 11 categories. It covers calculations, text, conversions, student work, PDFs, images, developer tasks, SEO, security, time, and everyday utilities.
 
-### Your Instant Privacy-First Toolbox
+Each tool page shows how that tool handles data. Read the badge before entering sensitive information.
 
-**90+ free tools that run entirely in your browser. No accounts. No ads. Your data stays on your device.**
+## Data handling
 
-Current release target: **v0.6.0**.
+QuickShed uses four data-handling classes:
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://quickshed.vercel.app)
-[![GitHub](https://img.shields.io/badge/GitHub-Repo-blue?style=for-the-badge&logo=github)](https://github.com/Habib1001-m/quickshed)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+- **Local**: the tool processes input in the browser and does not persist it through the tool.
+- **File-only**: the tool works with the file selected in the browser and does not persist it through the tool.
+- **On-device**: the tool can save selected data in browser storage for use in this browser later.
+- **API**: the tool uses an external service and must disclose that transfer before it occurs.
 
-[🌐 English](https://quickshed.vercel.app/en) | [🇸🇦 العربية](https://quickshed.vercel.app/ar)
+The current catalog contains no tool descriptor that declares external API egress. The badge on the tool page is the source for that tool's handling details. Browser-local processing is separate from website availability: the service worker caches selected static assets, but it does not guarantee offline navigation.
 
-</div>
+QuickShed does not require an account and does not show ads. Browser storage is used for preferences and selected on-device tool data, such as favorites. You can clear saved data from Settings. For the full policy, see [Privacy Policy](https://quickshed.app/en/privacy).
 
----
+## Tool catalog
 
-## 🌟 Why QuickShed?
+| Category | Tools |
+| --- | ---: |
+| Calculators | 13 |
+| Time Tools | 9 |
+| Text Tools | 10 |
+| Converters | 7 |
+| Student Tools | 10 |
+| PDF Tools | 5 |
+| Utility Tools | 15 |
+| SEO Tools | 5 |
+| Developer Tools | 8 |
+| Image Tools | 4 |
+| Security Tools | 4 |
+| **Total** | **90** |
 
-| Feature | QuickShed | Other Online Tools |
-|---------|-----------|-------------------|
-| 🔒 Privacy | 100% client-side | Sends data to servers |
-| 💰 Price | Free forever | Freemium / Ads |
-| 🌍 Languages | Arabic + English | English only |
-| 📱 PWA | Installable web app | Browser only |
-| 🎨 Themes | Dark/Light + accent colors | Limited |
-| 📦 Tools | 90+ in one place | Scattered across sites |
-| 🚫 Ads | Zero | Banner / Popup ads |
-| 🔄 Offline | Service Worker cache | No offline support |
+Use the [All Tools](https://quickshed.app/en/all-tools) page to search the current catalog. The interface is available in English and Arabic, with left-to-right and right-to-left layouts respectively.
 
----
+## Run locally
 
-## 🛠️ Categories
-
-| # | Category | Tools | Examples |
-|---|----------|-------|---------|
-| 1 | 🧮 **Calculators** | 13 | BMI, Compound Interest, Loan, Age, GPA |
-| 2 | ⏰ **Time Tools** | 9 | Date Adder, Alarm Creator, Countdown, Stopwatch |
-| 3 | 📝 **Text Tools** | 10 | Case Converter, Slug Generator, Line Sorter, Word Counter |
-| 4 | 🔄 **Converters** | 7 | Color Converter, Unit Converter, Number Base, Temperature |
-| 5 | 🎓 **Student Tools** | 10 | GPA Calculator, Citation Generator, Plagiarism Checker |
-| 6 | 📄 **PDF Tools** | 5 | PDF Merger, Page Remover, Rotate, Watermark |
-| 7 | 🔧 **Utility Tools** | 15 | Password Generator, QR Code, UUID Generator, JSON Formatter |
-| 8 | 🔍 **SEO Tools** | 5 | Meta Tag Generator, Robots.txt Creator, Sitemap Generator |
-| 9 | 💻 **Developer Tools** | 8 | JSON Formatter, Base64 Encoder, Regex Tester, Hash Generator |
-| 10 | 🖼️ **Image Tools** | 4 | Image Format Converter, Resizer, Compressor |
-| 11 | 🔐 **Security Tools** | 4 | Password Generator, Password Strength, Encryption/Decryption |
-
----
-
-## ✨ Key Features
-
-### 🔒 Privacy First
-Every tool runs 100% in your browser using Web APIs. No data is ever sent to a server. Your files, texts, and calculations never leave your device.
-
-### 🌐 Bilingual (Arabic + English)
-Full RTL support with complete Arabic translations. Switch languages instantly with a single click. All 90+ tools are fully translated.
-
-### 📱 PWA Support
-Install QuickShed on your device like a native app. Works offline with Service Worker caching. Get the app-like experience without the app store.
-
-### 🎨 Beautiful UX
-- **Dark/Light Mode** with system preference detection
-- **Accent Color Customization** — choose from 8+ theme colors
-- **Smooth Animations** powered by Framer Motion
-- **Interactive Onboarding Tour** for new users
-- **Keyboard Shortcuts** for power users (`Ctrl+K` for search)
-- **Tool History Timeline** — revisit recently used tools
-- **Favorites System** — bookmark your go-to tools
-- **Smart Recommendations** — personalized tool suggestions
-
----
-
-## 🧩 Architecture
-
-```
-┌─────────────────────────────────────────────┐
-│                  Browser                     │
-│  ┌──────────┐ ┌──────────┐ ┌──────────────┐ │
-│  │ React 19 │ │ Zustand  │ │ Service      │ │
-│  │ + RSC    │ │ Store    │ │ Worker (PWA) │ │
-│  └────┬─────┘ └────┬─────┘ └──────────────┘ │
-│       │             │                        │
-│  ┌────▼─────────────▼─────┐                  │
-│  │    Next.js 16 (SSG)    │                  │
-│  │  ┌───────────────────┐ │                  │
-│  │  │ App Router + RSC  │ │                  │
-│  │  │ [locale] routing  │ │                  │
-│  │  └───────────────────┘ │                  │
-│  └────────────────────────┘                  │
-│         ▲ Static HTML (Vercel Edge)          │
-└─────────┼───────────────────────────────────┘
-          │
-    ┌─────▼─────┐
-    │  Vercel    │
-    │  CDN/Edge  │
-    └───────────┘
-```
-
-**Key Architectural Decisions:**
-- **SSG (Static Site Generation)** — All pages pre-rendered at build time for maximum performance
-- **No Server Required** — Zero API routes, zero database, zero server costs
-- **Client-Side Only Tools** — All 90+ tools use Web APIs (Canvas, Crypto, File, etc.)
-- **On-Demand Tool Loading** — Tools loaded lazily via dynamic imports for fast initial page load
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 22 for CI parity
-- npm 10 for installs and release checks
-- [Bun](https://bun.sh/) optional for local development
-- Git
-
-### Installation
+The project uses Node.js 22 in CI and npm 10.
 
 ```bash
-# Clone the repository
-git clone https://github.com/Habib1001-m/quickshed.git
-cd quickshed
-
-# Install dependencies
 npm ci
-
-# Start development server
 npm run dev
-
-# Open in browser
-open http://127.0.0.1:7125
 ```
 
-### Build for Production
+The development server uses port 7125. Open `http://localhost:7125/en` or `http://localhost:7125/ar`.
+
+To run the production build locally:
 
 ```bash
-# Create optimized production build
 npm run build
+npm run start
+```
 
-# Run linting
+The production server also uses port 7125.
+
+## Validation
+
+Run the narrow checks while working:
+
+```bash
 npm run lint
+npm run typecheck
+npm run guard:public-assets
+npm run test:public-boundary
+npm run test:codeql-security
+npm run test:e2e
+```
 
-# Run the full release gate
+The release candidate gate runs the complete sequence, including the production build, critical production dependency audit, and desktop/mobile Chromium tests:
+
+```bash
 npm run release:check
-
-# Optional full browser smoke suite, after installing all Playwright browsers
-npx playwright install
-npm run test:e2e:all
 ```
 
----
+A build or test result is not a deployment. Deployment is a separate release action.
 
-## 📁 Project Structure
+## Project structure
 
-```
-quickshed/
-├── public/
-│   ├── favicon.ico              # Browser tab icon
-│   ├── icon-192.png             # PWA icon (192×192)
-│   ├── icon-512.png             # PWA icon (512×512)
-│   ├── og-image.png             # Social sharing image
-│   └── sw.js                    # Service Worker (caching)
-├── src/
-│   ├── app/
-│   │   ├── [locale]/            # Dynamic locale routing (en/ar)
-│   │   │   ├── page.tsx         # Home page (hero + categories + tools)
-│   │   │   ├── layout.tsx       # Root layout with theme + i18n
-│   │   │   ├── category/
-│   │   │   │   ├── page.tsx     # All categories listing
-│   │   │   │   └── [slug]/      # Individual category page
-│   │   │   ├── tools/[slug]/    # Individual tool page
-│   │   │   ├── all-tools/       # Complete tools listing
-│   │   │   ├── favorites/       # User favorites
-│   │   │   ├── privacy/         # Privacy policy
-│   │   │   └── terms/           # Terms of service
-│   │   ├── icon.png             # Next.js favicon
-│   │   ├── robots.ts            # Dynamic robots.txt
-│   │   ├── sitemap.ts           # Dynamic sitemap.xml
-│   │   └── opengraph-image.tsx  # Dynamic OG image
-│   ├── components/
-│   │   ├── ui/                  # shadcn/ui component library
-│   │   ├── tools/               # 90+ tool components
-│   │   │   ├── PasswordGenerator.tsx
-│   │   │   ├── JsonFormatter.tsx
-│   │   │   ├── ColorConverter.tsx
-│   │   │   └── ...              # 87 more tools
-│   │   ├── views/               # Page view components
-│   │   │   ├── HomeView.tsx
-│   │   │   ├── ToolView.tsx
-│   │   │   ├── CategoryView.tsx
-│   │   │   └── ...
-│   │   ├── Footer.tsx           # Site footer
-│   │   ├── Header.tsx           # Navigation header
-│   │   ├── CommandPalette.tsx   # Ctrl+K search
-│   │   ├── OnboardingTour.tsx   # Interactive tour
-│   │   ├── ThemeCustomizer.tsx  # Color themes
-│   │   └── ...
-│   └── lib/
-│       ├── i18n.ts              # Internationalization system
-│       ├── store.ts             # Zustand global state
-│       ├── tool-utils.ts        # Tool definitions & helpers
-│       ├── category-config.ts   # Category metadata & colors
-│       ├── ssr-locale.tsx       # SSR locale context
-│       └── onboarding-steps.ts  # Onboarding configuration
-├── messages/
-│   ├── en.json                  # English translations (400+ keys)
-│   └── ar.json                  # Arabic translations (400+ keys)
-├── content/
-│   └── tools-index.json         # Tool metadata index
-├── next.config.ts               # Next.js configuration
-├── tailwind.config.ts           # Tailwind CSS configuration
-├── tsconfig.json                # TypeScript configuration
-└── package.json                 # Dependencies & scripts
-```
+- `content/tools/*.json` is the authored tool inventory.
+- `content/tools-index.json` is the runtime index and must stay in parity with the authored descriptors.
+- `src/components/tools/` contains client-side tool components loaded through the dynamic registry.
+- `src/app/[locale]/` contains localized routes for the home page, categories, tools, blog, and legal pages.
+- `messages/en.json` and `messages/ar.json` contain shared interface copy.
+- `content/blog/en/` and `content/blog/ar/` contain the localized MDX articles.
+- `public/sw.js` caches selected static assets; it does not cache navigation requests.
 
----
+Known locale routes are generated from `generateStaticParams`. Unknown locale-prefixed paths return not found. The application has no account system, application backend, database, subscription, advertising, or product analytics layer.
 
-## 🧩 Adding a New Tool
+## Add or update a tool
 
-1. **Create the tool component** in `src/components/tools/`:
+1. Read the schema in `src/lib/tool-schema.ts`.
+2. Add or update the complete descriptor in `content/tools/` with English and Arabic names, descriptions, keywords, inputs, outputs, privacy class, offline scope, retention, risk, and data-flow evidence.
+3. Keep `content/tools-index.json` synchronized with the authored descriptor.
+4. Add the client component under `src/components/tools/` and register it in `src/components/tools/index.ts`.
+5. Keep browser APIs and storage access inside the client boundary. Do not add network egress to a Local, File-only, or On-device tool.
+6. Check English and Arabic routes, including text direction, accessible names, and mobile layout.
+7. Run the relevant checks and update `CHANGELOG.md` when the change is user-visible or security-relevant.
 
-```tsx
-'use client';
-import { useI18n } from '@/lib/i18n';
+Do not add a tool as part of an unrelated refactor. New external-service behavior needs an explicit API privacy class, destination and purpose disclosure, a consent path, and product approval before implementation.
 
-export default function MyNewTool() {
-  const { t, locale } = useI18n();
-  
-  return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold">{t('myNewTool.title')}</h2>
-      {/* Tool UI here */}
-    </div>
-  );
-}
-```
+## Documentation and policy
 
-2. **Register the tool** in `content/tools-index.json`:
+- [Documentation index](docs/README.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Privacy Policy](https://quickshed.app/en/privacy)
+- [Terms of Service](https://quickshed.app/en/terms)
+- [Dependency audit policy](docs/security/dependency-audit-policy.md)
 
-```json
-{
-  "id": "my-new-tool",
-  "name": "My New Tool",
-  "nameAr": "أداتي الجديدة",
-  "category": "utility-tools",
-  "icon": "Wrench",
-  "description": "Does something useful",
-  "descriptionAr": "يقوم بشيء مفيد"
-}
-```
+## License
 
-3. **Add translations** in `messages/en.json` and `messages/ar.json`:
-
-```json
-{
-  "myNewTool": {
-    "title": "My New Tool",
-    "description": "Does something useful"
-  }
-}
-```
-
-4. **Add lazy loader** in `src/components/tools/index.ts`:
-
-```ts
-case 'my-new-tool':
-  mod = import('./MyNewTool');
-  break;
-```
-
-That's it! The tool will automatically appear in the correct category.
-
----
-
-## 🔐 Security
-
-| Header | Value |
-|--------|-------|
-| `Content-Security-Policy` | Restrictive same-origin policy with inline styles/scripts only where currently required by Next.js |
-| `X-Content-Type-Options` | `nosniff` |
-| `X-Frame-Options` | `DENY` |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` |
-
-- **No cookies** — All preferences stored in `localStorage`
-- **No tracking** — Zero analytics, zero third-party scripts
-- **No server** — All processing happens in the browser
-- **Browser security headers** — CSP, frame protection, content-type protection, referrer policy, and reduced permissions are configured in `next.config.ts`
-
----
-
-## 🌐 SEO
-
-| Feature | Implementation |
-|---------|---------------|
-| `sitemap.xml` | Dynamic generation via `src/app/sitemap.ts` |
-| `robots.txt` | Dynamic generation via `src/app/robots.ts` |
-| Schema Markup | JSON-LD (WebSite + SearchAction) |
-| Open Graph | Dynamic OG image via `src/app/opengraph-image.tsx` |
-| Twitter Cards | Large image summary with meta tags |
-| Canonical URLs | Locale-aware canonical URLs |
-| SSR Content | Server-rendered content for crawlers |
-
----
-
-## 🎯 Technology Stack
-
-| Technology | Purpose | Version |
-|-----------|---------|---------|
-| **Next.js** | React Framework (App Router + SSG) | 16 |
-| **TypeScript** | Type-safe JavaScript | 5 |
-| **React** | UI Library | 19 |
-| **Tailwind CSS** | Utility-first CSS | 4 |
-| **shadcn/ui** | Component Library (New York) | Latest |
-| **Zustand** | Client State Management | 5 |
-| **Framer Motion** | Animations & Transitions | 12 |
-| **Lucide React** | Icon Library | Latest |
-| **next-themes** | Dark/Light Mode | 0.4 |
-| **pdf-lib** | PDF Manipulation | 1.17 |
-| **fuse.js** | Fuzzy Search | 7 |
-| **sharp** | Image Processing | 0.35 |
-| **zod** | Schema Validation | 4 |
-| **Vercel** | Deployment & CDN | — |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feature/my-feature`
-3. **Commit** your changes: `git commit -m 'Add my feature'`
-4. **Push** to the branch: `git push origin feature/my-feature`
-5. **Open** a Pull Request
-
-### Guidelines
-- Follow the existing code style (TypeScript strict mode)
-- Add translations for both English and Arabic
-- Test in both LTR and RTL layouts
-- Ensure all tools work client-side only (no server dependencies)
-- Run `npm run release:check` before submitting
-
----
-
-<div align="center">
-
-**Built with ❤️ by [Habib](https://github.com/Habib1001-m)**
-
-[⬆ Back to Top](#-quickshed)
-
-</div>
+QuickShed is released under the [MIT License](LICENSE).
