@@ -116,7 +116,7 @@ test.describe('F6 onboarding Welcome gate', () => {
     await seedOnboarding(page);
     await page.goto('/ar');
 
-    const welcomeHeading = page.getByRole('heading', { name: 'الخصوصية أولاً، دائماً', exact: true });
+    const welcomeHeading = page.getByRole('heading', { name: 'تفاصيل الخصوصية في كل أداة', exact: true });
     const tourStep = page.getByText('الخطوة 1 من 5', { exact: true });
 
     await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
