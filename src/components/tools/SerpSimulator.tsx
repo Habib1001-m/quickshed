@@ -16,6 +16,9 @@ const labels = {
     descInput: 'Meta Description',
     desktop: 'Desktop',
     mobile: 'Mobile',
+    preview: 'Preview',
+    previewTitle: 'Page title',
+    previewDescription: 'Your meta description will appear here in search results...',
     titleCount: 'chars',
     titleOptimal: 'Optimal (≤60)',
     titleLong: 'Too long (>60)',
@@ -29,6 +32,9 @@ const labels = {
     descInput: 'وصف التعريف',
     desktop: 'سطح المكتب',
     mobile: 'الهاتف',
+    preview: 'المعاينة',
+    previewTitle: 'عنوان الصفحة',
+    previewDescription: 'سيظهر وصف meta هنا في نتائج البحث...',
     titleCount: 'حرف',
     titleOptimal: 'مثالي (≤60)',
     titleLong: 'طويل جداً (>60)',
@@ -61,8 +67,8 @@ export default function SerpSimulator({ locale }: { locale: 'ar' | 'en' }) {
   const titleColor = title.length > 60 ? 'text-red-500' : title.length > 50 ? 'text-amber-500' : 'text-emerald-500';
   const descColor = description.length > 160 ? 'text-red-500' : description.length > 140 ? 'text-amber-500' : 'text-emerald-500';
 
-  const previewTitle = truncateTitle(title || 'Page Title', isMobile ? 430 : 600);
-  const previewDesc = truncateDesc(description || 'Your meta description will appear here in search results...', isMobile ? 120 : 160);
+  const previewTitle = truncateTitle(title || t.previewTitle, isMobile ? 430 : 600);
+  const previewDesc = truncateDesc(description || t.previewDescription, isMobile ? 120 : 160);
 
   return (
     <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -117,7 +123,7 @@ export default function SerpSimulator({ locale }: { locale: 'ar' | 'en' }) {
 
       <Card className="tool-wrapper-card">
         <CardHeader className="pb-3">
-          <CardTitle className="tool-section-title text-base">{isMobile ? t.mobile : t.desktop} Preview</CardTitle>
+          <CardTitle className="tool-section-title text-base">{isMobile ? t.mobile : t.desktop} {t.preview}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className={`tool-output mx-auto ${isMobile ? 'max-w-[360px]' : 'max-w-[600px]'}`}>
